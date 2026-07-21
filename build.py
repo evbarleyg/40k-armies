@@ -56,10 +56,10 @@ VERIFIED = {
  # Chaos-edition: deep-scored from listing descriptions (army lists read in-browser
  # via itm.ebaydesc.com/itmdesc/<id>). "msrp" = itemized estimate from the stated
  # contents at current GW retail; tier from seller's own description where stated.
- "236942163636": {"live":True,"loc":"California, USA","pts":2000,"tier":"Tabletop",
-   "note":"Daemons Shadow Legion, Word Bearers theme. Seller states 2000pts 11th ed; honest 'no pro painter' disclosure. Best Be'lakor host."},
- "188656011886": {"live":True,"loc":"South Carolina, USA","pts":2330,"msrp":1000,"tier":"Tabletop+",
-   "note":"Full GW list in description: 10 Termis, 2 Forgefiends, Vindicator, Rhino, Possessed, Raptors, Warp Talons + more. ~2330pts 11th ed. Night Lords scheme."},
+ "236942163636": {"dead":True,"loc":"California, USA","pts":2000,"tier":"Tabletop",
+   "note":"SOLD Jul 20 — includes Be'lakor + Lord of Change + CSM half + 2 War Dogs (2,110pts listed)."},
+ "188656011886": {"live":True,"loc":"South Carolina, USA","pts":2330,"msrp":1000,"tier":"Tabletop",
+   "note":"PARTIAL PAINT — photos 4-6 show Legionaries + Warp Talons in bare primer. Painted units are solid Tabletop (Night Lords). ~2330pts, $1k of GW plastic. Rival offer pending."},
  "206417990509": {"live":True,"loc":"Texas, USA","msrp":820,"tier":"Tabletop",
    "note":"Kairos, Heldrake, Mutalith, Ahriman, Rubrics, Scarab Occult, horrors + a Knight Despoiler."},
  "188666300998": {"live":True,"loc":"Texas, USA","pts":1000,"msrp":420,"tier":"Tabletop+",
@@ -113,7 +113,11 @@ EXTRA_CHAOS = [
   "title":"Be'Lakor the Dark Master — painted (centerpiece single model)"},
  {"faction":"Chaos Daemons","itemId":"174808047120","price":"$600.00 OBO",
   "title":"Be'lakor the Dark Master — commission painted, choose your scheme (single model)"},
+ {"faction":"Chaos Space Marines","itemId":"407044410129","price":"$725.00 OBO",
+  "title":"Red Corsairs — 3 Chosen/Legionary squads, 2 Chaos Lords, MoP, Lord Discordant, Venomcrawler (pro painted)"},
 ]
+VERIFIED["407044410129"] = {"live":True,"loc":"USA","msrp":470,"tier":"Tabletop+",
+  "note":"Pro painted. Shadow Legion-usable: 3 Chosen/Legionary squads + 2 Lords + MoP (~$300 MSRP); Discordant + Venomcrawler off-menu (resellable)."}
 
 def parse_points(t):
     tl = t.lower()
@@ -157,7 +161,8 @@ def build_row(faction, item_id, price, title):
     msrp = v.get("msrp") or (round(pts*MSRP_PER_PT, 2) if pts else None)
     ratio = None
     auction = bool(v.get("auction")) or bool(price_usd is not None and price_usd < 60 and (pts or msrp))
-    if msrp and landed and not comm and not auction:
+    dead = bool(v.get("dead"))
+    if msrp and landed and not comm and not auction and not dead:
         ratio = round((msrp*PREMIUM[tier]) / landed, 2)
     row = {
         "faction": faction,
@@ -172,7 +177,7 @@ def build_row(faction, item_id, price, title):
         "paintTier": tier,
         "paintTierAssumed": tier_assumed,
         "valueRatio": ratio,
-        "verdict": ("AUCTION" if auction else "COMMISSION" if comm else (verdict(ratio) if ratio is not None else "UNSCORED")),
+        "verdict": ("SOLD" if dead else "AUCTION" if auction else "COMMISSION" if comm else (verdict(ratio) if ratio is not None else "UNSCORED")),
         "type": ("commission" if comm else "ready-to-ship"),
         "verifiedLive": v.get("live", False),
         "location": v.get("loc"),
