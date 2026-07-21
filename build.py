@@ -53,13 +53,51 @@ VERIFIED = {
  "157987173489": {"live":True,"loc":"United Kingdom","note":"UK seller (~£876 + ship/customs); 3000+pts, freehand."},
  "335933902656": {"live":True,"loc":"USA","note":"6000pts Death Korps of Krieg — huge army."},
  "206149396177": {"live":True,"loc":"USA","note":"2500pts Tyranids."},
- # Chaos-edition picks confirmed live (Be'lakor rerun)
- "236942163636": {"live":True,"loc":"California, USA","note":"Daemons 'Shadow Legion' lot, Word Bearers theme — natural Be'lakor host army."},
- "188656011886": {"live":True,"loc":"South Carolina, USA","note":"2k points CSM — Be'lakor can lead CSM detachments."},
- "206417990509": {"live":True,"loc":"Texas, USA","note":"Kairos Fateweaver + Helldrake + Mutalith — daemon-heavy Thousand Sons."},
- "188666300998": {"live":True,"loc":"Texas, USA","note":"World Eaters lot, pro painted."},
- "297286491088": {"live":True,"loc":"California, USA","note":"Small Daemons force — cheap Be'lakor escort."},
- "297172534500": {"live":True,"loc":"Poland","note":"BE'LAKOR himself, painted — centerpiece single model. EU shipping."},
+ # Chaos-edition: deep-scored from listing descriptions (army lists read in-browser
+ # via itm.ebaydesc.com/itmdesc/<id>). "msrp" = itemized estimate from the stated
+ # contents at current GW retail; tier from seller's own description where stated.
+ "236942163636": {"live":True,"loc":"California, USA","pts":2000,"tier":"Tabletop",
+   "note":"Daemons Shadow Legion, Word Bearers theme. Seller states 2000pts 11th ed; honest 'no pro painter' disclosure. Best Be'lakor host."},
+ "188656011886": {"live":True,"loc":"South Carolina, USA","pts":2330,"msrp":1000,"tier":"Tabletop+",
+   "note":"Full GW list in description: 10 Termis, 2 Forgefiends, Vindicator, Rhino, Possessed, Raptors, Warp Talons + more. ~2330pts 11th ed. Night Lords scheme."},
+ "206417990509": {"live":True,"loc":"Texas, USA","msrp":820,"tier":"Tabletop",
+   "note":"Kairos, Heldrake, Mutalith, Ahriman, Rubrics, Scarab Occult, horrors + a Knight Despoiler."},
+ "188666300998": {"live":True,"loc":"Texas, USA","pts":1000,"msrp":420,"tier":"Tabletop+",
+   "note":"1000pts stated: Daemon Prince, Saturnine dread, Rhino, MoE, 5 Termis, 10 Berzerkers, 10 Jakhals."},
+ "297286491088": {"live":True,"loc":"California, USA","msrp":140,"tier":"Tabletop",
+   "note":"Small lot, partly proxies (Necropolis Stalkers as Spawn) + 10 Seekers."},
+ "327269142947": {"loc":"USA","msrp":540,"tier":"Basic",
+   "note":"66 minis: 34 Plague Marines, 30 Poxwalkers, Typhus, LoV. Seller admits low paint standard + states $540 MSRP himself."},
+ "298462766396": {"loc":"UK","msrp":216,"tier":"Tabletop+",
+   "note":"Unit joblot (26 Berzerkers + 5 Termis), 30-yr painting shop. Not a full army."},
+ "287471144335": {"loc":"USA","msrp":810,"tier":"Tabletop",
+   "note":"15 PM, Typhus, Defiler, Heldrake, 3 Oblits, 5 Warp Talons, 4 tanks, prince + codex."},
+ "206429111873": {"loc":"USA","msrp":1400,"tier":"Tabletop",
+   "note":"Mortarion + 10 characters, 21 PM, 13 Blightlords, 9 Deathshroud, vehicles + daemon engines."},
+ "800372311561": {"live":True,"loc":"Idaho, USA","msrp":820,"tier":"Tabletop","auction":True,
+   "note":"AUCTION (ends Sun): Combat Patrol + 2 Rhinos, Predator, 10 Warp Talons, Chosen, bikers + more. Seller wants ~$400. Painted per item specifics."},
+ "157956455674": {"loc":"USA","msrp":650,"tier":"Tabletop+",
+   "note":"Red Corsairs ~72 models incl Huron; minor 3D-printed shoulder pads/bits."},
+ "178316282893": {"loc":"USA","msrp":750,"tier":"Tabletop",
+   "note":"Multiple NON-GW PROXIES (Mortarion, Rhino, DP, Defiler) — hurts value and event legality."},
+ "168502725654": {"loc":"USA","msrp":290,"tier":"Display",
+   "note":"Only Abominant + 2 Wardogs; price is for the display-grade conversions, not plastic."},
+ "327240152869": {"loc":"USA","msrp":950,"tier":"Tabletop+",
+   "note":"LOYALIST marines in Alpha Legion colors; several squads unfinished per description."},
+ "127757404736": {"loc":"UK","pts":3780,"tier":"Tabletop+",
+   "note":"3780pts stated, Abaddon + Fabius + Lord Discordant, cohesive Black Legion scheme."},
+ "318610375778": {"loc":"USA","msrp":300,"tier":"Tabletop",
+   "note":"Key models 3D PRINTED (Kairos, DP, 10 termis mixed, 10 horrors) — GW plastic is only part of the lot."},
+ "137243260624": {"loc":"UK","msrp":250,"tier":"Tabletop",
+   "note":"~40% 3D printed parts per seller."},
+ "377206046468": {"loc":"UK","note":"'Various stages of painting' — NOT a finished army. No list given."},
+ "377039163773": {"loc":"UK","note":"Assembled; painted state unstated, no list — judge from photos."},
+ "377173133221": {"loc":"UK","note":"No itemized list; 'bulk lot, OOP + newer models'."},
+ "298391383055": {"loc":"USA","note":"Only ~60% painted; seller claims $5,160 retail incl sprues/bits. A project buy, not a finished army."},
+ "327270119216": {"loc":"UK","note":"Auction; 'some fully painted, rest part painted'."},
+ "147081736336": {"loc":"USA","note":"EPIC scale (6mm) — different game system, not a 40K tabletop army."},
+ "178232211622": {"loc":"USA","note":"Description is Black Legion lore only — no army list. Message seller for contents."},
+ "297172534500": {"live":True,"loc":"Poland","note":"BE'LAKOR himself, painted — centerpiece single model (GW retail ~$115). EU shipping."},
  "174808047120": {"live":True,"loc":"Ukraine","note":"BE'LAKOR commission-painted (pick your scheme). War-zone shipping delays possible."},
 }
 
@@ -115,10 +153,11 @@ def build_row(faction, item_id, price, title):
     tier = v.get("tier", DEFAULT_TIER)
     tier_assumed = "tier" not in v
     landed = round(price_usd*1.03 + 35, 2) if price_usd else None
-    msrp = round(pts*MSRP_PER_PT, 2) if pts else None
+    # itemized MSRP from the listing's actual army list (deep scan) beats the points heuristic
+    msrp = v.get("msrp") or (round(pts*MSRP_PER_PT, 2) if pts else None)
     ratio = None
-    auction_start = bool(price_usd is not None and price_usd < 60 and pts)
-    if pts and landed and not comm and not auction_start:
+    auction = bool(v.get("auction")) or bool(price_usd is not None and price_usd < 60 and (pts or msrp))
+    if msrp and landed and not comm and not auction:
         ratio = round((msrp*PREMIUM[tier]) / landed, 2)
     row = {
         "faction": faction,
@@ -133,15 +172,17 @@ def build_row(faction, item_id, price, title):
         "paintTier": tier,
         "paintTierAssumed": tier_assumed,
         "valueRatio": ratio,
-        "verdict": ("COMMISSION" if comm else (verdict(ratio) if ratio is not None else "UNSCORED")),
+        "verdict": ("AUCTION" if auction else "COMMISSION" if comm else (verdict(ratio) if ratio is not None else "UNSCORED")),
         "type": ("commission" if comm else "ready-to-ship"),
         "verifiedLive": v.get("live", False),
         "location": v.get("loc"),
         "notes": v.get("note"),
     }
-    if auction_start:
+    if auction and not v.get("auction"):
         row["notes"] = ((row["notes"] + " ") if row["notes"] else "") + \
             "Price looks like an auction starting bid — final price will be far higher."
+    if v.get("msrp"):
+        row["msrpSource"] = "itemized from listing contents"
     return row
 
 def build_edition(raw_path, out_stem, edition_title, extra):

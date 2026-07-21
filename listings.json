@@ -33,7 +33,7 @@
    "Tyranids",
    "World Eaters"
   ],
-  "scoredCount": 9,
+  "scoredCount": 11,
   "buyCount": 7,
   "model": "ValueRatio = (points*0.45*premium)/(price*1.03+35); premium Tabletop+ =2.0x unless verified. >=1.5 BUY, 0.8-1.49 FAIR, <0.8 SKIP.",
   "disclaimer": "Paint tier is ASSUMED Tabletop+ unless verifiedLive=true. 'Pro painted' is a seller claim. Points parsed from titles; many titles omit points (UNSCORED). Verify photos/contents/shipping before buying. Prices/availability change fast."
@@ -535,6 +535,26 @@
   },
   {
    "faction": "Chaos Knights",
+   "name": "Warhammer 40K Chaos Knights Army Painted Awaken Realm",
+   "itemId": "168502725654",
+   "url": "https://www.ebay.com/itm/168502725654",
+   "priceDisplay": "$1,500.00 OBO",
+   "priceUSD": 1500.0,
+   "landedUSD": 1580.0,
+   "points": null,
+   "kitMsrpUSD": 290,
+   "paintTier": "Display",
+   "paintTierAssumed": false,
+   "valueRatio": 0.64,
+   "verdict": "SKIP",
+   "type": "ready-to-ship",
+   "verifiedLive": false,
+   "location": "USA",
+   "notes": "Only Abominant + 2 Wardogs; price is for the display-grade conversions, not plastic.",
+   "msrpSource": "itemized from listing contents"
+  },
+  {
+   "faction": "Chaos Knights",
    "name": "2000 Point Chaos Knights Army Pro Painted Made-To-Order",
    "itemId": "198342902500",
    "url": "https://www.ebay.com/itm/198342902500",
@@ -573,25 +593,6 @@
   },
   {
    "faction": "Chaos Knights",
-   "name": "Warhammer 40K Chaos Knights Army Painted Awaken Realm",
-   "itemId": "168502725654",
-   "url": "https://www.ebay.com/itm/168502725654",
-   "priceDisplay": "$1,500.00 OBO",
-   "priceUSD": 1500.0,
-   "landedUSD": 1580.0,
-   "points": null,
-   "kitMsrpUSD": null,
-   "paintTier": "Tabletop+",
-   "paintTierAssumed": true,
-   "valueRatio": null,
-   "verdict": "UNSCORED",
-   "type": "ready-to-ship",
-   "verifiedLive": false,
-   "location": null,
-   "notes": null
-  },
-  {
-   "faction": "Chaos Knights",
    "name": "Games Workshop Warhammer 40k Chaos Knight Army",
    "itemId": "127305038468",
    "url": "https://www.ebay.com/itm/127305038468",
@@ -608,6 +609,26 @@
    "verifiedLive": false,
    "location": null,
    "notes": null
+  },
+  {
+   "faction": "Chaos Space Marines",
+   "name": "Warhammer 40K Space Marines Alpha Legion Army",
+   "itemId": "327240152869",
+   "url": "https://www.ebay.com/itm/327240152869",
+   "priceDisplay": "$2,600.00 OBO",
+   "priceUSD": 2600.0,
+   "landedUSD": 2713.0,
+   "points": null,
+   "kitMsrpUSD": 950,
+   "paintTier": "Tabletop+",
+   "paintTierAssumed": false,
+   "valueRatio": 0.7,
+   "verdict": "SKIP",
+   "type": "ready-to-ship",
+   "verifiedLive": false,
+   "location": "USA",
+   "notes": "LOYALIST marines in Alpha Legion colors; several squads unfinished per description.",
+   "msrpSource": "itemized from listing contents"
   },
   {
    "faction": "Chaos Space Marines",
@@ -663,8 +684,8 @@
    "verdict": "UNSCORED",
    "type": "ready-to-ship",
    "verifiedLive": false,
-   "location": null,
-   "notes": null
+   "location": "USA",
+   "notes": "Only ~60% painted; seller claims $5,160 retail incl sprues/bits. A project buy, not a finished army."
   },
   {
    "faction": "Chaos Space Marines",
@@ -712,25 +733,6 @@
    "priceDisplay": "$920.00 OBO",
    "priceUSD": 920.0,
    "landedUSD": 982.6,
-   "points": null,
-   "kitMsrpUSD": null,
-   "paintTier": "Tabletop+",
-   "paintTierAssumed": true,
-   "valueRatio": null,
-   "verdict": "UNSCORED",
-   "type": "ready-to-ship",
-   "verifiedLive": false,
-   "location": null,
-   "notes": null
-  },
-  {
-   "faction": "Chaos Space Marines",
-   "name": "Warhammer 40K Space Marines Alpha Legion Army",
-   "itemId": "327240152869",
-   "url": "https://www.ebay.com/itm/327240152869",
-   "priceDisplay": "$2,600.00 OBO",
-   "priceUSD": 2600.0,
-   "landedUSD": 2713.0,
    "points": null,
    "kitMsrpUSD": null,
    "paintTier": "Tabletop+",
@@ -948,8 +950,8 @@
    "verdict": "UNSCORED",
    "type": "ready-to-ship",
    "verifiedLive": false,
-   "location": null,
-   "notes": null
+   "location": "UK",
+   "notes": "'Various stages of painting' — NOT a finished army. No list given."
   },
   {
    "faction": "Death Guard",
