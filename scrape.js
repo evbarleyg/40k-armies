@@ -63,7 +63,11 @@
       seen.add(id);
       if (known.has(id)) return;
       known.add(id);
-      arr.push({ id, t: title.slice(0, 90), price: pm[0].replace(/\s+/g, " ").trim() + (/best offer/i.test(txt) ? " OBO" : ""), faction: classify(title) });
+      // Auctions show the CURRENT BID as the price — flag them so the scorer
+      // never treats a live bid as a fixed price (learned the hard way).
+      const bids = (txt.match(/(\d+)\s+bids?/i) || [])[1];
+      const suffix = (bids ? ` [AUCTION ${bids} bids]` : "") + (/best offer/i.test(txt) ? " OBO" : "");
+      arr.push({ id, t: title.slice(0, 90), price: pm[0].replace(/\s+/g, " ").trim() + suffix, faction: classify(title) });
     });
     localStorage.setItem(KEY, JSON.stringify(arr));
     console.log(`scanned. total unique so far: ${arr.length}`);

@@ -118,6 +118,12 @@ EXTRA_CHAOS = [
 ]
 VERIFIED["407044410129"] = {"live":True,"loc":"USA","msrp":470,"tier":"Tabletop+",
   "note":"Pro painted. Shadow Legion-usable: 3 Chosen/Legionary squads + 2 Lords + MoP (~$300 MSRP); Discordant + Venomcrawler off-menu (resellable)."}
+VERIFIED["398197107865"] = {"live":True,"loc":"USA","auction":True,
+  "note":"AUCTION: 0 bids at $500 start, ends Thu — BIN is $1,699 (scores ~1.5x at BIN, ~4.9x only if won at start). Feed showed the bid, not BIN."}
+VERIFIED["127980047325"] = {"live":True,"loc":"United Kingdom","auction":True,
+  "note":"PURE AUCTION: GBP 363 with 2 bids, ends Fri, no BIN. UK seller (add ship/customs). Final price unknowable — earlier 3.35x score was on a moving bid."}
+VERIFIED["366546401110"] = {"live":True,"loc":"Brighton, United Kingdom","auction":True,
+  "note":"PURE AUCTION: GBP 258 with 4 bids, ends Sun, no BIN. UK seller. The 4.8x 'score' was the current bid, not a price. Watch/snipe if photos check out."}
 
 def parse_points(t):
     tl = t.lower()
