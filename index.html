@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>40K Painted Army Value Scorecard — All Factions</title>
+<style>
+  :root{--bg:#0f1216;--panel:#171c22;--panel2:#1e242c;--ink:#e9edf1;--mut:#94a1ad;--line:#2a323c;
+        --gold:#d8a657;--green:#7bbf6a;--amber:#e6b450;--red:#e06c75;--blue:#6ab0de;--purple:#b48ead}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
+  h1{font-size:23px;margin:0 0 4px}
+  .sub{color:var(--mut);font-size:13px;margin:0 0 2px}
+  .kpis{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:96px}
+  .kpi b{font-size:20px;display:block}
+  .kpi span{color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px}
+  h2{font-size:15px;margin:26px 0 10px;letter-spacing:.3px;text-transform:uppercase;color:var(--mut)}
+  .picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .pick{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+        border-left:3px solid var(--green);border-radius:12px;padding:13px 15px}
+  .pick .f{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  .pick .n{font-weight:600;margin:3px 0 8px;font-size:13.5px;line-height:1.35}
+  .pick .r{font-size:22px;font-weight:800;color:var(--green)}
+  .pick .meta{color:var(--mut);font-size:12px;margin-top:2px}
+  .pick a{color:#0f1216;background:var(--green);text-decoration:none;font-weight:700;font-size:12px;
+          padding:5px 11px;border-radius:7px;display:inline-block;margin-top:9px}
+  .live{display:inline-block;font-size:10px;font-weight:700;color:var(--green);border:1px solid #2f4a30;
+        border-radius:20px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:8px 0 6px;
+            position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
+  select,input{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;
+               padding:7px 10px;font-size:13px}
+  .count{color:var(--mut);font-size:12.5px;margin-left:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{position:sticky;top:52px;background:var(--bg);text-align:left;color:var(--mut);font-size:11px;
+     text-transform:uppercase;letter-spacing:.4px;padding:8px 9px;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap}
+  td{padding:9px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:var(--panel)}
+  .name{font-weight:600;max-width:340px}
+  .name a{color:var(--ink);text-decoration:none} .name a:hover{color:var(--blue)}
+  .fac{color:var(--mut);font-size:11.5px}
+  .num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .ratio{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+  .chip{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+  .BUY{color:#0f1216;background:var(--green)} .FAIR{color:#0f1216;background:var(--amber)}
+  .SKIP{color:#fff;background:var(--red)} .COMMISSION{color:#0f1216;background:var(--purple)}
+  .UNSCORED{color:var(--mut);border:1px solid var(--line)}
+  .bar{height:5px;border-radius:3px;background:var(--line);position:relative;margin-top:4px;max-width:120px}
+  .bar i{position:absolute;top:0;left:0;height:100%;border-radius:3px}
+  .bar .tick{position:absolute;top:-2px;height:9px;width:2px;background:var(--mut);left:50%}
+  .flag{color:var(--amber);font-size:11.5px}
+  footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:12px}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:11.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>40K Painted Army Value Scorecard <span style="color:var(--mut);font-weight:400">· All Factions</span></h1>
+  <p class="sub" id="sub"></p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Top picks — best verified value</h2>
+  <div class="picks" id="picks"></div>
+
+  <h2>All listings</h2>
+  <div class="controls">
+    <select id="fFaction"><option value="">All factions</option></select>
+    <select id="fVerdict">
+      <option value="">All verdicts</option>
+      <option value="BUY">BUY only</option>
+      <option value="scored">Scored only</option>
+      <option value="ready-to-ship">Ready-to-ship only</option>
+      <option value="verified">Verified live only</option>
+    </select>
+    <select id="sort">
+      <option value="ratio">Sort: value ratio ↓</option>
+      <option value="priceAsc">Sort: price ↑</option>
+      <option value="priceDesc">Sort: price ↓</option>
+      <option value="points">Sort: points ↓</option>
+    </select>
+    <span class="count" id="count"></span>
+  </div>
+  <table>
+    <thead><tr>
+      <th data-s="name">Listing</th><th data-s="priceAsc" class="num">Price</th>
+      <th data-s="points" class="num">Points</th><th class="num">Landed</th>
+      <th class="num">Kit MSRP</th><th>Paint</th><th data-s="ratio" class="num">Value · tick=1.0×</th>
+      <th>Verdict</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <footer id="foot"></footer>
+</div>
+
+<script src="listings.js"></script>
+<script>
+const D = (window.SCORECARD_DATA||{meta:{},listings:[]});
+const L = D.listings, M = D.meta;
+const money = v => v==null?'—':'$'+Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
+const ratioColor = r => r>=1.5?'var(--green)':r>=0.8?'var(--amber)':'var(--red)';
+
+document.getElementById('sub').textContent =
+  `Scored ${M.generated} · ${M.count} live listings · ${M.factions?M.factions.length:''} factions · source: eBay category feeds. ${M.scoredCount} have points in title and are scored; the rest are price-listed (UNSCORED).`;
+
+const kpis=[['Listings',M.count],['Factions',M.factions?M.factions.length:''],['Scored',M.scoredCount],['BUY-grade',M.buyCount]];
+document.getElementById('kpis').innerHTML = kpis.map(k=>`<div class="kpi"><b>${k[1]}</b><span>${k[0]}</span></div>`).join('');
+
+// top picks: BUY-grade, verified first, then ratio
+const picks=[...L].filter(x=>x.verdict==='BUY').sort((a,b)=>(b.verifiedLive-a.verifiedLive)||(b.valueRatio-a.valueRatio)).slice(0,6);
+document.getElementById('picks').innerHTML = picks.map(x=>`
+  <div class="pick">
+    <div class="f">${x.faction}${x.verifiedLive?'<span class="live">LIVE ✓</span>':''}</div>
+    <div class="n">${x.name}</div>
+    <div class="r">${x.valueRatio}×</div>
+    <div class="meta">${x.priceDisplay} · ${x.points}pt · ${money(x.landedUSD)} landed${x.location?' · '+x.location:''}</div>
+    ${x.notes?`<div class="meta flag">⚠ ${x.notes}</div>`:''}
+    <a href="${x.url}" target="_blank">View listing →</a>
+  </div>`).join('');
+
+// faction dropdown
+[...new Set(L.map(x=>x.faction))].sort().forEach(f=>{
+  const o=document.createElement('option');o.value=f;o.textContent=f;document.getElementById('fFaction').appendChild(o);
+});
+
+let sortMode='ratio';
+function render(){
+  const ff=document.getElementById('fFaction').value, fv=document.getElementById('fVerdict').value;
+  let rows=L.filter(x=>{
+    if(ff&&x.faction!==ff)return false;
+    if(fv==='BUY'&&x.verdict!=='BUY')return false;
+    if(fv==='scored'&&x.valueRatio==null)return false;
+    if(fv==='ready-to-ship'&&x.type!=='ready-to-ship')return false;
+    if(fv==='verified'&&!x.verifiedLive)return false;
+    return true;
+  });
+  const rk=x=>x.valueRatio==null?-1:x.valueRatio;
+  const pr=x=>x.priceUSD==null?1e9:x.priceUSD;
+  rows.sort((a,b)=>{
+    if(sortMode==='ratio')return rk(b)-rk(a)||pr(a)-pr(b);
+    if(sortMode==='priceAsc')return pr(a)-pr(b);
+    if(sortMode==='priceDesc')return pr(b)-pr(a);
+    if(sortMode==='points')return (b.points||0)-(a.points||0);
+    if(sortMode==='name')return a.name.localeCompare(b.name);
+  });
+  document.getElementById('count').textContent=`${rows.length} of ${L.length} shown`;
+  document.getElementById('rows').innerHTML=rows.map(x=>{
+    const rpct=x.valueRatio!=null?Math.min(100,x.valueRatio/2*100):0;
+    const bar=x.valueRatio!=null?`<div class="bar"><i style="width:${rpct}%;background:${ratioColor(x.valueRatio)}"></i><span class="tick"></span></div>`:'';
+    return `<tr>
+      <td class="name"><a href="${x.url}" target="_blank">${x.name}</a>${x.verifiedLive?'<span class="live">LIVE ✓</span>':''}
+        <div class="fac">${x.faction}${x.location?' · '+x.location:''}${x.notes?' · <span class="flag">'+x.notes+'</span>':''}</div></td>
+      <td class="num">${x.priceDisplay}</td>
+      <td class="num">${x.points?x.points+'pt':'—'}</td>
+      <td class="num">${money(x.landedUSD)}</td>
+      <td class="num">${money(x.kitMsrpUSD)}</td>
+      <td>${x.paintTier}${x.paintTierAssumed?'<span class="fac"> (assumed)</span>':''}</td>
+      <td class="ratio" style="color:${x.valueRatio!=null?ratioColor(x.valueRatio):'var(--mut)'}">${x.valueRatio!=null?x.valueRatio+'×':'—'}${bar}</td>
+      <td><span class="chip ${x.verdict}">${x.verdict}</span></td>
+    </tr>`;
+  }).join('');
+}
+document.getElementById('fFaction').onchange=render;
+document.getElementById('fVerdict').onchange=render;
+document.getElementById('sort').onchange=e=>{sortMode=e.target.value;render();};
+document.querySelectorAll('th[data-s]').forEach(th=>th.onclick=()=>{sortMode=th.dataset.s;render();});
+
+document.getElementById('foot').innerHTML =
+  `<b>Methodology.</b> ${M.model||''}<br><br><b>Disclaimer.</b> ${M.disclaimer||''}<br><br>`+
+  `Source: ${M.source||''} Refresh with <code>python3 build.py</code> after re-running <code>scrape.js</code> in the browser console. `+
+  `Not affiliated with Games Workshop. This tool only organizes public listings — it does not buy or bid on anyone's behalf.`;
+
+render();
+</script>
+</body>
+</html>
