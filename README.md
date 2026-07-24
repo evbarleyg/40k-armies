@@ -20,6 +20,8 @@ buckets** (~157 live listings as of the last run).
 | `scrape.js` | Paste-into-console scraper to refresh `raw_listings.psv` |
 | `data/raw_chaos.psv` | **Chaos edition** raw scrape (fresh sweep, feed pages 1–5, Chaos factions only) |
 | `chaos.json` / `chaos.js` / `chaos.html` | Chaos/Be'lakor edition data + standalone viewer |
+| `shadow-legion-strategy.md` | Gameplan + shopping list for the purchased Shadow Legion army |
+| `belakor-shadow-legion-guide.md` | Rules explainer: Be'lakor, Shadow of Chaos, and the Shadow Legion detachment |
 
 ### Chaos / Be'lakor edition
 
