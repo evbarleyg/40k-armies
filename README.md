@@ -22,6 +22,7 @@ buckets** (~157 live listings as of the last run).
 | `chaos.json` / `chaos.js` / `chaos.html` | Chaos/Be'lakor edition data + standalone viewer |
 | `shadow-legion-strategy.md` | Gameplan + shopping list for the purchased Shadow Legion army |
 | `belakor-shadow-legion-guide.md` | Rules explainer: Be'lakor, Shadow of Chaos, and the Shadow Legion detachment |
+| `codex-umbral-creed.md` | Personal codex for the collection: original lore, unit entries, doctrines, purchase ledger |
 
 ### Chaos / Be'lakor edition
 
