@@ -1,0 +1,46 @@
+{
+  "scraped": "2026-07-26",
+  "source": "eBay (newly listed sort, painted-focused searches). Etsy blocked automated access — search manually.",
+  "chaos_lord": [
+    {"t": "Chaos Lord (Painted) OOP", "p": "$30.00", "u": "https://www.ebay.com/itm/168507794643"},
+    {"t": "Chaos Lord Kit Bash GW", "p": "$29.99", "u": "https://www.ebay.com/itm/377332136154"},
+    {"t": "Lord in Terminator Armor, painted", "p": "$20.00", "u": "https://www.ebay.com/itm/137455529530"},
+    {"t": "Lord Kranon (Dark Vengeance), painted", "p": "$29.99", "u": "https://www.ebay.com/itm/257590074910"},
+    {"t": "Chaos Lord Terminator, painted", "p": "$19.95", "u": "https://www.ebay.com/itm/287384604470"},
+    {"t": "World Eaters Lord on Juggernaut, painted kitbash", "p": "$42.88", "u": "https://www.ebay.com/itm/236958942526"}
+  ],
+  "flesh_hounds": [
+    {"t": "9 Flesh Hounds", "p": "$86.61", "u": "https://www.ebay.com/itm/298478201899", "note": "best value: ~2 units"},
+    {"t": "Flesh Hounds 8529B", "p": "$20.00", "u": "https://www.ebay.com/itm/198526071453"},
+    {"t": "5x Flesh Hounds, well painted", "p": "$72.00", "u": "https://www.ebay.com/itm/188079038137"},
+    {"t": "OOP metal hounds, painted", "p": "$22.28", "u": "https://www.ebay.com/itm/157136105095"},
+    {"t": "Blades of Khorne Flesh Hounds (NIB)", "p": "$51.00", "u": "https://www.ebay.com/itm/327032023282"}
+  ],
+  "bloodcrushers": [
+    {"t": "Bloodcrushers x3 (40k/AoS)", "p": "$47.99", "u": "https://www.ebay.com/itm/178323225440"},
+    {"t": "Khorne lot w/ Bloodcrushers (some damage)", "p": "$78.03", "u": "https://www.ebay.com/itm/287486155574"},
+    {"t": "Bloodcrushers (AoS box)", "p": "$104.50", "u": "https://www.ebay.com/itm/187651022949"}
+  ],
+  "cultists": [
+    {"t": "Cultists x10 hand painted and based", "p": "$28.00", "u": "https://www.ebay.com/itm/136979325249"},
+    {"t": "Cultists x10 professionally painted", "p": "$67.00", "u": "https://www.ebay.com/itm/365774114669"},
+    {"t": "Cultists NIB 43-88", "p": "$45.00", "u": "https://www.ebay.com/itm/137526643255"}
+  ],
+  "warp_talons": [
+    {"t": "5x Warp Talons PAINTED", "p": "$43.95", "u": "https://www.ebay.com/itm/298532662561"},
+    {"t": "Warp Talons x5 (Night Lords scheme)", "p": "$65.00", "u": "https://www.ebay.com/itm/178339200585"},
+    {"t": "Warp Talons WORD BEARERS well painted", "p": "$106.59", "u": "https://www.ebay.com/itm/800047369720", "note": "matches army theme"},
+    {"t": "Warp Talons x5 bare", "p": "$26.64", "u": "https://www.ebay.com/itm/178340960143"}
+  ],
+  "skulltaker": [
+    {"t": "Skulltaker (metal, painted)", "p": "$27.75", "u": "https://www.ebay.com/itm/168221456809"},
+    {"t": "Skulltaker w/ Bloodletters", "p": "$24.99", "u": "https://www.ebay.com/itm/206443612525"},
+    {"t": "Skulltaker OOP finecast", "p": "$25.00", "u": "https://www.ebay.com/itm/298498959315"},
+    {"t": "Skulltaker NIB (AoS 97-35)", "p": "$36.98", "u": "https://www.ebay.com/itm/376498009991"}
+  ],
+  "etsy_manual_searches": [
+    "https://www.etsy.com/search?q=chaos+daemons+painted+warhammer",
+    "https://www.etsy.com/search?q=flesh+hounds+painted",
+    "https://www.etsy.com/search?q=chaos+cultists+painted"
+  ]
+}

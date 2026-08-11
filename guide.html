@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow Legion — A Beginner's Strategy Primer</title>
+<style>
+  /* ───── Word Bearers light-mode palette (from artifact.html) ───── */
+  :root{
+    --ground:#f0e8d8; --panel:#faf4e8; --panel2:#f3ead9;
+    --ink:#261b17; --dim:#6e5f52;
+    --crimson:#8e1c26; --crimson-soft:#a63b42; --brass:#8a6a38;
+    --line:#d9cab2; --own:#47663f; --buy:#8e1c26;
+  }
+
+  /* ───── Print page setup ───── */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+    @bottom-center { content: counter(page); font-size:10px; color:#6e5f52; font-family:Georgia,serif; }
+  }
+  @page cover { margin: 0; }
+
+  @media print {
+    a { color: var(--crimson); }
+    .cover { page: cover; }
+  }
+
+  /* ───── Base type ───── */
+  html, body { background:#fff; }
+  body{
+    font: 11pt/1.5 Georgia, "Palatino Linotype", serif;
+    color: var(--ink);
+    margin: 0;
+    counter-reset: page 0;
+  }
+  p, li { orphans:3; widows:3; }
+  h1, h2, h3, h4 {
+    font-family: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    color: var(--crimson);
+    page-break-after: avoid;
+    break-after: avoid;
+    margin: 1.4em 0 0.4em;
+  }
+  h1 { font-size: 24pt; letter-spacing:.01em; }
+  h2 { font-size: 18pt; border-bottom: 3px double var(--crimson); padding-bottom:4px; }
+  h3 { font-size: 14pt; color: var(--crimson); }
+  h4 { font-size: 11.5pt; color: var(--brass); text-transform:uppercase; letter-spacing:.06em; margin-top:1.2em; }
+  a { color: var(--crimson); text-decoration: none; }
+  strong { color: var(--ink); }
+  em { color: var(--dim); }
+  hr { border:0; border-top:1px solid var(--line); margin:1.4em 0; }
+
+  /* ───── Tables ───── */
+  table{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 9.5pt;
+    margin: 0.6em 0 1em;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  table.longtable { page-break-inside: auto; break-inside: auto; }
+  table.longtable tr { page-break-inside: avoid; }
+  th, td { border:1px solid var(--line); padding:4px 8px; text-align:left; vertical-align:top; }
+  th{
+    background: var(--panel2);
+    color: var(--brass);
+    font-size:8.5pt;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:600;
+  }
+  td.n { font-variant-numeric: tabular-nums; white-space:nowrap; text-align:right; }
+  tr.total td { font-weight:bold; background:var(--panel); }
+  .own { color:var(--own); font-weight:600; }
+  .buy { color:var(--buy); font-weight:600; }
+
+  blockquote{
+    border-left:3px solid var(--brass);
+    background:var(--panel);
+    margin:0.8em 0; padding:6px 12px;
+    font-size:10pt;
+  }
+  ul, ol { padding-left: 1.4em; }
+  li { margin: 0.15em 0; }
+
+  /* ───── Page-break helpers ───── */
+  .page-before { page-break-before: always; break-before: page; }
+  .page-after  { page-break-after:  always; break-after:  page; }
+  .avoid-break { page-break-inside: avoid; break-inside: avoid; }
+  h2.part      { page-break-before: always; }
+  h3.list      { page-break-before: always; }
+
+  /* ───── Cover ───── */
+  .cover{
+    height: 100vh;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center;
+    background: var(--ground);
+    background: linear-gradient(180deg, #f3ead9 0%, #f0e8d8 40%, #e8dcc4 100%);
+    page-break-after: always;
+    border-top: 14px solid var(--crimson);
+    border-bottom: 14px solid var(--crimson);
+    box-sizing: border-box;
+    padding: 40px;
+  }
+  .cover .rule{ width:70%; border-top:3px double var(--brass); margin:22px auto; }
+  .cover .eyebrow{ text-transform:uppercase; letter-spacing:.3em; font-size:12pt; color:var(--brass); margin:0 0 12px; }
+  .cover h1{ font-size:44pt; margin:0; color:var(--crimson); line-height:1.05; }
+  .cover .subtitle{ font-size:15pt; color:var(--ink); margin:14px 0 0; font-family:Palatino,Georgia,serif; }
+  .cover .meta{ font-size:11pt; color:var(--dim); margin-top:8px; letter-spacing:.05em; }
+  .cover .sigil{ font-size:60pt; color:var(--brass); margin:10px 0; line-height:1; font-family:Georgia,serif; }
+
+  /* ───── Overview / TOC ───── */
+  .overview h2, .toc h2, .cheat h2 { page-break-before: auto; margin-top:0; }
+  .toc ol { list-style:none; padding:0; font-size:11pt; }
+  .toc li { display:flex; padding:3px 0; border-bottom:1px dotted var(--line); }
+  .toc li .t { flex:1; }
+  .toc li .p { color:var(--dim); font-variant-numeric:tabular-nums; }
+  .toc .sub { padding-left:1.5em; font-size:10pt; }
+
+  /* ───── Cheat sheet ───── */
+  .cheat{
+    page-break-before: always;
+    page-break-after: always;
+    font-size: 9pt;
+    line-height:1.35;
+  }
+  .cheat table{ font-size:8.5pt; margin:0.3em 0 0.7em; }
+  .cheat th, .cheat td{ padding:3px 6px; }
+  .cheat h3{ font-size:11pt; margin:0.6em 0 0.15em; color:var(--crimson); }
+  .cheat .cols{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .cheat ul{ margin:0.2em 0; padding-left:1.2em; }
+  .cheat li{ margin:0.1em 0; }
+
+  .caption{ font-style:italic; color:var(--dim); font-size:10pt; margin:-0.4em 0 0.8em; }
+  .footnote{ font-size:9pt; color:var(--dim); }
+  /* screen-only bar added in consolidation — hidden in print so GUIDE.pdf pagination is untouched */
+  .screenbar{ font:13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:var(--panel); border-bottom:1px solid var(--line);
+    padding:10px 16px; color:var(--dim); }
+  .screenbar a{ color:var(--crimson); margin-right:14px; }
+  @media print{ .screenbar{ display:none; } }
+  /* phones: this is an A4 layout — let it shrink rather than scroll sideways (print unaffected) */
+  @media screen and (max-width:700px){
+    body{ padding:0 10px; }
+    .cover h1{ font-size:30pt; letter-spacing:.04em; }
+    table{ display:block; overflow-x:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="screenbar"><a href="index.html">← Shadow Legion HQ</a><a href="GUIDE.pdf">Download GUIDE.pdf</a><a href="primer.html">Web version</a>Print-layout source of the 31-page guide · rebuild with <code>./make_guide.sh</code></div>
+
+<!-- ═══════════════════ 1. COVER ═══════════════════ -->
+<section class="cover">
+  <p class="eyebrow">Legiones&nbsp;Daemonica</p>
+  <h1>SHADOW&nbsp;LEGION</h1>
+  <p class="subtitle">A Beginner's Strategy Primer</p>
+  <div class="rule"></div>
+  <div class="sigil">⛧</div>
+  <p class="subtitle" style="font-size:13pt;">Chaos Daemons &nbsp;·&nbsp; Warhammer 40,000 &nbsp;·&nbsp; 11th Edition</p>
+  <p class="meta">Word Bearers theme &nbsp;—&nbsp; MFM v1.1</p>
+  <div class="rule"></div>
+  <p class="meta">For Evan &nbsp;·&nbsp; Verified 2026-07-27</p>
+</section>
+
+<!-- ═══════════════════ 2. STRATEGY OVERVIEW ═══════════════════ -->
+<section class="overview page-after">
+  <h2>The Army in One Page</h2>
+
+  <p><strong>Shadow Legion</strong> is the Be'lakor detachment for Legiones Daemonica: pure Chaos Daemons of all four gods, plus up to 1,000&nbsp;pts of Chaos Space Marines and up to three Chaos Knight War Dogs. Almost every unit can Deep Strike, almost every unit has an invulnerable save, and the whole army is built around <em>appearing where the enemy is weak, killing something, and vanishing before the return blow lands</em>.</p>
+
+  <p><strong>How it wins.</strong> Your Force Disposition is <strong>Purge the Foe</strong> — you score primary VP for destroying enemy units <em>and</em> holding objectives. The engine that drives both is the <em>uppy-downy loop</em>: a hammer unit (Bloodthirster, Chaos Lord + Legionaries, Bloodcrushers) drops from Reserves, kills, then disappears back into Reserves via <strong>Fade to Darkness</strong> or <strong>Binding Shadow</strong>, and comes back down next turn with <strong>Rapid Ingress</strong>. While the hammers loop, cheap bodies — Nurglings, Cultists, Pink Horrors, Beasts of Nurgle — squat on objectives and refuse to die. The Shadow of Chaos army rule snowballs the mid-board: hold half the centre objectives and every enemy there is at −1 to Battle-shock and eating mortal wounds on a fail.</p>
+
+  <p><strong>The two auto-includes.</strong> Every list in this book takes at least one of the same two enhancements. <strong>Fade to Darkness</strong> (30&nbsp;pts) — kill something, vanish into Reserves at end of Fight — goes on a Bloodthirster ("the Fadethirster") or a Chaos Lord. <strong>Leaping Shadows</strong> (25&nbsp;pts) — Scouts 9" before turn&nbsp;1 — goes on a Skullmaster leading six Bloodcrushers, giving you a 25–30" turn-one charge threat.</p>
+
+  <p><strong>The one gotcha.</strong> Shadow Legion bans <em>all Epic Heroes except Be'lakor</em>. Skarbrand, Kairos, Rotigus, Shalaxi, Skulltaker, and Karanak are all illegal. Generic greater daemons (Bloodthirster, Lord of Change, Great Unclean One, Keeper of Secrets) are fine. If Be'lakor is in the list, he <em>must</em> be your Warlord.</p>
+
+  <h3 style="margin-top:1.2em;">Six Lists at a Glance</h3>
+  <table>
+    <thead><tr><th>List</th><th>Theme</th><th>To buy</th><th>Difficulty</th><th>Best for</th><th>Key purchase</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong> — Yo-Yo Court</td><td>Tzeentch control</td><td class="n">~$70–110</td><td>Medium</td><td>Learning positioning</td><td>Chaos Lord</td></tr>
+      <tr><td><strong>B</strong> — Festering Court</td><td>Nurgle attrition + War Dogs</td><td class="n">~$20</td><td>Easy</td><td>First games</td><td>Nurglings box</td></tr>
+      <tr><td><strong>C</strong> — Word Bearers Ascendant</td><td>CSM Deep Strike shell game</td><td class="n">~$130–250</td><td>Hard</td><td>Theme players</td><td>Warp Talons</td></tr>
+      <tr><td><strong>D</strong> — Crimson Cavalry</td><td>Khorne pressure</td><td class="n">~$250–350</td><td>Hard</td><td>Aggressive play</td><td>Bloodcrushers</td></tr>
+      <tr><td><strong>E</strong> — The Fadethirster</td><td>Tournament core</td><td class="n">~$250–350</td><td>Medium-Hard</td><td>Competitive</td><td>Bloodthirster</td></tr>
+      <tr><td><strong>F</strong> — Triple Monster</td><td>Three big daemons</td><td class="n">~$140–200</td><td>Easy</td><td>Beginners</td><td>Bloodthirster</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Where to Start</h3>
+  <p>Play <strong>List B (Festering Court)</strong> or <strong>List F (Triple Monster)</strong> first. B is almost entirely models you already own and has the fewest moving parts — Beasts of Nurgle sit on objectives and don't die, War Dogs run at things. F gives you three durable centrepieces and minimal reserves-juggling; it teaches you Shadow of Chaos and greater-daemon positioning without the CP bookkeeping. Once you're comfortable with the phase sequence and have a feel for screening and Deep Strike ranges, graduate to <strong>List E (The Fadethirster)</strong> — it's the shape every 4-1 tournament result is running.</p>
+</section>
+
+<!-- ═══════════════════ 3. TABLE OF CONTENTS ═══════════════════ -->
+<section class="toc page-after">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="t">Strategy Overview — the army in one page</span><span class="p">2</span></li>
+    <li><span class="t"><strong>Part 1 — How This Army Works</strong></span><span class="p">5</span></li>
+    <li class="sub"><span class="t">The Shadow of Chaos · Deep Strike · Invulnerable saves</span><span class="p">5</span></li>
+    <li class="sub"><span class="t">The Shadow Legion detachment — enhancements &amp; stratagems</span><span class="p">7</span></li>
+    <li class="sub"><span class="t">How you actually win · Phase-by-phase · Turn by turn</span><span class="p">9</span></li>
+    <li class="sub"><span class="t">Common beginner mistakes · Matchup notes</span><span class="p">10</span></li>
+    <li><span class="t"><strong>Part 2 — Your List Options</strong></span><span class="p">12</span></li>
+    <li class="sub"><span class="t">List A — The Yo-Yo Court &nbsp;<em>(Tzeentch control)</em></span><span class="p">13</span></li>
+    <li class="sub"><span class="t">List B — Festering Court &nbsp;<em>(Nurgle attrition)</em></span><span class="p">15</span></li>
+    <li class="sub"><span class="t">List C — Word Bearers Ascendant &nbsp;<em>(CSM Deep Strike)</em></span><span class="p">17</span></li>
+    <li class="sub"><span class="t">List D — Crimson Cavalry &nbsp;<em>(Khorne pressure)</em></span><span class="p">19</span></li>
+    <li class="sub"><span class="t">List E — The Fadethirster &nbsp;<em>(Tournament core)</em></span><span class="p">21</span></li>
+    <li class="sub"><span class="t">List F — Triple Monster &nbsp;<em>(Three big daemons)</em></span><span class="p">23</span></li>
+    <li><span class="t"><strong>Part 3 — Practicing &amp; Playing Online</strong></span><span class="p">25</span></li>
+    <li><span class="t"><strong>Quick-Reference Cheat Sheet</strong> &nbsp;<em>(tear-out)</em></span><span class="p">26</span></li>
+    <li><span class="t"><strong>Appendix A</strong> — Rules Digest (cited)</span><span class="p">27</span></li>
+    <li><span class="t"><strong>Appendix B</strong> — Verified Points Table (MFM v1.1)</span><span class="p">28</span></li>
+    <li><span class="t"><strong>Appendix C</strong> — Glossary</span><span class="p">30</span></li>
+    <li><span class="t"><strong>Appendix D</strong> — What Changed vs Prior Notes</span><span class="p">31</span></li>
+  </ol>
+  <p class="footnote" style="margin-top:2em;">Every rules claim in this primer is cited to Wahapedia, Tabletop Battles, or Listhammer. Every points value is marked <code>[verified]</code> (read directly off the datasheet on 2026-07-27) or <code>~</code> (derived / uncertain). Page numbers are approximate and may shift by ±1 depending on your print margins.</p>
+</section>
+
+<!-- ═══════════════════ 4. PART 1 ═══════════════════ -->
+<h2 class="part" id="part1">Part 1 — How This Army Works</h2>
+
+<h3>What you're playing</h3>
+<p>Your army is <strong>Legiones Daemonica</strong> — the Chaos Daemons faction — running the <strong>Shadow Legion</strong> detachment. In plain English: you field the literal daemons of the four Chaos gods (Khorne, Tzeentch, Nurgle, Slaanesh), led by Be'lakor the Dark Master, and you're allowed to sprinkle in a limited number of Chaos Space Marines and up to three Chaos Knight War Dogs. Almost everything in the army can teleport onto the board mid-game, almost everything has a magic force-field save, and the whole game plan is "appear where the enemy is weak, kill something, vanish before they hit back."</p>
+
+<h3>The rules that make Daemons Daemons</h3>
+
+<h4>The Shadow of Chaos (your army rule)</h4>
+<p>Every faction has one <strong>army rule</strong> that applies to the whole force. Yours is <strong>The Shadow of Chaos</strong> (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#The-Shadow-of-Chaos">Wahapedia</a>). Think of it as a spreading fog of daemonic corruption:</p>
+<ul>
+  <li>Your own <strong>deployment zone</strong> (your starting third of the board) is always inside the Shadow.</li>
+  <li><strong>No Man's Land</strong> (the middle strip) is inside the Shadow at the start of any phase where you control at least half the objective markers there.</li>
+  <li>Your <strong>opponent's deployment zone</strong> joins the Shadow once you control at least half the objectives inside <em>their</em> zone.</li>
+</ul>
+<p>While a friendly daemon unit is inside your Shadow, it gets <strong>+1 to Battle-shock rolls</strong> (a morale test — see glossary), and if it passes, it heals D3 wounds (or, if it's a Battleline unit like Bloodletters or Horrors, it brings back up to D3 dead models). While an <em>enemy</em> unit is inside your Shadow (or within 6" of one of your Greater Daemons — Be'lakor, the Bloodthirster, the Lord of Change), it gets <strong>−1 to Battle-shock rolls</strong> and takes <strong>D3 mortal wounds</strong> if it fails. So the Shadow both keeps your stuff alive and chips theirs down.</p>
+<p>The strategic lesson: <strong>fight for the mid-board objectives early</strong>. Holding two out of three (or two out of four) mid objectives switches on the Shadow across the whole centre of the table, and the game snowballs from there.</p>
+
+<h4>Deep Strike everywhere</h4>
+<p><strong>Deep Strike</strong> is a datasheet ability meaning "instead of deploying this unit on the board, keep it in Reserves and set it up mid-game anywhere more than 8" from every enemy model." Nearly every daemon in the codex has it printed on its card, and Shadow Legion also <em>gives</em> it to every Chaos Space Marine you bring (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Disciples of Be'lakor</a>). The core rules cap Reserves at 50% of your army's points, so at 2,000&nbsp;pts you can start up to 1,000&nbsp;pts off the board and rain it down from turn&nbsp;2 onwards.</p>
+
+<h4>Invulnerable saves and why they matter</h4>
+<p>Most armies rely on their <strong>armour save</strong> (e.g. a Space Marine's 3+). High-AP (armour-piercing) weapons make that save worse — a lascannon at AP-3 turns a 3+ into a 6+. Daemons instead have <strong>invulnerable saves</strong> (written as "4++" or "5++") which <em>cannot be modified by AP</em>. Your Bloodthirster's 4++ is a coin-flip against everything from a bolter to a volcano cannon. This means you don't fear anti-tank weapons the way a normal army does.</p>
+
+<h4>The 11th-edition changes that quietly buffed you</h4>
+<p>Three core-rules changes in 11th edition disproportionately help Daemons (<a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules §13</a>):</p>
+<ul>
+  <li><strong>Cover is now −1 to hit</strong>, not +1 to save. In 10th edition, cover improved your armour save — useless if you were relying on an invuln. Now it makes the enemy <em>miss more often</em>, which stacks perfectly with your invulns. Tabletop Battles calls this "one of the biggest army-wide buffs of any faction" (<a href="https://www.tabletopbattles.com/40k-11th-edition-points-review-chaos-factions">TTB Points Review</a>).</li>
+  <li><strong>Hidden (rule 13.09)</strong>: Infantry, Beasts, and Swarms sitting inside dense terrain that didn't shoot last turn can only be seen from within 15". Your Bloodletters, Nurglings, and Flesh Hounds are all melee-only, so they're Hidden by default whenever they park in a ruin. <strong>Gone to Ground</strong> drops that to 12".</li>
+  <li><strong>FLY got better</strong>. Monsters with FLY (Be'lakor, Bloodthirster, Lord of Change) now interact with terrain and cover far more favourably than in 10th — GW pre-emptively raised all your big monsters +15&nbsp;pts because of it.</li>
+</ul>
+
+<h3>The Shadow Legion detachment</h3>
+
+<h4>What a "detachment" is</h4>
+<p>A <strong>detachment</strong> is a rules package you pick at list-building time. It gives you: a <strong>detachment rule</strong> (a passive buff for the whole army), a set of <strong>enhancements</strong> (paid upgrades you bolt onto characters), a set of <strong>stratagems</strong> (in-game abilities you spend Command Points to trigger), and — new in 11th — a <strong>Force Disposition</strong> (which primary-mission style you play). Shadow Legion costs <strong>2 Detachment Points</strong> (you get 3 at 2,000&nbsp;pts) and its Force Disposition is <strong>Purge the Foe</strong> — the kill-focused primary. (<a href="https://www.tabletopbattles.com/40k-11th-edition-faction-pack-review-chaos-daemons">TTB Faction Pack Review</a>)</p>
+
+<h4>Thralls of the First Prince — who you can and can't bring</h4>
+<p>The detachment's list-building rule, verbatim from <a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a>:</p>
+<blockquote>"When mustering your army, you cannot include any DAEMON PRINCE, DAEMON PRINCE WITH WINGS or <strong>EPIC HERO</strong> units (excluding BE'LAKOR), but you can include the following HERETIC ASTARTES units: Chaos Lord, Chaos Lord in Terminator Armour, Chaos Lord with Jump Pack, Chaos Terminator Squad, Chosen, DAMNED units, Dark Apostle, Havocs, Legionaries, Master of Possession, Possessed, Raptors, Sorcerer, Sorcerer in Terminator Armour, Warp Talons. The combined points value of such units depends on your battle size: Incursion 500 / Strike Force 1000 / Onslaught 1500."</blockquote>
+<p>Two big consequences of that Epic Hero ban:</p>
+<ul>
+  <li><strong>Be'lakor is the only named character you can take.</strong> Skarbrand, Kairos Fateweaver, Rotigus, Shalaxi, <strong>Skulltaker</strong>, and <strong>Karanak</strong> are all Epic Heroes → all illegal in Shadow Legion. (This is why the old List 2 in <code>lists.md</code> had to be fixed — see List D below.) The generic Bloodthirster, Lord of Change, Great Unclean One, and Keeper of Secrets are <em>not</em> Epic Heroes and are all fine.</li>
+  <li>Your Chaos Space Marine allies are capped at <strong>1,000&nbsp;pts</strong> in a 2,000-pt game and must come from the list above. Cultists count (they have the DAMNED keyword). Your Master of Possession and Chaos Lord are both explicitly on the list.</li>
+</ul>
+<p>Be'lakor himself is optional — the rule <em>permits</em> him, it doesn't require him. But if he <em>is</em> in your list, his <strong>Supreme Commander</strong> ability means he <strong>must</strong> be your Warlord (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Be-lakor">Wahapedia</a>).</p>
+
+<h4>First Prince of Chaos — the five god buffs</h4>
+<p>This is the passive detachment rule. Every unit in your army gets one of these depending on which god's keyword it has (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a>):</p>
+<table>
+  <thead><tr><th>God</th><th>Rule name</th><th>What it does in plain English</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Khorne</strong></td><td>Murderer's Cowl</td><td>Can shoot AND declare a charge in a turn it Advanced. (Advance = move + D6" but normally can't shoot or charge.) Turns your Bloodthirster and Bloodcrushers into guided missiles.</td></tr>
+    <tr><td><strong>Tzeentch</strong></td><td>Penumbral Puppetry</td><td>Gets <strong>Stealth</strong> (−1 to be hit at range) <em>or</em> −1 to be hit in melee. Makes your Horrors and Lord of Change annoyingly hard to shift.</td></tr>
+    <tr><td><strong>Nurgle</strong></td><td>Gloam Rot</td><td>Attacks with Strength higher than the unit's Toughness get <strong>−1 to wound</strong>. Makes Nurglings (T3) shrug off S4+ small-arms and Beasts of Nurgle (T9) laugh at anti-tank.</td></tr>
+    <tr><td><strong>Slaanesh</strong></td><td>Shadow's Caress</td><td>Immune to all <strong>Snap Shooting</strong> (11th-ed's out-of-turn reaction fire, including Overwatch). Your Slaanesh units walk into charge range unmolested.</td></tr>
+    <tr><td><strong>Undivided</strong> (Be'lakor + all your marines)</td><td>Disciples of Be'lakor</td><td>Gains <strong>Dark Pacts</strong> (before shooting or fighting, take a Leadership test; pass or fail, weapons gain Lethal Hits or Sustained Hits 1; on a fail take D3 mortal wounds). Be'lakor auto-passes his test. Marines also gain <strong>Deep Strike</strong>.</td></tr>
+  </tbody>
+</table>
+
+<h4>The four enhancements</h4>
+<p>An <strong>enhancement</strong> is a paid upgrade you attach to a non-Epic-Hero <strong>Character</strong>. All four Shadow Legion enhancements say "SHADOW LEGION model only" — and since your marines and daemon characters all gain that keyword, any of them (Chaos Lord, Bloodthirster, Skullmaster, Fateskimmer…) can take one. (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a>)</p>
+<table>
+  <thead><tr><th>Enhancement</th><th>Pts</th><th>Effect</th><th>Who wants it</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Fade to Darkness</strong></td><td class="n">30</td><td>End of the Fight phase, if the bearer's unit destroyed an enemy unit and isn't in Engagement Range, remove it into Strategic Reserves.</td><td>The auto-include. Put it on a <strong>Bloodthirster</strong> ("the Fadethirster") or a <strong>Chaos Lord</strong> leading Legionaries. Kill → vanish → Rapid Ingress back next turn.</td></tr>
+    <tr><td><strong>Leaping Shadows</strong></td><td class="n">25</td><td>Bearer's unit gains <strong>Scouts 9"</strong> (a free 9" move before turn&nbsp;1).</td><td>The other auto-include. Put it on a <strong>Skullmaster</strong> leading 6 Bloodcrushers — 9" scout + 10" move + Advance + charge = turn-1 threat range of ~25–30".</td></tr>
+    <tr><td><strong>Malice Made Manifest</strong></td><td class="n">25</td><td>Start of Fight, pick an enemy in Engagement Range; roll D6: 2–5 = D3 mortal wounds, 6 = 3 MW.</td><td>Situational. Decent on a Great Unclean One or a Bloodmaster who'll be stuck in every turn.</td></tr>
+    <tr><td><strong>Mantle of Gloom</strong></td><td class="n">20</td><td>Aura: enemy units in Engagement Range of the bearer's unit are −1 OC (Objective Control).</td><td>Helps a mid-board anchor flip contested objectives.</td></tr>
+  </tbody>
+</table>
+
+<h4>The six stratagems</h4>
+<p>A <strong>stratagem</strong> is an ability you pay <strong>CP</strong> (Command Points) to trigger during the game. You get 1&nbsp;CP in every Command phase — yours <em>and</em> your opponent's — so ~2 per battle round. (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a>)</p>
+<table>
+  <thead><tr><th>Stratagem</th><th>CP</th><th>When</th><th>Effect</th><th>Why you care</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Channelled Wrath</strong></td><td class="n">1</td><td>Fight phase</td><td>One unit's melee weapons gain [LANCE] (+1 to wound if the unit charged); if the unit is KHORNE, also +1 AP.</td><td>Your bread-and-butter. Use it on Bloodcrushers or the Bloodthirster almost every turn.</td></tr>
+    <tr><td><strong>Binding Shadow</strong></td><td class="n">1</td><td>End of opponent's Fight phase</td><td>Pick up to one Heretic Astartes unit <em>and</em> one daemon unit not in Engagement Range → put both into Strategic Reserves.</td><td>The army-wide "yo-yo." Rescue two stranded units at once, redeploy them next turn.</td></tr>
+    <tr><td><strong>Death Denied</strong></td><td class="n">1</td><td>Your Command phase</td><td>One unit regains 3 wounds; if it's TZEENTCH, also return one destroyed non-character model.</td><td>Keeps a bracketed Greater Daemon healthy or tops up a Horrors brick.</td></tr>
+    <tr><td><strong>Encroaching Darkness</strong></td><td class="n">1</td><td>Your Shooting phase</td><td>Up to one HA + one daemon unit that arrived from Reserves this turn get [IGNORES COVER].</td><td>Pairs with Havocs deep-striking in.</td></tr>
+    <tr><td><strong>Spiteful Demise</strong></td><td class="n">1</td><td>Any phase, when your unit is destroyed</td><td>Roll D6 per enemy unit in Engagement Range (+2 if you were SLAANESH); 4–5 = D3 MW, 6+ = 3 MW.</td><td>A nasty parting gift.</td></tr>
+    <tr><td><strong>Shade Path</strong></td><td class="n">2</td><td>Opponent's Charge phase</td><td>When a visible enemy within 12" declares a charge, −1" to that charge; if your unit is NURGLE, the enemy also Battle-shock tests.</td><td>Nerfed in 11th (was −2"). Still occasionally saves a screen.</td></tr>
+  </tbody>
+</table>
+
+<h4>Pairing with Cavalcade of Chaos</h4>
+<p>11th edition lets you spend leftover Detachment Points on a <strong>secondary detachment</strong>. Shadow Legion is 2&nbsp;DP; you have 3. Every single 4-1 Shadow Legion list on Listhammer spends the third point on <strong>Cavalcade of Chaos</strong> (1&nbsp;DP, Disruption disposition) — a Mounted-unit mini-package that gives your Bloodcrushers the <em>Soul-shattering Charge</em> upgrade (fight at 3" Engagement Range, so the whole brick swings) plus a couple of cavalry stratagems. If you're running Bloodcrushers at all, take Cavalcade. (<a href="https://listhammer.info/?faction=Chaos+Daemons">Listhammer</a>, <a href="https://www.tabletopbattles.com/40k-11th-edition-faction-pack-review-chaos-daemons">TTB Faction Pack Review</a>)</p>
+
+<h3>How you actually win a game</h3>
+
+<h4>Scoring in 11th edition</h4>
+<p>A game is <strong>five battle rounds</strong>. You score <strong>Victory Points (VP)</strong> two ways (<a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules §07–§14</a>, <a href="https://www.belloflostsouls.net/2026/05/warhammer-40k-chapter-approved-missions-deck-for-11th-edition-revealed.html">BoLS mission overview</a>):</p>
+<ul>
+  <li><strong>Primary mission</strong> — determined by matching your <strong>Force Disposition</strong> against your opponent's (there are 15 pairings). Shadow Legion's disposition is <strong>Purge the Foe</strong>, which rewards you for destroying enemy units <em>and</em> holding objective markers. You score primary VP in the Command phase.</li>
+  <li><strong>Secondary missions</strong> — you draw two cards per Command phase from an 18-card Attacker or Defender deck (which one you are depends on the disposition matchup). Each card is worth 3–5 VP for doing a specific task ("hold the centre," "have a unit in every table quarter," "kill a character"). Cap of 15 secondary VP per turn.</li>
+</ul>
+<p>You <strong>control an objective marker</strong> if the total <strong>OC</strong> (Objective Control — a stat printed on every datasheet) of your models within 3" of it beats your opponent's total. Battle-shocked units have OC&nbsp;0 — this is why the Shadow of Chaos forcing failed Battle-shock tests directly wins you objectives.</p>
+
+<h4>Your three jobs each turn</h4>
+<ol>
+  <li><strong>Kill for primary.</strong> Purge the Foe pays you for destroying units. Your Bloodthirster, Bloodcrushers, and Be'lakor are the killers.</li>
+  <li><strong>Hold with cheap stuff.</strong> Nurglings, Cultists, Pink Horrors, and Beasts of Nurgle sit on objectives you've already taken. Cultists are "sticky" (the objective stays yours even after they leave); Nurglings Infiltrate onto mid-board turn&nbsp;0.</li>
+  <li><strong>Do secondaries with fast stuff.</strong> Flesh Hounds (native pick-up-and-redeploy at end of enemy turn), Screamers (14" FLY), and Plague Drones are your action monkeys — they run into corners, do the card, and get out.</li>
+</ol>
+
+<h3>Phase-by-phase: what to think about</h3>
+<ul>
+  <li><strong>Command phase.</strong> Gain 1 CP. Score primary. Draw secondaries. Pick Be'lakor's <em>Shadow Form</em> for the round (usually <em>Wreathed in Shadows</em> — friendlies within 6" can only be shot from ≤18"). Use <em>Death Denied</em> if a big monster is hurt.</li>
+  <li><strong>Movement phase.</strong> Bring in Reserves (from turn&nbsp;2). Advance Khorne units freely — they still charge. Position screens 8.1" in front of things you don't want charged.</li>
+  <li><strong>Shooting phase.</strong> You barely have one. Havocs, Lord of Change, and Flamers do their thing; everything else runs.</li>
+  <li><strong>Charge phase.</strong> Declare Bloodthirster/Bloodcrushers first; remember 8" is the magic number out of Deep Strike (needs an 8 on 2D6 to reach base contact).</li>
+  <li><strong>Fight phase.</strong> <em>Channelled Wrath</em> on your best charger. Resolve Be'lakor's Dark Pact (auto-pass). At end of phase, <em>Fade to Darkness</em> the Bloodthirster if it killed and is free.</li>
+  <li><strong>Opponent's turn.</strong> <em>Rapid Ingress</em> (core stratagem, 1&nbsp;CP) at end of their Movement to bring the Fadethirster back down. <em>Binding Shadow</em> at end of their Fight phase to lift two exposed units. <em>Shade Path</em> if a scary charge is 8–9" out.</li>
+</ul>
+
+<h3>A typical game, turn by turn</h3>
+<p><strong>Deployment.</strong> Infiltrate Nurglings onto a No Man's Land objective (or 9" up to zone-block a scary enemy scout unit). Pink Horrors and Cultists on your home objectives. Skullmaster + 6 Bloodcrushers on the line, then Scout them 9" forward. Be'lakor central, hugging a ruin. Bloodthirster, Legionaries, and any second wave in Reserves (up to 1,000&nbsp;pts).</p>
+<p><strong>Turn 1.</strong> The Bloodcrusher brick Advances (Murderer's Cowl) and charges something mid-board — with Scouts 9" + M10" + D6" + 2D6" charge, you'll usually make it. <em>Channelled Wrath</em> on them. Nurglings tag the mid objective, switching on the Shadow across No Man's Land. Be'lakor walks up under <em>Wreathed in Shadows</em>.</p>
+<p><strong>Turn 2.</strong> Bloodthirster arrives from Deep Strike 8.1" from a flank target (or 3" if you use <em>Denizens of the Warp</em> — check errata status). It charges, deletes a vehicle, and <em>Fades to Darkness</em> at end of Fight. Legionaries and Havocs drop on a backfield objective. During opponent's turn, <em>Rapid Ingress</em> the Bloodthirster onto the far side of the board.</p>
+<p><strong>Turns 3–4.</strong> Grind. The Fadethirster loops (drop → kill → vanish → Ingress). Flesh Hounds bounce between table quarters doing secondaries. <em>Binding Shadow</em> rescues whatever the enemy is about to trap. Shadow of Chaos should be covering most of the board by now — enemy Battle-shock failures start flipping objectives to you for free.</p>
+<p><strong>Turn 5.</strong> Score-out. Throw everything remaining onto objectives; OC is all that matters now.</p>
+
+<h3>Common beginner mistakes</h3>
+<ul>
+  <li><strong>Over-committing greater daemons.</strong> Be'lakor and the Bloodthirster are 390 and 320 pts. If one of them charges into the open turn&nbsp;1 and dies to a whole army's shooting, you're down 15–20% of your list. Use terrain, <em>Wreathed in Shadows</em>, and Fade to Darkness to keep them alive.</li>
+  <li><strong>Forgetting the 8" Deep Strike bubble.</strong> You must set up more than 8" from every enemy model. Opponents will "screen" — spread cheap models in a 8.1" ring around what they want to protect. You need to kill the screen first.</li>
+  <li><strong>Not screening yourself.</strong> The reverse: string Nurglings or Cultists 8.1" in front of your monsters so <em>their</em> deep-strikers can't land on you.</li>
+  <li><strong>Wasting CP.</strong> You get ~10 CP a game. <em>Channelled Wrath</em> every Fight phase and <em>Binding Shadow</em> / <em>Rapid Ingress</em> as needed will eat most of it. Don't blow 2 CP on <em>Shade Path</em> unless it genuinely saves a unit.</li>
+  <li><strong>Forgetting Shadow of Chaos triggers.</strong> It checks at the <em>start of every phase</em>. If you take a second mid-board objective in your Movement phase, No Man's Land is in your Shadow <em>for the Shooting phase onwards</em>. Announce it.</li>
+  <li><strong>Leaving reserves too late.</strong> Anything still in Reserves at end of round&nbsp;3 is destroyed.</li>
+</ul>
+
+<h3>Matchup notes</h3>
+<ul>
+  <li><strong>vs shooting castles / gunlines</strong> (Tau, Guard, Votann): your best matchup. Hidden, cover-as-−1-to-hit, and <em>Wreathed in Shadows</em> mean they can't project damage past 15–18". Deep Strike behind their line turn&nbsp;2 and the castle folds.</li>
+  <li><strong>vs melee rush</strong> (World Eaters, Orks, Tyranids): trickier. They'll try to trade into your monsters. Screen hard with Nurglings, use <em>Shade Path</em> and <em>Binding Shadow</em> to deny charges, and pick off their hammer units with the Fadethirster before they connect.</li>
+  <li><strong>vs elite/vehicle skew</strong> (Imperial/Chaos Knights, Custodes): the Bloodthirster's Great Axe (S16 AP-4 D6+2) and the Bloodcrushers' Lance horns eat armour. <em>Channelled Wrath</em> is huge here. Your invulns mean their big guns aren't as scary as they look.</li>
+  <li><strong>vs horde</strong> (Guard infantry, Termagant spam): sweep-profile weapons (Bloodthirster sweep = 14 attacks, Be'lakor sweep = 14 attacks) and Flamers clear chaff. Your risk is running out of bodies to hold objectives — keep Cultists and Horrors safe.</li>
+</ul>
+
+<!-- ═══════════════════ 5. PART 2 ═══════════════════ -->
+<h2 class="part" id="part2">Part 2 — Your List Options</h2>
+<p>Six complete 2,000-pt lists. <strong>A–D</strong> are the four <code>lists.md</code> archetypes rebuilt with corrected points and legality fixes; <strong>E–F</strong> are new. Each roster table marks whether you already own the unit or need to buy it (prices from <code>listings.json</code>, eBay 2026-07-26). All Heretic Astartes (HA) subtotals are checked against the 1,000-pt cap.</p>
+
+<!-- ───── LIST A ───── -->
+<h3 class="list" id="listA">List A — The Yo-Yo Court</h3>
+<p class="caption">Teleport control. Closest to what you own. ~$70–110 to complete.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Lord of Change</td><td class="n">320 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Chaos Lord + <strong>Fade to Darkness</strong> → leads Legionaries A</td><td class="n">90+30 [verified]</td><td class="buy"><strong>buy</strong> ~$25</td></tr>
+    <tr><td>Legionaries ×5 (A)</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Legionaries ×5 (B)</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Master of Possession → leads Possessed</td><td class="n">60 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Possessed ×5</td><td class="n">120 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Havocs ×5 (2 las / 2 auto)</td><td class="n">125 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Fateskimmer → leads Screamers</td><td class="n">95 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Screamers ×3</td><td class="n">80 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Exalted Flamer → leads Flamers</td><td class="n">65 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Flamers ×3</td><td class="n">65 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Flesh Hounds ×5</td><td class="n">75 [verified]</td><td class="buy"><strong>buy</strong> ~$20–50</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$28</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>1,940 / 2,000</strong></td><td>HA: 625 / 1,000</td></tr>
+  </tbody>
+</table>
+<p class="footnote">60 pts spare — add a second Nurglings ×3 (45, ~$20) for 1,985, or leave it as buffer.</p>
+<p><strong>What it's trying to do.</strong> Positional attrition. The Tzeentch package (Horrors, LoC, Fateskimmer, Flamers) all get Stealth from <em>Penumbral Puppetry</em> and hold ground while Be'lakor anchors centre. The Chaos Lord + Legionaries brick is the yo-yo: Deep Strike, kill an objective-holder, <em>Fade to Darkness</em> into Reserves, <em>Rapid Ingress</em> back next turn (the Lord's <em>Lord of Chaos</em> ability makes one strat per round 1 CP cheaper — spend it on the Ingress). <em>Binding Shadow</em> lifts a second daemon unit alongside them.</p>
+<p><strong>Deployment.</strong> Nurglings Infiltrate mid. Cultists and Pink Horrors on your two home objectives. LoC and Be'lakor central behind a ruin. Havocs on a backfield firing lane. Chaos Lord + Legionaries A, Possessed + MoP, and Flesh Hounds in Reserves (~540 pts).</p>
+<p><strong>Turn 1–2 plan.</strong> T1: hold, shoot with LoC/Havocs, push Screamers up a flank for a <em>Slashing Dive</em>. T2: drop the Lord+Legionaries onto an exposed objective, drop Possessed on the other flank, Flesh Hounds into the enemy backfield. Start the Fade loop.</p>
+<p><strong>Each unit's job.</strong> Be'lakor — mid-board bully + <em>Wreathed in Shadows</em> bubble. LoC — shooting + Tzeentch aura. Lord+Legionaries — the yo-yo. MoP+Possessed — secondary hammer (MoP gives +1" Adv/Charge). Havocs — anti-tank from safety. Fateskimmer+Screamers — fast actions + once-per-game self-uppy-downy. Pink Horrors — split into Blues/Brimstones and never quite die. Nurglings — mid-board tarpit (−1 to hit enemies in melee). Flesh Hounds — free redeploy every enemy turn = perfect secondary scorers. Cultists — sticky home objective.</p>
+<p><strong>Key stratagems &amp; tricks.</strong> <em>Binding Shadow</em> pulls both the Lord's brick <em>and</em> one daemon unit at once — that's your reset button. <em>Death Denied</em> on the LoC or Be'lakor keeps them above their Damaged bracket. <em>Encroaching Darkness</em> on Havocs the turn they arrive.</p>
+<p><strong>What beats it &amp; how to adapt.</strong> Fast melee pressure that trades into Be'lakor before your reserves land. Answer: keep Be'lakor &gt;18" from their guns via <em>Wreathed in Shadows</em> and don't push him past your Nurgling screen until T2.</p>
+
+<!-- ───── LIST B ───── -->
+<h3 class="list" id="listB">List B — Festering Court</h3>
+<p class="caption">Nurgle attrition + War Dogs. Cheapest to field: ~$0–20.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Lord of Change</td><td class="n">320 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Beast of Nurgle ×1</td><td class="n">75 [verified]</td><td class="own">own (photo)</td></tr>
+    <tr><td>Beast of Nurgle ×1</td><td class="n">75 [verified]</td><td class="own">own (photo)</td></tr>
+    <tr><td>Plague Drones ×3</td><td class="n">110 [verified]</td><td class="own">own (photo)</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Havocs ×5</td><td class="n">125 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Master of Possession → Possessed</td><td class="n">60 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Possessed ×5</td><td class="n">120 [verified]</td><td class="own">own</td></tr>
+    <tr><td>War Dog Karnivore</td><td class="n">155 [verified]</td><td class="own">own</td></tr>
+    <tr><td>War Dog Karnivore</td><td class="n">155 [verified]</td><td class="own">own</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>1,960 / 2,000</strong></td><td>HA: 485 / 1,000 · War Dogs: 2/3</td></tr>
+  </tbody>
+</table>
+<p class="footnote">If you have a third Beast of Nurgle in the box, add it (75) and drop one Legionaries ×5 (90) → 1,945.</p>
+<p><strong>What it's trying to do.</strong> Score by refusing to die. <em>Gloam Rot</em> (−1 to wound vs high-S) on Beasts of Nurgle (T9, regenerate ALL lost wounds at end of every phase) makes them functionally immortal on an objective. Nurglings and Plague Drones round out the Nurgle brick. War Dogs (via <strong>Dreadblades</strong> — max 3 in any all-CHAOS army, no Warlord/enhancements; <a href="https://wahapedia.ru/wh40k11ed/factions/chaos-knights/">Wahapedia CK</a>) and Havocs bring the shooting daemons lack.</p>
+<p><strong>Deployment.</strong> Beasts Scout 6" onto mid objectives T0. Nurglings Infiltrate. War Dogs on a flank ready to Advance (they reroll Advance &amp; Charge). Everything marine in Reserves.</p>
+<p><strong>Turn 1–2 plan.</strong> Beasts squat. War Dogs Advance-and-charge a flank (14"+D6"+2D6"). Be'lakor walks into whatever's contesting mid. From T2, drop marines onto objectives the enemy has thinned out.</p>
+<p><strong>Each unit's job.</strong> Beasts — unkillable objective plugs. Plague Drones — fast Nurgle actions + <em>Death's Heads</em> wound-reroll debuff. War Dogs — your only real damage into vehicles (Slaughterclaw S12 D6+2). LoC — shooting. Possessed — counter-punch.</p>
+<p><strong>Key stratagems &amp; tricks.</strong> <em>Shade Path</em> is best here (Nurgle bonus = enemy Battle-shocks on the failed charge). <em>Death Denied</em> on a Beast is overkill but funny.</p>
+<p><strong>What beats it &amp; how to adapt.</strong> Volume-of-attacks melee (Orks, Tyranid gaunts) chews through Beasts eventually because Gloam Rot doesn't help vs S≤T. Feed them Nurglings first and counter-charge with War Dogs.</p>
+
+<!-- ───── LIST C ───── -->
+<h3 class="list" id="listC">List C — Word Bearers Ascendant</h3>
+<p class="caption">The mortal half rises. Marine-heavy Deep Strike shell game. ~$170–290 to complete.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Chaos Lord + <strong>Fade to Darkness</strong> → Legionaries</td><td class="n">90+30 [verified]</td><td class="buy"><strong>buy</strong> ~$25</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Chaos Lord in Terminator Armour → Terminators</td><td class="n">85 [verified]</td><td class="buy"><strong>buy</strong> ~$20</td></tr>
+    <tr><td>Chaos Terminator Squad ×5</td><td class="n">175 [verified]</td><td class="own">own? (verify box)</td></tr>
+    <tr><td>Chosen ×5</td><td class="n">135 [verified]</td><td class="buy"><strong>buy</strong> ~$40</td></tr>
+    <tr><td>Warp Talons ×5</td><td class="n">125 [verified]</td><td class="buy"><strong>buy</strong> $44–107</td></tr>
+    <tr><td>Master of Possession → Possessed</td><td class="n">60 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Possessed ×5</td><td class="n">120 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$28</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$45</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Exalted Flamer → Flamers ×3</td><td class="n">65+65 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Screamers ×3</td><td class="n">80 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Fateskimmer + <strong>Leaping Shadows</strong></td><td class="n">95+25 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Flesh Hounds ×5</td><td class="n">75 [verified]</td><td class="buy"><strong>buy</strong> ~$20–50</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>2,000 / 2,000</strong></td><td>HA: 980 / 1,000</td></tr>
+  </tbody>
+</table>
+<p><strong>What it's trying to do.</strong> Every marine unit in this list gains <strong>Deep Strike</strong> from <em>Disciples of Be'lakor</em>. Half the army starts off-board; from T2 you drop 3–4 units simultaneously and threaten the whole table. Every marine also has <strong>Dark Pacts</strong> (Lethal or Sustained Hits on demand), so even 5 Legionaries punch above their weight.</p>
+<p><strong>Deployment.</strong> Cultists on both home objectives (sticky). Nurglings Infiltrate mid. Fateskimmer Scouts 9" up a flank. Pink Horrors + Be'lakor central. In Reserves: Terminators+Termi Lord, Chosen, Warp Talons, Lord+Legionaries, Possessed+MoP, Flesh Hounds (~945 pts — under the 1,000 cap).</p>
+<p><strong>Turn 1–2 plan.</strong> T1: survive, shoot Flamers, tag mid with Nurglings. T2: drop everything. Terminators onto their firebase, Warp Talons onto a flank objective (they have their own kill-and-vanish rule), Lord+Legionaries into the backfield with Fade.</p>
+<p><strong>Each unit's job.</strong> Terminators (2+/4++, Deep Strike native, <em>Despoilers</em> = reroll hits on Dark Pact) — your anvil. Chosen (<em>Chosen Marauders</em> = shoot &amp; charge after Advance/Fall Back) — flexible bullies. Warp Talons — self-recycling assassins. Possessed — Devastating Wounds bomb once per game. Fateskimmer — Scouts 9" T0, then once-per-game self-uppy-downy for a late secondary.</p>
+<p><strong>Key stratagems &amp; tricks.</strong> <em>Encroaching Darkness</em> on Terminators + one daemon unit the turn they land. Warp Talons don't need <em>Binding Shadow</em> (they have their own version built in).</p>
+<p><strong>What beats it &amp; how to adapt.</strong> Gunline castles that screen 8" perfectly. Answer: use Flesh Hounds and Screamers to strip the screen T1–2 so the T2 drop lands where it hurts.</p>
+
+<!-- ───── LIST D ───── -->
+<h3 class="list" id="listD">List D — Crimson Cavalry <span style="font-weight:normal;font-size:11pt;color:var(--dim);">(fixed)</span></h3>
+<p class="caption">Khorne pressure. This is the corrected version of the old "Crimson Spearhead" — Skulltaker and Karanak have been removed because both are Epic Heroes and therefore illegal in Shadow Legion (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Skulltaker">Wahapedia Skulltaker</a>, <a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Karanak">Karanak</a>). Skullmaster and Bloodmaster take their place. ~$250–350 to complete.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Skullmaster + <strong>Leaping Shadows</strong> → Bloodcrushers ×6</td><td class="n">~75+25</td><td class="buy"><strong>buy</strong> ~$30</td></tr>
+    <tr><td>Bloodcrushers ×6</td><td class="n">190 [verified]</td><td class="buy"><strong>buy</strong> ~$100</td></tr>
+    <tr><td>Bloodcrushers ×3</td><td class="n">95 [verified]</td><td class="buy"><strong>buy</strong> ~$48</td></tr>
+    <tr><td>Rendmaster on Blood Throne</td><td class="n">~150</td><td class="buy"><strong>buy</strong> ~$50</td></tr>
+    <tr><td>Bloodmaster → Bloodletters ×10</td><td class="n">65 [verified]</td><td class="buy"><strong>buy</strong> ~$25</td></tr>
+    <tr><td>Bloodletters ×10</td><td class="n">110 [verified]</td><td class="own">own (photo)</td></tr>
+    <tr><td>Bloodletters ×10</td><td class="n">110 [verified]</td><td class="buy"><strong>buy</strong> ~$25 (lot)</td></tr>
+    <tr><td>Flesh Hounds ×5</td><td class="n">75 [verified]</td><td class="buy"><strong>buy</strong> ~$20–50</td></tr>
+    <tr><td>Flesh Hounds ×5</td><td class="n">75 [verified]</td><td class="buy"><strong>buy</strong> (9-pack $87 covers both)</td></tr>
+    <tr><td>Chaos Lord + <strong>Fade to Darkness</strong> → Legionaries ×5</td><td class="n">90+30 [verified]</td><td class="buy"><strong>buy</strong> ~$25</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Warp Talons ×5</td><td class="n">125 [verified]</td><td class="buy"><strong>buy</strong> $44–107</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="buy"><strong>buy</strong> ~$20</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$28</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>1,985 / 2,000</strong></td><td>HA: 355 / 1,000</td></tr>
+  </tbody>
+</table>
+<p class="footnote">Secondary detachment: <strong>Cavalcade of Chaos</strong> (1 DP) — put Soul-shattering Charge on the big Bloodcrusher unit.</p>
+<p><strong>What it's trying to do.</strong> Turn-1 alpha strike. Everything Khorne gets Advance-and-charge from <em>Murderer's Cowl</em>. The Skullmaster + 6 Bloodcrushers brick Scouts 9", moves 10", Advances D6", charges 2D6" — it <em>will</em> hit something T1. <em>Channelled Wrath</em> gives it Lance (+1 to wound) and +1 AP; the Rendmaster's aura adds +1 to wound for all nearby Khorne. It hits like a freight train and the rest of the army follows behind.</p>
+<p><strong>Deployment.</strong> Skullmaster brick and Rendmaster on the line. Bloodmaster + Bloodletters and second Crushers just behind. Nurglings Infiltrate. Cultists + Horrors home. Lord+Legionaries, Warp Talons, Flesh Hounds in Reserves.</p>
+<p><strong>Turn 1–2 plan.</strong> T1: Scout → Advance → charge with the big brick. <em>Brass Stampede</em> (D3 MW per model on 4+) plus <em>Channelled Wrath</em> deletes most 200-pt units outright. Bloodletters follow into the gap. T2: Lord+Legionaries and Warp Talons drop behind, Flesh Hounds into their backfield.</p>
+<p><strong>Each unit's job.</strong> Skullmaster+Crushers — the hammer. Rendmaster — +1 to wound aura, stays 6" behind the hammer. Bloodmaster+Bloodletters — second wave (Bloodmaster gives +1 to wound and 6" Consolidate). Flesh Hounds — free redeploy every enemy turn. Lord+Legionaries — the yo-yo backfield threat.</p>
+<p><strong>Key stratagems &amp; tricks.</strong> <em>Channelled Wrath</em> every Fight phase on whichever Khorne unit charged the hardest target. Cavalcade's <em>Soul-shattering Charge</em> means all 6 Crushers + Skullmaster fight even if only two make base contact.</p>
+<p><strong>What beats it &amp; how to adapt.</strong> This is the highest-variance list. If the T1 charge fails or the brick gets screened into a 50-pt chaff unit, you've spent your best punch on nothing. TheChirurgeon at Tabletop Battles specifically warns about this trade-down risk (<a href="https://www.tabletopbattles.com/detachment-focus-shadow-legion/">Detachment Focus</a>). Mitigation: charge the Crushers into something <em>they can wipe and consolidate off of</em>, not into a tarpit.</p>
+
+<!-- ───── LIST E ───── -->
+<h3 class="list" id="listE">List E — The Fadethirster</h3>
+<p class="caption">NEW. This is the tournament-shape list — the pattern every 4-1 Shadow Legion result on Listhammer follows (Marney at Edinburgh Super Major, Kersley at Burn &amp; Learn, Wood at Checkmate GT). ~$250–350 to complete.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td><strong>Bloodthirster</strong> (Great Axe) + <strong>Fade to Darkness</strong></td><td class="n">320+30 [verified]</td><td class="buy"><strong>buy</strong> ~$110–170</td></tr>
+    <tr><td>Skullmaster + <strong>Leaping Shadows</strong> → Bloodcrushers ×6</td><td class="n">~75+25</td><td class="buy"><strong>buy</strong> ~$30</td></tr>
+    <tr><td>Bloodcrushers ×6</td><td class="n">190 [verified]</td><td class="buy"><strong>buy</strong> ~$100</td></tr>
+    <tr><td>Rendmaster on Blood Throne</td><td class="n">~150</td><td class="buy"><strong>buy</strong> ~$50</td></tr>
+    <tr><td>Bloodmaster → Bloodletters ×10</td><td class="n">65+110 [verified]</td><td><span class="buy"><strong>buy</strong> $25</span> / <span class="own">own (photo)</span></td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Flesh Hounds ×5</td><td class="n">75 [verified]</td><td class="buy"><strong>buy</strong> ~$20–50</td></tr>
+    <tr><td>Plague Drones ×3</td><td class="n">110 [verified]</td><td class="own">own (photo)</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Havocs ×5</td><td class="n">125 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$28</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>2,000 / 2,000</strong></td><td>HA: 265 / 1,000</td></tr>
+  </tbody>
+</table>
+<p class="footnote">Secondary detachment: <strong>Cavalcade of Chaos</strong> (1 DP). Reference lists: <a href="https://listhammer.info/list/6c5bcb0f5b3c1ad3dc">Marney, Edinburgh 4-1</a>; <a href="https://listhammer.info/list/2c3a937a2bfdd7cff2">Kersley, 4-1 2nd</a>.</p>
+<p><strong>What it's trying to do.</strong> Two independent kill-loops running at once. Loop 1: Skullmaster + Bloodcrushers Scout-Advance-charge T1 and never stop. Loop 2: the <strong>Fadethirster</strong> — Bloodthirster with Fade to Darkness — drops T2, one-shots a tank (Great Axe: 7A S16 AP-4 D6+2, ~30 damage into T12 3+), vanishes at end of Fight, <em>Rapid Ingress</em> during their Movement, repeat. Between swings it's literally not on the board to be shot at. Rendmaster's +1-to-wound aura and <em>Channelled Wrath</em> make both loops hit harder. Everything else scores.</p>
+<p><strong>Deployment.</strong> Crusher brick + Rendmaster on the line, Scout 9". Nurglings Infiltrate. Cultists + Horrors home. Be'lakor central. Bloodthirster, Bloodmaster+Bloodletters, Havocs, Legionaries in Reserves.</p>
+<p><strong>Turn 1–2 plan.</strong> T1: Crushers charge. Be'lakor pushes to 6" of mid so his Greater Daemon aura + Shadow of Chaos start battle-shocking things. T2: Fadethirster drops on their scariest vehicle; Havocs drop on a lascannon lane; Bloodletters drop mid.</p>
+<p><strong>Each unit's job.</strong> Bloodthirster — repeatable anti-tank missile + Khorne aura (+1 to hit for nearby Khorne). Skullmaster+Crushers — primary hammer. Rendmaster — buff piece, keep it 6" behind the action. Plague Drones — Nurgle-keyword fast actions with Gloam Rot durability. Flesh Hounds — free uppy-downy secondaries. Havocs — Deep Strike lascannons with <em>Stabilisation Talons</em> (ignore hit modifiers).</p>
+<p><strong>Key stratagems &amp; tricks.</strong> The whole list runs on three: <em>Channelled Wrath</em> (Fight), <em>Rapid Ingress</em> (opponent's Movement, on the Fadethirster), <em>Binding Shadow</em> (end of opponent's Fight, rescue Crushers + Legionaries if stranded). That's ~3 CP/round, which is roughly what you generate.</p>
+<p><strong>What beats it &amp; how to adapt.</strong> The community split on Bloodthirsters is real: rules-analysis rates the Fadethirster top-tier, but TheChirurgeon's playtesting found a <em>scouting</em> Bloodthirster often trades down and dies (<a href="https://www.tabletopbattles.com/detachment-focus-shadow-legion/">TTB Detachment Focus</a>). The Fade-to-Darkness build sidesteps that — it doesn't scout into danger, it drops surgically and leaves. If your local meta is heavy on Overwatch/Snap Shooting, consider swapping the Bloodthirster for a second Bloodcrusher brick (Kersley's approach).</p>
+
+<!-- ───── LIST F ───── -->
+<h3 class="list" id="listF">List F — Triple Monster</h3>
+<p class="caption">NEW. Be'lakor + Bloodthirster + Lord of Change. The big-three approach. ~$140–200 to complete.</p>
+<table>
+  <thead><tr><th>Unit</th><th>Pts</th><th>Own/Buy</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor (Warlord)</td><td class="n">390 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Bloodthirster (Great Axe) + <strong>Fade to Darkness</strong></td><td class="n">320+30 [verified]</td><td class="buy"><strong>buy</strong> ~$110–170</td></tr>
+    <tr><td>Lord of Change</td><td class="n">320 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Blue Horrors ×10</td><td class="n">125 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Nurglings ×3</td><td class="n">45 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Fateskimmer → Screamers ×3</td><td class="n">95+80 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Havocs ×5</td><td class="n">125 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Legionaries ×5</td><td class="n">90 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Master of Possession → Possessed ×5</td><td class="n">60+120 [verified]</td><td class="own">own</td></tr>
+    <tr><td>Cultist Mob ×10</td><td class="n">50 [verified]</td><td class="buy"><strong>buy</strong> ~$28</td></tr>
+    <tr class="total"><td><strong>Total</strong></td><td class="n"><strong>2,000 / 2,000</strong></td><td>HA: 445 / 1,000</td></tr>
+  </tbody>
+</table>
+<p><strong>What it's trying to do.</strong> Three T10–11, 4++ monsters that each project a 6" Shadow-of-Chaos aura. Between <em>Wreathed in Shadows</em> (only shootable within 18"), Stealth on the LoC, and cover-as-−1-to-hit, all three are surprisingly hard to remove. The Bloodthirster runs the Fade loop; the LoC shoots and buffs Tzeentch; Be'lakor bullies mid. The rest of the list is what you already own filling out scoring.</p>
+<p><strong>Deployment.</strong> All three monsters behind ruins in your DZ (Be'lakor centre, LoC on the shooty flank, Bloodthirster in Reserves). Nurglings Infiltrate. Horrors + Cultists home.</p>
+<p><strong>Turn 1–2 plan.</strong> T1: LoC shoots (Bolt of Change with Sustained Hits D3), Be'lakor moves to the mid ruin. T2: Fadethirster drops and starts looping; Possessed and Legionaries drop on flanks.</p>
+<p><strong>Each unit's job.</strong> The three monsters do the killing and each carry their own Greater Daemon 6" Shadow bubble — spread them out and most of the board is in your Shadow by T2. Blue Horrors Infiltrate onto a forward objective (they have Infiltrators natively). Fateskimmer+Screamers — fast actions.</p>
+<p><strong>Key stratagems &amp; tricks.</strong> <em>Death Denied</em> keeps whichever monster took the most fire above its Damaged bracket. Remember the LoC's <em>Master of Magicks</em> — pick Sustained Hits D3 into hordes, Lethal Hits into vehicles.</p>
+<p><strong>What beats it &amp; how to adapt.</strong> This is the most beginner-forgiving list (three durable centrepieces, minimal reserves juggling) but the least competitive — 1,060 pts in three models means you're thin on scoring bodies. If you find you're losing on secondaries, cut the LoC for a Skullmaster + Bloodcrushers package and you're basically playing List E.</p>
+
+<!-- ═══════════════════ 6. PART 3 ═══════════════════ -->
+<h2 class="part" id="part3">Part 3 — Practicing &amp; Playing Online</h2>
+
+<h3>Building lists</h3>
+<ul>
+  <li><strong><a href="https://apps.apple.com/us/app/warhammer-40-000-the-app/id6443503982">Warhammer 40,000: The App</a></strong> (<a href="https://play.google.com/store/apps/details?id=com.gamesworkshop.w40k">Android</a>) — official. The <strong>Battle Forge</strong> builder is fully updated for 11th-ed detachments, Force Dispositions, and MFM v1.1. Codex codes unlock full rules text; a Warhammer+ sub unlocks multiple saved lists. This is what you'll use to double-check everything above.</li>
+  <li><strong><a href="https://www.newrecruit.eu/">New Recruit</a></strong> — free community builder, updated within hours of every points change. The de-facto Battlescribe replacement.</li>
+  <li>Also worth bookmarking: <a href="https://www.40k.app/">40k.app</a>, <a href="https://listforge.club/">ListForge</a>.</li>
+</ul>
+
+<h3>Playing on Tabletop Simulator</h3>
+<p>The maintained community pack is <strong>Battleforged</strong>: <a href="https://github.com/TTSWarhammer40k/Battleforged-Workshop-Mod-Compilation">github.com/TTSWarhammer40k/Battleforged-Workshop-Mod-Compilation</a>. Download the ZIP, drop it into <code>Documents/My Games/Tabletop Simulator/Saves</code>, load in-game. Pair it with <strong>Yellowscribe V2</strong> (imports your New Recruit list as spawnable models with datasheets attached) and an <strong>FTC map base</strong> from Steam Workshop. Beginner path:</p>
+<ol>
+  <li>Build the list in New Recruit → export to Yellowscribe.</li>
+  <li>Open TTS, load an FTC map, spawn your army from the Yellowscribe bag.</li>
+  <li>Find an opponent in the <a href="https://discord.com/invite/ttswarhammer40k">TTS Warhammer 40k Discord</a> (~22k members, active LFG channels, very new-player-friendly).</li>
+</ol>
+
+<h3>Where to find opponents &amp; advice</h3>
+<ul>
+  <li><strong><a href="https://discord.com/invite/ttswarhammer40k">TTS Warhammer 40k Discord</a></strong> — LFG, mod support, rules questions.</li>
+  <li><strong>r/WarhammerCompetitive</strong>, <strong>r/Chaos40k</strong>, <strong>r/ChaosDaemons40k</strong> — list feedback and meta discussion.</li>
+  <li><strong><a href="https://www.tabletopbattles.com/">Tabletop Battles / Goonhammer</a></strong> — the best written 40k content. Their <em>Competitive Innovations</em> column every week breaks down winning tournament lists.</li>
+  <li><strong><a href="https://www.youtube.com/@ArtofWar40k/videos">Art of War 40k</a></strong> — high-level coaching and battle reports on YouTube; deeper content behind <a href="https://thewarroom.vhx.tv/">The War Room</a> paywall.</li>
+  <li><strong><a href="https://www.stat-check.com/the-meta">Stat Check</a></strong> and <strong><a href="https://listhammer.info/?faction=Chaos+Daemons">Listhammer</a></strong> — live win-rate dashboards and top-placing lists.</li>
+</ul>
+
+<!-- ═══════════════════ 7. CHEAT SHEET ═══════════════════ -->
+<section class="cheat" id="cheat">
+  <h2>Quick-Reference Cheat Sheet</h2>
+
+  <div class="cols">
+    <div>
+      <h3>Stratagems</h3>
+      <table>
+        <thead><tr><th>Name</th><th>CP</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Channelled Wrath</strong></td><td class="n">1</td><td>Fight: melee gets [LANCE]; Khorne also +1 AP.</td></tr>
+          <tr><td><strong>Binding Shadow</strong></td><td class="n">1</td><td>End opp. Fight: 1 HA + 1 daemon (not in ER) → Reserves.</td></tr>
+          <tr><td><strong>Death Denied</strong></td><td class="n">1</td><td>Your Cmd: heal 3W; Tzeentch also returns 1 model.</td></tr>
+          <tr><td><strong>Encroaching Darkness</strong></td><td class="n">1</td><td>Your Shoot: 1 HA + 1 daemon fresh from Reserves get Ignores Cover.</td></tr>
+          <tr><td><strong>Spiteful Demise</strong></td><td class="n">1</td><td>On death: D6 per enemy in ER (+2 Slaanesh); 4–5=D3 MW, 6+=3 MW.</td></tr>
+          <tr><td><strong>Shade Path</strong></td><td class="n">2</td><td>Opp. Charge: −1" to their charge; Nurgle also forces Battle-shock.</td></tr>
+          <tr><td><em>Rapid Ingress</em> (core)</td><td class="n">1</td><td>End opp. Move: set up 1 Reserves unit now.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Enhancements</h3>
+      <table>
+        <thead><tr><th>Name</th><th>Pts</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Fade to Darkness</strong></td><td class="n">30</td><td>End Fight: killed something + not in ER → into Reserves.</td></tr>
+          <tr><td><strong>Leaping Shadows</strong></td><td class="n">25</td><td>Bearer's unit gets Scouts 9".</td></tr>
+          <tr><td><strong>Malice Made Manifest</strong></td><td class="n">25</td><td>Start Fight: D6 → 2–5=D3 MW, 6=3 MW to enemy in ER.</td></tr>
+          <tr><td><strong>Mantle of Gloom</strong></td><td class="n">20</td><td>Aura: enemies in ER of bearer's unit are −1 OC.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3>Turn Checklist</h3>
+      <ul>
+        <li><strong>Command</strong> — gain 1 CP · score primary · draw secondaries · Shadow of Chaos check · Be'lakor Shadow Form · <em>Death Denied</em>?</li>
+        <li><strong>Movement</strong> — Reserves arrive (T2+) · Khorne Advance-and-still-charge · screens 8.1" out</li>
+        <li><strong>Shooting</strong> — Havocs / LoC / Flamers · <em>Encroaching Darkness</em>?</li>
+        <li><strong>Charge</strong> — 8" from Deep Strike · Murderer's Cowl · <em>Channelled Wrath</em> target picked</li>
+        <li><strong>Fight</strong> — <em>Channelled Wrath</em> · Dark Pacts · end: <em>Fade to Darkness</em> · <em>Relentless Carnage</em> (Bloodthirster)</li>
+        <li><strong>Opp. turn</strong> — gain 1 CP · <em>Rapid Ingress</em> (end their Move) · <em>Shade Path</em> (their Charge) · <em>Binding Shadow</em> (end their Fight)</li>
+      </ul>
+
+      <h3>Key Stat Blocks</h3>
+      <table>
+        <tbody>
+          <tr><td><strong>Be'lakor</strong></td><td>390 pts · M12" T11 W20 4++ · sweep 14A · <em>Wreathed in Shadows</em> 6"/18" · auto-pass Dark Pacts · must be Warlord</td></tr>
+          <tr><td><strong>Bloodthirster</strong></td><td>320 pts · M12" T11 4++ · Great Axe 7A S16 AP-4 D6+2 · Khorne aura +1 hit · <em>Relentless Carnage</em></td></tr>
+          <tr><td><strong>Lord of Change</strong></td><td>320 pts · M12" T10 4++ · Bolt of Change · <em>Master of Magicks</em> (SH D3 / Lethal / Dev) · Tzeentch aura</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Remember</h3>
+      <ul>
+        <li>Reserves ≤50% pts · arrive T2 · destroyed if still off-board end T3.</li>
+        <li>Shadow of Chaos checks at <em>start of every phase</em>.</li>
+        <li>Epic Heroes banned (except Be'lakor). HA cap 1,000 pts.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ 8. APPENDICES ═══════════════════ -->
+<h2 class="part" id="appA">Appendix A — Rules Digest (cited)</h2>
+<table class="longtable">
+  <thead><tr><th>Rule</th><th>Summary</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td><strong>The Shadow of Chaos</strong> (army rule)</td><td>Your DZ always in Shadow; NML/enemy DZ join when you hold ≥half their objectives. Friendlies inside: +1 Battle-shock, heal D3 (Battleline: return D3 models). Enemies inside or within 6" of Greater Daemon: −1 Battle-shock, D3 MW on fail.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#The-Shadow-of-Chaos">Wahapedia</a></td></tr>
+    <tr><td><strong>Thralls of the First Prince</strong></td><td>No Daemon Princes or Epic Heroes except Be'lakor. May include listed HA units up to 500/1000/1500 pts.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a></td></tr>
+    <tr><td><strong>First Prince of Chaos</strong></td><td>Khorne adv+charge · Tzeentch Stealth/−1 melee · Nurgle −1 wound vs S&gt;T · Slaanesh no Snap Shooting · Undivided Dark Pacts + HA Deep Strike.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a></td></tr>
+    <tr><td><strong>Disciples of Be'lakor</strong></td><td>Be'lakor + HA units gain SHADOW LEGION + UNDIVIDED keywords; Be'lakor auto-passes Dark Pacts.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">Wahapedia</a></td></tr>
+    <tr><td><strong>Dreadblades</strong></td><td>Any all-CHAOS army may include 1 Titanic CK <strong>or</strong> ≤3 War Dogs. Can't be Warlord, no enhancements.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-knights/">Wahapedia CK</a></td></tr>
+    <tr><td><strong>Supreme Commander</strong> (Be'lakor)</td><td>If in the army, must be Warlord.</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Be-lakor">Wahapedia</a></td></tr>
+    <tr><td><strong>Cover</strong> (core 13.08)</td><td>−1 to attacker's BS (not +1 to save).</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules</a></td></tr>
+    <tr><td><strong>Hidden</strong> (core 13.09)</td><td>Inf/Beast/Swarm in dense terrain that didn't shoot: only visible within 15". Gone to Ground: 12".</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/#Hidden">Core Rules</a></td></tr>
+    <tr><td><strong>Strategic Reserves</strong> (core §20)</td><td>≤50% pts in reserve; Ingress from R2, board edge within 6", &gt;8" from enemies; not into enemy DZ before R3; destroyed if still in reserve end of R3.</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules</a></td></tr>
+    <tr><td><strong>Deep Strike</strong></td><td>Ingress anywhere on the board (not just an edge), still &gt;8" from enemies.</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules</a></td></tr>
+    <tr><td><strong>CP generation</strong></td><td>Both players gain 1 CP in every Command phase (yours and theirs).</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules §08</a></td></tr>
+    <tr><td><strong>Force Dispositions / primaries</strong></td><td>Detachment fixes your disposition; the two players' dispositions pair to one of 15 primary matchups. Shadow Legion = Purge the Foe (2 DP).</td><td><a href="https://spikeybits.com/chapter-approved-deck-2026-force-dispositions-decide-what-the-game-is-about/">Spikey Bits</a></td></tr>
+    <tr><td><strong>Enhancements</strong> (core 25.04)</td><td>CHARACTER only; Epic Heroes never; no Monster exclusion.</td><td><a href="https://wahapedia.ru/wh40k11ed/the-rules/core-rules/">Core Rules</a></td></tr>
+  </tbody>
+</table>
+
+<h2 class="part" id="appB">Appendix B — Verified Points Table (MFM v1.1, 2026-07-22)</h2>
+<p>All values read directly off Wahapedia 11e datasheets on 2026-07-27. <code>(3rd+)</code> = 11th-ed spam-tax price for the third and subsequent copies.</p>
+<table class="longtable">
+  <thead><tr><th>Unit</th><th>Pts</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>Be'lakor</td><td class="n">390</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Be-lakor">link</a></td></tr>
+    <tr><td>Lord of Change</td><td class="n">320 / 340 (3rd+)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Lord-of-Change">link</a></td></tr>
+    <tr><td>Bloodthirster</td><td class="n">320 / 335 (3rd+)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Bloodthirster">link</a></td></tr>
+    <tr><td>Soul Grinder</td><td class="n">180 / 195 (3rd+)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Soul-Grinder">link</a></td></tr>
+    <tr><td>Fateskimmer</td><td class="n">95</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Fateskimmer">link</a></td></tr>
+    <tr><td>Exalted Flamer</td><td class="n">65</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Exalted-Flamer">link</a></td></tr>
+    <tr><td>Nurglings</td><td class="n">45 (3) / 90 (6)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Nurglings">link</a></td></tr>
+    <tr><td>Pink Horrors ×10</td><td class="n">150</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Pink-Horrors">link</a></td></tr>
+    <tr><td>Blue Horrors ×10</td><td class="n">125</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Blue-Horrors">link</a></td></tr>
+    <tr><td>Flamers</td><td class="n">65 (3) / 130 (6)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Flamers">link</a></td></tr>
+    <tr><td>Screamers</td><td class="n">80 (3) / 160 (6)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Screamers">link</a></td></tr>
+    <tr><td>Bloodletters ×10</td><td class="n">110</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Bloodletters">link</a></td></tr>
+    <tr><td>Bloodmaster</td><td class="n">65</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Bloodmaster">link</a></td></tr>
+    <tr><td>Skullmaster</td><td class="n">~75</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Skullmaster">link</a></td></tr>
+    <tr><td>Rendmaster on Blood Throne</td><td class="n">~150</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Rendmaster-On-Blood-Throne">link</a></td></tr>
+    <tr><td>Bloodcrushers</td><td class="n">95 (3) / 190 (6) · 115/210 (3rd+)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Bloodcrushers">link</a></td></tr>
+    <tr><td>Flesh Hounds</td><td class="n">75 (5) / 150 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Flesh-Hounds">link</a></td></tr>
+    <tr><td>Beasts of Nurgle</td><td class="n">75 (1) / 140 (2)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Beasts-Of-Nurgle">link</a></td></tr>
+    <tr><td>Plague Drones</td><td class="n">110 (3) / 220 (6)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Plague-Drones">link</a></td></tr>
+    <tr><td>Skulltaker (illegal in SL)</td><td class="n">85</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Skulltaker">link</a></td></tr>
+    <tr><td>Karanak (illegal in SL)</td><td class="n">70</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Karanak">link</a></td></tr>
+    <tr><td>Chaos Lord</td><td class="n">90</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Chaos-Lord">link</a></td></tr>
+    <tr><td>Chaos Lord in Terminator Armour</td><td class="n">85</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Chaos-Lord-In-Terminator-Armour">link</a></td></tr>
+    <tr><td>Master of Possession</td><td class="n">60</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Master-Of-Possession">link</a></td></tr>
+    <tr><td>Sorcerer</td><td class="n">60</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Sorcerer">link</a></td></tr>
+    <tr><td>Legionaries</td><td class="n">90 (5) / 170 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Legionaries">link</a></td></tr>
+    <tr><td>Havocs ×5</td><td class="n">125 / 135 (3rd+)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Havocs">link</a></td></tr>
+    <tr><td>Possessed</td><td class="n">120 (5) / 250 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Possessed">link</a></td></tr>
+    <tr><td>Chaos Terminator Squad</td><td class="n">175 (5) / 350 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Chaos-Terminator-Squad">link</a></td></tr>
+    <tr><td>Chosen</td><td class="n">135 (5) / 270 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Chosen">link</a></td></tr>
+    <tr><td>Warp Talons</td><td class="n">125 (5) / 280 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Warp-Talons">link</a></td></tr>
+    <tr><td>Raptors</td><td class="n">110 (5) / 210 (10)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Raptors">link</a></td></tr>
+    <tr><td>Cultist Mob</td><td class="n">50 (10) / 90 (20)</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-space-marines/Cultist-Mob">link</a></td></tr>
+    <tr><td>War Dog Karnivore</td><td class="n">155</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-knights/War-Dog-Karnivore">link</a></td></tr>
+    <tr><td>Fade to Darkness (enh.)</td><td class="n">30</td><td><a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/#Shadow-Legion">link</a></td></tr>
+    <tr><td>Leaping Shadows (enh.)</td><td class="n">25</td><td>"</td></tr>
+    <tr><td>Malice Made Manifest (enh.)</td><td class="n">25</td><td>"</td></tr>
+    <tr><td>Mantle of Gloom (enh.)</td><td class="n">20</td><td>"</td></tr>
+  </tbody>
+</table>
+
+<h2 class="part" id="appC">Appendix C — Glossary</h2>
+<table class="longtable">
+  <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Advance</strong></td><td>Instead of a Normal move, move + D6". Normally can't shoot or charge that turn.</td></tr>
+    <tr><td><strong>AP</strong></td><td>Armour Penetration. Subtracts from the target's armour save. Doesn't affect invulns.</td></tr>
+    <tr><td><strong>Battle-shock</strong></td><td>A morale test (2D6 vs unit's Leadership). Fail = OC becomes 0 and can't use stratagems.</td></tr>
+    <tr><td><strong>Battleline</strong></td><td>A keyword marking basic infantry. Matters for Shadow of Chaos (returns models instead of healing wounds).</td></tr>
+    <tr><td><strong>Character</strong></td><td>A hero model. Can be given enhancements (unless Epic Hero) and can be Warlord.</td></tr>
+    <tr><td><strong>CP (Command Point)</strong></td><td>Currency for stratagems. Gain 1 in every Command phase (yours and opponent's).</td></tr>
+    <tr><td><strong>Dark Pacts</strong></td><td>CSM army rule (granted to your marines + Be'lakor via Disciples). Take a Ld test before shooting/fighting; weapons gain Lethal Hits or Sustained Hits 1; on fail also take D3 MW.</td></tr>
+    <tr><td><strong>Deep Strike</strong></td><td>May start in Reserves and set up anywhere &gt;8" from enemies from R2.</td></tr>
+    <tr><td><strong>Devastating Wounds</strong></td><td>Weapon rule: a Critical Wound (unmodified 6) bypasses all saves entirely.</td></tr>
+    <tr><td><strong>DP (Detachment Points)</strong></td><td>Budget for detachments (3 at 2,000 pts). Shadow Legion costs 2.</td></tr>
+    <tr><td><strong>Engagement Range (ER)</strong></td><td>Within 1" of an enemy. Units in ER can't shoot (mostly) and are locked in melee.</td></tr>
+    <tr><td><strong>Epic Hero</strong></td><td>Named character. Max one of each; can never take enhancements. Shadow Legion bans all except Be'lakor.</td></tr>
+    <tr><td><strong>FNP (Feel No Pain)</strong></td><td>Roll after a wound is allocated; on X+ ignore it.</td></tr>
+    <tr><td><strong>Force Disposition</strong></td><td>11th-ed: each detachment has one (Take and Hold / Purge the Foe / Recon / Priority Assets / Disruption). Determines primary mission and Attacker/Defender.</td></tr>
+    <tr><td><strong>Hidden</strong></td><td>Inf/Beast/Swarm in dense terrain that didn't shoot: only visible within 15".</td></tr>
+    <tr><td><strong>Infiltrators</strong></td><td>May set up anywhere &gt;9" from the enemy DZ during deployment.</td></tr>
+    <tr><td><strong>Invulnerable save (X++)</strong></td><td>A save that AP can never modify.</td></tr>
+    <tr><td><strong>Lance</strong></td><td>Weapon rule: +1 to wound if the bearer charged this turn.</td></tr>
+    <tr><td><strong>Leader</strong></td><td>A Character ability that lets it join a Bodyguard unit. They move and fight as one.</td></tr>
+    <tr><td><strong>Lethal Hits</strong></td><td>Weapon rule: a Critical Hit (unmodified 6) automatically wounds.</td></tr>
+    <tr><td><strong>MW (mortal wound)</strong></td><td>Damage that skips the hit/wound/save sequence entirely.</td></tr>
+    <tr><td><strong>OC (Objective Control)</strong></td><td>A stat on every datasheet. Add up within 3" of an objective; higher total controls it.</td></tr>
+    <tr><td><strong>Rapid Ingress</strong></td><td>Core stratagem (1 CP): at end of opponent's Movement phase, set up one Reserves unit as if it were your Reinforcements step.</td></tr>
+    <tr><td><strong>Scouts X"</strong></td><td>Before turn 1, this unit makes a free X" move.</td></tr>
+    <tr><td><strong>Snap Shooting</strong></td><td>11th-ed umbrella for out-of-turn reactive shooting (includes Overwatch).</td></tr>
+    <tr><td><strong>Stealth</strong></td><td>−1 to be hit by ranged attacks.</td></tr>
+    <tr><td><strong>Sticky objective</strong></td><td>Once you control it, it stays yours even after you leave, until the enemy controls it.</td></tr>
+    <tr><td><strong>Strategic Reserves</strong></td><td>Units held off-board. Arrive via Ingress from R2 within 6" of a board edge, &gt;8" from enemies.</td></tr>
+    <tr><td><strong>Sustained Hits X</strong></td><td>Weapon rule: a Critical Hit scores X extra hits.</td></tr>
+    <tr><td><strong>Warlord</strong></td><td>Your army's designated leader. Some rules key off it. Be'lakor's Supreme Commander forces him to be it if present.</td></tr>
+  </tbody>
+</table>
+
+<h2 class="part" id="appD">Appendix D — What Changed vs the Repo's Prior Notes</h2>
+<ul>
+  <li><strong>Skulltaker and Karanak are ILLEGAL in Shadow Legion.</strong> Both have the EPIC HERO keyword; <em>Thralls of the First Prince</em> bans all Epic Heroes except Be'lakor. <code>lists.md</code> List 2 was illegal and has been rebuilt as List D above. (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Skulltaker">Verified</a>)</li>
+  <li><strong>Bloodthirster is 320 pts</strong> (335 for 3rd+), not "~165" as <code>research.md</code> had it. Single unified datasheet in 11th; Great Axe is the consensus loadout. It <em>can</em> take Fade to Darkness (SHADOW LEGION character, not Epic Hero, no Monster exclusion in core enhancement rules). (<a href="https://wahapedia.ru/wh40k11ed/factions/chaos-daemons/Bloodthirster">Verified</a>)</li>
+  <li><strong>Dark Apostle</strong> is on the Thralls allowed-units list (research.md missed it).</li>
+  <li><strong>Be'lakor's Supreme Commander</strong> means he <em>must</em> be Warlord if present — a Chaos Lord can only be Warlord in a no-Be'lakor list.</li>
+  <li><strong>Multiple points corrections</strong> vs the 2026-07-26 scrape: Pink Horrors 150 (not 85), Bloodletters 110 (not 105), Flesh Hounds 75 (not 80), Cultists 50 (not 65), Havocs 125 (not 165), Bloodcrushers 95/190 (not 135), Flamers 65 (not 60), Screamers 80 (not 70), Terminators 175 (not 145), Chosen 135 (not 90), Warp Talons ×5 125 (not 130 for 6), Legionaries 90/170 (not 90/180). See Appendix B for the full verified table.</li>
+  <li><strong>Competitive shape has shifted</strong>: 11th-ed tournament lists universally pair Shadow Legion with <strong>Cavalcade of Chaos</strong> (1 DP) and lean on Skullmaster + Bloodcrushers + Fadethirster rather than the Chaos-Lord-yo-yo of 10th-ed theorycraft. Be'lakor appears in ~half of top lists, not all.</li>
+</ul>
+
+</body>
+</html>

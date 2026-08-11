@@ -19,19 +19,26 @@ NOTE: paint tier is assumed Tabletop+ unless a listing was individually verified
 this script is a first-pass triage, not a substitute for eyeballing the listing.
 """
 import csv, json, re, datetime, os
+import pages
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "data", "raw_listings.psv")
 OUT = os.path.join(HERE, "listings.json")
 
+FEED_SCANNED = "2026-07-20"   # date data/raw_*.psv were scraped — listings were live that day
+PHOTO_SWEEP  = "2026-07-21"   # date of the visual paint-tier sweep merged below (SWEEP)
+
 MSRP_PER_PT = 0.45          # USD GW retail per point
-PREMIUM = {"Basic":1.30,"Tabletop":1.60,"Tabletop+":2.00,"High TT":2.50,"Display":3.50}
+PREMIUM = {"Basic":1.30,"Tabletop":1.60,"Tabletop+":2.00,"High TT":2.50,"Display":3.50,
+           # photo sweep found unpainted/primed squads: a project, not a finished army —
+           # value the plastic only (no paint premium)
+           "Partial":1.00,"Primer":1.00}
 DEFAULT_TIER = "Tabletop+"  # assumption when unverified
 
-# Listings individually opened & confirmed live at build time.
-# We set live/loc/note (+pts when the title omits them) but NOT tier — paint quality
-# wasn't assessed from photos, so every listing keeps the assumed Tabletop+ premium
-# (matches the original board's calibration). Verify photos before buying.
+# Listings individually opened at build time: live/dead, location, notes (+pts when the
+# title omits them). Tier is set only where paint was actually judged — from the seller's
+# own description in the chaos deep-score, or from photos in the SWEEP overlay below;
+# everything else keeps the assumed Tabletop+ premium. Verify photos before buying.
 VERIFIED = {
  "127956050629": {"live":True,"loc":"Missouri, USA","pts":4300,
                   "note":"~4300pts. Title says READ DESCRIPTION — confirm every unit is painted."},
@@ -57,7 +64,7 @@ VERIFIED = {
  # via itm.ebaydesc.com/itmdesc/<id>). "msrp" = itemized estimate from the stated
  # contents at current GW retail; tier from seller's own description where stated.
  "236942163636": {"dead":True,"loc":"California, USA","pts":2000,"tier":"Tabletop",
-   "note":"SOLD Jul 20 — includes Be'lakor + Lord of Change + CSM half + 2 War Dogs (2,110pts listed)."},
+   "note":"SOLD Jul 20 — to us. This is the Shadow Legion collection (Be'lakor + Lord of Change + CSM half + 2 War Dogs, 2,110pts listed) — see quartermaster.html."},
  "188656011886": {"live":True,"loc":"South Carolina, USA","pts":2330,"msrp":1000,"tier":"Tabletop",
    "note":"PARTIAL PAINT — photos 4-6 show Legionaries + Warp Talons in bare primer. Painted units are solid Tabletop (Night Lords). ~2330pts, $1k of GW plastic. Rival offer pending."},
  "206417990509": {"live":True,"loc":"Texas, USA","msrp":820,"tier":"Tabletop",
@@ -118,12 +125,78 @@ EXTRA_CHAOS = [
 ]
 VERIFIED["407044410129"] = {"live":True,"loc":"USA","msrp":470,"tier":"Tabletop+",
   "note":"Pro painted. Shadow Legion-usable: 3 Chosen/Legionary squads + 2 Lords + MoP (~$300 MSRP); Discordant + Venomcrawler off-menu (resellable)."}
-VERIFIED["398197107865"] = {"live":True,"loc":"USA","auction":True,
-  "note":"AUCTION: 0 bids at $500 start, ends Thu — BIN is $1,699 (scores ~1.5x at BIN, ~4.9x only if won at start). Feed showed the bid, not BIN."}
 VERIFIED["127980047325"] = {"live":True,"loc":"United Kingdom","auction":True,
   "note":"PURE AUCTION: GBP 363 with 2 bids, ends Fri, no BIN. UK seller (add ship/customs). Final price unknowable — earlier 3.35x score was on a moving bid."}
-VERIFIED["366546401110"] = {"live":True,"loc":"Brighton, United Kingdom","auction":True,
-  "note":"PURE AUCTION: GBP 258 with 4 bids, ends Sun, no BIN. UK seller. The 4.8x 'score' was the current bid, not a price. Watch/snipe if photos check out."}
+
+# Visual paint-tier sweep of PHOTO_SWEEP (docs/sweep-2026-07-21.md): all 29 shortlisted listings
+# opened live, every gallery photo viewed at full res + zoom crops. Strict scale — any unpainted or
+# primed squad makes the lot Partial. Overlaid on VERIFIED, so it wins where both have an opinion.
+SWEEP = {
+ "398179688245": {"live":True,"loc":"Australia","tier":"Partial",
+   "note":"Photo sweep Jul 21: a GSC + Guard force (not 'Genestealers'); Neophyte squads unpainted grey, 2 Russ hulls flat black; block colours, no washes. AU$425 OBO."},
+ "178323247479": {"live":True,"tier":"Partial","auction":True,
+   "note":"AUCTION ($299.99, 0 bids Jul 21). Photo sweep: ~1/3 unpainted (black-primed squad + Dunecrawler, bare Kastelans, snapped Dragoon lance, loose sprues); the painted half is genuine Tabletop+ on Mars bases."},
+ "398182325496": {"live":True,"loc":"USA","tier":"Basic",
+   "note":"Photo sweep Jul 21: thick single-tone silver/red, no highlights, flat untextured bases; both Dreadknights appear to lack pilots. Playable, not display."},
+ "366546401110": {"live":True,"loc":"Brighton, United Kingdom","tier":"Tabletop","auction":True,
+   "note":"PURE AUCTION (GBP 258, 4 bids Jul 21). Title says '1 of 2' — the 2100pt army is SPLIT across two listings, so pts/$ is fictional. Paint: honest Tabletop (copper base+wash+drybrush), plain flat bases."},
+ "158101528667": {"live":True,"loc":"United Kingdom","tier":"High TT",
+   "note":"Photo sweep Jul 21: BEST-PAINTED LOT OF THE SWEEP — commission studio work (Wardaddy Miniatures proof card), smooth pink/magenta blends, textured tufted bases on every model. GBP 286 OBO."},
+ "327208669797": {"live":True,"loc":"USA","tier":"Partial",
+   "note":"Photo sweep Jul 21: Doomstalker + Plasmancer parts bare grey/white, every base plain black plastic; infantry Basic. Only 4 photos. Includes 10th-ed codex."},
+ "398197118214": {"live":True,"loc":"USA","tier":"Tabletop","auction":True,
+   "note":"AUCTION ($400 start, 0 bids Jul 21, BIN $1,499). Photo sweep: everything painted but 3+ different greens (merged collection), inconsistent basing; characters Tabletop+, some vehicles Basic."},
+ "318568479622": {"live":True,"loc":"United Kingdom","tier":"Tabletop+",
+   "note":"Photo sweep Jul 21: fully painted, flocked/tufted bases, characters + command Venom near display quality; two vehicle schemes. GBP 300 OBO."},
+ "236893740758": {"live":True,"loc":"USA","tier":"Partial",
+   "note":"Photo sweep Jul 21: every gold unit unfinished (bare grey blades, Sanguinor wings bare plastic), Redemptor flat black spray; red infantry clean but unshaded. Not a finished army."},
+ "376533559353": {"live":True,"loc":"United Kingdom","tier":"Partial",
+   "note":"Photo sweep Jul 21: bare grey Lychguard/Stalker/Spyder, black-primed Overlord, models snapped off bases, three mixed schemes (merged lot), Monolith missing parts. Nowhere near finished."},
+ "327257545250": {"live":True,"loc":"United Kingdom","tier":"Tabletop",
+   "note":"Photo sweep Jul 21: cohesive black/gunmetal grimdark scheme, textured bases done, nothing unpainted; Destroyers loose without stands; OOP metal minis. Honest listing. GBP 334."},
+ "307071460902": {"dead":True,"loc":"USA",
+   "note":"SOLD Jul 20 for $450. Real title read 'built and semi-painted': 2 big Knights painted, 6 Armigers silver primer — would have been Partial."},
+ "227337729652": {"live":True,"loc":"United Kingdom","tier":"Partial",
+   "note":"Photo sweep Jul 21: not 'fully painted' — unpainted model in the tray, Inceptors with bare weapons, Stormhawk pilot bare plastic; merged red/blue/black lot. Core infantry solid Tabletop. GBP 350 OBO."},
+ "398197107865": {"live":True,"loc":"USA","tier":"Partial","auction":True,
+   "note":"AUCTION ($500 opening, 0 bids Jul 21, BIN $1,699) — the '4.9x steal' was an opening bid. Photo sweep: heroes Tabletop+ but basecoat-only vehicles with grey plates, Inceptors on unpainted 3D-printed stands, flat-red captain, mixed basing — an unfinished force."},
+ "257604616911": {"live":True,"loc":"United Kingdom","tier":"Basic",
+   "note":"Photo sweep Jul 21: thick chalky block-colour green with chips/dust, crude flame freehand, off-scheme grey Eliminators; every base textured+tufted. Listed 'New' but a used repaint. GBP 400 OBO."},
+ "257585016061": {"live":True,"loc":"USA","tier":"Partial",
+   "note":"Photo sweep Jul 21: near army-wide bare black bases, raw-pewter metal characters, flat unshaded silver + spot colour; merged lot. Not the 'battle-ready' army titled."},
+ "188325223279": {"live":True,"loc":"USA","tier":"Tabletop+",
+   "note":"Photo sweep Jul 21: cohesive white/blue heraldic Ultramarines (~30 Primaris + Redemptor + characters) — edge highlights, checker freehand, weathering, plasma glow, every base done. One of the sweep's best buys."},
+ "358741312462": {"live":True,"loc":"USA","tier":"Tabletop",
+   "note":"Photo sweep Jul 21: monsters bone with washes on scenic bases (Tabletop+), gaunt hordes flatter white/orange; two sub-schemes; no bare plastic. Was 'in 1 cart'."},
+ "398162672602": {"live":True,"loc":"USA","tier":"Partial",
+   "note":"Photo sweep Jul 21: the Custodes read Tabletop+ (Shadowkeeper black/gold) but ~10 Sisters of Silence are flat black/unpainted and NOTHING is based; low-res photos, 2-feedback seller."},
+ "800340524235": {"live":True,"loc":"USA","tier":"Tabletop",
+   "note":"Photo sweep Jul 21: ~15 Noise Marines + Maulerfiend + characters painted (custom black/pink/green); 3 Rhinos Basic; AoS Sigvald proxy character. No primer."},
+ "398185912944": {"live":True,"loc":"USA","tier":"Tabletop+",
+   "note":"Photo sweep Jul 21: big kits High-TT (airbrushed gradients, panel lining, freehand), extremely cohesive; infantry bases plain black. Fixed $650, 16 watchers."},
+ "157943077842": {"live":True,"loc":"USA","tier":"Tabletop",
+   "note":"Photo sweep Jul 21: only 3 photos — cohesive bone/blue-black scheme with washes, monsters nicely shaded, mixed base styles; 3-feedback seller. Lower confidence."},
+ "298498210036": {"live":True,"loc":"USA","tier":"Tabletop+","auction":True,
+   "note":"AUCTION — 8 bids at $660, ended Jul 21 (23 watchers). Every model painted: recess lining, edge highlights, banners, weathered vehicles; merged silver-blue + bronze schemes; Land Raider, dread, Dreadknight, codex."},
+ "317914780462": {"live":True,"loc":"United Kingdom","tier":"Tabletop",
+   "note":"Photo sweep Jul 21: paint is Tabletop+ (pink-flesh/navy/white, washes + highlights) but the ENTIRE force sits on plain black undecorated bases. GBP 582."},
+ "318600164171": {"live":True,"loc":"USA","tier":"Tabletop+",
+   "note":"Photo sweep Jul 21: borderline High TT — blended blue armour, freehand checks, plasma/flame glow, weathering, fully flocked bases; Land Raider, tank, dread, characters. Cohesive and complete."},
+ "168501751335": {"live":True,"loc":"USA","tier":"Basic",
+   "note":"Photo sweep Jul 21: every model painted (drybrushed dark metallics + green energy) but bare black bases with unpainted rock scatter; an unbuilt sprue included. Borderline Tabletop but for the bases."},
+ "206417990509": {"live":True,"tier":"Partial",
+   "note":"Photo sweep Jul 21: HIGH RISK — single overhead photo, 0-feedback seller, ~20 bare grey Tzaangors + unpainted marine bodies; Kairos/Mutalith/Heldrake/Knight Despoiler at basic block-colour level on bare black bases."},
+ "188666300998": {"live":True,"auction":True,
+   "note":"Flipped to AUCTION Jul 21 ($800 opening, 0 bids, BIN $1,100). 22 photos: cohesive red/brass World Eaters scheme, blood effects, scenic snow bases (DP, Saturnine dread, Rhino, MoE, Termis, Berzerkers, Jakhals); thick paint up close — solid at arm's length, not 'pro'."},
+ "800372311561": {"live":True,"tier":"Primer",
+   "note":"AUCTION ($137, 1 bid Jul 21). PRIMER-ONLY: tray of ~30 bare grey models, infantry red/black rattle-can only, tanks mottled spray — a primed kit-value lot, not a painted army (explains the bid)."},
+ # eyeballed Jul 20 (handoff), not re-checked in the sweep
+ "188656011886": {"tier":"Partial"},
+ "358732050273": {"tier":"Tabletop"},
+ "206149396177": {"tier":"Tabletop+","note":"2500pts Tyranids — eyeballed Jul 20: Tabletop+/High TT, showcase basing; was 'in 1 cart'."},
+}
+for _id, _v in SWEEP.items():
+    VERIFIED.setdefault(_id, {}).update(_v)
 
 def parse_points(t):
     tl = t.lower()
@@ -220,6 +293,8 @@ def build_edition(raw_path, out_stem, edition_title, extra):
     meta = {
         "title": edition_title,
         "generated": datetime.date.today().isoformat(),
+        "scanned": FEED_SCANNED,
+        "photoSweep": PHOTO_SWEEP,
         "source": "eBay category feeds: bn_96974265 (all-faction painted complete armies, p1-5) + bn_119783045 (Necrons) + web-searched Be'lakor singles. Search API was bot-blocked; category pages used instead.",
         "currency": "USD (eBay converted display prices)",
         "count": len(rows),
@@ -230,11 +305,22 @@ def build_edition(raw_path, out_stem, edition_title, extra):
         "disclaimer": "Paint tier is ASSUMED Tabletop+ unless verifiedLive=true. 'Pro painted' is a seller claim. Points parsed from titles; many titles omit points (UNSCORED). Verify photos/contents/shipping before buying. Prices/availability change fast.",
     }
     payload = {"meta": meta, "listings": rows}
-    with open(os.path.join(HERE, out_stem + ".json"), "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=1, ensure_ascii=False)
-    # inlined copy so the HTML viewers open standalone via file:// (no fetch/CORS needed)
-    with open(os.path.join(HERE, out_stem + ".js"), "w", encoding="utf-8") as f:
-        f.write("window.SCORECARD_DATA = " + json.dumps(payload, ensure_ascii=False) + ";")
+    out_json = os.path.join(HERE, out_stem + ".json")
+    # only rewrite when something other than the build date moved (keeps git quiet)
+    try:
+        prev = json.load(open(out_json, encoding="utf-8"))
+        prev["meta"]["generated"] = meta["generated"]
+    except (OSError, ValueError, KeyError):
+        prev = None
+    out_js = os.path.join(HERE, out_stem + ".js")
+    if prev != payload or not os.path.exists(out_js):
+        with open(out_json, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=1, ensure_ascii=False)
+        # inlined copy so the viewers open via file:// (no fetch/CORS); keyed by edition so one page
+        # could load several — the viewer itself just reads SCORECARD_DATA
+        with open(out_js, "w", encoding="utf-8") as f:
+            f.write(f'window.SCORECARD_DATA = (window.SCORECARDS = window.SCORECARDS || {{}})["{out_stem}"] = '
+                    + json.dumps(payload, ensure_ascii=False) + ";")
 
     # console summary
     print(f"[{out_stem}] listings: {len(rows)} | scored: {len(scored)} | BUY: {len(buys)}")
@@ -246,13 +332,24 @@ def build_edition(raw_path, out_stem, edition_title, extra):
         live = " [LIVE]" if x["verifiedLive"] else ""
         print(f'   {x["valueRatio"]}x  {x["faction"]:<18} {x["priceDisplay"]:<14} {x["points"]}pt  {x["name"][:40]}{live}')
     print()
+    return payload
+
+EDITIONS = [
+    (RAW, "listings", "40K Painted Army Value Scorecard — All Factions", EXTRA),
+    (os.path.join(HERE, "data", "raw_chaos.psv"), "chaos",
+     "40K Painted Army Value Scorecard — Chaos / Be'lakor Edition", EXTRA_CHAOS),
+]
 
 def main():
-    build_edition(RAW, "listings", "40K Painted Army Value Scorecard — All Factions", EXTRA)
-    chaos_raw = os.path.join(HERE, "data", "raw_chaos.psv")
-    if os.path.exists(chaos_raw):
-        build_edition(chaos_raw, "chaos",
-                      "40K Painted Army Value Scorecard — Chaos / Be'lakor Edition", EXTRA_CHAOS)
+    seen = {}                                   # itemId -> verdict, across editions (they overlap)
+    for raw, stem, title, extra in EDITIONS:
+        for x in build_edition(raw, stem, title, extra)["listings"]:
+            if seen.get(x["itemId"]) != "BUY":
+                seen[x["itemId"]] = x["verdict"]
+    buys = sum(1 for v in seen.values() if v == "BUY")
+    market = (f'<span class="chip">Scorecard <b>{len(seen)}</b> listings · <b>{buys}</b> BUY-grade</span>'
+              f'<span class="chip">Feed scanned <b>{FEED_SCANNED}</b> · photos swept <b>{PHOTO_SWEEP}</b></span>')
+    pages.build(market)     # doc pages + shared nav (+ these numbers on the hub)
 
 if __name__ == "__main__":
     main()

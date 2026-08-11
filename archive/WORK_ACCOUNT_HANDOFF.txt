@@ -1,0 +1,3 @@
+Paste this into your WORK-account Claude session:
+
+Check this account for any prior Warhammer 40k work — Chaos Daemons, Shadow Legion, list building, eBay model scouting, or a repo/skill/artifact about it. Search your memory directory, published artifacts (action:list, scope:all), and any project folders. If you find anything: write a single portable summary (markdown, self-contained, no account-specific links) covering what was researched, any lists built, prices/listings found, and decisions made — I'll carry it to another machine. If you find nothing, say "no prior 40k context" and stop.

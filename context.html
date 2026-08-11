@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>40K context — read this first (state as of 2026-08-11)</title>
+<link rel="stylesheet" href="ledger.css">
+<link rel="stylesheet" href="nav.css">
+</head>
+<body>
+<div class="wrap">
+<!--nav--><nav class="sitenav" aria-label="Site"><a class="mark" href="index.html">Shadow <b>Legion</b> HQ</a><a href="quartermaster.html">Quartermaster</a><span class="sep">·</span><a href="primer.html">Primer</a><span class="sep">·</span><a href="lists.html">Lists</a><span class="sep">·</span><a href="scout.html">Scout</a><span class="sep">·</span><a href="scorecard.html">Scorecard</a><span class="sep">·</span><a href="chaos.html">Chaos board</a><span class="sep">·</span><a href="sweep-2026-07-21.html">Paint sweep</a><span class="sep">·</span><a href="index.html#shelf">Shelf</a></nav><!--/nav-->
+<p class="docmeta">Portable context · read this first in any new session, either account</p>
+<article class="doc">
+<h1 id="40k-context-read-this-first-state-as-of-2026-08-11">40K context — read this first (state as of 2026-08-11)</h1>
+<p>Portable summary of Evan's Warhammer 40,000 work: what he owns, what has been decided, what is
+open, and where everything lives. Written for a Claude session on <strong>either</strong> account (personal or
+work) — sessions, artifacts and memory don't cross accounts, this repo does. If you change the state
+of the army or the plan, update this file in the same commit.</p>
+<h2 id="1-the-one-paragraph-version">1. The one-paragraph version</h2>
+<p>Evan is a <strong>new 40K player</strong>. On 2026-07-20/21 he bought a painted ~2,000-pt <strong>Chaos Daemons
+"Shadow Legion"</strong> army on eBay (lot 236942163636, $730, Word Bearers red/black theme) built around
+<strong>Be'lakor</strong>. The rules were re-verified from primary sources on 2026-07-27 (11th edition, Munitorum
+Field Manual v1.1): six legal 2,000-pt lists (A–F) exist with a beginner's Primer explaining how to
+play each, plus a priced shopping list per list. Separately, a <strong>value scorecard</strong> scores every
+fully-painted army for sale on eBay (that tooling found the lot), and a photo sweep graded 29 of those
+listings' paint honestly. Everything is in the public repo <code>evbarleyg/40k-armies</code>; <code>index.html</code> is the hub.
+Explain jargon inline when talking to Evan — he wants to learn unit roles and nuances, not be handed conclusions.</p>
+<h2 id="2-where-things-live">2. Where things live</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Thing</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hub / site</td>
+<td><code>index.html</code> (GitHub Pages URL once enabled: <code>https://evbarleyg.github.io/40k-armies/</code>; any branch via <code>raw.githack.com/evbarleyg/40k-armies/&lt;branch&gt;/index.html</code>)</td>
+</tr>
+<tr>
+<td>Collection, six lists, shopping, verified rules</td>
+<td><code>quartermaster.html</code> (the "Shadow Legion Quartermaster" ledger)</td>
+</tr>
+<tr>
+<td>Full play guide</td>
+<td><code>docs/PRIMER.md</code> → <code>primer.html</code>; print layout <code>guide.html</code> → <code>GUIDE.pdf</code> (31 pp, <code>./make_guide.sh</code>)</td>
+</tr>
+<tr>
+<td>Lists with history and corrections</td>
+<td><code>docs/lists.md</code></td>
+</tr>
+<tr>
+<td>Rules digest + re-verification</td>
+<td><code>docs/research.md</code></td>
+</tr>
+<tr>
+<td>What came in the box</td>
+<td><code>docs/collection.md</code></td>
+</tr>
+<tr>
+<td>eBay buy targets for the lists (2026-07-27)</td>
+<td><code>docs/SCOUT_REPORT.md</code>, data <code>data/scout-2026-07-27.json</code> (114 listings), tools <code>tools/ebay_search.js</code>, <code>tools/ebay_fetch.js</code></td>
+</tr>
+<tr>
+<td>Painted-army value scorecards</td>
+<td><code>build.py</code> + <code>data/raw_*.psv</code> → <code>scorecard.html</code>, <code>chaos.html</code></td>
+</tr>
+<tr>
+<td>Photo paint-tier sweep (2026-07-21)</td>
+<td><code>docs/sweep-2026-07-21.md</code>; tiers merged via the <code>SWEEP</code> overlay in <code>build.py</code></td>
+</tr>
+<tr>
+<td>How to reach eBay from a cloud session</td>
+<td><code>docs/ebay-access.md</code></td>
+</tr>
+<tr>
+<td>House rules for any session</td>
+<td><code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td><code>docs/HANDOFF_2026-07-27.md</code>, <code>archive/</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>Accounts: the repo is on Evan's personal GitHub (<code>evbarleyg</code>, admin); his work-linked GitHub identity
+<code>ebg-ant</code> has write access, so Claude sessions from either Claude account can push. The earlier
+private repo <code>evbarleyg/daemon-quartermaster</code> (personal) held the army project until 2026-08-11; its
+files were brought here verbatim and it can be archived. Claude artifacts that exist in the work
+account: "Shadow Legion Quartermaster" (= <code>quartermaster.html</code>) and "REPORT.md" (= the sweep). The
+personal account has the original Quartermaster artifact (= <code>archive/quartermaster-2026-07-25.html</code>).</p>
+<h2 id="3-the-collection-ebay-lot-236942163636-730-acquired-2026-07-21">3. The collection (eBay lot 236942163636, $730, acquired 2026-07-21)</h2>
+<p>Points are MFM v1.1 (2026-07-22) as verified on 2026-07-27, not the seller's numbers.</p>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Unit</th>
+<th>Count</th>
+<th style="text-align: right;">Pts</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Be'lakor</td>
+<td>1</td>
+<td style="text-align: right;">390</td>
+<td>Must be Warlord (Supreme Commander). The only Epic Hero the detachment allows</td>
+</tr>
+<tr>
+<td>Lord of Change</td>
+<td>1</td>
+<td style="text-align: right;">320</td>
+<td>seller had 300</td>
+</tr>
+<tr>
+<td>Fateskimmer</td>
+<td>1</td>
+<td style="text-align: right;">95</td>
+<td></td>
+</tr>
+<tr>
+<td>Exalted Flamer</td>
+<td>1</td>
+<td style="text-align: right;">65</td>
+<td></td>
+</tr>
+<tr>
+<td>Nurglings</td>
+<td>3 bases</td>
+<td style="text-align: right;">45</td>
+<td>Infiltrators, OC 0</td>
+</tr>
+<tr>
+<td>Pink Horrors</td>
+<td>10</td>
+<td style="text-align: right;">150</td>
+<td></td>
+</tr>
+<tr>
+<td>Blue Horrors</td>
+<td>10</td>
+<td style="text-align: right;">125</td>
+<td>alt unit / split tokens</td>
+</tr>
+<tr>
+<td>Brimstone Horrors</td>
+<td>9</td>
+<td style="text-align: right;">—</td>
+<td>split tokens only</td>
+</tr>
+<tr>
+<td>Flamers</td>
+<td>3</td>
+<td style="text-align: right;">65</td>
+<td></td>
+</tr>
+<tr>
+<td>Screamers</td>
+<td>3</td>
+<td style="text-align: right;">80</td>
+<td></td>
+</tr>
+<tr>
+<td>Havocs (2 lascannon, 2 autocannon)</td>
+<td>5</td>
+<td style="text-align: right;">125</td>
+<td>CSM ally</td>
+</tr>
+<tr>
+<td>Legionaries</td>
+<td>10</td>
+<td style="text-align: right;">170 (or 2×5 at 90)</td>
+<td>CSM ally</td>
+</tr>
+<tr>
+<td>Master of Possession</td>
+<td>1</td>
+<td style="text-align: right;">60</td>
+<td>legal in Shadow Legion</td>
+</tr>
+<tr>
+<td>Possessed</td>
+<td>5</td>
+<td style="text-align: right;">120</td>
+<td>CSM ally</td>
+</tr>
+<tr>
+<td>War Dog Karnivore</td>
+<td>2</td>
+<td style="text-align: right;">310</td>
+<td>legal via Chaos Knights <em>Dreadblades</em> (≤3, no Warlord, no enhancements)</td>
+</tr>
+<tr>
+<td><em>Photo-extras, not on the seller's list — confirm against the box:</em></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td></td>
+</tr>
+<tr>
+<td>Beasts of Nurgle</td>
+<td>~3</td>
+<td style="text-align: right;">~225</td>
+<td></td>
+</tr>
+<tr>
+<td>Plague Drones</td>
+<td>~3</td>
+<td style="text-align: right;">~110</td>
+<td></td>
+</tr>
+<tr>
+<td>Bloodletters</td>
+<td>~10</td>
+<td style="text-align: right;">~110</td>
+<td></td>
+</tr>
+<tr>
+<td>Chaos Terminators</td>
+<td>?</td>
+<td style="text-align: right;">~175</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>Playable total with Pinks ≈ <strong>1,985 pts</strong> (the seller's "2,110" double-counted the Pink/Blue either-or).</p>
+<h2 id="4-rules-that-shaped-the-lists-verified-2026-07-27-re-verify-in-the-official-app-before-an-event">4. Rules that shaped the lists (verified 2026-07-27; re-verify in the official app before an event)</h2>
+<ul>
+<li><strong>Shadow Legion</strong> (Chaos Daemons detachment): <em>Thralls of the First Prince</em> lets specific CSM
+  datasheets in — <strong>Chaos Lord and Master of Possession are explicitly allowed</strong> — and bans every
+  DAEMON PRINCE and every <strong>EPIC HERO except Be'lakor</strong>. So <strong>Skulltaker and Karanak are illegal</strong>
+  (the original List 2 used both; fixed with Skullmaster + Bloodmaster). Skarbrand likewise.</li>
+<li><strong>Bloodthirster</strong>: one unified datasheet at <strong>320 pts</strong> (an old "~165" was a scrape error), and it
+  <strong>can take Fade to Darkness</strong> (it's a Shadow Legion Character, not an Epic Hero). Be'lakor 390 +
+  Bloodthirster 320 + Lord of Change 320 = 1,030, so all three fit in 2,000.</li>
+<li><strong>War Dogs</strong>: up to 3 in any all-CHAOS army via <em>Dreadblades</em>; they can't be Warlord or take enhancements.</li>
+<li><strong>Be'lakor must be the Warlord</strong> whenever he is in the list.</li>
+<li>~15 points values in the first notes were wrong (e.g. Pink Horrors 150 not 85, Havocs 125 not 165,
+  Chosen 135 not 90, Terminators 175 not 145, Bloodcrushers 95/190) — <code>docs/research.md</code> has the audit.</li>
+</ul>
+<h2 id="5-the-six-lists-all-2000-pts-shadow-legion-full-rosters-in-quartermasterhtml-play-guides-in-the-primer">5. The six lists (all 2,000 pts, Shadow Legion; full rosters in <code>quartermaster.html</code>, play guides in the Primer)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th></th>
+<th>List</th>
+<th>Idea</th>
+<th style="text-align: right;">Buy cost (Jul 27 scout, landed)</th>
+<th>Start here?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>The Yo-Yo Court</td>
+<td>Tzeentch shooting core holds; Chaos Lord + Legionaries deep-strike, kill, <em>Fade</em>, return free</td>
+<td style="text-align: right;">~$91–117</td>
+<td>after B/F</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Festering Court</td>
+<td>Nurgle Beasts/Drones squat objectives and refuse to die; War Dogs + Havocs shoot</td>
+<td style="text-align: right;">~$39</td>
+<td><strong>yes — cheapest</strong> (uses the photo-extras)</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Word Bearers Ascendant</td>
+<td>the marine half deep-strikes with Dark Pacts; daemons garnish</td>
+<td style="text-align: right;">~$159–213</td>
+<td>theme pick</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Crimson Cavalry (fixed)</td>
+<td>Khorne turn-1 alpha: Skullmaster + 6 Bloodcrushers scout-advance-charge</td>
+<td style="text-align: right;">~$480–545</td>
+<td>later, highest variance</td>
+</tr>
+<tr>
+<td>E</td>
+<td>The Fadethirster</td>
+<td>tournament shape: Crushers T1, Bloodthirster drops T2, kills, Fades, re-enters</td>
+<td style="text-align: right;">~$388–490</td>
+<td>once comfortable</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Triple Monster</td>
+<td>Be'lakor + Bloodthirster + Lord of Change, three 6" Shadow auras</td>
+<td style="text-align: right;">~$109–188</td>
+<td><strong>yes — most forgiving</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Shared buys across A/C/D: a Chaos Lord (~$20–30), Cultists ×10 (~$28), Flesh Hounds ×5. E and F both
+need one Bloodthirster (~$110–170 painted; NIB BIN was ~$143). Daemon kits are shared with Age of
+Sigmar — "Blades of Khorne" listings are the same models, often cheaper.</p>
+<h2 id="6-ebay-what-exists-and-the-house-rules">6. eBay: what exists and the house rules</h2>
+<ul>
+<li><strong>Everything price-related is a July snapshot</strong> (scorecard feed 2026-07-20, sweep 07-21, shopping
+  scrape 07-26, scout 07-27). Assume every specific listing has ended; the <em>methods</em> and <em>grades</em> hold.</li>
+<li><strong>Read-only, always</strong>: load public pages and photos; never log in, bid, offer, watch, message or check
+  out for Evan. Present findings; he buys.</li>
+<li><strong>Paint is judged from full galleries + zoom crops, never titles.</strong> Strict scale: PRIMER-ONLY /
+  PARTIAL (any unpainted or primed squad → not a finished army) / Basic / Tabletop / Tabletop+ /
+  High TT-Display. Flag auctions (a bid is not a price), split lots ("1 of 2"), 3D prints, merged
+  schemes, low-feedback sellers.</li>
+<li>Scorecard value model: <code>ratio = (kit MSRP × paint premium) / (price × 1.03 + $35)</code>, MSRP ≈ points ×
+  $0.45 unless itemized; premiums Partial/Primer 1.0 · Basic 1.3 · Tabletop 1.6 · Tabletop+ 2.0 ·
+  High TT 2.5 · Display 3.5; ≥ 1.5 BUY, 0.8–1.49 FAIR, &lt; 0.8 SKIP; AUCTION/SOLD/COMMISSION unscored.</li>
+<li>The 07-21 sweep of 29 shortlisted armies: 1 High TT/Display (pink Tyranids 158101528667, ~$385 —
+  commission work), 6 Tabletop+, 7 Tabletop, 3 Basic, <strong>10 Partial</strong>, 1 primer-only, 1 sold. Lesson:
+  "pro painted / tournament ready" titles routinely hide primer-grey squads in photo 12 of 20.</li>
+<li>Reaching eBay from a cloud agent: curl is Akamai-403'd on item/search pages; headless Chromium works
+  with the post-quantum-TLS policy off and a consistent UA — <code>docs/ebay-access.md</code>, <code>tools/</code>.</li>
+</ul>
+<h2 id="7-decisions-log">7. Decisions log</h2>
+<ul>
+<li>2026-07-20 — Bought lot 236942163636 ($730) rather than an army + a separate painted Be'lakor
+  (no complete Be'lakor armies were listed; singles ran $450–600 from Eastern-EU sellers).</li>
+<li>2026-07-20 — Scorecard: never score a current auction bid (two "4.9×/4.8× steals" were opening bids).</li>
+<li>2026-07-21 — Paint tiers come from photos only; strict Partial rule adopted.</li>
+<li>2026-07-27 — The Jul 20 shopping plan (Night Lords mega-lot $650 + Seekers lot + Bloodletters,
+  ~$830) was <strong>dropped</strong>: Bloodletters were already in the box, Seekers are in no list, and targeted
+  $20–350 buys per list beat a mega-lot. Skip Red Corsairs lots (duplicate what's owned) and anything
+  whose centrepiece is an Epic Hero.</li>
+<li>2026-07-27 — Lists renumbered A–F; List 2's Skulltaker/Karanak replaced (illegal); E and F added.</li>
+<li>2026-07-27 — Publishing the then-private repo as a site was deliberately left undecided (it would
+  have made the collection and buy plans public).</li>
+<li>2026-08-11 — Evan asked to consolidate everything into this (public) repo and make the pages here;
+  <code>daemon-quartermaster</code> is superseded. GitHub Pages on this repo is his one-click call (Settings → Pages).</li>
+</ul>
+<h2 id="8-open-threads">8. Open threads</h2>
+<ol>
+<li>Choose B or F (or A) and buy for it — re-run the scout first; the Bloodthirster is the swing purchase for E/F.</li>
+<li>Inventory the box against <code>docs/collection.md</code>; settle the photo-extra counts (Beasts, Drones, Bloodletters, Terminators?).</li>
+<li>Re-check <code>~</code> points and Dreadblades in the official app before any event; MFM will move again.</li>
+<li>Transport: asked, never sized — N52 magnets + a steel-lined box/rack for the three big models, foam for infantry, magnetised wings.</li>
+<li>Scorecard refresh whenever the market matters again: <code>scrape.js</code> → <code>data/raw_listings.psv</code> → <code>python3 build.py</code> → photo-sweep the BUYs.</li>
+<li>Enable GitHub Pages (admin-only setting) and archive <code>daemon-quartermaster</code>, or add <code>ebg-ant</code> to it.</li>
+</ol>
+<h2 id="9-working-on-this-repo">9. Working on this repo</h2>
+<pre><code class="language-bash">pip install markdown             # once
+python3 build.py                 # rescore data → listings/chaos .json/.js, then render docs + sync nav (pages.py)
+python3 pages.py                 # docs only
+NODE_PATH=$(npm root -g) ./make_guide.sh   # GUIDE.pdf from guide.html (needs node playwright + Chromium)
+</code></pre>
+<p>Add a page: drop a markdown file in <code>docs/</code>, register it in <code>DOCS</code> (and <code>NAV</code> if it deserves the top
+strip) in <code>pages.py</code>, run it. Keep this file and <code>CLAUDE.md</code> truthful.</p>
+</article>
+<footer><p>Rendered from <code>docs/CONTEXT.md</code> · edit the markdown, then <code>python3 pages.py</code>.</p></footer>
+</div>
+</body>
+</html>

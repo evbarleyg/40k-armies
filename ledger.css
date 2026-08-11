@@ -1,0 +1,100 @@
+/* Shadow Legion ledger theme — shared by the HQ hub, the Quartermaster and the rendered docs.
+   Dark-first; follows the OS into light, and an explicit data-theme stamp wins either way. */
+:root, :root[data-theme="dark"]{
+  --ground:#171114; --panel:#201519; --panel2:#281a1e; --ink:#eaddcc; --dim:#a2917f;
+  --crimson:#b3242f; --crimson-soft:#c9646b; --brass:#b08a52; --line:#3d2b2e;
+  --own:#79a274; --buy:#b3242f; --code:#2c1d21;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#f0e8d8; --panel:#faf4e8; --panel2:#f3ead9; --ink:#261b17; --dim:#6e5f52;
+    --crimson:#8e1c26; --crimson-soft:#a63b42; --brass:#805f2e; --line:#d9cab2;
+    --own:#47663f; --buy:#8e1c26; --code:#ece0c8;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#f0e8d8; --panel:#faf4e8; --panel2:#f3ead9; --ink:#261b17; --dim:#6e5f52;
+  --crimson:#8e1c26; --crimson-soft:#a63b42; --brass:#805f2e; --line:#d9cab2;
+  --own:#47663f; --buy:#8e1c26; --code:#ece0c8; color-scheme:light;
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{ background:var(--ground); color:var(--ink); margin:0; padding:0 20px 80px;
+  font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+.wrap{ max-width:1080px; margin:0 auto; }
+h1,h2,h3,h4{ font-family:Palatino,"Palatino Linotype","Book Antiqua",Georgia,serif; text-wrap:balance;
+  line-height:1.2; }
+a{ color:var(--crimson-soft); text-decoration-thickness:1px; text-underline-offset:2px; }
+a:hover{ color:var(--crimson); }
+a:focus-visible, button:focus-visible, summary:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+img{ max-width:100%; }
+
+header.mast{ padding:40px 0 20px; border-bottom:3px double var(--crimson); margin-bottom:30px; }
+.eyebrow{ text-transform:uppercase; letter-spacing:.24em; font-size:11px; color:var(--brass); margin:0 0 8px; }
+header.mast h1{ font-size:38px; margin:0 0 6px; letter-spacing:.01em; }
+h1 .red{ color:var(--crimson); }
+.sub{ color:var(--dim); margin:0 0 18px; max-width:64ch; }
+.chips{ display:flex; flex-wrap:wrap; gap:10px; }
+.chip{ border:1px solid var(--line); background:var(--panel); border-radius:3px; padding:6px 12px; font-size:12.5px; }
+.chip b{ font-family:ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums; color:var(--brass); font-weight:600; }
+
+h2{ font-size:23px; margin:44px 0 4px; }
+h2::before{ content:"§ "; color:var(--crimson); }
+.note{ color:var(--dim); font-size:13px; margin:0 0 16px; max-width:78ch; }
+
+table{ border-collapse:collapse; width:100%; font-size:13.5px; }
+.scroll{ overflow-x:auto; border:1px solid var(--line); background:var(--panel); }
+th{ text-align:left; text-transform:uppercase; letter-spacing:.1em; font-size:10.5px; color:var(--brass);
+  padding:9px 12px; border-bottom:1px solid var(--line); background:var(--panel2); }
+td{ padding:7px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+tr:last-child td{ border-bottom:0; }
+td.n{ font-family:ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+.tag{ display:inline-block; font-size:10px; text-transform:uppercase; letter-spacing:.12em; border-radius:2px;
+  padding:2px 7px; font-weight:600; white-space:nowrap; }
+.tag.own{ color:var(--own); border:1px solid var(--own); }
+.tag.buy{ color:#fff; background:var(--buy); }
+.tag.verify{ color:var(--brass); border:1px solid var(--brass); }
+
+.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:860px){ .grid2,.grid3{ grid-template-columns:1fr; } }
+.card{ border:1px solid var(--line); background:var(--panel); padding:18px 20px 20px; }
+.card h3{ margin:0 0 2px; font-size:19px; }
+.card .kind{ text-transform:uppercase; letter-spacing:.18em; font-size:10.5px; color:var(--crimson); margin:0 0 12px; }
+.card p{ margin:10px 0 0; font-size:13.5px; }
+.card table{ font-size:12px; margin-top:4px; }
+.card td{ padding:4px 8px; }
+.card th{ padding:5px 8px; font-size:9.5px; }
+.total{ margin-top:10px; padding-top:8px; border-top:1px solid var(--line); font-family:ui-monospace,Menlo,monospace;
+  color:var(--crimson); font-size:13px; }
+.rules li{ margin:0 0 10px; font-size:13.5px; }
+.rules b{ color:var(--brass); }
+footer{ margin-top:56px; border-top:1px solid var(--line); padding-top:16px; color:var(--dim); font-size:12.5px; }
+code{ font-family:ui-monospace,Menlo,monospace; font-size:.9em; background:var(--code); padding:1px 5px; border-radius:3px; }
+pre{ background:var(--code); border:1px solid var(--line); padding:12px 14px; overflow-x:auto; font:12.5px/1.45 ui-monospace,Menlo,monospace; color:var(--ink); }
+pre code{ background:none; padding:0; font-size:inherit; }
+
+/* rendered markdown docs */
+/* prose keeps a readable measure; tables and code blocks may run the full wrap width */
+.doc > p, .doc > ul, .doc > ol, .doc > blockquote, .doc > h1, .doc > h2, .doc > h3, .doc > h4{ max-width:78ch; }
+.doc{ overflow-wrap:break-word; }
+.doc p code, .doc li code, .doc td code{ overflow-wrap:anywhere; }   /* long paths/URLs in inline code must wrap on phones */
+.doc h1{ font-size:34px; margin:34px 0 8px; }
+.doc h2{ margin-top:44px; padding-bottom:6px; border-bottom:3px double var(--crimson); }
+.doc h2::before{ content:none; }
+.doc h3{ font-size:21px; margin:30px 0 6px; color:var(--crimson-soft); }
+.doc h4{ margin:22px 0 4px; color:var(--brass); font-family:inherit; text-transform:uppercase;
+  letter-spacing:.12em; font-size:12px; font-weight:600; }
+.doc p, .doc li{ font-size:15px; }
+.doc li{ margin:3px 0; }
+.doc ul, .doc ol{ padding-left:1.3em; }
+.doc blockquote{ margin:16px 0; padding:8px 16px; border-left:3px solid var(--brass); background:var(--panel); color:var(--dim); }
+.doc blockquote p{ margin:6px 0; }
+.doc hr{ border:0; border-top:1px solid var(--line); margin:30px 0; }
+.doc .scroll{ margin:14px 0; }
+.doc table{ font-size:13px; }
+.docmeta{ color:var(--dim); font-size:12.5px; margin:22px 0 0; text-transform:uppercase; letter-spacing:.14em; }
