@@ -250,7 +250,7 @@ def region_inventory_md(store, d):
         rows.append(f"| {u['name']} | {count} | {pts}{' *verify*' if u.get('verify') else ''} | {i['paint']} | {frm} | {i.get('note', '')} |")
     for o in store["orders"]:
         if o["status"] != "delivered":
-            rows.append(f"| **{o['item']}** | ? | — | {o['state'].lower()} | {fmt_date(o['date'])} | {order_status(o)} — {o.get('expected', 'contents pending')} |")
+            rows.append(f"| **{o['item']}** | ? | — | ? (listed as “{o['state'].lower()}”) | {fmt_date(o['date'])} | {order_status(o)} — {o.get('expected', 'contents pending')} |")
     if d:
         approx_models = any(i.get("approx") for i in store["inventory"] if i["status"] == "owned")
         approx_transit = any(o.get("approx") for o in store["orders"] if o["status"] != "delivered")
@@ -261,6 +261,24 @@ def region_inventory_md(store, d):
     return "\n".join(rows)
 
 STATUS_WORD = {"ready": "**Playable today**", "hobby": "Owned — hobby work first", "buy": "Needs purchases"}
+
+def gap_words(missing, units):
+    """Same wording as the app: 'Bloodcrushers ×9 (as 2 units: 6 and 3)', top-ups as '1 more model to complete the owned unit'."""
+    order, agg = [], {}
+    for x in missing:
+        a = agg.setdefault(x["unit"], {"parts": [], "have": 0})
+        if x["unit"] not in order: order.append(x["unit"])
+        a["parts"].append(x["models"]); a["have"] += x.get("have") or 0
+    out = []
+    for uid in order:
+        a, u = agg[uid], units[uid]; n = sum(a["parts"]); smallest = min(s["models"] for s in u["sizes"])
+        top = next((p for p in a["parts"] if p < smallest), None) if a["have"] else None
+        if top is not None and len(a["parts"]) == 1: out.append(f"{u['name']}: {top} more model{'s' if top != 1 else ''} ({a['have']} of {a['have'] + top} owned)")
+        elif top is not None:
+            rest = [p for p in a["parts"] if p != top]
+            out.append(f"{u['name']}: {top} more model{'s' if top != 1 else ''} to complete the owned unit, plus " + (f"a unit of {rest[0]}" if len(rest) == 1 else "units of " + " and ".join(map(str, rest))))
+        else: out.append(f"{u['name']} ×{n}" + (f" (as {len(a['parts'])} units: {' and '.join(map(str, a['parts']))})" if len(a["parts"]) > 1 else ""))
+    return ", ".join(out)
 
 def merge_gap(text):
     """'Bloodcrushers ×6, Bloodcrushers ×3' → 'Bloodcrushers ×9 (6+3)' for readability."""
@@ -283,14 +301,14 @@ def region_lists_md(store, d):
     rows = ["| List | Idea | Total | Legal | Status | Gap |", "|---|---|---|---|---|---|"]
     for l in store["lists"]:
         r = d["lists"][l["id"]]; lint, cov = r["lint"], r["coverage"]
-        gap = ", ".join(f"{units[m['unit']]['name']} ×{m['models']}" for m in cov["missing"]) or ("; ".join(f"{units[h['unit']]['name']}: {h['paint']}" for h in cov["hobby"]) or "—")
+        gap = gap_words(cov["missing"], units) or ("; ".join(f"{units[h['unit']]['name']}: {'on sprue' if h['paint'] == 'unassembled' else h['paint']}" for h in cov["hobby"]) or "—")
         lo, mid, priced = gap_estimate(cov["missing"], prices, units)
-        partial = " for the priced part" if priced < len(cov["missing"]) else ""
+        partial = f" ({priced} of {len(cov['missing'])} units priced)" if priced < len(cov["missing"]) else ""
         verify = [f["msg"] for f in lint["flags"] if f["level"] == "warn"] + [f"{f['msg']}" for e in lint["entries"] for f in e["flags"] if f["level"] == "warn"]
         seen_v = []; [seen_v.append(x) for x in verify if x not in seen_v]
         short = [re.split(r"[—:(]", x)[0].strip() for x in seen_v]
         legal = ("yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}") + (f" ({len(seen_v)} to verify in the app: {'; '.join(short)})" if seen_v else "")
-        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {merge_gap(gap)}{f' (from ≈${round(lo):,}{partial}, Jul 27 BIN prices, auctions and part-kits excluded)' if priced else ''} |")
+        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {gap}{f' (from ≈${round(lo):,}{partial}, Jul 27 BIN prices, auctions and part-kits excluded)' if priced else ''} |")
     return "\n".join(rows)
 
 def region_context_md(store, d):

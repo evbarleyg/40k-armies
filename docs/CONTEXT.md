@@ -12,7 +12,7 @@ of the army or the plan, update this file in the same commit.
 - **Owned:** 21 inventory records, ≈92 models, 2,730 pts at MFM v1.1 (2,410 table-ready); spent ≈ $1,391 over 7 orders.
 - **Inbound:** Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed Aug 11).
 - **Lists:** playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,950), D (1,995), E (1,980).
-- **Games logged:** 0 (rule: 10 before the next model, counting after the two inbound crates (the Khorne lot and the Bloodcrushers) are catalogued).
+- **Games logged:** 0 (rule: 10 before the next model, counting once the two inbound crates (the Khorne lot and the Bloodcrushers) are catalogued).
 <!--/gen:state-->
 
 *Generated from `data/muster.json` by `muster.py build`. The Muster app (`index.html`) reads the same store; the

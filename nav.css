@@ -10,7 +10,7 @@
 .sitenav a[aria-current="page"]{ color:var(--crimson-soft, var(--crimson)); text-decoration:underline; text-underline-offset:4px; }
 .sitenav .sep{ color:var(--line); }
 @media (max-width:520px){          /* one scrollable row on phones instead of three wrapped ones */
-  .sitenav{ flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:4px 0 2px; gap:4px 12px; letter-spacing:.12em; scrollbar-width:none;
+  .sitenav{ flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:4px 18px 2px; gap:4px 12px; letter-spacing:.12em; scrollbar-width:none;
     -webkit-mask-image:linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%); }
   .sitenav::-webkit-scrollbar{ display:none; }
 }
