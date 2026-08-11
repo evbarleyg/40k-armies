@@ -28,8 +28,13 @@ The Book of Fire*, groups of **Word Bearers** and Alpha Legion "united under the
 ritual and called forth Be'lakor into real space" ([coverage of the book](http://admechknight.blogspot.com/2021/07/warzone-charadon-book-of-fire-spoilers.html)),
 after which he stole the Knight world Kolossi, remade it as mist-shrouded **Korvosi**, and turned a third of House Raven into
 **House Korvax** — Chaos Knights that serve him still ([House Korvax](https://warhammer40k.fandom.com/wiki/House_Korvax)).
-No named Host or novel ties the XVII Legion to him more tightly than that; the canon leaves the space open, which is
-exactly what a personal army wants.
+The Word Bearers in question even have a name: **the Faithful**, the warband of the Dark Apostle **Tsorr'Kanath**, sent by
+Typhus to pin House Raven, who "ignored the Traveller's orders and instead began their own agenda", merged with the Alpha
+Legion's Subtle Blades as the Disciples, and worked the summoning ([the Faithful](https://wh40k.lexicanum.com/wiki/Faithful_(Warband)),
+[Tsorr'Kanath](https://wh40k.lexicanum.com/wiki/Tsorr'Kanath), [the Disciples](https://wh40k.lexicanum.com/wiki/Disciples_(Warband)));
+the Chaos Knights codex adds that House Korvax fights "alongside the Alpha Legion or Word Bearers, themselves believed to be
+devotees of Be'lakor" ([Lexicanum](https://wh40k.lexicanum.com/wiki/House_Korvax)). No novel tells their story, so the
+*character* of the bargain is open — which is exactly the space a personal army wants.
 
 So the vision is not to hide the mixture but to *stage* it: **everything in this army stands inside Be'lakor's shadow.**
 The lore never says his daemons turn grey; it says his host marches under "a pall of unnatural shadow"
@@ -41,12 +46,27 @@ light — the light of Be'lakor's blade — in every eye, blade and rune across 
 speaks this grammar: a near-black body worked up through cold greys, tarnished gold, and a single pale spectral flame on
 the Blade of Shadows ([Goonhammer's paint-along](https://www.goonhammer.com/how-to-paint-everthing-belakor/)). The Word
 Bearers stay proudly Word Bearers — crimson, brass, scripture — because they are the priesthood that opened the door,
-and GW's one published livery for Be'lakor's mortal servants (House Korvax: black, tan and red with brass trim, "mist-shrouded")
-is a dark conventional scheme plus atmosphere, not monochrome ([1d6chan](https://1d6chan.miraheze.org/wiki/Chaos_Knight),
-[GW's Korvax video](https://www.facebook.com/WarhammerOfficial/videos/how-to-paint-house-korvax-chaos-knights/363293892433030/)).
-The War Dogs wear the black-and-brass of the house he stole.
+and GW's one published livery for Be'lakor's mortal servants — House Korvax, near-black and pale grey ("grey and white"),
+knights that "loom out of the cloying shadow that surrounds them like monolithic spectres"
+([Warhammer Community](https://www.warhammer-community.com/2022/03/31/these-chaos-knight-dread-households-are-coming-to-stomp-on-the-galaxy/),
+[GW's Korvax video](https://www.facebook.com/WarhammerOfficial/videos/how-to-paint-house-korvax-chaos-knights/363293892433030/)) —
+is a dark conventional scheme plus atmosphere, not monochrome. The War Dogs wear the black-and-bone of the house he stole.
 
 In one line: **value does the unifying, hue does the identifying, and one light ties the knot.**
+
+You would be in good company. TheChirurgeon re-mustered a decades-old, god-coloured daemon collection around a newly
+painted Be'lakor by rebasing rather than repainting ([Goonhammer](https://www.tabletopbattles.com/thechirurgeons-road-through-2025-part-12-testing-the-shadow-legion));
+No Rerolls fields a Legion of the First Prince in full classic god colours unified by nothing but identical basing and
+rims ([blog](https://norerolls.co.uk/2025/01/15/return-of-the-legion-belakor-and-his-pals-in-4e/)) — proof that Phase 1
+below already works; Arc40k's Disciples of Be'lakor pulled all four gods into one warp palette, carried unit identity on
+custom god-icon decals, and added House Korvax knights "one War Dog for each Chaos God" ([Arc40k](https://www.arc40k.com/post/disciples-of-be-lakor-8),
+[the knights](https://www.arc40k.com/post/things-are-moving)); Max Soule unified a dark Be'lakor host with a single light
+source from the bases ([Warhammer Community](https://www.warhammer-community.com/2022/02/10/this-belakor-paint-job-uses-stunning-object-source-lighting-to-shine-a-light-on-the-dark-master/));
+Lil Legend's old Be'lakor was briefed as "materialising from the shadow into reality using an extremely limited palette
+with only red OSL as a spot colour" ([Lil Legend](http://loserstudio.blogspot.com/2014/11/belakor-lord-of-shadows-daemon-prince.html));
+and a Word Bearers Gal Vorbak commission painted the daemon flesh blue-grey "through to black towards the hands and feet"
+for "a delightful ethereal feeling" ([Legion Painting Studio](https://legionpaintingstudio.co.uk/2023/12/10/warhammer-40000-gal-vorbak-word-bearers/)) —
+which is Rule 2 arriving on the marines, and exactly the bridge Rule 4 uses.
 
 ## The story (yours to rename)
 
@@ -54,8 +74,9 @@ In one line: **value does the unifying, hue does the identifying, and one light 
 Anointed in Terminator plate, a Master of Possession tending the rite the XVII Legion invented when the Chapter of
 the Serrated Sun walked into the Eye and came back sharing its flesh with daemons, the first Gal Vorbak, "the first to
 wear the crimson colour that would become the standard" ([Gal Vorbak](https://warhammer40k.fandom.com/wiki/Gal_Vorbak)).
-They were among the Disciples at Charadon by choice. Somewhere between the summoning and Korvosi the choice became a
-creed: if the Word says the gods are real and Undivided, then the First Prince — the only being all four ever crowned
+They marched at Charadon among the Faithful, by choice, and the Host has had no Dark Apostle of its own since Dhaku — dead
+in the rite, or simply still Tsorr'Kanath and elsewhere — which is why a Master of Possession carries the lantern. Somewhere
+between the summoning and Korvosi the choice became a creed: if the Word says the gods are real and Undivided, then the First Prince — the only being all four ever crowned
 together — is the Word made flesh, and Lorgar's silence from Sicarus is its own answer. The Dark Council would call
 that apostasy (the rules agree: Disciples Space Marines *replace* their Legion trait,
 [Goonhammer](https://www.goonhammer.com/war-zone-charadon-the-book-of-fire-review-chaos/)). The Host calls it the
@@ -93,7 +114,11 @@ offered as a starting kit, not canon:
 | War Dog Karnivores ×2 | Korvosi outriders, thrones whispering | ***Penumbral Writ*** and ***Keep's Lament*** |
 
 None of this is load-bearing. It exists so the army has an answer when someone across the table asks "so what are they?",
-and so champions, banners and War Dog panels have words to carry.
+and so champions, banners and War Dog panels have words to carry. For the banners themselves, the old Dark Tongue gives
+*ulgu* (shadow-grey), *phaos* (spirit, daemon) and a summoner's line worth lettering around a base rim — "Ksy'Iakash Dhaos
+Akhamshy'y Khaos Akso'mi", "the door is unlocked; Daemons of Chaos, I call thee forth" ([Dark Tongue](https://wh40k.lexicanum.com/wiki/Dark_Tongue)) —
+and the naming digest in `docs/research/` carries the full kit: canon Word Bearers names and ships, Host offices, daemon
+use-name habits per god.
 
 ## The look: five rules
 
@@ -150,7 +175,11 @@ lens, rune and base-crack. Default, if his sword needs repainting or you want th
 white core haloed in pale spectral blue-green (White Scar → thin Aethermatic Blue over and around it → White Scar
 re-dotted → optional Baharroth Blue feathered onto adjacent black skin;
 [the 20-minute OSL method](https://www.goonhammer.com/how-to-paint-everything-quick-and-easy-osl-the-20-min-methods)).
-It is near-complementary to crimson, belongs to none of the four gods, and it is what GW put on the Blade of Shadows.
+It is near-complementary to crimson, belongs to none of the four gods, and it is what GW put on the Blade of Shadows
+(the closest reconstructions of the studio model give a black skin lifted with Stegadon Scale Green → Sons of Horus Green —
+a cold teal-grey — purple-brown membranes, and a sword flame worked through Temple Guard / Baharroth Blue into purple smoke:
+[Paint Pad](https://paintpad.app/recipes/3837-belakor-the-dark-master); the community's shorthand for "undivided" skin is the
+same cold blue-black, e.g. Incubi Darkness → The Fang → Administratum Grey, [Bughaus](https://stwiddy.wordpress.com/2019/11/30/belakor-daemon-prince/)).
 Two rules keep it from going wrong: the light must be the brightest, most saturated mark on the model, and it does not
 wrap around limbs ([OSL basics](https://creativetwilight.com/osl/)). Fire stays the god's — Tzeentch flame is pink-blue,
 a hellblade's heat is orange — but *eyes and edges* are always corpse-light. 1–3 minutes per infantry model; it is the
@@ -192,7 +221,12 @@ cuneiform ([Bolter & Chainsword](https://bolterandchainsword.com/topic/262497-wr
   daemonic runes and Colchisian "sacred geometry", [contents](https://miniset.net/sets/gw-99510102012)) for icons and the
   War Dog panels; a Sakura Pigma Micron 005/01 for scripture lines on parchment and shin plates (write on matte, let it dry
   overnight, seal with a *sprayed* varnish — a brush smears it, [caveats](https://www.dakkadakka.com/dakkaforum/posts/list/747151.page));
-  brush freehand only for three or four big hero runes ([rune recipe](https://paintpad.app/recipes/1425-word-bearers-colchisian-runes)).
+  brush freehand only for three or four big hero runes ([rune recipe](https://paintpad.app/recipes/1425-word-bearers-colchisian-runes);
+  Andy Clark freehanded "daemonscript" across a whole studio-featured Word Bearers army — [part one](https://www.warhammer-community.com/2017/02/19/bearers-of-the-word-article-one/),
+  [part two](https://www.warhammer-community.com/2017/05/17/andy-clarks-bearers-of-the-word-part-2/)). Water reactivates micron
+  ink until it is sealed, so glaze near it only after the varnish. The transfer sheet's own description promises "daemonic runes,
+  sacred geometry drawn from Colchisian astrology, and passages of religious script copied from the Book of Lorgar"
+  ([GW](https://www.warhammer.com/en-US/shop/word-bearers-legion-transfer-sheet-2022)).
 - **The Eclipse glyph** — a black disc with a thin corpse-light rim — replaces the Host badge on one pauldron per marine
   and sits on each War Dog's tilting plate. It is a two-brush freehand: a Corvus Black circle, a broken ring of White Scar
   glazed with Aethermatic Blue.
@@ -246,24 +280,30 @@ marines, daemons in their gods' colours, Be'lakor dark). Times are careful-begin
 
 The lore hands these two a home: **House Korvax**, "an Infernal house of the Dark Mechanicum in service to Be'lakor…
 a splinter of the Loyalist House Raven corrupted by the Dark Master during the Charadon Campaign", ruling a world
-"enshrouded by a darkness so vast that it stretches into the surrounding void"
-([House Korvax](https://warhammer40k.fandom.com/wiki/House_Korvax)); livery black, tan and red with brass trim
-([1d6chan](https://1d6chan.miraheze.org/wiki/Chaos_Knight)). Whatever colour the hulls arrived in, seven quick wins make
-them the Host's ([Chaos Knights HTPE](https://www.tabletopbattles.com/how-to-paint-everything-chaos-knights/)), in
-priority order, ~2–3 h per Dog:
+"enshrouded by a darkness so vast that it stretches into the surrounding void" — "where they appear the stars vanish from
+the heavens… light sources flicker and die" ([House Korvax](https://warhammer40k.fandom.com/wiki/House_Korvax)). GW paints
+them near-black with pale grey-white panels ("grey and white") and their badge is "simply a raven, its wings raised in a
+subtle mockery of House Raven" ([Warhammer Community](https://www.warhammer-community.com/2022/03/31/these-chaos-knight-dread-households-are-coming-to-stomp-on-the-galaxy/),
+[Lexicanum](https://wh40k.lexicanum.com/wiki/House_Korvax); a Contrast walkthrough of exactly these kits:
+[Contrast+ House Korvax War Dogs](https://www.youtube.com/watch?v=rPTKAGffG4w)). Whatever colour the hulls arrived in,
+seven quick wins make them the Host's ([Chaos Knights HTPE](https://www.tabletopbattles.com/how-to-paint-everything-chaos-knights/)),
+in priority order, ~2–3 h per Dog:
 
 1. **Base** — the biggest, most scenic version of Rule 1: toppled flagstones, a candle stub, an obsidian crack carrying corpse-light.
 2. **Trim to bronze** — trim is most of what the eye reads on a Knight.
-3. **One heraldic panel each** in Word Bearers crimson (Khorne Red → Nuln Oil recess → Wazdakka edge) with a Legion
-   transfer: vassals wearing the Host's colours. Tilting plate = the Eclipse glyph; the other shoulder = the Dog's own kill-marks.
+3. **Heraldry.** One panel each in Word Bearers crimson (Khorne Red → Nuln Oil recess → Wazdakka edge) with a Legion
+   transfer — vassals wearing the Host's colours; the Korvax raven, wings raised, on the other shoulder in bone on black;
+   the Eclipse glyph on the tilting plate. If the hulls are pale or bright, take the main plates to near-black and leave one
+   or two panels pale grey-white — that *is* the Korvax livery.
 4. **Shadow up the legs** — sponge-stipple Corvus/Abaddon Black densest at the feet, gone by the knee, then a light drybrush
    of the ash colour on the toes: battlefield grime and Be'lakor's shadow climbing the machine, in one step. Stop at the knee.
 5. **Corpse-light** in lenses, vents, exhaust interiors and the chaintalon's coils.
 6. **A verse of script** along the carapace edge; two or three parchment strips; chains and skulls in bronze and bone.
 7. **Matte varnish** the whole engine so old and new paint share one finish; gloss the lenses.
 
-If the hulls are already black or very dark, you are most of the way to Korvax; if they are Word Bearers red, keep the red
-as the house's "tan and red" panels and let steps 2, 4 and 5 do the work.
+If the hulls are already black or very dark, you are most of the way to Korvax; if they arrived Word Bearers red, keep one
+red panel as the vassal mark, darken the rest, and let steps 2, 4 and 5 do the work. Canon Korvax trim is plain metal; the
+Host's bronze on these two is the mark of whom they march with.
 
 ## Doing it: four phases
 
@@ -425,12 +465,15 @@ Khorne-cavalry purchase for List E until the autumn dataslate shows where Shadow
 
 ## Sources and confidence
 
-Four research digests were compiled for this document on 2026-08-11 and sit in the repo under `docs/research/`
-(`2026-08-11-lore-and-visual-canon.md`, `-hobby-cohesion.md`, `-rules-meta.md`, `-transport.md`) with every URL and
-every "uncited" flag intact; their conclusions are inlined above. Confidence, honestly: the lore spine (Be'lakor's nature, the Charadon
-summoning by Word Bearers among the Disciples, House Korvax, the Shadow Legion detachment's own wording) is cited to
-Warhammer Community, Lexicanum/Fandom and coverage of *The Book of Fire*; no canonical named link between a Word Bearers
-Host and Be'lakor exists, so the story is a framing exercise inside canon-shaped space. The hobby recipes are standard
+Six research digests were compiled for this document on 2026-08-11 and sit in the repo under `docs/research/`
+(`2026-08-11-lore-and-visual-canon.md` with its two helper digests `-visual-canon-helper.md` and `-lore-naming-helper.md`,
+then `-hobby-cohesion.md`, `-rules-meta.md`, `-transport.md`) with every URL and every "uncited" flag intact; their
+conclusions are inlined above. One correction worth carrying: the 2021 "Contrast+ … Legion of the First Prince" videos are
+Josh "Warhipster" Hill's, not Warhammer TV's — good tutorials, not studio canon. Confidence, honestly: the lore spine
+(Be'lakor's nature, the Charadon summoning worked by the Faithful and the Subtle Blades, House Korvax, the Shadow Legion
+detachment's own wording) is cited to Warhammer Community, Lexicanum/Fandom and coverage of the Charadon books, mostly via
+search-engine summaries of those pages rather than the pages themselves — re-check any quotation before printing it on a
+banner. The link between the Word Bearers and Be'lakor is campaign-book canon; the Host's creed and doubt are framing. The hobby recipes are standard
 Citadel-system practice cited to Goonhammer/Tabletop Battles HTPE articles, Warhammer Guild, Paint Pad and named tutorials;
 paint prices, times and the assembly of components into "shadow" recipes are general hobby knowledge, padded ~30% for a
 first project. Transport dimensions and magnet prices are from the makers' pages; monster heights are community figures —
