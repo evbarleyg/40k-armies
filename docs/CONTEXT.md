@@ -21,7 +21,8 @@ Explain jargon inline when talking to Evan — he wants to learn unit roles and 
 | Thing | Location |
 |---|---|
 | Hub / site | `index.html` → Army (`quartermaster.html`) · Primer · Market (`scorecard.html`) · Archive (`archive.html`, all dated material) · Context. GitHub Pages URL once enabled: `https://evbarleyg.github.io/40k-armies/`; any branch via `raw.githack.com/evbarleyg/40k-armies/<branch>/index.html` |
-| Collection, six lists, shopping, verified rules | `quartermaster.html` (the "Shadow Legion Quartermaster" ledger) |
+| The vision (narrative, five painting rules, unit treatments, phases, buying order, transport) | `docs/VISION.md` → `vision.html`; its research digests in `docs/research/` |
+| Collection, six lists, verified rules | `quartermaster.html` (the "Shadow Legion Quartermaster" ledger) |
 | Full play guide | `docs/PRIMER.md` → `primer.html`; print layout `guide.html` → `GUIDE.pdf` (31 pp, `./make_guide.sh`) |
 | Lists with history and corrections | `docs/lists.md` |
 | Rules digest + re-verification | `docs/research.md` |
@@ -98,6 +99,14 @@ Shared buys across A/C/D: a Chaos Lord (~$20–30), Cultists ×10 (~$28), Flesh 
 need one Bloodthirster (~$110–170 painted; NIB BIN was ~$143). Daemon kits are shared with Age of
 Sigmar — "Blades of Khorne" listings are the same models, often cheaper.
 
+**List 0 — the box as it came is already legal at 1,995**: Be'lakor, Lord of Change, Fateskimmer, Exalted
+Flamer, Pink Horrors ×10, Flamers, Screamers, Nurglings, Havocs, Legionaries ×10, MoP → Possessed, 2 War Dogs
+(HA 475/1,000). Play it before buying anything (`docs/VISION.md`, "Playing it while it grows").
+**Aug 10 re-check:** Skullmaster is 85 pts (not ~75) → D = 1,995, E as printed = 2,010 (swap Plague Drones for
+the owned Screamers → 1,980). No other points moved since MFM v1.1; GW's next update is due ~Aug 19–26, and
+Purge the Foe (Shadow Legion's disposition) has dropped out of winning tournament lists since the July update —
+irrelevant for learning games, a reason not to rush the ~$250 Khorne-cavalry buy for List E.
+
 ## 6. eBay: what exists and the house rules
 
 - **Everything price-related is a July snapshot** (scorecard feed 2026-07-20, sweep 07-21, shopping
@@ -132,10 +141,16 @@ Sigmar — "Blades of Khorne" listings are the same models, often cheaper.
   have made the collection and buy plans public).
 - 2026-08-11 — Evan asked to consolidate everything into this (public) repo and make the pages here;
   `daemon-quartermaster` is superseded. GitHub Pages on this repo is his one-click call (Settings → Pages).
+- 2026-08-11 — Vision adopted as the working plan (`docs/VISION.md`): "everything stands inside Be'lakor's
+  shadow" — pale ash ground, shadow rising up every daemon, one cold light (whatever burns on Be'lakor's blade),
+  crimson and bronze only on the mortals, Colchisian script on everything; War Dogs as House Korvax outriders;
+  buy bare/NoS over painted from now on; magnets on steel in Really Useful Boxes for transport.
 
 ## 8. Open threads
 
-1. Choose B or F (or A) and buy for it — re-run the scout first; the Bloodthirster is the swing purchase for E/F.
+1. Confirm the vision's "as it came" assumptions against the box, then Phase 0 (inventory, measure the monsters,
+   magnetise, four test models, a game with List 0). Choose B or F (or A) and buy for it — Bloodthirster first per the
+   vision; re-run the scout before buying (from a machine that can reach eBay).
 2. Inventory the box against `docs/collection.md`; settle the photo-extra counts (Beasts, Drones, Bloodletters, Terminators?).
 3. Re-check `~` points and Dreadblades in the official app before any event; MFM will move again.
 4. Transport: asked, never sized — N52 magnets + a steel-lined box/rack for the three big models, foam for infantry, magnetised wings.

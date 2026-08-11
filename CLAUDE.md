@@ -6,7 +6,8 @@ Claude sessions started from either the personal or the work Claude account can 
 Claude artifacts, memory and session history do **not** cross accounts — the repo does. Anything
 worth keeping goes in the repo, not only in an artifact or a chat.
 
-Then read `docs/CONTEXT.md` — the portable summary: what he owns, what's decided, what's open.
+Then read `docs/CONTEXT.md` — the portable summary: what he owns, what's decided, what's open — and
+`docs/VISION.md`, the working plan for how the collection is painted, grown, played and carried.
 (The older `evbarleyg/daemon-quartermaster` private repo is superseded; its files live here now.)
 
 ## What's here

@@ -15,6 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # (href, label) — order is the nav order.
 NAV = [
+    ("vision.html", "Vision"),
     ("quartermaster.html", "Army"),
     ("primer.html", "Primer"),
     ("scorecard.html", "Market"),
@@ -25,6 +26,7 @@ NAV = [
 # source markdown -> (output page, eyebrow line)
 ARCHIVED = "Archived snapshot · "      # eyebrow prefix for dated material kept for the record
 DOCS = {
+    "docs/VISION.md":            ("vision.html", "The vision · one legion of shadow · written 2026-08-11 against the Jul 27 inventory"),
     "docs/PRIMER.md":            ("primer.html", "Shadow Legion · beginner's strategy primer · verified 2026-07-27 (MFM v1.1)"),
     "docs/CONTEXT.md":           ("context.html", "Portable context · read this first in any new session, either account"),
     "docs/ebay-access.md":       ("ebay-access.html", "Method note · reaching eBay from a cloud session"),

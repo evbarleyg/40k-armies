@@ -1,0 +1,439 @@
+# One Legion of Shadow — a cohesive vision for the army on hand
+
+*Written overnight, 2026-08-11, against the collection as inventoried on 2026-07-27 (the eBay lot plus its
+photo-extras); anything bought since simply slots into the same rules — see [What would change this](#what-would-change-this).
+I have not seen the models: this cloud environment cannot reach eBay to pull the old listing gallery, so the
+"as it came" descriptions are assumptions to check against the box, and every treatment below is chosen to be
+safe over somebody else's paint. Lore and hobby claims link their sources; where a claim rests on general
+knowledge rather than a page read this week it says so. Points are MFM v1.1, re-checked 2026-08-10 — nothing
+that touches this army has moved since July ([meta note](#rules-and-meta-since-july)).*
+
+**Contents** — [The premise](#the-premise) · [The story](#the-story-yours-to-rename) · [The look: five rules](#the-look-five-rules) ·
+[Palette](#palette) · [Unit by unit](#unit-by-unit) · [The War Dogs](#the-war-dogs-house-korvax-outriders) ·
+[Doing it: four phases](#doing-it-four-phases) · [Playing it while it grows](#playing-it-while-it-grows) ·
+[Buying, in the order the vision wants](#buying-in-the-order-the-vision-wants) · [Transport and storage](#transport-and-storage) ·
+[Rules and meta since July](#rules-and-meta-since-july) · [What would change this](#what-would-change-this) · [Sources and confidence](#sources-and-confidence)
+
+## The premise
+
+The thing that looks like this collection's weakness — a Tzeentch court, Nurgle beasts, Khorne foot-soldiers, a
+Word Bearers warband and two Chaos Knights in one box — is, in the current lore and the current rules, exactly one
+army and only one: **Be'lakor's Shadow Legion**, "a force of Daemons and Heretic Astartes in thrall to the Dark Master"
+([Warhammer Community](https://www.warhammer-community.com/en-gb/articles/jl3uxdbu/index-chaos-daemons-updated-datasheets-and-a-new-detachment/)),
+a host "some coerced, some enslaved, and some that find common cause in the destruction of empires"
+([GW's description of the Legion](https://www.goonhammer.com/45821-2)). Be'lakor is the one being with standing in all
+four courts — the first Daemon Prince, "granted his dark apotheosis by the combined will of the Chaos Gods"
+([Lexicanum](https://wh40k.lexicanum.com/wiki/Be'lakor)) — and mortals who summon him are canon: in *War Zone Charadon:
+The Book of Fire*, groups of **Word Bearers** and Alpha Legion "united under the moniker Disciples, completed a summoning
+ritual and called forth Be'lakor into real space" ([coverage of the book](http://admechknight.blogspot.com/2021/07/warzone-charadon-book-of-fire-spoilers.html)),
+after which he stole the Knight world Kolossi, remade it as mist-shrouded **Korvosi**, and turned a third of House Raven into
+**House Korvax** — Chaos Knights that serve him still ([House Korvax](https://warhammer40k.fandom.com/wiki/House_Korvax)).
+No named Host or novel ties the XVII Legion to him more tightly than that; the canon leaves the space open, which is
+exactly what a personal army wants.
+
+So the vision is not to hide the mixture but to *stage* it: **everything in this army stands inside Be'lakor's shadow.**
+The lore never says his daemons turn grey; it says his host marches under "a pall of unnatural shadow"
+([Warhammer Community](https://www.warhammer-community.com/en-gb/articles/PJPoYXO8/have-your-cake-and-eat-it-with-belakors-disciples-the-dark-masters-mortal-and-daemonic-legion/)),
+fights under "Unnatural Darkness", and keeps a world "of mist and shadow". Read as a painting instruction, that is:
+one pale, ashen ground under every model so that dark things silhouette; darkness climbing every model from the ground
+up; each god's colour surviving where the model is furthest from the ground and closest to its own fire; and one cold
+light — the light of Be'lakor's blade — in every eye, blade and rune across the host. GW's own studio Be'lakor already
+speaks this grammar: a near-black body worked up through cold greys, tarnished gold, and a single pale spectral flame on
+the Blade of Shadows ([Goonhammer's paint-along](https://www.goonhammer.com/how-to-paint-everthing-belakor/)). The Word
+Bearers stay proudly Word Bearers — crimson, brass, scripture — because they are the priesthood that opened the door,
+and GW's one published livery for Be'lakor's mortal servants (House Korvax: black, tan and red with brass trim, "mist-shrouded")
+is a dark conventional scheme plus atmosphere, not monochrome ([1d6chan](https://1d6chan.miraheze.org/wiki/Chaos_Knight),
+[GW's Korvax video](https://www.facebook.com/WarhammerOfficial/videos/how-to-paint-house-korvax-chaos-knights/363293892433030/)).
+The War Dogs wear the black-and-brass of the house he stole.
+
+In one line: **value does the unifying, hue does the identifying, and one light ties the knot.**
+
+## The story (yours to rename)
+
+**The Host of the Eclipsed Word** was a Word Bearers Host like any other — a Dark Apostle, his Coryphaus, the
+Anointed in Terminator plate, a Master of Possession tending the rite the XVII Legion invented when the Chapter of
+the Serrated Sun walked into the Eye and came back sharing its flesh with daemons, the first Gal Vorbak, "the first to
+wear the crimson colour that would become the standard" ([Gal Vorbak](https://warhammer40k.fandom.com/wiki/Gal_Vorbak)).
+They were among the Disciples at Charadon by choice. Somewhere between the summoning and Korvosi the choice became a
+creed: if the Word says the gods are real and Undivided, then the First Prince — the only being all four ever crowned
+together — is the Word made flesh, and Lorgar's silence from Sicarus is its own answer. The Dark Council would call
+that apostasy (the rules agree: Disciples Space Marines *replace* their Legion trait,
+[Goonhammer](https://www.goonhammer.com/war-zone-charadon-the-book-of-fire-review-chaos/)). The Host calls it the
+Eclipse. The old scripture is still cut into their armour, but they have inked the Dark Master's name over the Urizen's,
+and where a Host badge sat they paint a black disc rimmed in dying light.
+
+What marches with them is what Be'lakor lends and what he has pressed: a **Tzeentchian court** under a Lord of Change
+who finds the Prince's schemes congenial (Tzeentch has "chained him up more than a handful of times", and each time he
+escaped — [Warhammer Community](https://www.warhammer-community.com/2021/11/17/which-chaos-god-does-belakor-really-serve/));
+**Nurgle's patient things**, which respect his "near-infinite longevity"; a knot of **Bloodletters** enslaved and furious
+about it (Khorne is pleased whenever Be'lakor takes the field, whatever his intentions); and two **War Dogs** out of
+Korvosi whose thrones have not been quiet since the Keep Inviolate fell. When the Bloodthirster comes it comes as the
+Prince's answer to his own jealousy — the one Khorne greater daemon the detachment allows him, bound in the same shadow.
+His whispered doubt travels with the Host too: Be'lakor turns other powers' servants for a living (House Raven's garrison,
+the Stormcast Eternus), and no one in the Eclipsed Word is quite sure the door the Master of Possession opened at Charadon
+was his idea.
+
+Working names, in the Legion's registers — Colchisian particles for the mortals (Kor, Sor, Kol, Hol, after Kor Phaeron,
+Sor Talgron, Kol Badar), hard apostrophe-broken names for Khorne, mirrored sibilants for Tzeentch, wet gutturals for
+Nurgle, after the patterns of GW's own named characters ([naming notes](https://wh40k.lexicanum.com/wiki/Word_Bearers)) —
+offered as a starting kit, not canon:
+
+| Model | Role in the Host | A name to start from |
+|---|---|---|
+| Be'lakor | The Dark Master; always the Warlord | — |
+| Master of Possession | First Acolyte of the Eclipsed Word, keeper of the rite; the army's lantern | **Sor Vhaduk, the Tongue of Dusk** |
+| Chaos Lord (to come) | Coryphaus — the Host's war-captain | **Kol Barrakh** |
+| Possessed ×5 | The Host's Gal Vorbak, its "Blessed Sons" | champion **Hol Ezaar-Ythrek** (the daemon's name hyphenated on, after Burias-Drak'shal) |
+| Legionaries · Havocs · Terminators | The faithful; the Terminators are *the Anointed* | squads named for verses: *the Ninth Utterance*, *the Litany Reversed* |
+| Lord of Change | Be'lakor's Tzeentchian ally-of-convenience | **Xirr'ath the Twice-Mirrored** |
+| Fateskimmer · Exalted Flamer · Horrors · Flamers · Screamers | The Court of Cinders | herald **Ph'tessek** |
+| Nurglings · Beasts · Plague Drones | The Patient Tithe | (Nurgle's things are named by others) |
+| Bloodletters · Flesh Hounds and Bloodcrushers to come | The Pressed Cohort | Bloodmaster **Akh'gorr** |
+| Bloodthirster (to come) | The Prince's Answer | **Ka'zhadrak, Bound in Dusk** |
+| War Dog Karnivores ×2 | Korvosi outriders, thrones whispering | ***Penumbral Writ*** and ***Keep's Lament*** |
+
+None of this is load-bearing. It exists so the army has an answer when someone across the table asks "so what are they?",
+and so champions, banners and War Dog panels have words to carry.
+
+## The look: five rules
+
+Five decisions, made once, applied to everything owned now and everything bought later. Each has a beginner-safe
+method for the models already painted (retrofit) and a method for new arrivals (native). Paint names are Citadel;
+[the appendix of the hobby research](#sources-and-confidence) has equivalents.
+
+### Rule 1 — One ground
+
+**Pale ash under every model, black rims, and soot leaking from every daemon's feet.** Consistent basing is the single
+strongest unifier of models painted by different hands, and it must be *lighter* than the models so near-black daemons
+and dark crimson marines silhouette against it — dark bases under dark models make an army vanish at arm's length
+([Warhammer Guild](https://warhammerguild.com/painting/how-to-base-warhammer-models/),
+[value contrast](https://birdwithabrush.com/2022/03/06/how-to-paint-bases-like-a-boss/)). The soot ring is the storytelling:
+the shadow visibly spills from each daemon onto pale ground.
+
+- **Recipe (32 mm, ~12 min hands-on, over the existing base — never prise painted models off):** scrape loose flock;
+  Astrogranite Debris in patches + Astrogranite elsewhere, up to and slightly over the feet edges → Drakenhof Nightshade wash
+  (colder, moonlit ash; Nuln Oil if you prefer neutral) → heavy drybrush Dawnstone → drybrush Longbeard Grey → a whisper of
+  Pallid Wych Flesh on the top grit → stipple a little Abaddon Black around each daemon's feet → one or two burnt tufts, the
+  odd bone → rim Abaddon Black, two thin coats ([recipe lineage](https://hobbithobbies.com/2017/08/23/quick-easy-cohesive-bases/)).
+- **On one base in three,** score a short crack into the wet paste with a toothpick; later run the army's light into it
+  (Rule 3). On heroes, monsters and the War Dogs, add broken temple flagstones (Green Stuff World "Temple"/"Flagstone" roller
+  over a 2 mm skin of Milliput, [how-to](https://www.fauxhammer.com/tutorials/how-to-make-scenic-bases-with-green-stuff-world-rollers/))
+  in the same ash colours, with a line of cuneiform chalked across a slab — Korvosi's ruined keeps underfoot.
+- **Cost for ~70 bases:** ≈ $45–60 in Citadel pots, ≈ $35 with a Vallejo Earth Texture tub tinted grey.
+
+### Rule 2 — Shadow rises
+
+**Every daemon is 60–80% near-black from the ground up; its god's colour survives at the top and at the extremities.**
+This is the whole "Shadow Legion" read, and it is the cheapest possible treatment of someone else's bright paint job,
+because glazes only ever darken.
+
+- **Retrofit ("glaze-down", beginner-safe, 5–8 min per infantry model, 20–40 per monster):** Black Templar Contrast 1:1
+  with Contrast Medium. Coat 1 from the soles to mid-thigh; dry. Coat 2 soles to knee. Coat 3 soles to ankle. Feet in
+  near-opaque Corvus Black. Feather each top edge upward with a damp clean brush while wet
+  ([glaze bands](https://warhammerguild.com/glazing-tutorial/), [dark Contrast over colour](https://warhammerguild.com/painting/contrast-over-zenithal-guide/)).
+  **The no-mud rule for Tzeentch:** never darken pink or blue with black or brown over large areas — walk the hue wheel
+  toward cold instead: pink → Doomfire Magenta → Shyish Purple in the lower third → Black Templar only at the feet; blue →
+  Leviadon Blue → Drakenhof Nightshade → black feet; then re-saturate the top with one thin glaze of the pure hue
+  ([hue-shifted shading](https://www.youtube.com/watch?v=N88NtHNmz1Q)). Nurgle tolerates brown: Athonian Camoshade + a
+  little Agrax all over, then the black bands.
+- **Native (new or stripped models, "drybrush-up", 25–35 min each in batches):** prime black; heavy drybrush of the darkest
+  god colour from the waist up only, mid-tone chest-up, highlight on head/shoulders/hands; one Contrast coat of the god
+  colour over the greys; legs stay black with a faint grey drybrush ([slapchop confined to the top of the model](https://tangibleday.com/zenithal-dry-brushing-and-slapchop-painting-miniatures/)).
+  New models come out *more* Shadow Legion than the old ones for less effort — the scheme rewards buying bare plastic.
+- **Test first.** One Bloodletter, one Horror, one Nurgle thing end-to-end before any batch. If a glaze lifts old Contrast
+  paint underneath, stop, matte-varnish, glaze over the varnish.
+
+### Rule 3 — One light
+
+**Whatever colour burns on Be'lakor's blade is the only light in the army** — every eye, hellblade edge, staff-gem,
+lens, rune and base-crack. Default, if his sword needs repainting or you want the studio look: **corpse-light** — a
+white core haloed in pale spectral blue-green (White Scar → thin Aethermatic Blue over and around it → White Scar
+re-dotted → optional Baharroth Blue feathered onto adjacent black skin;
+[the 20-minute OSL method](https://www.goonhammer.com/how-to-paint-everything-quick-and-easy-osl-the-20-min-methods)).
+It is near-complementary to crimson, belongs to none of the four gods, and it is what GW put on the Blade of Shadows.
+Two rules keep it from going wrong: the light must be the brightest, most saturated mark on the model, and it does not
+wrap around limbs ([OSL basics](https://creativetwilight.com/osl/)). Fire stays the god's — Tzeentch flame is pink-blue,
+a hellblade's heat is orange — but *eyes and edges* are always corpse-light. 1–3 minutes per infantry model; it is the
+last paint step, so it stays the cleanest.
+
+### Rule 4 — Crimson and brass are mortal
+
+**Only the Word Bearers (and the vassal panels on the War Dogs) carry crimson; one warm bronze is the only trim metal in
+the army — marines, War Dogs, Be'lakor's armour, Khorne collars, Juggernaut plates.** Warm metal against cold light and
+near-black daemons gives a two-note palette (crimson/bronze against black/ice) that reads across a hall.
+
+- **Bronze (beginner-safe):** Balthasar Gold → Agrax Earthshade → Sycorax Bronze edge, a Runefang Steel dot on the
+  sharpest corners; a trace of Nihilakh Oxide in the deepest recesses of the War Dogs only. Two coats cover old silver
+  or gold; over black trim it is one coat and a wash.
+- **Nudging existing red-and-black marines toward Word Bearers crimson without repainting (30–40 min per marine):**
+  clean; matte varnish if glossy; two thin all-over armour glazes of Berserker Bloodshade (or Carroburg Crimson) 1:1 with
+  Lahmian Medium, wicking the pools — purple-crimson darkens red "less stark than a black wash"
+  ([DakkaDakka](https://www.dakkadakka.com/dakkaforum/posts/list/652890.page)); if the red is orange-bright, one thin Flesh
+  Tearers Red glaze first; recess-line with 1:1 Khorne Red + Rhinox Hide; one edge highlight of Wazdakka Red on upward
+  edges only; trim to bronze; lenses corpse-light; script (Rule 5); rebase; matte; 'Ardcoat the lenses. Red-and-black is an
+  established Word Bearers presentation, not a deviation ([Goonhammer HTPE Word Bearers](https://www.goonhammer.com/how-to-paint-everything-word-bearers-chaos-space-marines/)).
+- **New marines (Chaos Lord, Chosen, Terminators):** Khorne Red, shaded down by mixing in Gal Vorbak Red toward the
+  greaves, Nuln Oil at the very bottom, Mephiston Red edge — the greaves darkening is Rule 2 arriving on the mortals
+  ([same source](https://www.tabletopbattles.com/how-to-paint-everything-word-bearers-chaos-space-marines/)).
+- **Possessed are the bridge.** Armour stays crimson; every claw, horn and flesh-tear is painted with Be'lakor's own skin
+  ladder (Corvus Black → Eshin Grey → Dawnstone), blackening toward the talons, corpse-light in the splits — the daemon
+  half of the army erupting through the mortal half ([blue-grey Gal Vorbak flesh fading to black](https://www.thebeardbunker.com/2020/11/fortunate-sons-possessed-gal-vorbak.html)).
+
+### Rule 5 — The Word on everything
+
+**Colchisian scripture is the Host's handwriting and it goes on daemons too**: lines of cuneiform on greaves, pauldrons,
+tabards and parchment; a verse along each War Dog's carapace edge; a rune branded on the Bloodthirster's shoulder and
+the Juggernauts' plates; a chalked line across a flagstone base. Hobbyists generate "Colchisian" from Old Persian
+cuneiform ([Bolter & Chainsword](https://bolterandchainsword.com/topic/262497-writing-in-colchisian-style/)); the Word Bearers
+"decorate their armor in… Colchisian runes etched into the plating and lines of blasphemous scripture"
+([Word Bearers](https://warhammer40k.fandom.com/wiki/Word_Bearers)).
+
+- **Beginner mix:** the Word Bearers Legion transfer sheet (≈$36.50, 627 transfers: icons, numerals, vehicle badges,
+  daemonic runes and Colchisian "sacred geometry", [contents](https://miniset.net/sets/gw-99510102012)) for icons and the
+  War Dog panels; a Sakura Pigma Micron 005/01 for scripture lines on parchment and shin plates (write on matte, let it dry
+  overnight, seal with a *sprayed* varnish — a brush smears it, [caveats](https://www.dakkadakka.com/dakkaforum/posts/list/747151.page));
+  brush freehand only for three or four big hero runes ([rune recipe](https://paintpad.app/recipes/1425-word-bearers-colchisian-runes)).
+- **The Eclipse glyph** — a black disc with a thin corpse-light rim — replaces the Host badge on one pauldron per marine
+  and sits on each War Dog's tilting plate. It is a two-brush freehand: a Corvus Black circle, a broken ring of White Scar
+  glazed with Aethermatic Blue.
+- **Parchment:** Rakarth Flesh → Agrax → Rakarth relayer → Pallid Wych Flesh edge; wax seals black or Naggaroth Night,
+  never Imperial red (it vanishes on crimson).
+
+### Palette
+
+<div class="swatches">
+<div class="sw"><i style="background:#16161a"></i><b>Corvus Black</b><span>daemon low body · feet · Possessed talons</span></div>
+<div class="sw"><i style="background:#4a4f52"></i><b>Eshin Grey → Dawnstone</b><span>Be'lakor skin ladder · drybrush greys</span></div>
+<div class="sw"><i style="background:#c9c7b4"></i><b>Longbeard Grey · Pallid Wych</b><span>the ash ground (over Astrogranite + Drakenhof)</span></div>
+<div class="sw"><i style="background:linear-gradient(90deg,#ffffff 0 30%,#9fd8dc 30% 100%)"></i><b>Corpse-light</b><span>White Scar core, Aethermatic Blue halo — the one light</span></div>
+<div class="sw"><i style="background:#650a10"></i><b>Khorne Red → Wazdakka</b><span>Word Bearers crimson (glazed with Berserker Bloodshade)</span></div>
+<div class="sw"><i style="background:#8f6a46"></i><b>Balthasar → Sycorax</b><span>the only trim metal, army-wide</span></div>
+<div class="sw"><i style="background:linear-gradient(0deg,#16161a 0 40%,#7d1030 75%,#c04a86 100%)"></i><b>Shadow-Tzeentch</b><span>black → Shyish Purple → Pink Horror at the fingertips</span></div>
+<div class="sw"><i style="background:linear-gradient(0deg,#16161a 0 40%,#5c0d0f 75%,#c2361b 100%)"></i><b>Shadow-Khorne</b><span>black → deep red torso → hot face; blade heat orange, eyes corpse-light</span></div>
+<div class="sw"><i style="background:linear-gradient(0deg,#16161a 0 40%,#4d5b3c 78%,#8ea06a 100%)"></i><b>Shadow-Nurgle</b><span>black → Death Guard Green → Nurgling Green; sores glow</span></div>
+<div class="sw"><i style="background:linear-gradient(0deg,#111114 0 55%,#123061 85%,#2c6f6a 100%)"></i><b>Raven, not parrot</b><span>Lord of Change plumage: Corvus Black → Kantor Blue → Kabalite Green sheen</span></div>
+</div>
+
+*Swatches are screen approximations of the paints named, for planning — not colour-matched.*
+
+## Unit by unit
+
+"As it came" is my assumption from the listing description (a competent Tabletop job, Word Bearers red-and-black
+marines, daemons in their gods' colours, Be'lakor dark). Times are careful-beginner brush time, excluding drying.
+
+| Unit | As it came (assumed) | What it becomes | Work | Phase |
+|---|---|---|---|---|
+| **Be'lakor** | dark grey/black skin, done | The reference model and the origin of the light. Do not repaint: Nuln Oil glaze to unify the skin, re-drybrush Dawnstone/Administratum Grey on top planes, sword-flame, eyes and armour runes in corpse-light, armour to the army bronze if it clashes, the biggest flagstone-and-ash base ([if he's already decent](https://www.goonhammer.com/how-to-paint-everthing-belakor/)) | 2–3 h | 1 |
+| **Lord of Change** | blue/purple plumage, gold | *A raven, not a parrot.* Leviadon Blue (over blue) or Shyish Purple (over pink) 1:1 medium over all plumage except the outer primaries, twice; Black Templar on legs, lower body, inner wings; re-drybrush a Thunderhawk Blue / Kabalite Green sheen on the tops; the original bright colour left showing only at feather tips and crest; skin in Be'lakor's greys so the two monsters share blood; staff-gem and eyes corpse-light; gold → bronze ([corvid feathers](https://paintpad.app/recipes/3539-raven-guard)) | 2–3 h | 2 |
+| **Fateskimmer + Exalted Flamer** (Burning Chariot) | Tzeentch brights | Disc and Screamer-steeds near-black with colour only on leading edges; the Exalted Flamer's body all shadow, its fire the brightest Tzeentch flame in the army; pin the flame-stand joints while you're there (transport) | 2 h | 2 |
+| **Pink Horrors ×10 · Blue ×10 · Brimstone ×9** | pink / blue / yellow | Glaze-down by the no-mud rule (magenta → Shyish → black feet), re-brighten fingertips and faces with a drybrush of Emperor's Children / Lothern Blue, mouths and eyes corpse-light. **Brimstones: leave bright** — they *are* fires — but ring their bases with a warm-to-corpse glow so they read as light sources on the ash | 3 h for 29 | 2 |
+| **Flamers ×3 · Screamers ×3** | Tzeentch brights | Screamers: black backs and undersides, colour only on the dorsal ridge and spots; stems painted as base, not model. Flamers: black bodies drybrushed Kantor → Thunderhawk on the skirt tips, all the colour budget on the flames | 1.5 h | 2 |
+| **Nurglings ×3 · Beasts ×3 · Plague Drones ×3** (photo-extras — confirm) | greens | Camoshade + Agrax glaze to kill lime highlights, black bands low, sores and eyes white → Tesseract Glow, slime glossed after the matte coat. Treat each Nurgling stack as one model: black at the bottom, greener toward the top | 2.5 h | 2 |
+| **Bloodletters ×10** (photo-extra — confirm) | Khorne red | The recipe test and the showcase: three black bands up the legs, one Berserker Bloodshade glaze over the remaining red, blade heat re-established on the outer third only (Fire Dragon Bright → Flash Gitz Yellow → white tip), eyes corpse-light, bronze on any armour ([retrofit sequence](https://www.jongrantminiatures.co.uk/2023/11/how-i-paint-chaos-daemons-bloodletters.html)) | 2 h | 1 (test) → 2 |
+| **Master of Possession** | Word Bearers red | *The lantern.* Crimson enriched per Rule 4; his staff-fire and censer become the biggest corpse-light source on the table, casting onto his own robes; a strip of parchment with the Host's creed | 1 h | 1 |
+| **Possessed ×5** | red armour, mutations | The bridge unit per Rule 4: crimson plates floating on Be'lakor-grey flesh that blackens toward the claws, corpse-light in the splits | 1.5 h | 2 |
+| **Legionaries ×10 · Havocs ×5 · Terminators?** | red, black/metal trim | The crimson nudge; trim → bronze; one parchment strip and one line of script per model; helmet lenses corpse-light; greaves darkened (Rule 2 on mortals). The Terminators, if they're in the box, are the Anointed — give them the most script | 30–40 min each, ≈ 8–12 h | 2–3 |
+| **War Dog Karnivores ×2** | unknown hull scheme | House Korvax outriders — [next section](#the-war-dogs-house-korvax-outriders) | 2–3 h each | 2 |
+| *Arriving later* | | | | |
+| **Chaos Lord** | buy painted *or* bare | The Coryphaus: crimson like the Legionaries, his weapon carrying the light. If he arrives in tidy Black Legion black, keep it — add crimson cloth, bronze, script — a black-armoured captain in a crimson Host reads as rank, not mismatch | 1.5 h | on arrival |
+| **Cultist Mob ×10** | any | Drab robes (Contrast browns/greys over a grey drybrush), black-dusted hems, one crimson rag each, no bronze — the cheapest unit should look the most mortal | 2 h | on arrival |
+| **Flesh Hounds ×5–10** | often AoS reds | Straight into the Bloodletter recipe; collars in bronze with a corpse-light rune — Khorne's leash re-cut with Be'lakor's name | 1.5 h per five | on arrival |
+| **Bloodthirster** | ideally bare or new-on-sprue | *The Prince's Answer*, painted shadow-first from black primer as the army's second monument: skin drybrushed Corvus → Eshin → Dawnstone on top planes only, lower body left black, Flesh Tearers Red 1:2 medium glazed onto chest, shoulders and face so red blooms out of the grey; bronze armour blackened low; axe and whip as the heat source with a warm drybrushed OSL onto the nearest black skin; eyes corpse-light; wing membranes as Be'lakor's (Corvus Black + Dryad Bark, purple-red glazed tears); a rune branded on one shoulder ([obsidian-brute plan](https://www.dakkadakka.com/dakkaforum/posts/list/797465.page)) | 6–8 h | the big project |
+| **Bloodcrushers · Skullmaster · Rendmaster · Bloodmaster** | any | Juggernauts as blackened bronze machines with ember joints and script plates; riders per the Bloodletters; the Blood Throne's brass the same bronze as everything else | ≈ 1 h per model | if D/E |
+| **Nurglings (second box)** | bare | Native drybrush-up in the shadow-Nurgle ladder — 30 minutes a base and the fastest proof that new models match | 1.5 h | with List B |
+
+## The War Dogs — House Korvax outriders
+
+The lore hands these two a home: **House Korvax**, "an Infernal house of the Dark Mechanicum in service to Be'lakor…
+a splinter of the Loyalist House Raven corrupted by the Dark Master during the Charadon Campaign", ruling a world
+"enshrouded by a darkness so vast that it stretches into the surrounding void"
+([House Korvax](https://warhammer40k.fandom.com/wiki/House_Korvax)); livery black, tan and red with brass trim
+([1d6chan](https://1d6chan.miraheze.org/wiki/Chaos_Knight)). Whatever colour the hulls arrived in, seven quick wins make
+them the Host's ([Chaos Knights HTPE](https://www.tabletopbattles.com/how-to-paint-everything-chaos-knights/)), in
+priority order, ~2–3 h per Dog:
+
+1. **Base** — the biggest, most scenic version of Rule 1: toppled flagstones, a candle stub, an obsidian crack carrying corpse-light.
+2. **Trim to bronze** — trim is most of what the eye reads on a Knight.
+3. **One heraldic panel each** in Word Bearers crimson (Khorne Red → Nuln Oil recess → Wazdakka edge) with a Legion
+   transfer: vassals wearing the Host's colours. Tilting plate = the Eclipse glyph; the other shoulder = the Dog's own kill-marks.
+4. **Shadow up the legs** — sponge-stipple Corvus/Abaddon Black densest at the feet, gone by the knee, then a light drybrush
+   of the ash colour on the toes: battlefield grime and Be'lakor's shadow climbing the machine, in one step. Stop at the knee.
+5. **Corpse-light** in lenses, vents, exhaust interiors and the chaintalon's coils.
+6. **A verse of script** along the carapace edge; two or three parchment strips; chains and skulls in bronze and bone.
+7. **Matte varnish** the whole engine so old and new paint share one finish; gloss the lenses.
+
+If the hulls are already black or very dark, you are most of the way to Korvax; if they are Word Bearers red, keep the red
+as the house's "tan and red" panels and let steps 2, 4 and 5 do the work.
+
+## Doing it: four phases
+
+<div class="phases">
+<div class="phase"><p class="when">Phase 0 · this week · ≈ 8 h · ≈ $60–230</p><h4>Take possession</h4>
+<p>Inventory the box against the collection table; measure the three big models base-to-wingtip; wiggle-test every stem, wing and War Dog joint; clean everything (lukewarm water, drop of dish soap, soft toothbrush). Decide the three constants aloud: ash ground, corpse-light, bronze. Paint one Bloodletter, one Horror, one Nurgle base and one Legionary end-to-end. Magnetise every base in one evening (transport section). Play a game with List 0.</p>
+<p class="cost">Magnets, putty, boxes, steel: $150–230 · test pots you'll use anyway</p></div>
+<div class="phase"><p class="when">Phase 1 · weeks 1–3 · ≈ 15–18 h · ≈ $120–150</p><h4>Minimum viable cohesion</h4>
+<p>The 20% that buys 80%: rebase everything (10-model batches, paste one while the last dries), black rims; one ultra-matte varnish over the whole army to kill three owners' worth of mismatched sheen; corpse-light in every daemon eye and every marine lens; Be'lakor's refresh; the Master of Possession as lantern; shadow bands on the most neon units only. From across a table it is now one deliberate army.</p>
+<p class="cost">Starter paint kit incl. texture, mediums, varnish: $120–150</p></div>
+<div class="phase"><p class="when">Phase 2 · weeks 3–8 · ≈ 25–35 h · ≈ $60</p><h4>The shadow pass</h4>
+<p>Glaze-down every daemon (Tzeentch by the no-mud rule), the Lord of Change as a raven, the Word Bearers crimson nudge with bronze trim and script, Possessed as the bridge, both War Dogs as Korvax outriders. Order matters: glazes before basing touch-ups (they run), metals and transfers next (gloss → decal → matte), glow last.</p>
+<p class="cost">Transfer sheet $36.50 · Micro Set/Sol $12 · micron pens $7</p></div>
+<div class="phase"><p class="when">Phase 3 · ongoing · 10–13 h per new unit</p><h4>Grow it shadow-first</h4>
+<p>Every arrival goes through the same door: painted-and-decent → clean, glaze-down, one focal glow, corpse-light eyes, army base, matte (15–25 min a model); bare → black prime, confined drybrush, one Contrast, black feet, glow, base (25–35 min a model). The Bloodthirster is the set-piece project (6–8 h). Keep the "army bible" — primer, the four Contrast pots, the light trio, the bronze trio, the base recipe, rim, varnish — written in the repo so a model painted next year still matches.</p>
+<p class="cost">Contrast skin pots as units arrive: ≈ $8 each</p></div>
+</div>
+
+Realistic total for the existing lot to read as one army: **≈ 46–65 hours — six to nine weeks at 6–8 hours a week** —
+with Phase 1 alone (≈ 15–18 h) already delivering the effect at gaming distance
+([effort table in the research](#sources-and-confidence)). Bias hard toward keep-and-glaze: on a 70-model lot, stripping
+more than the worst tenth is where first projects stall. The decision rule, in order: detail clogged or paint cracked →
+strip that model; wrong hue family → repaint those areas only; right hues but too bright/glossy/mismatched → glaze;
+tidy but "not mine" → keep, rebase, light, varnish.
+
+## Playing it while it grows
+
+The Primer's six lists all assume a purchase or a photo-extra, except for one thing nobody wrote down: **the box as it
+came is already a legal 2,000-point Shadow Legion army.**
+
+<div class="callout">
+<p><b>List 0 — The Box.</b> Be'lakor 390 · Lord of Change 320 · Fateskimmer 95 · Exalted Flamer 65 · Pink Horrors ×10 150
+(Blues and Brimstones as split tokens) · Flamers ×3 65 · Screamers ×3 80 · Nurglings ×3 45 · Havocs 125 · Legionaries ×10 170 ·
+Master of Possession 60 → Possessed ×5 120 · War Dog Karnivore ×2 310 = <b>1,995</b>. Heretic Astartes 475/1,000, War Dogs 2/3
+via Dreadblades, Be'lakor Warlord.</p>
+<p>It plays like a slower List A: the Tzeentch court shoots and screens under Be'lakor's shadow, the War Dogs and Havocs are the
+anti-tank, the Possessed and the two monsters are the counter-punch. Without a Chaos Lord there is no <i>Fade to Darkness</i>
+yo-yo on Legionaries — put an enhancement on the Master of Possession instead (Heretic Astartes characters gain the SHADOW LEGION
+keyword in this detachment; check the app for which of the four he may take) and learn the phases, the aura and the scoring
+before spending a dollar.</p>
+</div>
+
+Then the arc follows the purchases, one at a time, each unlocking a list from [the Primer](primer.html):
+
+| Step | Buy | Unlocks | Why this order |
+|---|---|---|---|
+| 0 | nothing (+ a Nurglings box, ≈ $39) | List 0 above; **List B** (Festering Court) once the Beasts and Drones are confirmed in the box | Learn with models you cannot mis-buy |
+| 1 | **Bloodthirster**, bare or new-on-sprue (≈ $85 at auction, ≈ $143 NIB in July) | **List F** (Triple Monster), the most forgiving list — and the army's second monument to paint | One purchase, the biggest change in how the army plays *and* looks |
+| 2 | **Chaos Lord + Cultists ×10 + Flesh Hounds ×5** (≈ $90–120 together) | **List A** (Yo-Yo Court) and the *Fade* trick; the Cultists and Hounds also serve E | The cheap shared core; small paint jobs; buy in any state |
+| 3 | Bloodcrushers ×6, Skullmaster, Rendmaster, Bloodmaster (≈ $250) | **List E** (the Fadethirster) and **D** | Only when you want the competitive shape — the Khorne cavalry is a painting project in itself, and see the meta caveat below |
+| — | Chosen, Warp Talons, Terminators if not in the box | **List C** (Word Bearers Ascendant) | The theme list; buy when the marine half is what you enjoy painting |
+
+Two properties make the order robust: every step is playable on its own, and every model bought sits in at least two lists.
+
+## Buying, in the order the vision wants
+
+**Models** — prefer bare, primed or new-on-sprue over painted (Rule 2's native method is faster than retrofitting, and
+cheaper to buy); prefer AoS-boxed daemons ("Blades of Khorne", "Disciples of Tzeentch") — same kits, often cheaper; painted
+is fine for single characters where $20–30 buys a tidy Chaos Lord. Read-only scouting, photos not titles, a bid is not a
+price — the tools are in `tools/`, and this environment can't reach eBay, so run it from the personal machine.
+
+1. Nurglings (NIB ≈ $39) — finishes List B.
+2. Bloodthirster (bare/NoS; watch open-box auctions ≈ $80–90 vs ≈ $143 NIB) — List F, the centrepiece project.
+3. Chaos Lord (any state, ≈ $20–30) · Cultists ×10 (≈ $25–45) · Flesh Hounds ×5–10 (≈ $35 per painted five, less bare) — List A.
+4. Later, if E/D: Bloodcrushers ×6 NoS (≈ $90), Blood Throne / Skull Cannon kit for the Rendmaster (≈ $65–72), Bloodmaster
+   (≈ $25–40), Skullmaster (thin market: OOP metal ≈ $44 or a Juggernaut-lord proxy).
+
+**Hobby supplies** — starter kit ≈ $120–150 (black primer; matte varnish — Testors Dullcote cans or AK Ultra Matte over a
+satin coat; 'Ardcoat; Contrast/Lahmian Medium; Black Templar, Shyish Purple; Berserker Bloodshade, Nuln Oil, Agrax; the light
+trio White Scar / Aethermatic Blue / Baharroth Blue; greys Corvus Black, Eshin, Dawnstone, Administratum; bronze pair
+Balthasar Gold / Sycorax Bronze; Khorne Red, Wazdakka Red, Fire Dragon Bright, Flash Gitz Yellow, Rakarth Flesh, Pallid Wych
+Flesh; Astrogranite ×2 + Debris ×2 or a Vallejo texture tub; Longbeard Grey; two tuft sheets; a wet palette; one good size-1
+sable, a size-2 synthetic, a cheap makeup-brush set for drybrushing; micron pens; isopropyl + LA's Totally Awesome for the
+few models that need stripping). Nice-to-have (≈ $150–400 over time): the Word Bearers transfer sheet, Micro Set/Sol, the
+temple rolling pin + Milliput, Mordant Earth and Tesseract Glow, an enamel grime for the War Dogs, movement trays, and —
+optional, nothing here needs it — an airbrush.
+
+**Transport** — ≈ $150–230, next section.
+
+Rough all-in for the year the vision describes: **≈ $300 of models, ≈ $150–250 of paint and basing, ≈ $150–230 of boxes and
+magnets** — spread across the four phases, and every line item is independently useful.
+
+## Transport and storage
+
+The July question, answered for *this* collection ([full research](#sources-and-confidence)). Three storage classes:
+(A) three huge winged pieces — Be'lakor is 170 mm tall on a 100 mm base ([GW copy](https://gamekastle.com/products/age-of-sigmar-chaos-daemons-be-lakor-the-dark-master)),
+the Lord of Change roughly 20–24 cm on a 100 mm base, the Bloodthirster roughly 23–25 cm on a 120×92 mm oval — measure
+yours; (B) the medium-tall, top-heavy or fragile — two War Dogs (100 mm), the Burning Chariot (120×92 oval), Plague Drones,
+Beasts, Bloodcrushers; (C) ~60 infantry. No single case does all three; every good answer is a tall rigid box for A(+B) and
+shallow boxes for C, **magnets on real steel, no foam touching paint** — foam chips spiky second-hand Chaos models
+([Hobby 101](https://www.tabletopbattles.com/hobby-101-transporting-your-models/)).
+
+**The budget setup (≈ $150–230, one evening):**
+
+- **Two Really Useful Boxes 32 L (US)** — internal 15 × 11⅞ × 11¼ in ([dimensions](https://www.reallyusefulproducts.co.uk/usa/html/onlineshop/rub/b32_0litreUS.php)):
+  box 1 for the Lord of Change + Bloodthirster (Be'lakor meanwhile), box 2 for Be'lakor + both War Dogs + the chariot. If the
+  built Bloodthirster tops ~26.5 cm to the wingtips, give it a 19 L XL (12.2 in headroom) of its own instead. Or one 64 L for
+  everything tall, if you'd rather make one trip from the car — 11 in internal is the limit, so measure first.
+- **Two Really Useful Boxes 17 L (US)** for all infantry, Nurglings, Beasts, Hounds, Bloodcrushers and (height permitting)
+  the Drones ([dimensions](https://www.reallyusefulproducts.co.uk/usa/html/onlineshop/rub/b17_0litreUS.php)).
+- **Steel floors:** 26–28 ga galvanised sheet cut to the four floors (a hardware store or HVAC shop will shear blanks), fixed
+  with 3M VHB — or four *steel* baking trays (take a magnet to the store; many are aluminium). Ferrous "rubber steel" is fine
+  for plastic infantry and **not** for monsters or War Dogs. Line the walls with 10 mm of foam so a model that ever lets go
+  meets foam, not polypropylene; a few silica-gel packs per box.
+- **Magnets (N52):** one 6×2 mm under each 32/40 mm base, one 5×2 under 25 mm, two 6×2 or 8×3 under 60 mm and the ovals,
+  **three 10×3 in a triangle at the rim** under each 100 mm base (four under the Lord of Change and the chariot's oval,
+  spread along the long axis) — [Magnet Baron's guide](https://themagnetbaron.com/blogs/news/base-magnetization-ultimate-guide),
+  [flush-fit heights](https://themagnetbaron.com/products/gw-flush-fit-base-magnets-large). Bed each in a pea of green stuff or
+  Milliput with a drop of superglue so its face ends flush with the rim (5-minute epoxy for the 10×3s); load the magnets onto a
+  cling-filmed steel sheet from one marked master stack and press the models down onto them — everything cures coplanar and
+  polarity stays consistent. ≈ $45–75 in magnets for the whole collection ([5×2 200-pack $21.79](https://totalelement.com/products/5mm-x-2mm-neodymium-rare-earth-permanent-disc-magnets-n52-200-pack),
+  [6×2 150-pack $22.79](https://totalelement.com/products/6mm-x-2mm-neodymium-rare-earth-permanent-disc-magnets-n52-150-pack),
+  [10×3 ≈ $0.54 at 50+](https://www.jc-magnetics.com/Magnet-disc-N52-10mm-3mm)).
+- **The awkward pieces:** don't magnetise built, painted wings — buy box height instead; add two or three foam "base-capture"
+  blocks kissing the rims of the War Dogs, chariot and Bloodthirster so nothing can slide or tilt; pin any wobbly flight stem
+  with 1.5 mm brass tonight, and consider making Screamer and Drone bodies lift off their stems on a 5×2 magnet pair so the
+  bodies ride flat in a small foam tray while the stems stay on the steel.
+- **Car, heat, cold:** models ride in the cabin and come inside at every stop — a parked car in sun exceeds what resin, PVA,
+  superglue and standard N52 magnets tolerate, and clear boxes are their own greenhouse; winter cold embrittles superglue.
+  Do the tilt-and-shake test over a bed the morning after gluing.
+
+**Premium alternatives:** an [A-Case Kane](https://shop.army-case.com/miniature-carrying-case/a-case-hybrid-the-kane/) backpack
+with two extra steel shelves (≈ $300–380 landed; the one soft case whose bottom bay takes a Bloodthirster standing) plus one 17 L
+box; or a Tablewar Mini / Battle Foam Magna Rack bag for the infantry plus the two 32 L boxes for the monsters — what most US
+Knight-and-monster players actually do. Flying: the centrepieces lie in model-specific Feldherr foam trays in a hard carry-on,
+one daemon per bag; the tall boxes are not cabin-legal.
+
+## Rules and meta since July
+
+Checked 2026-08-10/11 ([research note](#sources-and-confidence)): **no points that touch this army have changed since MFM
+v1.1 (2026-07-22)** — Be'lakor 390, Bloodthirster 320 (335 for a third), Lord of Change 320, Bloodcrushers 95/190,
+Rendmaster 150, Bloodletters 110, Pink Horrors 150, the enhancements 30/25/25/20, War Dog Karnivore 155
+([BSData transcription of the MFM](https://github.com/BSData/wh40k-11e), [official MFM](https://mfm.warhammer-community.com/en/chaos-daemons)).
+One correction to carry into the lists: **Skullmaster is 85, not ~75.** GW said another rules update would follow "in around a
+month" after 22 July, before the first quarterly dataslate in the autumn
+([Warhammer Community](https://www.warhammer-community.com/en-gb/articles/rgqanids/warhammer-40000-july-update-what-you-need-to-know/)) —
+expect one around Aug 19–26 and re-check then; *Denizens of the Warp* (3" deep strike) is still un-errata'd and still the
+obvious candidate. Daemons sit at the top of the meta (≈ 54% win rate, S-tier, [Meta Monday via Spikey Bits](https://spikeybits.com/best-worst-meta-armies/)),
+but the shape that is winning is Blood Legion + Cavalcade with eighteen Bloodcrushers and Be'lakor as Warlord, and **Purge the
+Foe — Shadow Legion's disposition — "essentially disappeared" from winning lists after the July update**
+([Tabletop Battles](https://www.tabletopbattles.com/40k-competitive-innovations-in-11th-rolling-need-pt-1)). For this project
+that changes nothing about Lists 0/B/F/A — they are for learning and for the theme — but it is a reason not to rush the ≈ $250
+Khorne-cavalry purchase for List E until the autumn dataslate shows where Shadow Legion lands.
+
+## What would change this
+
+- **The inventory.** Fewer Bloodletters or no Beasts/Drones → B slips and the recipe test moves to the Flesh Hounds;
+  Terminators present → C is cheaper and the marine half bigger; older sculpts on 25 mm bases → adapter rings, not re-basing.
+- **What you've bought since July.** Anything already acquired just moves up the tables — the five rules don't change.
+  If a Bloodthirster arrived painted bright red, it gets the Bloodletter retrofit at monster scale (~2 h) rather than the
+  shadow-first build.
+- **The paint that's actually on them.** Daemons already dark → Phase 2 shrinks to eyes and bases; Word Bearers nearer
+  orange or pink than crimson → the Flesh Tearers glaze first; anything thick or glossy → matte varnish before any decision;
+  a Be'lakor with purple lightning on his blade → *that* is the army's light, not corpse-light — the rule is one light, not
+  which light.
+- **A dataslate.** Points will move; List 0 at 1,995 loses a Screamer or the Exalted Flamer without losing its shape, and
+  each purchase step has similar slack.
+- **You hate glazing.** Then Phase 1 is the whole plan — bases, one varnish, one light — and it is still one army.
+
+## Sources and confidence
+
+Four research digests were compiled for this document on 2026-08-11 and sit in the repo under `docs/research/`
+(`2026-08-11-lore-and-visual-canon.md`, `-hobby-cohesion.md`, `-rules-meta.md`, `-transport.md`) with every URL and
+every "uncited" flag intact; their conclusions are inlined above. Confidence, honestly: the lore spine (Be'lakor's nature, the Charadon
+summoning by Word Bearers among the Disciples, House Korvax, the Shadow Legion detachment's own wording) is cited to
+Warhammer Community, Lexicanum/Fandom and coverage of *The Book of Fire*; no canonical named link between a Word Bearers
+Host and Be'lakor exists, so the story is a framing exercise inside canon-shaped space. The hobby recipes are standard
+Citadel-system practice cited to Goonhammer/Tabletop Battles HTPE articles, Warhammer Guild, Paint Pad and named tutorials;
+paint prices, times and the assembly of components into "shadow" recipes are general hobby knowledge, padded ~30% for a
+first project. Transport dimensions and magnet prices are from the makers' pages; monster heights are community figures —
+measure yours. The session's web-search budget ran out part-way and most hobby sites could not be opened directly, so the
+highest-value pages to read yourself are Goonhammer's *How to Paint Everything* for Be'lakor, Daemons of Khorne/Tzeentch/Nurgle,
+Word Bearers and Chaos Knights, the two 20-minute OSL articles, and GW's Be'lakor and House Korvax videos — all linked where used.
