@@ -79,6 +79,11 @@ of them turned out `Partial`.
 | `tools/ebay_search.js` · `tools/ebay_fetch.js` | The scout's headless-Chromium search + item/gallery fetchers |
 | `guide.html` · `make_guide.sh` · `GUIDE.pdf` | Print-layout guide and its PDF build |
 | `archive/` | Provenance from the superseded `daemon-quartermaster` repo (first Quartermaster page, BOOTSTRAP, build_site.sh, paste prompt) |
+| `codex-umbral-creed.md` · `codex-umbral-creed.html` | Codex: The Umbral Creed — the personal army book (fiction, unit entries, doctrines, **purchase ledger**); the styled HTML edition is standalone |
+| `quartermaster.md` | Audited inventory (Jul 27 photo re-audit + August arrivals), six 2,000-pt lists, verified rules — the current truth for what is owned |
+| `belakor-shadow-legion-guide.md` | Rules explainer: Be'lakor, Shadow of Chaos, the Shadow Legion detachment |
+| `SPEC-muster.md` | Handoff spec: unify every frontend here into one local-first console over a single canonical data store |
+| `.github/workflows/pages.yml` | Deploys the repo root to GitHub Pages on every push to `main` |
 
 ### `listings.json` schema
 
