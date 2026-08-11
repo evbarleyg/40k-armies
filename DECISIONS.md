@@ -170,6 +170,34 @@ tagging objectives at OC 0, the Tzeentch and/or) are recorded in the store's not
 10–11.5px type remains for tags and eyebrows by design; "to buy / short / on sprue" keep the solid red tag as one consistent
 "not fieldable as-is" signal while rule failures live in the rules-check list.
 
+### Round 2 (reviewed at `c3ab23e`, fixes in `f801315` and `e610ef1`)
+
+**Battery:** four reviewers on the fixed build — UI at 390/1280/codex (28 findings), data + rules recomputation (15),
+mobile flows driven headless (21 + timings), a fresh zero-context four-questions subject. Verification this round was by
+reproduction: every major was re-driven in a script before and after its fix (storage failure, two tabs, catalogued-crate
+replay, resume, dialog counts, clamps, desktop label widths, crate name cell, tag heights) and the data findings were
+re-checked against the store and the scout file directly; the reproductions are the drive scripts kept beside the round's
+screenshots. Nothing was refuted; three findings were narrowed (e.g. the tie line was wrong only for the third unit).
+
+**Verdicts:** 0 blockers anywhere. Four-questions: **all four answered cold in under a minute** (2 screens each at most).
+Majors (8): commit() reported success when the browser refused the write and then deleted the crate draft; two tabs
+overwrote each other's overlay; replaying a crate the repo had already catalogued under different ids double-counted it;
+"Continue editing" reloaded the saved copy over unsaved edits; desktop home rows collapsed their label column; the ticked
+crate row squeezed the unit name to 52px; table tags wrapped inside themselves; the buy gaps kept the phone row layout at
+1280. Minors (37) and nits (19): unclamped counts (a typed 99,999,999 froze the page for 22 s and persisted), empty/future
+delivery dates, invisible future-date warning, corrupt-overlay boot failure, contradictory replay wording, inverse edits
+accumulating, false dirty-draft confirms, price-filter edge cases (a 4-model Warp Talons lot as the median, a real Flesh
+Hounds listing dropped for mentioning auctions), Terminator Lord "unpriced" while seven listings sat in a mixed bucket, one
+generated table still valuing 10 Legionaries at 170, two dead Primer anchors, three glossary facts, July rules prose in
+the codex/guide contradicting the store, the Primer's pre-audit rosters without a note, and copy/contrast/tap-target
+leftovers. All fixed as described in the two commits; the doc contradictions were resolved with additive "store wins"
+notes rather than rewrites of files that arrived from `main`.
+
+**Waived (with reason):** the market feed's only "worth a look" card disappeared under the stricter overkill rule (an
+honest empty state beats a stale $194 army for a Terminator gap); the codex page keeps its own typography and gets a
+plain way-back line rather than the site nav (it is a book); user-typed 200-character tokens can still widen a device
+list card at 320px after `overflow-wrap:anywhere` (names are capped at 60 characters instead).
+
 ## 6. Questions for the owner (taste, not fact)
 
 - **Q1 — Warband name.** The codex's *Umbral Creed / Long Shadow Host* is used everywhere in the app; the
