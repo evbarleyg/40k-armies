@@ -239,8 +239,8 @@ listing, which for Khorne is practically a blessing)*
 Juggernaut cavalry. Repair, re-base, and they become the Tithe's armored fist —
 note the July 2026 balance pass already taxed them 10 points for being good.
 
-**KHORNE DAEMONS ARMY LOT — inbound** *(ETA Aug 10–17; contents to be
-catalogued on arrival)*
+**KHORNE DAEMONS ARMY LOT — inbound** *(shipped Aug 6 via USPS; ETA Aug 10–17;
+contents to be catalogued on arrival)*
 
 A painted lot bought on a $179 offer. The Ledger will be amended when the crate
 opens; the Creed expects letters, and suspects a Herald.
@@ -386,8 +386,8 @@ remaining gaps.
 | Jul 27 | Obsidius Mallex (Chaos Lord) | ~$20 (combined order) | Painted | Delivered Aug 1 |
 | Jul 27 | Flesh Hounds ×5 | ~$82 (combined order) | Well painted | Delivered Aug 4 |
 | Jul 28 | Bloodmaster + Bloodletters ×10 | $45.10 | Painted | Delivered Aug 4 (auction win) |
-| Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | ETA Aug 10–17 |
-| Aug 5 | Bloodcrushers lot | ~C$154.76 (~$112) | Some damage, repairs due | ETA Aug 18 – Sep 1 |
+| Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | Shipped Aug 6 (USPS), ETA Aug 10–17 |
+| Aug 5 | Bloodcrushers lot | ~C$154.76 (~$112) | Some damage, repairs due | ETA Aug 18 – Sep 1 (reconfirmed Aug 11) |
 
 **Total tithed: ≈ $1,391.** The strategy doc's plan priced the Night Lords lot
 at $650; the Creed spent ~$550 building a Khorne wing instead and kept the
@@ -396,7 +396,9 @@ Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo
 audit also surfaced two units the seller never listed (3 Flamers, 10 Cultists),
 now entered in Part III. Remaining gaps: a Skullmaster and Rendmaster for the
 tournament list, fast Slaanesh scoring (the Seekers lot went unpurchased), and
-mobile CSM (Raptors or Warp Talons, someday, painted in crimson).
+mobile CSM (Raptors or Warp Talons, someday, painted in crimson). The $650
+Night Lords lot sold to another buyer on Aug 10, closing that road for good;
+mobile CSM now means single-unit purchases.
 
 **Standing rule from the strategy doc, still in force:** after the current
 arrivals are catalogued, play ten games before buying another model.

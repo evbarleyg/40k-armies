@@ -39,8 +39,8 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 | Flesh Hounds | 5 | 75 | **delivered Aug 4** (buy-queue #2) |
 | Bloodmaster + Bloodletters ×9 | 1+9 | ~175 as 1+10 | **delivered Aug 4** (buy-queue #4) |
 | Exalted Bloodthirster | 1 | 320 (BT datasheet) | **delivered Aug 4, unassembled** |
-| Bloodcrushers lot ("some damaged") | ? | 95 per 3 | **ETA Aug 18 – Sep 1** |
-| Khorne Daemons Army Lot | ? | — | **ETA Aug 10–17, catalogue on arrival** |
+| Bloodcrushers lot ("some damaged") | ? | 95 per 3 | **ETA Aug 18 – Sep 1 (reconfirmed Aug 11)** |
+| Khorne Daemons Army Lot | ? | — | **shipped Aug 6 (USPS), ETA Aug 10–17, catalogue on arrival** |
 
 ## Rules verified on 07-27 (citations in the ledger artifact)
 

@@ -203,9 +203,10 @@ gaps. When the fiction and the tool conflict, the tool wins.
 - Points are MFM v1.1 (July 22, 2026) as audited July 27. The official app is
   the arbiter; carry the snapshot tag, do no fresh rules research beyond what
   the store needs.
-- Two lots are inbound (a Khorne army lot, ETA Aug 10 to 17, and a damaged
-  Bloodcrushers lot, ETA Aug 18 to Sep 1). Their catalogue-on-arrival is the
-  first real exercise of your arrivals workflow, so build that early enough
-  to use it.
+- Two lots are inbound (a Khorne army lot, shipped August 6 via USPS, ETA
+  August 10 to 17, so possibly already delivered when you read this, and a
+  damaged Bloodcrushers lot, ETA August 18 to September 1). Their
+  catalogue-on-arrival is the first real exercise of your arrivals workflow,
+  so build that early enough to use it.
 - The environment blocks most non-registry egress including eBay and Reddit.
   Design nothing that requires the app or the build to fetch external sites.
