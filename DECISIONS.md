@@ -130,7 +130,45 @@ linter output — humour lives in sub-lines, empty states and one footer margina
 
 ## 5. Review battery log
 
-*Pending — one entry per battery run: findings, verification verdicts, fixes, waivers.*
+### Round 1 (2026-08-11, commit `27bbd60` → fixes in `c3ab23e`)
+
+**Battery:** six reviewer agents that had not built the app — UI at 390 dark (39 findings), UI at 1280 light + codex-skin
+parity (20), data correctness with independent recomputation (22), rules accuracy against the repo's own documents (26),
+mobile flows + performance driven in headless Chromium (25 + timings), and a zero-context four-questions test subject.
+Then four adversarial verifier agents tried to refute every finding before anything was fixed.
+
+**Verdicts:** 128 of 132 findings confirmed, 9 of them as "partial" with a corrected cause (e.g. the Buy table overflow was
+nowrap tags and prices, not the 62% column rule; token splits were hyphen breaks, not `overflow-wrap`); 1 refuted (the
+crate Save button *is* disabled with no rows); the rest were suggestions logged below. Four-questions test: own / field /
+arriving answered cold in under a minute; **"what should I buy next" failed** (unitless "Skullmaster 85", internal order ids,
+un-merged shopping lines, prices hidden off-screen at 390, jargon) — fixed as a group. Performance passed outright (cold open
+95–191 ms, route renders ≤ 21 ms throttled 4×, zero console errors on 25 routes).
+
+**What was really wrong (and fixed):**
+- *Data you would have acted on:* gap prices silently included auction bids (the scout encodes `AUC`, the filter looked for
+  "auction") and part-kits, and ignored quantity — "finish E from ≈$132" was really ≈$245+; List C sat at 1,010 Heretic
+  Astartes points against a 1,000 cap and every summary called it legal (enhancement points count in GW's documents — C now
+  stores one Cultist Mob and the Screamers, 930 + 30); "fieldable today 2,720" counted the Bloodthirster on its sprue.
+- *Silent data loss:* local edits set aside after a rebuild were overwritten by the next edit; every rebuild produced a false
+  "set aside" alarm. Now changes are replayed onto the new store, already-applied ones are recognised and cleared, and only
+  genuinely unreplayable ones are parked — never dropped.
+- *Swallowed taps:* typing in a crate/builder field and tapping Save lost the first tap (the change handler re-rendered the
+  DOM under the pointer). Text fields now save without re-rendering.
+- *Phone tables:* orders, buy gaps, builder and crate rows hid their deciding column or control off-screen at 390 — now rows
+  or stacked cards; generated doc tables with 5+ columns scroll instead of collapsing to a word per line.
+- *Rules data:* boons carried the older wording, four of the six stratagems were missing, Beasts of Nurgle priced 150 for two
+  (140), War Dogs modelled as a multi-model unit, Dreadblades and several leader pairings stamped verified without a quoted
+  source, Epic Hero uniqueness and minimum unit sizes unenforced.
+- Plus ~80 smaller items: joins ("leads Legionaries ×5 ·"), duplicate units in shopping lines, tags on every normal row,
+  19px selects and 13px checkboxes, iOS focus-zoom (14px inputs), codex-skin brass at 3.6:1, light-theme fields invisible,
+  sort with no state or way back, deep links that did not scroll, focus lost on every render, jargon with no glossary.
+
+**Waived or deferred (with reason):** market overrides (`VERIFIED`/`SWEEP`) stay in `build.py` (D6, merge safety); the
+scorecard viewer stays dark-only (separate tool, noted); provenance paragraphs on the prose pages stay where they are (they
+are content, and the phone nav/h1 fix removed most of the cost); doc-internal contradictions in archived July docs (Nurglings
+tagging objectives at OC 0, the Tzeentch and/or) are recorded in the store's notes rather than edited into archived files;
+10–11.5px type remains for tags and eyebrows by design; "to buy / short / on sprue" keep the solid red tag as one consistent
+"not fieldable as-is" signal while rule failures live in the rules-check list.
 
 ## 6. Questions for the owner (taste, not fact)
 
