@@ -5,7 +5,8 @@ Doctrine" artifacts (built 2026-07-27 in a separate session; the
 `daemon-quartermaster` repo they cite was never pushed, so this file is the
 durable copy). Points are MFM v1.1 (22 Jul 2026), cross-checked against
 Wahapedia 11e / Tabletop Battles / Listhammer on 07-27. Status column updated
-2026-08-11 with the August deliveries.*
+2026-08-11 with the August deliveries. Since 2026-08-11 the tables below are generated from
+`data/muster.json`.*
 
 - Ledger artifact: <https://claude.ai/code/artifact/a56e6f5e-47b9-4b00-8ac0-791d4815ee44>
 - Battle Doctrine deck: <https://claude.ai/code/artifact/995360ab-ea16-4662-b89c-194c7a70a3c7>
@@ -17,30 +18,37 @@ Nurgle, Plague Drones, Chaos Terminators, or Bloodletters in the lot (misreads
 of Nurgling bases, Screamers, power armor, and Pink Horrors respectively) — but
 it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance)**.
 
-| Unit | Count | Pts (MFM v1.1) | Status |
-|---|---|---|---|
-| Be'lakor (mandatory Warlord) | 1 | 390 | own |
-| Lord of Change | 1 | 320 | own |
-| Fateskimmer | 1 | 95 | own |
-| Exalted Flamer | 1 | 65 | own |
-| Flamers | 3 | 65 | own (audit find) |
-| Pink Horrors | 10 | 150 | own |
-| Blue Horrors | 10 | 125 | own (alt / split tokens) |
-| Brimstone Horrors | 9 | — | own (split tokens) |
-| Screamers | 3 | 80 | own |
-| Nurglings | 3 bases | 45 | own |
-| Cultist Mob (Dark Vengeance) | ~10 | 50 | own (audit find) |
-| Master of Possessions | 1 | 60 | own |
-| Possessed | 5 | 120 | own |
-| Legionaries | 10 | 170 (or 2×5 @ 90) | own |
-| Havocs (2 las / 2 auto) | 5 | 125 | own |
-| War Dog Karnivore | 2 | 310 | own (Dreadblades allies) |
-| Chaos Lord (Obsidius Mallex) | 1 | — | **delivered Aug 1** (buy-queue #1) |
-| Flesh Hounds | 5 | 75 | **delivered Aug 4** (buy-queue #2) |
-| Bloodmaster + Bloodletters ×9 | 1+9 | ~175 as 1+10 | **delivered Aug 4** (buy-queue #4) |
-| Exalted Bloodthirster | 1 | 320 (BT datasheet) | **delivered Aug 4, unassembled** |
-| Bloodcrushers lot ("some damaged") | ? | 95 per 3 | **ETA Aug 18 – Sep 1 (reconfirmed Aug 11)** |
-| Khorne Daemons Army Lot | ? | — | **shipped Aug 6 (USPS), ETA Aug 10–17, catalogue on arrival** |
+<!--gen:inventory-->
+| Unit | Count | Pts (MFM v1.1) | Paint | From | Notes |
+|---|---|---|---|---|---|
+| Be'lakor | 1 | 390 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Lord of Change | 1 | 320 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Fateskimmer | 1 | 95 *verify* | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Exalted Flamer | 1 | 65 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Flamers | 3 | 65 | painted | Jul 21 · Shadow Legion Army Lot | Found in the Jul 27 photo audit; unlisted by the seller. |
+| Pink Horrors | 10 | 150 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Blue Horrors | 10 | 125 | painted | Jul 21 · Shadow Legion Army Lot | Alternate unit or split tokens. |
+| Brimstone Horrors | 9 | — *verify* | painted | Jul 21 · Shadow Legion Army Lot | Split tokens only (9). |
+| Screamers | 3 | 80 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Nurglings | 3 | 45 | painted | Jul 21 · Shadow Legion Army Lot | Three bases. |
+| Cultist Mob | 10 | 50 | painted | Jul 21 · Shadow Legion Army Lot | ≈10 Dark Vengeance cultists found in the Jul 27 photo audit; count them when convenient. |
+| Master of Possession | 1 | 60 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Possessed | 5 | 120 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Legionaries | 10 | 170 | painted | Jul 21 · Shadow Legion Army Lot | Run as two fives. |
+| Havocs | 5 | 125 | painted | Jul 21 · Shadow Legion Army Lot | 2 lascannon / 2 autocannon. |
+| War Dog Karnivore | 2 | 310 | painted | Jul 21 · Shadow Legion Army Lot |  |
+| Bloodthirster | 1 | 320 | unassembled | Jul 27 · Exalted Bloodthirster | Exalted Bloodthirster kit, on sprue. The whole hobby queue today. |
+| Chaos Lord | 1 | 90 | painted | Jul 27 · Obsidius Mallex | Obsidius Mallex (Blackstone Fortress) run as a generic Chaos Lord. |
+| Flesh Hounds | 5 | 75 | well painted | Jul 27 · Flesh Hounds ×5 |  |
+| Bloodmaster | 1 | 65 | painted | Jul 28 · Bloodmaster + Bloodletters ×10 |  |
+| Bloodletters | 9 | — | painted | Jul 28 · Bloodmaster + Bloodletters ×10 | Nine counted at the audit against ten on the listing — one short of a legal ten until the Khorne lot lands. |
+| **Khorne Daemons Army Lot** | ? | — | well painted | Aug 5 | Shipped Aug 6 (USPS), ETA Aug 10–17 — Letters expected; a Herald suspected. Catalogue on arrival. |
+| **Bloodcrushers lot** | ? | — | some damage, repairs due | Aug 5 | ETA Aug 18–Sep 1 (reconfirmed 2026-08-11) — Bloodcrushers, count unconfirmed; some damaged. |
+
+Fieldable today: **2,720 pts** across 21 records (92 models); spent ≈ $1,391, of which $325.70 is still in transit.
+<!--/gen:inventory-->
+
+*(Generated from `data/muster.json` — the canonical store the Muster app reads; edit the store, then `python3 muster.py build`.)*
 
 ## Rules verified on 07-27 (citations in the ledger artifact)
 
@@ -64,14 +72,18 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 
 Status recomputed after the August deliveries:
 
-| List | Idea | July 27 gap | Gap now |
-|---|---|---|---|
-| **A · Yo-Yo Court** | Teleport control: Mallex + Legionaries kill, Fade, Rapid-Ingress back; Tzeentch castle holds | Lord + Hounds (~$65) | **COMPLETE — playable today** |
-| B · Festering Court | Nurgle attrition + War Dogs | Beasts ×2, Drones ×3, Nurglings (~$180) | unchanged (~$180) |
-| C · Word Bearers Ascendant | All-marine deep-strike wave | Lord, Chosen, Talons, Cultists (~$159) | Chosen, Talons, Cultists ×10 (~$140) |
-| D · Crimson Cavalry | Khorne turn-1 alpha (Skullmaster scout-charge) | everything Khorne (~$480) | letters ×10, Skullmaster, Rendmaster, +crushers pending lot |
-| E · Fadethirster | Tournament shape: Fading Bloodthirster + Crusher brick | BT + all cavalry (~$388) | **BT owned (assemble!)**; Skullmaster, Rendmaster, ±crushers pending lot |
-| F · Triple Monster | Be'lakor + BT + LoC, beginner-forgiving | Bloodthirster (~$83–213) | **assembly + paint only** |
+<!--gen:lists-->
+| List | Idea | Total | Legal | Status | Gap |
+|---|---|---|---|---|---|
+| **A · The Yo-Yo Court** | Teleport control: Mallex and five Legionaries kill, Fade, and Rapid-Ingress back while the Tzeentch castle holds under the boons. | 1,940 | yes | **Playable today** | — |
+| **B · The Festering Court** | Nurgle attrition plus War Dogs: durable objective play, the −1-to-wound boon on the big targets, Karnivores for anti-tank. | 1,960 | yes | Needs purchases | Beasts of Nurgle ×2, Plague Drones ×3 |
+| **C · Word Bearers Ascendant** | An all-marine deep-strike wave under Be'lakor: two Lords, Terminators, Chosen and Warp Talons arriving where the line is thinnest. | 1,920 | yes | Needs purchases | Chaos Lord in Terminator Armour ×1, Chaos Terminator Squad ×5, Chosen ×5, Warp Talons ×5, Cultist Mob ×10 (from ≈$83 for the priced part, Jul 27 prices) |
+| **D · Crimson Cavalry** | Khorne turn-one alpha: a scouting Skullmaster and Bloodcrusher brick, letters and hounds Advancing and still charging under the boon. | 1,995 | yes | Needs purchases | Skullmaster ×1, Bloodcrushers ×6, Bloodcrushers ×3, Rendmaster on Blood Throne ×1, Bloodletters ×1, Bloodletters ×10, Flesh Hounds ×5, Warp Talons ×5, Nurglings ×3 (from ≈$287, Jul 27 prices) |
+| **E · The Fadethirster** | The tournament silhouette: a Fading Bloodthirster plus the Skullmaster/Bloodcrusher brick and a Rendmaster, cheap daemons scoring underneath. | 1,980 | yes | Needs purchases | Skullmaster ×1, Bloodcrushers ×6, Rendmaster on Blood Throne ×1, Bloodletters ×1 (from ≈$132, Jul 27 prices) |
+| **F · Triple Monster** | Be'lakor, a Fading Bloodthirster and the Lord of Change: three T10–11 monsters each dragging a 6" shadow bubble own the board by turn two. Beginner-forgiving. | 2,000 | yes | Owned — hobby work first | Bloodthirster: unassembled |
+<!--/gen:lists-->
+
+*(Generated: totals and legality from the shared linter, status from the audited inventory, gap prices from the Jul 27 read-only scout snapshot.)*
 
 **The road (from the Battle Doctrine deck):** learn on A (all painted, all
 owned) → assemble the Bloodthirster to unlock F → let the inbound Bloodcrushers

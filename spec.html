@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEC: Muster (working name), the unified hobby console</title>
+<link rel="stylesheet" href="ledger.css">
+<link rel="stylesheet" href="nav.css">
+</head>
+<body>
+<div class="wrap">
+<!--nav--><nav class="sitenav" aria-label="Site"><a class="mark" href="index.html">Shadow <b>Legion</b> HQ</a><a href="index.html">Muster</a><span class="sep">·</span><a href="quartermaster.html">Army</a><span class="sep">·</span><a href="codex-umbral-creed.html">Codex</a><span class="sep">·</span><a href="vision.html">Vision</a><span class="sep">·</span><a href="primer.html">Primer</a><span class="sep">·</span><a href="scorecard.html">Market</a><span class="sep">·</span><a href="archive.html">Archive</a><span class="sep">·</span><a href="context.html">Context</a></nav><!--/nav-->
+<p class="docmeta">The Muster spec · hand-off brief for the unified console</p>
+<article class="doc">
+<h1 id="spec-muster-working-name-the-unified-hobby-console">SPEC: Muster (working name), the unified hobby console</h1>
+<p><strong>The ask in one paragraph:</strong> this repo has grown five separate frontends and
+four markdown docs that all describe the same collection, and they already
+disagree with each other whenever data changes. Build one utilitarian piece of
+software that replaces them: a single local-first app over a single canonical
+data file, holding every current capability (market scorecard, inventory,
+lists, codex, doctrine) plus whatever you can add that makes the owner's
+weekly loop better. Budget is unlimited. Quality is climbed, never assumed:
+the hillclimb protocol in section 6 is a firm requirement. Sections marked
+FLEXIBLE are yours to redesign; you are expected to bring your own ideas
+(section 7) and to ask the owner when a decision is taste rather than fact.</p>
+<p><strong>Owner's weekly loop, so you know what you're optimizing:</strong> browse eBay lots,
+decide what to buy, receive crates, catalogue what actually arrived, pick a
+legal 2,000-point list from owned models, play, repeat. The app should make
+each of those steps faster or safer.</p>
+<hr />
+<h2 id="1-what-exists-today-the-surfaces-you-are-unifying">1. What exists today (the surfaces you are unifying)</h2>
+<div class="scroll"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>What it does</th>
+<th>Data behind it</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.html</code></td>
+<td>All-faction eBay value scorecard, filter/sort</td>
+<td><code>listings.js</code> (from <code>build.py</code> over <code>data/raw_listings.psv</code>)</td>
+<td>works, dated scan</td>
+</tr>
+<tr>
+<td><code>chaos.html</code></td>
+<td>Chaos-faction scorecard, same engine</td>
+<td><code>chaos.js</code> / <code>chaos.json</code></td>
+<td>works, July 20 scan</td>
+</tr>
+<tr>
+<td><code>codex-umbral-creed.html</code></td>
+<td>Styled army book: lore, unit entries, doctrines, ledger</td>
+<td>hand-written HTML, numbers duplicated from md</td>
+<td>current</td>
+</tr>
+<tr>
+<td>Quartermaster artifact (<a href="https://claude.ai/code/artifact/a56e6f5e-47b9-4b00-8ac0-791d4815ee44">link</a>)</td>
+<td>Audited inventory, six 2,000-pt lists, buy queue, verified rules</td>
+<td>hand-written HTML, now stale on status</td>
+<td>superseded by <code>quartermaster.md</code></td>
+</tr>
+<tr>
+<td>Battle Doctrine artifact (<a href="https://claude.ai/code/artifact/995360ab-ea16-4662-b89c-194c7a70a3c7">link</a>)</td>
+<td>Slide-deck briefing: strategy, mechanics primer, three armies</td>
+<td>hand-written HTML</td>
+<td>current content, orphaned format</td>
+</tr>
+<tr>
+<td><code>codex-umbral-creed.md</code>, <code>quartermaster.md</code>, <code>belakor-shadow-legion-guide.md</code>, <code>shadow-legion-strategy.md</code></td>
+<td>The book, the audit, the rules explainer, the original gameplan</td>
+<td>hand-written</td>
+<td>current</td>
+</tr>
+</tbody>
+</table></div>
+<p>The failure mode to kill: the Lord of Change's points existed in five places
+and was wrong in two of them until a manual merge this week. Numbers must live
+in one place.</p>
+<h2 id="2-product-shape-firm-on-posture-flexible-on-everything-else">2. Product shape (firm on posture, FLEXIBLE on everything else)</h2>
+<p>One app, utilitarian first. The codex's liturgical skin is a feature worth
+keeping, offered as a view or theme, never as the price of admission to the
+data. A user landing on the app should reach "what do I own and what can I
+field" in two clicks, and "should I buy this eBay lot" in three.</p>
+<p>Firm constraints:</p>
+<ul>
+<li><strong>Local-first, no backend, no accounts.</strong> It must open from the filesystem
+  or as a static deploy, matching the repo's existing pattern. Flat files in
+  git are the database.</li>
+<li><strong>No live LLM calls in the app.</strong> All intelligence happens out-of-band in
+  sessions like this one, writing results into the data file (same philosophy
+  as the owner's roost project).</li>
+<li><strong>No purchase automation.</strong> The app organizes public listings and never
+  buys, bids, or checks out. The existing paste-into-console scraper pattern
+  (<code>scrape.js</code>) stays the collection mechanism for market data.</li>
+<li><strong>Phone-usable.</strong> The owner reads this on an iPhone. Every view must work at
+  390px, light and dark.</li>
+<li><strong>IP posture:</strong> original flavor text only, game statistics as facts with a
+  verify-in-app caveat and a points-snapshot date. Nothing copied from
+  Games Workshop publications.</li>
+</ul>
+<p>FLEXIBLE: framework choice (vanilla, Vite + something, anything that builds to
+static), single-page or multi-page, file layout, visual design beyond the
+constraints above. If you keep the codex's typography for the flavor view,
+its design tokens are in <code>codex-umbral-creed.html</code>.</p>
+<h2 id="3-the-data-layer-is-the-real-unification-firm">3. The data layer is the real unification (firm)</h2>
+<p>Design one canonical machine-readable store (one file or a small set, your
+call on schema) that captures at minimum:</p>
+<ul>
+<li><strong>Units owned:</strong> identity, count, points (with the MFM snapshot tag),
+  paint state, provenance (which order, which date, which cost), status
+  (owned / inbound with ETA / pending catalogue), and audit notes (for
+  example "found in July 27 photo audit, unlisted by seller").</li>
+<li><strong>Orders ledger:</strong> every purchase with landed cost and delivery state. The
+  current truth is the table in <code>codex-umbral-creed.md</code> Part VI.</li>
+<li><strong>Lists:</strong> the Quartermaster's six plus room for more. Each entry references
+  owned units by id, carries the enhancement assignments, and stores nothing
+  derivable (totals are computed).</li>
+<li><strong>Market listings:</strong> what <code>raw_listings.psv</code> / <code>raw_chaos.psv</code> hold today,
+  with the scoring model inputs from <code>build.py</code>.</li>
+<li><strong>Rules gists:</strong> the detachment facts the app needs for validation (the
+  Thralls allowlist, Epic Hero ban, mandatory Warlord, Dreadblades cap of 3,
+  boon table), each with a source link and verified date. These are data, so a
+  rules change is an edit, never a code change.</li>
+</ul>
+<p>Migration of the existing psv/json/md content into the store is part of the
+job. The markdown docs stay in the repo as prose (they are read on GitHub) but
+any number in them must either be generated from the store or carry an
+explicit "snapshot, see app" disclaimer. Hand-maintained duplication ends
+here. Include a validation script that fails loudly when the store is
+internally inconsistent (list totals wrong, ledger sums wrong, a list using
+units the collection lacks, an illegal enhancement pairing).</p>
+<p>Schema design is FLEXIBLE, with one warning from live data: two inbound lots
+have unknown contents until crates open. The schema must represent "a
+purchase exists, contents pending" without lying about counts.</p>
+<h2 id="4-feature-directions-a-menu-deliberately-not-a-checklist">4. Feature directions (a menu, deliberately not a checklist)</h2>
+<p>Build what earns its place, cut what doesn't, and say which and why in the
+decisions log. Candidates, roughly in order of expected value:</p>
+<ol>
+<li><strong>Collection browser.</strong> The inventory as a sortable, filterable table
+   (tool view) and as the codex's datasheet cards (flavor view), both reading
+   the same records.</li>
+<li><strong>List builder with a legality linter.</strong> Compose from owned units only,
+   live points total, and flags for every rule in the store: non-Warlord
+   Be'lakor, an Epic Hero in the detachment, a fourth War Dog, an enhancement
+   on an illegal target, over 2,000. The Quartermaster's six lists ship as
+   presets with their gap-to-complete computed from inventory.</li>
+<li><strong>Buy advisor.</strong> The scorecard views merged into one, extended with
+   gap-awareness: a listing's card shows which lists it advances ("completes
+   the Fadethirster"). The do-not-buy list (fake Bloodthirsters, illegal
+   heroes) renders as warnings.</li>
+<li><strong>Arrivals workflow.</strong> Inbound orders with ETAs and a catalogue-on-arrival
+   form that turns a crate into inventory records in one sitting.</li>
+<li><strong>Hobby tracker.</strong> Assembly and paint state per model, surfacing the
+   current queue (an unassembled Bloodthirster is the whole queue today).</li>
+<li><strong>Game log.</strong> Date, opponent faction, list used, result, one lesson. The
+   standing rule is ten games before the next purchase; show the counter.</li>
+<li><strong>Doctrine reader.</strong> The Battle Doctrine deck's content in a readable
+   format that survives, slides or prose, your call.</li>
+<li><strong>Exports.</strong> A list as tournament-legible plain text; the codex as
+   print/PDF.</li>
+</ol>
+<h2 id="5-what-done-looks-like-firm">5. What done looks like (firm)</h2>
+<ul>
+<li>Every capability in section 1's table is either present in the app or
+  retired in the decisions log with a reason.</li>
+<li>One canonical store; the validation script passes; no number appears in two
+  hand-maintained places anywhere in the repo.</li>
+<li>The four questions answer in under a minute each for a reader with no
+  context: what do I own, what can I field today, what should I buy next,
+  what is arriving. This is tested, see section 6.</li>
+<li>Old surfaces stay reachable (a <code>legacy/</code> folder is fine) until the parity
+  checklist for each is confirmed, then get removed in a labeled commit.</li>
+<li>Works at 390px and at desktop widths, in light and dark, from a local file
+  open and from a static host.</li>
+</ul>
+<h2 id="6-the-quality-hillclimb-firm-and-where-the-unlimited-budget-goes">6. The quality hillclimb (firm, and where the unlimited budget goes)</h2>
+<p>Do this in passes with exit criteria. Spend tokens on independent
+verification before spending them on more features.</p>
+<p><strong>Pass structure.</strong> Build a milestone, then run the review battery, fix, and
+rerun until a full battery yields zero confirmed findings twice in a row
+(iterate until dry). Only then start the next milestone.</p>
+<p><strong>The review battery:</strong></p>
+<ul>
+<li><strong>Screenshot-driven UI review.</strong> Render the app in the environment's
+  headless Chromium at 390px and 1280px, light and dark, and capture every
+  view. Judge the screenshots against a written rubric (hierarchy, spacing,
+  overflow, contrast, tap targets, dark-theme parity) by agents that did not
+  build the UI. Every finding gets fixed or explicitly waived with a reason.</li>
+<li><strong>Fresh-eyes functional review.</strong> Spawn reviewer agents that receive only
+  the built app, the canonical store, and this spec, no build context. Give
+  each one lens: data correctness (recompute every displayed number from the
+  store independently), rules accuracy (cross-check the linter against
+  <code>quartermaster.md</code> and <code>belakor-shadow-legion-guide.md</code>), mobile UX, and
+  performance (cold open under a second on the data at hand).</li>
+<li><strong>Adversarial verification of findings.</strong> Before acting on a finding, have
+  an independent agent try to refute it. Fix confirmed findings, log refuted
+  ones. This kills plausible-but-wrong churn.</li>
+<li><strong>The four-questions test.</strong> A fresh agent with zero context gets the app
+  and the four questions from section 5, and must answer all four correctly
+  in under a minute each, navigating cold. A wrong or slow answer is a defect
+  in the app, never in the reader.</li>
+<li><strong>Data-integrity gate.</strong> The validation script runs in the battery and on
+  every commit touching the store.</li>
+</ul>
+<p><strong>The one big design decision gets a tournament.</strong> Before committing to an
+information architecture, produce two or three genuinely different concepts
+for the home screen and navigation (for example: dashboard-first, table-first,
+codex-first). Score them with independent judge agents against the weekly
+loop in this spec's preamble, pick the winner, and graft the losers' best
+ideas. Keep the concept sketches in the repo.</p>
+<p><strong>Record the climb.</strong> Maintain <code>DECISIONS.md</code>: what was proposed, adopted,
+rejected, and why, including every waived finding. The owner reads this file
+to trust the result without replaying the process.</p>
+<h2 id="7-your-ideas-are-requested-and-taste-questions-go-to-the-owner">7. Your ideas are requested, and taste questions go to the owner</h2>
+<p>Before building, write a short proposal section in <code>DECISIONS.md</code> with five to
+ten ideas of your own: features, data views, flourishes, structural bets.
+Include at least one nobody asked for. Mark the two or three you would fight
+for. Cheap-and-good ideas can just ship; expensive or taste-heavy ones go to
+the owner as questions before you invest.</p>
+<p>Guidance on taste, so your questions land well: the owner values utilitarian
+density over onboarding hand-holding, dry humor in flavor text over glee, the
+Umbral Creed fiction as seasoning rather than structure, and honest data
+(verify flags, snapshot dates, "pending catalogue") over confident-looking
+gaps. When the fiction and the tool conflict, the tool wins.</p>
+<h2 id="8-handoff-notes">8. Handoff notes</h2>
+<ul>
+<li>Repo: <code>evbarleyg/40k-armies</code>, work from <code>main</code> (currently at the
+  Quartermaster-merge commit). Branch per your environment's instructions.</li>
+<li>Read in this order: this spec, <code>quartermaster.md</code>, <code>codex-umbral-creed.md</code>,
+  <code>belakor-shadow-legion-guide.md</code>, then the two HTML viewers' source.</li>
+<li>Points are MFM v1.1 (July 22, 2026) as audited July 27. The official app is
+  the arbiter; carry the snapshot tag, do no fresh rules research beyond what
+  the store needs.</li>
+<li>Two lots are inbound (a Khorne army lot, shipped August 6 via USPS, ETA
+  August 10 to 17, so possibly already delivered when you read this, and a
+  damaged Bloodcrushers lot, ETA August 18 to September 1). Their
+  catalogue-on-arrival is the first real exercise of your arrivals workflow,
+  so build that early enough to use it.</li>
+<li>The environment blocks most non-registry egress including eBay and Reddit.
+  Design nothing that requires the app or the build to fetch external sites.</li>
+</ul>
+</article>
+<footer><p>Rendered from <code>SPEC-muster.md</code> · edit the markdown, then <code>python3 pages.py</code>.</p></footer>
+</div>
+</body>
+</html>

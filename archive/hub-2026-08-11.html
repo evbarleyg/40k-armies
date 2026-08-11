@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow Legion HQ</title>
+<link rel="stylesheet" href="../ledger.css">
+<link rel="stylesheet" href="../nav.css">
+<style>
+  .lede{ font-size:16px; max-width:62ch; margin:0 0 18px; }
+  .cards a.card{ display:block; color:inherit; text-decoration:none; }
+  .cards a.card:hover{ border-color:var(--brass); }
+  .cards a.card:hover h3{ color:var(--crimson); }
+  .card .go{ margin-top:14px; font-size:11px; text-transform:uppercase; letter-spacing:.16em; color:var(--crimson-soft); }
+  .card .facts{ display:flex; flex-wrap:wrap; gap:6px 14px; margin:12px 0 0; padding:0; list-style:none;
+    font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--dim); }
+  .card .facts b{ color:var(--brass); font-weight:600; }
+  .threads li{ margin:0 0 10px; }
+  .threads b{ color:var(--brass); }
+  .prompt{ position:relative; }
+  .prompt pre{ margin:0; white-space:pre-wrap; padding:14px 16px; }
+  .prompt button{ position:absolute; top:8px; right:8px; font:11px/1 -apple-system,BlinkMacSystemFont,sans-serif;
+    text-transform:uppercase; letter-spacing:.14em; background:var(--panel2); color:var(--brass);
+    border:1px solid var(--brass); padding:7px 10px; cursor:pointer; border-radius:2px; }
+  .prompt button:hover{ background:var(--brass); color:var(--ground); }
+  .accounts{ margin-top:14px; }
+  .accounts .card p{ margin:6px 0 0; }
+  .kv{ margin:10px 0 0; font-size:13px; }
+  .kv dt{ text-transform:uppercase; letter-spacing:.14em; font-size:10px; color:var(--brass); margin-top:10px; }
+  .kv dd{ margin:2px 0 0; word-break:break-word; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<!--nav--><nav class="sitenav" aria-label="Site"><a class="mark" href="index.html">Shadow <b>Legion</b> HQ</a><a href="vision.html">Vision</a><span class="sep">·</span><a href="quartermaster.html">Army</a><span class="sep">·</span><a href="primer.html">Primer</a><span class="sep">·</span><a href="scorecard.html">Market</a><span class="sep">·</span><a href="archive.html">Archive</a><span class="sep">·</span><a href="context.html">Context</a></nav><!--/nav-->
+<header class="mast">
+  <p class="eyebrow">Warhammer 40,000 · Chaos Daemons · Be'lakor's host in Word Bearers crimson</p>
+  <h1>Shadow <span class="red">Legion</span> HQ</h1>
+  <p class="lede">The army Evan owns, the lists it can field, how to play them, and what to do next — kept in one public repo so a
+    Claude session from either account starts on the same page. Dated material lives in the <a href="archive.html">archive</a>.</p>
+  <div class="chips">
+    <span class="chip">Owned <b>~1,985 pts</b> · paid <b>$730</b></span>
+    <span class="chip"><b>6</b> legal lists at 2,000</span>
+    <!--market--><span class="chip">Scorecard <b>152</b> listings · <b>8</b> BUY-grade</span><span class="chip">Feed scanned <b>2026-07-20</b> · photos swept <b>2026-07-21</b></span><!--/market-->
+  </div>
+</header>
+
+<h2>Now</h2>
+<div class="grid2 cards">
+  <a class="card" href="vision.html">
+    <p class="kind">The vision · new</p>
+    <h3>One Legion of Shadow</h3>
+    <p>Why this mixed box is exactly one army in the lore, a story for the Host, five painting rules that make four gods'
+       daemons, Word Bearers and War Dogs read as one force over the paint they already wear, unit-by-unit treatments,
+       four phases with hours and dollars, what to buy in which order, and the transport answer.</p>
+    <ul class="facts"><li><b>5</b> rules</li><li><b>4</b> phases · ≈ 46–65 h</li><li>List 0 plays <b>today</b></li></ul>
+    <p class="go">Read the vision →</p>
+  </a>
+  <a class="card" href="quartermaster.html">
+    <p class="kind">The army</p>
+    <h3>Collection &amp; six lists</h3>
+    <p>Every unit in the box at MFM v1.1 points, the six 2,000-pt Shadow Legion lists (A–F) tagged own / buy / verify,
+       and the five rulings that shaped them.</p>
+    <ul class="facts"><li><b>19</b> unit rows</li><li><b>6</b> lists</li><li>verified <b>Jul 27</b></li></ul>
+    <p class="go">Open the army page →</p>
+  </a>
+  <a class="card" href="primer.html">
+    <p class="kind">How to play it</p>
+    <h3>The Primer</h3>
+    <p>Written for a first-time player: the army rule, the detachment, scoring, a play guide per list, practising online,
+       cited appendices. Also as a <span style="text-decoration:underline">31-page PDF</span> (guide.html · GUIDE.pdf).</p>
+    <ul class="facts"><li><b>7,842</b> words</li><li>11th ed · MFM v1.1</li></ul>
+    <p class="go">Read the primer →</p>
+  </a>
+  <a class="card" href="scorecard.html">
+    <p class="kind">Market tool · July snapshot</p>
+    <h3>Painted-army scorecard</h3>
+    <p>Scores every fully-painted army on eBay's category feeds on value, with photo-verified paint tiers.
+       The data is the Jul 20 scan — refresh before using; the method is the point.</p>
+    <ul class="facts"><li><b>127</b> + <b>44</b> listings</li><li>filter · sort</li></ul>
+    <p class="go">Open the scorecard →</p>
+  </a>
+</div>
+
+<h2>The army today</h2>
+<p class="note">One painted eBay lot (236942163636, $730, arrived late July): Be'lakor, a Lord of Change and the Tzeentch court
+  (Fateskimmer, Exalted Flamer, Pink/Blue/Brimstone Horrors, Flamers, Screamers), Nurglings plus photo-extra Beasts of Nurgle,
+  Plague Drones and ~10 Bloodletters, a Word Bearers half (Master of Possession, Possessed, Legionaries, Havocs, maybe
+  Terminators) and two War Dog Karnivores — ≈1,985 playable points.</p>
+<ul class="rules">
+  <li><b>Playable now:</b> List B (Festering Court) if the photo-extras check out — nothing to buy but a Nurgling box.
+      List F (Triple Monster) and E (Fadethirster) wait on one Bloodthirster; A and C on a Chaos Lord, Cultists and Flesh Hounds.</li>
+  <li><b>Settled rules:</b> Chaos Lord and Master of Possession are legal in Shadow Legion; Skulltaker/Karanak are not (Epic Heroes);
+      the Bloodthirster is one 320-pt datasheet and may take <em>Fade to Darkness</em>; War Dogs ride along via <em>Dreadblades</em> (≤3);
+      Be'lakor is always the Warlord. Re-verify after any dataslate.</li>
+</ul>
+
+<h2>What's next</h2>
+<ul class="threads">
+  <li><b>Check the vision against the box.</b> <a href="vision.html">The vision</a> was written against the July inventory without sight of the models — its "as it came" column and the photo-extras want confirming, then Phase 0 is an evening's work.</li>
+  <li><b>Inventory the box</b> against the <a href="quartermaster.html">army page</a>: the photo-extras (≈3 Beasts, Drones, ≈10 Bloodletters, Terminators?) decide how cheap B and D really are.</li>
+  <li><b>Buy for one list</b> — B ≈ $39 to finish, F ≈ $109–188, A ≈ $91–117 at July prices; re-run the scout first (read-only, from a session that can reach eBay — this cloud environment can't).</li>
+  <li><b>Points will move again</b> — everything is MFM v1.1 (2026-07-22); check <code>~</code> values and Dreadblades in the official app before an event.</li>
+  <li><b>Transport</b> — answered in <a href="vision.html#transport-and-storage">the vision</a>: magnets on real steel, two tall Really Useful Boxes for the monsters and War Dogs, two shallow ones for infantry, ≈ $150–230; measure the Bloodthirster before buying the tall box.</li>
+  <li><b>Skullmaster is 85 pts</b>, not ~75 (re-checked Aug 10): List D becomes 1,995 and List E as printed is 10 over — swap its Plague Drones for the owned Screamers (1,980) or trim elsewhere. Nothing else moved; the next GW update is due ~Aug 19–26.</li>
+  <li><b>Publishing</b> — GitHub Pages is one setting away for the repo admin (Settings → Pages → main / root); <code>daemon-quartermaster</code> can be archived, or opened to <code>ebg-ant</code> if newer work lives there.</li>
+</ul>
+
+<h2>Working across accounts</h2>
+<p class="note">Claude sessions, artifacts and memory stay inside the account that made them. GitHub doesn't care. So the repo carries the state, and any session from either account starts by reading it.</p>
+<div class="grid2 accounts">
+  <div class="card">
+    <p class="kind">The shared ground</p>
+    <h3>evbarleyg/40k-armies</h3>
+    <dl class="kv">
+      <dt>Collaborators</dt><dd><code>evbarleyg</code> (personal, admin) · <code>ebg-ant</code> (work-linked, write)</dd>
+      <dt>Auto-loaded by Claude Code</dt><dd><code>CLAUDE.md</code> — house rules + pointers</dd>
+      <dt>Full hand-off</dt><dd><a href="context.html">docs/CONTEXT.md</a> — owns / decided / open</dd>
+      <dt>View the site</dt><dd>GitHub Pages once enabled (Settings → Pages → main, root):<br><code>evbarleyg.github.io/40k-armies</code><br>or any branch instantly via <code>raw.githack.com/evbarleyg/40k-armies/&lt;branch&gt;/index.html</code></dd>
+    </dl>
+  </div>
+  <div class="card">
+    <p class="kind">Starting a session from the other account</p>
+    <h3>Paste this</h3>
+    <div class="prompt">
+      <button type="button" id="copyBtn" aria-label="Copy prompt">Copy</button>
+<pre id="promptText">Clone https://github.com/evbarleyg/40k-armies and read CLAUDE.md and docs/CONTEXT.md before anything else — they hold my 40K army (Shadow Legion under Be'lakor), the six lists, the eBay scorecard tooling and the house rules (eBay is read-only; judge paint from photos, never titles). Then: [what I want today]. Commit anything worth keeping back to the repo and update docs/CONTEXT.md if the state of the army or the plan changed.</pre>
+    </div>
+    <p>Works the same from the personal Claude app, a work Claude Code session, or a phone.</p>
+  </div>
+</div>
+
+<footer>
+  <p>Consolidated 2026-08-11 · Not affiliated with Games Workshop · The scorecards only organise public listings; nothing here bids or buys.
+     Rules and points: Wahapedia 11e + Munitorum Field Manual v1.1 as of 2026-07-27 — re-verify in the official app before an event.</p>
+</footer>
+</div>
+
+<script>
+document.getElementById('copyBtn').addEventListener('click', async (e) => {
+  const t = document.getElementById('promptText').textContent;
+  try { await navigator.clipboard.writeText(t); e.target.textContent = 'Copied'; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById('promptText'));
+          const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = 'Selected'; }
+  setTimeout(() => e.target.textContent = 'Copy', 1800);
+});
+</script>
+</body>
+</html>

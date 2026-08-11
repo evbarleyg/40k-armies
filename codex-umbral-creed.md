@@ -379,17 +379,22 @@ remaining gaps.
 
 ## PART VI — THE LEDGER OF TITHES
 
+<!--gen:ledger-->
 | Date | Tithe | Cost (landed) | State | Status |
 |---|---|---|---|---|
-| Jul 21 | Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts) | $840.18 | Tabletop paint | Delivered Jul 28 |
+| Jul 21 | Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts) | $840.18 ($730 price + tax and shipping) | Tabletop paint | Delivered Jul 28 |
 | Jul 27 | Exalted Bloodthirster | $78.03 | Unassembled, unpainted | Delivered Aug 4 |
-| Jul 27 | Obsidius Mallex (Chaos Lord) | ~$20 (combined order) | Painted | Delivered Aug 1 |
-| Jul 27 | Flesh Hounds ×5 | ~$82 (combined order) | Well painted | Delivered Aug 4 |
-| Jul 28 | Bloodmaster + Bloodletters ×10 | $45.10 | Painted | Delivered Aug 4 (auction win) |
-| Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | Shipped Aug 6 (USPS), ETA Aug 10–17 |
-| Aug 5 | Bloodcrushers lot | ~C$154.76 (~$112) | Some damage, repairs due | ETA Aug 18 – Sep 1 (reconfirmed Aug 11) |
+| Jul 27 | Obsidius Mallex (Chaos Lord) | ≈$20 (combined order with the Flesh Hounds) | Painted | Delivered Aug 1 |
+| Jul 27 | Flesh Hounds ×5 | ≈$82 (combined order with Mallex) | Well painted | Delivered Aug 4 |
+| Jul 28 | Bloodmaster + Bloodletters ×10 (auction win) | $45.10 | Painted | Delivered Aug 4 |
+| Aug 5 | Khorne Daemons Army Lot | $213.70 ($179 offer accepted) | Well painted | Shipped Aug 6 (USPS), ETA Aug 10–17 |
+| Aug 5 | Bloodcrushers lot | ≈$112 (C$154.76) | Some damage, repairs due | ETA Aug 18–Sep 1 (reconfirmed 2026-08-11) |
 
-**Total tithed: ≈ $1,391.** The strategy doc's plan priced the Night Lords lot
+**Total tithed: ≈ $1,391** across 7 orders; 2 still in transit (Khorne Daemons Army Lot, Bloodcrushers lot).
+<!--/gen:ledger-->
+
+*(Table and total generated from `data/muster.json` by `muster.py`; edit the store, not this table.)*
+The strategy doc's plan priced the Night Lords lot
 at $650; the Creed spent ~$550 building a Khorne wing instead and kept the
 difference. The Mallex, Flesh Hounds, and Bloodmaster purchases were the
 Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo

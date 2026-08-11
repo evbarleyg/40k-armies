@@ -1,0 +1,24 @@
+/* sketch furniture shared by the three home-screen concepts (design tournament, DECISIONS.md §4) */
+body{ padding-bottom:96px; }
+.sk-note{ font:11px/1.4 ui-monospace,Menlo,monospace; color:var(--brass); text-transform:uppercase; letter-spacing:.14em; margin:14px 0 4px; }
+.tabbar{ position:fixed; left:0; right:0; bottom:0; display:flex; background:var(--panel2); border-top:1px solid var(--line); z-index:5; }
+.tabbar a{ flex:1; text-align:center; padding:10px 4px 12px; font-size:11px; text-decoration:none; color:var(--dim); letter-spacing:.06em; }
+.tabbar a b{ display:block; font-size:17px; line-height:1.1; color:var(--ink); font-family:Palatino,Georgia,serif; }
+.tabbar a.on{ color:var(--crimson-soft); } .tabbar a.on b{ color:var(--crimson); }
+.q{ border:1px solid var(--line); background:var(--panel); padding:14px 16px; }
+.q .k{ font-size:10.5px; text-transform:uppercase; letter-spacing:.18em; color:var(--crimson); margin:0; }
+.q .big{ font:600 26px/1.1 ui-monospace,Menlo,monospace; color:var(--ink); margin:6px 0 2px; font-variant-numeric:tabular-nums; }
+.q .big small{ font-size:12px; color:var(--dim); font-weight:400; }
+.q ul{ margin:8px 0 0; padding:0; list-style:none; font-size:13px; }
+.q li{ padding:5px 0; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:10px; }
+.q li span:last-child{ color:var(--dim); font-family:ui-monospace,Menlo,monospace; font-size:12px; white-space:nowrap; }
+.strip{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 14px; }
+.pill{ font:12px/1 ui-monospace,Menlo,monospace; padding:7px 10px; border:1px solid var(--line); background:var(--panel); border-radius:2px; }
+.pill b{ color:var(--brass); }
+.pill.warn{ border-color:var(--brass); color:var(--brass); }
+.pill.ok{ border-color:var(--own); color:var(--own); }
+.filters{ display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+.filters span{ font-size:11.5px; padding:5px 9px; border:1px solid var(--line); border-radius:14px; color:var(--dim); }
+.filters span.on{ border-color:var(--crimson-soft); color:var(--ink); background:var(--panel2); }
+.muted{ color:var(--dim); }
+.grey{ opacity:.55; }

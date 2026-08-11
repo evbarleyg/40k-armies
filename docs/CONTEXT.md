@@ -5,6 +5,19 @@ open, and where everything lives. Written for a Claude session on **either** acc
 work) — sessions, artifacts and memory don't cross accounts, this repo does. If you change the state
 of the army or the plan, update this file in the same commit.
 
+## 0. Current state (generated — do not edit by hand)
+
+<!--gen:state-->
+- **Store:** `data/muster.json` (schema 1, updated 2026-08-11); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. 2026-08-10: Skullmaster 85 (was ~75); nothing else in these lists moved. Next balance window expected ~2026-08-19/26.
+- **Owned:** 21 inventory records, 92 models, 2,720 fieldable pts; spent ≈ $1,391 over 7 orders.
+- **Inbound:** Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed 2026-08-11).
+- **Lists:** playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,920), D (1,995), E (1,980).
+- **Games logged:** 0 (rule: 10 before the next model, counting after the current arrivals (o6, o7) are catalogued).
+<!--/gen:state-->
+
+*Generated from `data/muster.json` by `muster.py build`. The Muster app (`index.html`) reads the same store; the
+sections below are the narrative and may lag it — when they disagree, the store wins.*
+
 ## 1. The one-paragraph version
 
 Evan is a **new 40K player**. On 2026-07-20/21 he bought a painted ~2,000-pt **Chaos Daemons

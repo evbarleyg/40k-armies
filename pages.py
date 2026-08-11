@@ -14,14 +14,7 @@ import os, re, html, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # (href, label) — order is the nav order.
-NAV = [
-    ("vision.html", "Vision"),
-    ("quartermaster.html", "Army"),
-    ("primer.html", "Primer"),
-    ("scorecard.html", "Market"),
-    ("archive.html", "Archive"),
-    ("context.html", "Context"),
-]
+NAV = [("index.html", "Muster"), ("quartermaster.html", "Army"), ("codex-umbral-creed.html", "Codex"), ("vision.html", "Vision"), ("primer.html", "Primer"), ("scorecard.html", "Market"), ("archive.html", "Archive"), ("context.html", "Context")]
 
 # source markdown -> (output page, eyebrow line)
 ARCHIVED = "Archived snapshot · "      # eyebrow prefix for dated material kept for the record
@@ -29,6 +22,10 @@ DOCS = {
     "docs/VISION.md":            ("vision.html", "The vision · one legion of shadow · written 2026-08-11 against the Jul 27 inventory"),
     "docs/PRIMER.md":            ("primer.html", "Shadow Legion · beginner's strategy primer · verified 2026-07-27 (MFM v1.1)"),
     "docs/CONTEXT.md":           ("context.html", "Portable context · read this first in any new session, either account"),
+    "quartermaster.md":          ("quartermaster.html", "The army · audited inventory, six lists, verified rules · tables generated from data/muster.json"),
+    "belakor-shadow-legion-guide.md": ("rules-guide.html", "Rules explainer · Be'lakor, Shadow of Chaos, the Shadow Legion detachment · 2026-07-24"),
+    "DECISIONS.md":              ("decisions.html", "Muster build log · proposal, dedupe map, design tournament, review batteries"),
+    "SPEC-muster.md":            ("spec.html", "The Muster spec · hand-off brief for the unified console"),
     "docs/ebay-access.md":       ("ebay-access.html", "Method note · reaching eBay from a cloud session"),
     "docs/lists.md":             ("lists.html", ARCHIVED + "how the six lists came to be: the original four (Jul 26), the corrections, lists 5–6 (Jul 27)"),
     "docs/collection.md":        ("collection.html", ARCHIVED + "the box as inventoried on 2026-07-25 (the Army page carries the current table)"),

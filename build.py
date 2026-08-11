@@ -19,7 +19,7 @@ NOTE: paint tier is assumed Tabletop+ unless a listing was individually verified
 this script is a first-pass triage, not a substitute for eyeballing the listing.
 """
 import csv, json, re, datetime, os
-import pages
+import pages, muster
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "data", "raw_listings.psv")
@@ -349,6 +349,7 @@ def main():
     buys = sum(1 for v in seen.values() if v == "BUY")
     market = (f'<span class="chip">Scorecard <b>{len(seen)}</b> listings · <b>{buys}</b> BUY-grade</span>'
               f'<span class="chip">Feed scanned <b>{FEED_SCANNED}</b> · photos swept <b>{PHOTO_SWEEP}</b></span>')
+    muster.build()          # canonical store → muster.js + generated regions (fails loudly if the store is invalid)
     pages.build(market)     # doc pages + shared nav (+ these numbers on the hub)
 
 if __name__ == "__main__":
