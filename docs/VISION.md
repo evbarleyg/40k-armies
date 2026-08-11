@@ -1,7 +1,11 @@
 # One Legion of Shadow — a cohesive vision for the army on hand
 
-*Written overnight, 2026-08-11, against the collection as inventoried on 2026-07-27 (the eBay lot plus its
-photo-extras); anything bought since simply slots into the same rules — see [What would change this](#what-would-change-this).
+*Written overnight, 2026-08-11, against the collection as inventoried on 2026-07-27, then corrected the same day to the
+**audited** collection and the August purchases recorded in the codex ledger (a Bloodthirster on the sprue, Obsidius Mallex
+as the Chaos Lord, Flesh Hounds, a Bloodmaster and nine Bloodletters, ten Cultists and three Flamers the seller never
+listed — and no Beasts, Plague Drones or Terminators after all; a Khorne daemon lot and a Bloodcrushers lot inbound).
+`data/muster.json` and the Muster app are the truth for what is owned; anything bought later slots into the same
+rules — see [What would change this](#what-would-change-this).
 I have not seen the models: this cloud environment cannot reach eBay to pull the old listing gallery, so the
 "as it came" descriptions are assumptions to check against the box, and every treatment below is chosen to be
 safe over somebody else's paint. Lore and hobby claims link their sources; where a claim rests on general
@@ -88,16 +92,20 @@ who finds the Prince's schemes congenial (Tzeentch has "chained him up more than
 escaped — [Warhammer Community](https://www.warhammer-community.com/2021/11/17/which-chaos-god-does-belakor-really-serve/));
 **Nurgle's patient things**, which respect his "near-infinite longevity"; a knot of **Bloodletters** enslaved and furious
 about it (Khorne is pleased whenever Be'lakor takes the field, whatever his intentions); and two **War Dogs** out of
-Korvosi whose thrones have not been quiet since the Keep Inviolate fell. When the Bloodthirster comes it comes as the
-Prince's answer to his own jealousy — the one Khorne greater daemon the detachment allows him, bound in the same shadow.
+Korvosi whose thrones have not been quiet since the Keep Inviolate fell. The Bloodthirster came in pieces, which is
+theologically correct — the Prince's answer to his own jealousy, the one Khorne greater daemon the detachment allows him,
+bound in the same shadow once he has arms.
 His whispered doubt travels with the Host too: Be'lakor turns other powers' servants for a living (House Raven's garrison,
 the Stormcast Eternus), and no one in the Eclipsed Word is quite sure the door the Master of Possession opened at Charadon
 was his idea.
 
-Working names, in the Legion's registers — Colchisian particles for the mortals (Kor, Sor, Kol, Hol, after Kor Phaeron,
-Sor Talgron, Kol Badar), hard apostrophe-broken names for Khorne, mirrored sibilants for Tzeentch, wet gutturals for
-Nurgle, after the patterns of GW's own named characters ([naming notes](https://wh40k.lexicanum.com/wiki/Word_Bearers)) —
-offered as a starting kit, not canon:
+The army already has a book of names — *Codex: The Umbral Creed* calls the warband the Long Shadow Host and its
+pieces The Source (Be'lakor), The Anagnost (the Lord of Change), Sor Vekh the First Footnotist (the Master of Possession),
+Obsidius Mallex the Castellan, the First Choir, the Blood Tithe, the Margins, the Iron Cantors — and those are the names
+the Muster app uses. The table below is the overnight draft's alternative register, kept because a second reading costs
+nothing: Colchisian particles for the mortals (Kor, Sor, Kol, Hol, after Kor Phaeron, Sor Talgron, Kol Badar), hard
+apostrophe-broken names for Khorne, mirrored sibilants for Tzeentch, wet gutturals for Nurgle, after the patterns of
+GW's own named characters ([naming notes](https://wh40k.lexicanum.com/wiki/Word_Bearers)) — a starting kit, not canon:
 
 | Model | Role in the Host | A name to start from |
 |---|---|---|
@@ -105,7 +113,7 @@ offered as a starting kit, not canon:
 | Master of Possession | First Acolyte of the Eclipsed Word, keeper of the rite; the army's lantern | **Sor Vhaduk, the Tongue of Dusk** |
 | Chaos Lord (to come) | Coryphaus — the Host's war-captain | **Kol Barrakh** |
 | Possessed ×5 | The Host's Gal Vorbak, its "Blessed Sons" | champion **Hol Ezaar-Ythrek** (the daemon's name hyphenated on, after Burias-Drak'shal) |
-| Legionaries · Havocs · Terminators | The faithful; the Terminators are *the Anointed* | squads named for verses: *the Ninth Utterance*, *the Litany Reversed* |
+| Legionaries · Havocs · Cultists | The faithful and their congregation | squads named for verses: *the Ninth Utterance*, *the Litany Reversed* |
 | Lord of Change | Be'lakor's Tzeentchian ally-of-convenience | **Xirr'ath the Twice-Mirrored** |
 | Fateskimmer · Exalted Flamer · Horrors · Flamers · Screamers | The Court of Cinders | herald **Ph'tessek** |
 | Nurglings · Beasts · Plague Drones | The Patient Tithe | (Nurgle's things are named by others) |
@@ -252,8 +260,9 @@ cuneiform ([Bolter & Chainsword](https://bolterandchainsword.com/topic/262497-wr
 
 ## Unit by unit
 
-"As it came" is my assumption from the listing description (a competent Tabletop job, Word Bearers red-and-black
-marines, daemons in their gods' colours, Be'lakor dark). Times are careful-beginner brush time, excluding drying.
+"As it came" is my assumption from the listing descriptions and the ledger's paint states (a competent Tabletop job,
+Word Bearers red-and-black marines, daemons in their gods' colours, Be'lakor dark; the August singles as their sellers
+described them). Times are careful-beginner brush time, excluding drying.
 
 | Unit | As it came (assumed) | What it becomes | Work | Phase |
 |---|---|---|---|---|
@@ -262,19 +271,18 @@ marines, daemons in their gods' colours, Be'lakor dark). Times are careful-begin
 | **Fateskimmer + Exalted Flamer** (Burning Chariot) | Tzeentch brights | Disc and Screamer-steeds near-black with colour only on leading edges; the Exalted Flamer's body all shadow, its fire the brightest Tzeentch flame in the army; pin the flame-stand joints while you're there (transport) | 2 h | 2 |
 | **Pink Horrors ×10 · Blue ×10 · Brimstone ×9** | pink / blue / yellow | Glaze-down by the no-mud rule (magenta → Shyish → black feet), re-brighten fingertips and faces with a drybrush of Emperor's Children / Lothern Blue, mouths and eyes corpse-light. **Brimstones: leave bright** — they *are* fires — but ring their bases with a warm-to-corpse glow so they read as light sources on the ash | 3 h for 29 | 2 |
 | **Flamers ×3 · Screamers ×3** | Tzeentch brights | Screamers: black backs and undersides, colour only on the dorsal ridge and spots; stems painted as base, not model. Flamers: black bodies drybrushed Kantor → Thunderhawk on the skirt tips, all the colour budget on the flames | 1.5 h | 2 |
-| **Nurglings ×3 · Beasts ×3 · Plague Drones ×3** (photo-extras — confirm) | greens | Camoshade + Agrax glaze to kill lime highlights, black bands low, sores and eyes white → Tesseract Glow, slime glossed after the matte coat. Treat each Nurgling stack as one model: black at the bottom, greener toward the top | 2.5 h | 2 |
-| **Bloodletters ×10** (photo-extra — confirm) | Khorne red | The recipe test and the showcase: three black bands up the legs, one Berserker Bloodshade glaze over the remaining red, blade heat re-established on the outer third only (Fire Dragon Bright → Flash Gitz Yellow → white tip), eyes corpse-light, bronze on any armour ([retrofit sequence](https://www.jongrantminiatures.co.uk/2023/11/how-i-paint-chaos-daemons-bloodletters.html)) | 2 h | 1 (test) → 2 |
+| **Nurglings ×3** (the audit found no Beasts or Plague Drones in the box — those were Nurgling bases and Screamers misread) | greens | Camoshade + Agrax glaze to kill lime highlights, black bands low, sores and eyes white → Tesseract Glow, slime glossed after the matte coat. Treat each stack as one model: black at the bottom, greener toward the top | 1 h | 2 |
+| **Bloodmaster + Bloodletters ×9** (the Jul 28 auction win; the original lot held none, and nine were counted against ten listed — the Khorne lot should make the ten) | Khorne red, painted | The recipe test and the showcase: three black bands up the legs, one Berserker Bloodshade glaze over the remaining red, blade heat re-established on the outer third only (Fire Dragon Bright → Flash Gitz Yellow → white tip), eyes corpse-light, bronze on any armour ([retrofit sequence](https://www.jongrantminiatures.co.uk/2023/11/how-i-paint-chaos-daemons-bloodletters.html)) | 2 h | 1 (test) → 2 |
 | **Master of Possession** | Word Bearers red | *The lantern.* Crimson enriched per Rule 4; his staff-fire and censer become the biggest corpse-light source on the table, casting onto his own robes; a strip of parchment with the Host's creed | 1 h | 1 |
 | **Possessed ×5** | red armour, mutations | The bridge unit per Rule 4: crimson plates floating on Be'lakor-grey flesh that blackens toward the claws, corpse-light in the splits | 1.5 h | 2 |
-| **Legionaries ×10 · Havocs ×5 · Terminators?** | red, black/metal trim | The crimson nudge; trim → bronze; one parchment strip and one line of script per model; helmet lenses corpse-light; greaves darkened (Rule 2 on mortals). The Terminators, if they're in the box, are the Anointed — give them the most script | 30–40 min each, ≈ 8–12 h | 2–3 |
+| **Legionaries ×10 · Havocs ×5** (no Terminators — power armour misread at the audit) | red, black/metal trim | The crimson nudge; trim → bronze; one parchment strip and one line of script per model; helmet lenses corpse-light; greaves darkened (Rule 2 on mortals) | 30–40 min each, ≈ 8–10 h | 2–3 |
 | **War Dog Karnivores ×2** | unknown hull scheme | House Korvax outriders — [next section](#the-war-dogs-house-korvax-outriders) | 2–3 h each | 2 |
-| *Arriving later* | | | | |
-| **Chaos Lord** | buy painted *or* bare | The Coryphaus: crimson like the Legionaries, his weapon carrying the light. If he arrives in tidy Black Legion black, keep it — add crimson cloth, bronze, script — a black-armoured captain in a crimson Host reads as rank, not mismatch | 1.5 h | on arrival |
-| **Cultist Mob ×10** | any | Drab robes (Contrast browns/greys over a grey drybrush), black-dusted hems, one crimson rag each, no bronze — the cheapest unit should look the most mortal | 2 h | on arrival |
-| **Flesh Hounds ×5–10** | often AoS reds | Straight into the Bloodletter recipe; collars in bronze with a corpse-light rune — Khorne's leash re-cut with Be'lakor's name | 1.5 h per five | on arrival |
-| **Bloodthirster** | ideally bare or new-on-sprue | *The Prince's Answer*, painted shadow-first from black primer as the army's second monument: skin drybrushed Corvus → Eshin → Dawnstone on top planes only, lower body left black, Flesh Tearers Red 1:2 medium glazed onto chest, shoulders and face so red blooms out of the grey; bronze armour blackened low; axe and whip as the heat source with a warm drybrushed OSL onto the nearest black skin; eyes corpse-light; wing membranes as Be'lakor's (Corvus Black + Dryad Bark, purple-red glazed tears); a rune branded on one shoulder ([obsidian-brute plan](https://www.dakkadakka.com/dakkaforum/posts/list/797465.page)) | 6–8 h | the big project |
-| **Bloodcrushers · Skullmaster · Rendmaster · Bloodmaster** | any | Juggernauts as blackened bronze machines with ember joints and script plates; riders per the Bloodletters; the Blood Throne's brass the same bronze as everything else | ≈ 1 h per model | if D/E |
-| **Nurglings (second box)** | bare | Native drybrush-up in the shadow-Nurgle ladder — 30 minutes a base and the fastest proof that new models match | 1.5 h | with List B |
+| **Cultist Mob ×10** (audit find, painted) | Dark Vengeance scheme | Drab robes glazed down (Contrast browns/greys), black-dusted hems, one crimson rag each, no bronze — the cheapest unit should look the most mortal | 1.5 h | 2 |
+| **Chaos Lord — Obsidius Mallex** (Aug 1, painted) | Blackstone Fortress black and red | The Castellan: keep his black plate — a black-armoured captain in a crimson Host reads as rank, not mismatch — and add crimson cloth, bronze trim, a line of script, his weapon carrying the light | 1 h | 2 |
+| **Flesh Hounds ×5** (Aug 4, well painted) | Khorne reds | Straight into the Bloodletter recipe; collars in bronze with a corpse-light rune — Khorne's leash re-cut with Be'lakor's name | 1.5 h | 2 |
+| **Bloodthirster** (Aug 4, on the sprue — the whole hobby queue) | bare plastic, ideal | *The Unbound Word*, painted shadow-first from black primer as the army's second monument: skin drybrushed Corvus → Eshin → Dawnstone on top planes only, lower body left black, Flesh Tearers Red 1:2 medium glazed onto chest, shoulders and face so red blooms out of the grey; bronze armour blackened low; axe and whip as the heat source with a warm drybrushed OSL onto the nearest black skin; eyes corpse-light; wing membranes as Be'lakor's (Corvus Black + Dryad Bark, purple-red glazed tears); a rune branded on one shoulder ([obsidian-brute plan](https://www.dakkadakka.com/dakkaforum/posts/list/797465.page)) | 6–8 h | the big project |
+| **Bloodcrushers** (inbound, some damaged) · **the Khorne lot** (inbound, contents pending) · Skullmaster · Rendmaster (not yet bought) | any | Repair and re-base first; Juggernauts as blackened bronze machines with ember joints and script plates; riders per the Bloodletters; the Blood Throne's brass the same bronze as everything else | ≈ 1 h per model | 3, as they land |
+| **Beasts ×2 · Plague Drones ×3** (only if List B still appeals) | bare or painted | Native drybrush-up in the shadow-Nurgle ladder — the fastest proof that new models match | 3 h | with List B |
 
 ## The War Dogs — House Korvax outriders
 
@@ -309,7 +317,7 @@ Host's bronze on these two is the mark of whom they march with.
 
 <div class="phases">
 <div class="phase"><p class="when">Phase 0 · this week · ≈ 8 h · ≈ $60–230</p><h4>Take possession</h4>
-<p>Inventory the box against the collection table; measure the three big models base-to-wingtip; wiggle-test every stem, wing and War Dog joint; clean everything (lukewarm water, drop of dish soap, soft toothbrush). Decide the three constants aloud: ash ground, corpse-light, bronze. Paint one Bloodletter, one Horror, one Nurgle base and one Legionary end-to-end. Magnetise every base in one evening (transport section). Play a game with List 0.</p>
+<p>Catalogue the two crates in Muster as they land; measure the three big models base-to-wingtip; wiggle-test every stem, wing and War Dog joint; clean everything (lukewarm water, drop of dish soap, soft toothbrush). Decide the three constants aloud: ash ground, corpse-light, bronze. Paint one Bloodletter, one Horror, one Nurgle base and one Legionary end-to-end. Magnetise every base in one evening (transport section). Play a game with List A.</p>
 <p class="cost">Magnets, putty, boxes, steel: $150–230 · test pots you'll use anyway</p></div>
 <div class="phase"><p class="when">Phase 1 · weeks 1–3 · ≈ 15–18 h · ≈ $120–150</p><h4>Minimum viable cohesion</h4>
 <p>The 20% that buys 80%: rebase everything (10-model batches, paste one while the last dries), black rims; one ultra-matte varnish over the whole army to kill three owners' worth of mismatched sheen; corpse-light in every daemon eye and every marine lens; Be'lakor's refresh; the Master of Possession as lantern; shadow bands on the most neon units only. From across a table it is now one deliberate army.</p>
@@ -331,32 +339,33 @@ tidy but "not mine" → keep, rebase, light, varnish.
 
 ## Playing it while it grows
 
-The Primer's six lists all assume a purchase or a photo-extra, except for one thing nobody wrote down: **the box as it
-came is already a legal 2,000-point Shadow Legion army.**
+When this was drafted the plan was to learn on the box as it came; the ledger has since overtaken it. **List A, the
+Yo-Yo Court, is complete — every model owned and painted — and it is the list to learn on, starting today**; **List F,
+Triple Monster, is one assembly away** (the Bloodthirster); the tournament shapes (E, D) wait on the two inbound crates,
+a Skullmaster and a Rendmaster; B waits on Beasts and Plague Drones the audit showed were never in the box; C on a marine
+shopping list. The Muster app computes each list's status live from the store, so this page no longer carries the arithmetic.
 
 <div class="callout">
-<p><b>List 0 — The Box.</b> Be'lakor 390 · Lord of Change 320 · Fateskimmer 95 · Exalted Flamer 65 · Pink Horrors ×10 150
-(Blues and Brimstones as split tokens) · Flamers ×3 65 · Screamers ×3 80 · Nurglings ×3 45 · Havocs 125 · Legionaries ×10 170 ·
-Master of Possession 60 → Possessed ×5 120 · War Dog Karnivore ×2 310 = <b>1,995</b>. Heretic Astartes 475/1,000, War Dogs 2/3
-via Dreadblades, Be'lakor Warlord.</p>
-<p>It plays like a slower List A: the Tzeentch court shoots and screens under Be'lakor's shadow, the War Dogs and Havocs are the
-anti-tank, the Possessed and the two monsters are the counter-punch. Without a Chaos Lord there is no <i>Fade to Darkness</i>
-yo-yo on Legionaries — put an enhancement on the Master of Possession instead (Heretic Astartes characters gain the SHADOW LEGION
-keyword in this detachment; check the app for which of the four he may take) and learn the phases, the aura and the scoring
-before spending a dollar.</p>
+<p><b>List 0 — the daemon court, still legal.</b> Be'lakor · Lord of Change · Fateskimmer · Exalted Flamer · Pink Horrors ×10
+(Blues and Brimstones as split tokens) · Flamers ×3 · Screamers ×3 · Nurglings ×3 · Havocs · Legionaries ×10 · Master of
+Possession → Possessed ×5 · War Dog Karnivores ×2 — 1,995 at MFM v1.1, Be'lakor Warlord, War Dogs via Dreadblades. It is the
+all-original-lot list: worth knowing for a day when the Khorne wing is on the painting desk, and a slower cousin of List A
+(no Chaos Lord, so no <i>Fade to Darkness</i> yo-yo — put an enhancement on the Master of Possession instead and learn the
+phases, the aura and the scoring).</p>
 </div>
 
-Then the arc follows the purchases, one at a time, each unlocking a list from [the Primer](primer.html):
+The arc from here, one step at a time:
 
-| Step | Buy | Unlocks | Why this order |
+| Step | Do / buy | Unlocks | Why this order |
 |---|---|---|---|
-| 0 | nothing (+ a Nurglings box, ≈ $39) | List 0 above; **List B** (Festering Court) once the Beasts and Drones are confirmed in the box | Learn with models you cannot mis-buy |
-| 1 | **Bloodthirster**, bare or new-on-sprue (≈ $85 at auction, ≈ $143 NIB in July) | **List F** (Triple Monster), the most forgiving list — and the army's second monument to paint | One purchase, the biggest change in how the army plays *and* looks |
-| 2 | **Chaos Lord + Cultists ×10 + Flesh Hounds ×5** (≈ $90–120 together) | **List A** (Yo-Yo Court) and the *Fade* trick; the Cultists and Hounds also serve E | The cheap shared core; small paint jobs; buy in any state |
-| 3 | Bloodcrushers ×6, Skullmaster, Rendmaster, Bloodmaster (≈ $250) | **List E** (the Fadethirster) and **D** | Only when you want the competitive shape — the Khorne cavalry is a painting project in itself, and see the meta caveat below |
-| — | Chosen, Warp Talons, Terminators if not in the box | **List C** (Word Bearers Ascendant) | The theme list; buy when the marine half is what you enjoy painting |
+| now | nothing | **List A** — play it; log the games | Every model owned and painted; the house rule says ten games before the next model |
+| 1 | assemble and paint the Bloodthirster (owned) | **List F** (Triple Monster), the most forgiving list — and the army's second monument | No money, the biggest change in how the army plays *and* looks |
+| 2 | open the two crates (Khorne lot, Bloodcrushers) and catalogue them in Muster | most of **E** and **D**, depending on what is inside | Already paid for; repairs and re-basing are Phase 3 work |
+| 3 | Skullmaster + Rendmaster on Blood Throne (≈ $40–50 and ≈ $40–70 landed at July prices) | **List E** (the Fadethirster) and **D** complete | The only purchases the tournament shape still needs — after the ten games |
+| — | Beasts ×2 + Plague Drones ×3 (≈ $180) | **List B** | Only if Nurgle attrition is the game you want; nothing else uses them |
+| — | Terminator Lord + Terminators, Chosen, Warp Talons, ten more Cultists | **List C** (Word Bearers Ascendant) | The theme list; buy when the marine half is what you enjoy painting — single units now that the Night Lords lot is gone |
 
-Two properties make the order robust: every step is playable on its own, and every model bought sits in at least two lists.
+Two properties keep the order robust: every step is playable on its own, and almost every model bought sits in at least two lists.
 
 ## Buying, in the order the vision wants
 
@@ -365,11 +374,15 @@ cheaper to buy); prefer AoS-boxed daemons ("Blades of Khorne", "Disciples of Tze
 is fine for single characters where $20–30 buys a tidy Chaos Lord. Read-only scouting, photos not titles, a bid is not a
 price — the tools are in `tools/`, and this environment can't reach eBay, so run it from the personal machine.
 
-1. Nurglings (NIB ≈ $39) — finishes List B.
-2. Bloodthirster (bare/NoS; watch open-box auctions ≈ $80–90 vs ≈ $143 NIB) — List F, the centrepiece project.
-3. Chaos Lord (any state, ≈ $20–30) · Cultists ×10 (≈ $25–45) · Flesh Hounds ×5–10 (≈ $35 per painted five, less bare) — List A.
-4. Later, if E/D: Bloodcrushers ×6 NoS (≈ $90), Blood Throne / Skull Cannon kit for the Rendmaster (≈ $65–72), Bloodmaster
-   (≈ $25–40), Skullmaster (thin market: OOP metal ≈ $44 or a Juggernaut-lord proxy).
+What is left to buy is short, and all of it waits on the ten-games rule and on what the two crates turn out to hold:
+
+1. Skullmaster (thin market: OOP resin/metal ≈ $40–50 landed, or a Juggernaut-lord conversion) and a Rendmaster on Blood
+   Throne (the Blood Throne / Skull Cannon kit, ≈ $40–70) — the tournament list's only real gaps.
+2. One Bloodletter, if the Khorne lot does not supply it — nine were counted against ten listed.
+3. Only if List B appeals: Beasts of Nurgle ×2 and Plague Drones ×3 (≈ $180 together in July).
+4. Only if List C appeals: a Terminator Lord and five Terminators, five Chosen, five Warp Talons, ten more Cultists — bought
+   as single painted-or-bare units now that the Night Lords lot has sold elsewhere.
+5. Some day: Seekers, for the Slaanesh boon and fast scoring — nothing in the six lists needs them.
 
 **Hobby supplies** — starter kit ≈ $120–150 (black primer; matte varnish — Testors Dullcote cans or AK Ultra Matte over a
 satin coat; 'Ardcoat; Contrast/Lahmian Medium; Black Templar, Shyish Purple; Berserker Bloodshade, Nuln Oil, Agrax; the light
@@ -383,8 +396,9 @@ optional, nothing here needs it — an airbrush.
 
 **Transport** — ≈ $150–230, next section.
 
-Rough all-in for the year the vision describes: **≈ $300 of models, ≈ $150–250 of paint and basing, ≈ $150–230 of boxes and
-magnets** — spread across the four phases, and every line item is independently useful.
+Rough all-in for the year the vision describes, beyond the ≈ $1,391 already in the ledger: **≈ $80–120 of models for the
+tournament shape (more only if B or C calls), ≈ $150–250 of paint and basing, ≈ $150–230 of boxes and magnets** — spread
+across the four phases, and every line item is independently useful.
 
 ## Transport and storage
 
@@ -450,11 +464,11 @@ Khorne-cavalry purchase for List E until the autumn dataslate shows where Shadow
 
 ## What would change this
 
-- **The inventory.** Fewer Bloodletters or no Beasts/Drones → B slips and the recipe test moves to the Flesh Hounds;
-  Terminators present → C is cheaper and the marine half bigger; older sculpts on 25 mm bases → adapter rings, not re-basing.
-- **What you've bought since July.** Anything already acquired just moves up the tables — the five rules don't change.
-  If a Bloodthirster arrived painted bright red, it gets the Bloodletter retrofit at monster scale (~2 h) rather than the
-  shadow-first build.
+- **The crates.** A Herald or a Skullmaster in the Khorne lot → E and D get cheaper; fewer than six repairable
+  Bloodcrushers → E waits on another three; older sculpts on 25 mm bases → adapter rings, not re-basing. Catalogue them in
+  Muster and every table that depends on them recomputes.
+- **What you buy next.** Anything acquired just moves up the tables — the five rules don't change. A model that arrives
+  painted bright gets the retrofit (glaze down, one glow, army base); one that arrives bare gets the shadow-first build.
 - **The paint that's actually on them.** Daemons already dark → Phase 2 shrinks to eyes and bases; Word Bearers nearer
   orange or pink than crimson → the Flesh Tearers glaze first; anything thick or glossy → matte varnish before any decision;
   a Be'lakor with purple lightning on his blade → *that* is the army's light, not corpse-light — the rule is one light, not

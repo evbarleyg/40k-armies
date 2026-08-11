@@ -1,4 +1,4 @@
-# 40K context — read this first (state as of 2026-08-11)
+# 40K context — read this first
 
 Portable summary of Evan's Warhammer 40,000 work: what he owns, what has been decided, what is
 open, and where everything lives. Written for a Claude session on **either** account (personal or
@@ -20,26 +20,35 @@ sections below are the narrative and may lag it — when they disagree, the stor
 
 ## 1. The one-paragraph version
 
-Evan is a **new 40K player**. On 2026-07-20/21 he bought a painted ~2,000-pt **Chaos Daemons
-"Shadow Legion"** army on eBay (lot 236942163636, $730, Word Bearers red/black theme) built around
-**Be'lakor**. The rules were re-verified from primary sources on 2026-07-27 (11th edition, Munitorum
-Field Manual v1.1): six legal 2,000-pt lists (A–F) exist with a beginner's Primer explaining how to
-play each, plus a priced shopping list per list. Separately, a **value scorecard** scores every
-fully-painted army for sale on eBay (that tooling found the lot), and a photo sweep graded 29 of those
-listings' paint honestly. Everything is in the public repo `evbarleyg/40k-armies`; `index.html` is the hub.
-Explain jargon inline when talking to Evan — he wants to learn unit roles and nuances, not be handed conclusions.
+Evan is a **new 40K player**. On 2026-07-21 he bought a painted ~2,000-pt **Chaos Daemons "Shadow Legion"** army on
+eBay (lot 236942163636; $840 landed; Word Bearers red/black theme) built around **Be'lakor**, then in late July / early
+August added a **Bloodthirster** (on the sprue), **Obsidius Mallex** as a Chaos Lord, **Flesh Hounds**, a **Bloodmaster with
+nine Bloodletters**, and two lots still inbound (a Khorne daemon army lot, a Bloodcrushers lot) — ≈ $1,391 across seven
+orders. A photo re-audit on 2026-07-27 corrected the seller's list (no Beasts, Plague Drones, Terminators or Bloodletters
+in the original box; three Flamers and ten Cultists nobody listed). Rules were re-verified from primary sources on
+2026-07-27 (11th edition, MFM v1.1): six 2,000-pt lists (A–F) exist — **A is complete and playable today, F needs only the
+Bloodthirster assembled** — with a beginner's Primer for each and a personal codex (*The Umbral Creed*) for flavour.
+Since 2026-08-11 everything numeric lives in one store, `data/muster.json`, read by the **Muster** console (`index.html`)
+and by `muster.py`, which regenerates the tables in the prose docs. A **value scorecard** still scores every painted army
+on eBay's feeds (that tooling found the lot). Everything is in the public repo `evbarleyg/40k-armies`, served at
+`https://evbarleyg.github.io/40k-armies/` from `main`. Explain jargon inline when talking to Evan — he wants to learn unit
+roles and nuances, not be handed conclusions.
 
 ## 2. Where things live
 
 | Thing | Location |
 |---|---|
-| Hub / site | `index.html` → Army (`quartermaster.html`) · Primer · Market (`scorecard.html`) · Archive (`archive.html`, all dated material) · Context. GitHub Pages URL once enabled: `https://evbarleyg.github.io/40k-armies/`; any branch via `raw.githack.com/evbarleyg/40k-armies/<branch>/index.html` |
-| The vision (narrative, five painting rules, unit treatments, phases, buying order, transport) | `docs/VISION.md` → `vision.html`; its research digests in `docs/research/` |
-| Collection, six lists, verified rules | `quartermaster.html` (the "Shadow Legion Quartermaster" ledger) |
+| **The store** — units, audited inventory, orders, six lists, rules gists, hobby queue, games, buying notes | `data/muster.json` (edit this; `python3 muster.py build` validates it and regenerates everything downstream) |
+| **Muster**, the console (own · field · buy · arriving; collection, lists + linter, builder, crates, hobby, games) | `index.html` + `app.js` + `app.css`; the linter `lint.js` is shared with `muster.py` (via `tools/lint_cli.js`); build log `DECISIONS.md`; spec `SPEC-muster.md` |
+| Site | GitHub Pages from `main`: `https://evbarleyg.github.io/40k-armies/`; any branch via `raw.githack.com/evbarleyg/40k-armies/<branch>/index.html`; dated material behind `archive.html` |
+| The army page (audited inventory, six lists, verified rules — tables generated) | `quartermaster.md` → `quartermaster.html` |
+| The codex (fiction, unit entries, doctrines, **the purchase ledger** — table generated) | `codex-umbral-creed.md`, `codex-umbral-creed.html` |
+| Rules explainer | `belakor-shadow-legion-guide.md` → `rules-guide.html` |
+| The vision (painting rules, unit treatments, phases, what is left to buy, transport) | `docs/VISION.md` → `vision.html`; research digests in `docs/research/` |
 | Full play guide | `docs/PRIMER.md` → `primer.html`; print layout `guide.html` → `GUIDE.pdf` (31 pp, `./make_guide.sh`) |
-| Lists with history and corrections | `docs/lists.md` |
+| Lists with history and corrections (archived) | `docs/lists.md` |
 | Rules digest + re-verification | `docs/research.md` |
-| What came in the box | `docs/collection.md` |
+| Pre-audit box inventory (archived; superseded by the store) | `docs/collection.md` |
 | eBay buy targets for the lists (2026-07-27, archived — prices expired) | `docs/SCOUT_REPORT.md`, data `data/scout-2026-07-27.json` (114 listings), tools `tools/ebay_search.js`, `tools/ebay_fetch.js` |
 | Painted-army value scorecards | `build.py` + `data/raw_*.psv` → `scorecard.html`, `chaos.html` |
 | Photo paint-tier sweep (2026-07-21) | `docs/sweep-2026-07-21.md`; tiers merged via the `SWEEP` overlay in `build.py` |
@@ -50,38 +59,22 @@ Explain jargon inline when talking to Evan — he wants to learn unit roles and 
 Accounts: the repo is on Evan's personal GitHub (`evbarleyg`, admin); his work-linked GitHub identity
 `ebg-ant` has write access, so Claude sessions from either Claude account can push. The earlier
 private repo `evbarleyg/daemon-quartermaster` (personal) held the army project until 2026-08-11; its
-files were brought here verbatim and it can be archived. Claude artifacts that exist in the work
-account: "Shadow Legion Quartermaster" (= `quartermaster.html`) and "REPORT.md" (= the sweep). The
-personal account has the original Quartermaster artifact (= `archive/quartermaster-2026-07-25.html`).
+files were brought here verbatim and it can be archived. Two lines of Claude work met in this repo on 2026-08-11: one
+(sessions on branch `claude/chaos-daemons-40k-guide-…`, merged to `main`) wrote the codex, the audited `quartermaster.md`,
+the rules guide, the Muster spec and the Pages workflow; the other (branch `claude/40k-work-consolidation-…`) consolidated
+the July material, wrote the vision and built Muster. `DECISIONS.md` §2 is the dedupe map. Artifacts: work account —
+"Shadow Legion HQ" (site mirror), "Shadow Legion Quartermaster" (Jul 27), "REPORT.md" (the sweep); personal account —
+the original Quartermaster, the ledger and the Battle Doctrine deck (unreadable from the work account; their content is
+in `quartermaster.md`).
 
-## 3. The collection (eBay lot 236942163636, $730, acquired 2026-07-21)
+## 3. The collection
 
-Points are MFM v1.1 (2026-07-22) as verified on 2026-07-27, not the seller's numbers.
-
-| Unit | Count | Pts | Notes |
-|---|---|---:|---|
-| Be'lakor | 1 | 390 | Must be Warlord (Supreme Commander). The only Epic Hero the detachment allows |
-| Lord of Change | 1 | 320 | seller had 300 |
-| Fateskimmer | 1 | 95 | |
-| Exalted Flamer | 1 | 65 | |
-| Nurglings | 3 bases | 45 | Infiltrators, OC 0 |
-| Pink Horrors | 10 | 150 | |
-| Blue Horrors | 10 | 125 | alt unit / split tokens |
-| Brimstone Horrors | 9 | — | split tokens only |
-| Flamers | 3 | 65 | |
-| Screamers | 3 | 80 | |
-| Havocs (2 lascannon, 2 autocannon) | 5 | 125 | CSM ally |
-| Legionaries | 10 | 170 (or 2×5 at 90) | CSM ally |
-| Master of Possession | 1 | 60 | legal in Shadow Legion |
-| Possessed | 5 | 120 | CSM ally |
-| War Dog Karnivore | 2 | 310 | legal via Chaos Knights *Dreadblades* (≤3, no Warlord, no enhancements) |
-| *Photo-extras, not on the seller's list — confirm against the box:* | | | |
-| Beasts of Nurgle | ~3 | ~225 | |
-| Plague Drones | ~3 | ~110 | |
-| Bloodletters | ~10 | ~110 | |
-| Chaos Terminators | ? | ~175 | |
-
-Playable total with Pinks ≈ **1,985 pts** (the seller's "2,110" double-counted the Pink/Blue either-or).
+The table lives in the store and renders in Muster and on `quartermaster.html`; the generated block at the top of this
+file carries the current counts. What a session needs to know beyond the numbers: the Jul 27 photo re-audit is the
+baseline (seller misreads removed, unlisted Flamers and Cultists added); paint is a competent tabletop standard in the
+gods' own colours with Word Bearers red/black marines; the Bloodthirster is the one unbuilt model; nine Bloodletters were
+counted against ten listed; the Cultist count is approximate; two crates are pending catalogue and are never counted
+until opened (Muster's crate mode turns a crate into inventory rows and a patch for the store).
 
 ## 4. Rules that shaped the lists (verified 2026-07-27; re-verify in the official app before an event)
 
@@ -97,28 +90,16 @@ Playable total with Pinks ≈ **1,985 pts** (the seller's "2,110" double-counted
 - ~15 points values in the first notes were wrong (e.g. Pink Horrors 150 not 85, Havocs 125 not 165,
   Chosen 135 not 90, Terminators 175 not 145, Bloodcrushers 95/190) — `docs/research.md` has the audit.
 
-## 5. The six lists (all 2,000 pts, Shadow Legion; full rosters in `quartermaster.html`, play guides in the Primer)
+## 5. The six lists (2,000 pts, Shadow Legion; rosters, legality and gaps live in the store — see Muster or `quartermaster.html`)
 
-| | List | Idea | Buy cost (Jul 27 scout, landed) | Start here? |
-|---|---|---|---:|---|
-| A | The Yo-Yo Court | Tzeentch shooting core holds; Chaos Lord + Legionaries deep-strike, kill, *Fade*, return free | ~$91–117 | after B/F |
-| B | Festering Court | Nurgle Beasts/Drones squat objectives and refuse to die; War Dogs + Havocs shoot | ~$39 | **yes — cheapest** (uses the photo-extras) |
-| C | Word Bearers Ascendant | the marine half deep-strikes with Dark Pacts; daemons garnish | ~$159–213 | theme pick |
-| D | Crimson Cavalry (fixed) | Khorne turn-1 alpha: Skullmaster + 6 Bloodcrushers scout-advance-charge | ~$480–545 | later, highest variance |
-| E | The Fadethirster | tournament shape: Crushers T1, Bloodthirster drops T2, kills, Fades, re-enters | ~$388–490 | once comfortable |
-| F | Triple Monster | Be'lakor + Bloodthirster + Lord of Change, three 6" Shadow auras | ~$109–188 | **yes — most forgiving** |
-
-Shared buys across A/C/D: a Chaos Lord (~$20–30), Cultists ×10 (~$28), Flesh Hounds ×5. E and F both
-need one Bloodthirster (~$110–170 painted; NIB BIN was ~$143). Daemon kits are shared with Age of
-Sigmar — "Blades of Khorne" listings are the same models, often cheaper.
-
-**List 0 — the box as it came is already legal at 1,995**: Be'lakor, Lord of Change, Fateskimmer, Exalted
-Flamer, Pink Horrors ×10, Flamers, Screamers, Nurglings, Havocs, Legionaries ×10, MoP → Possessed, 2 War Dogs
-(HA 475/1,000). Play it before buying anything (`docs/VISION.md`, "Playing it while it grows").
-**Aug 10 re-check:** Skullmaster is 85 pts (not ~75) → D = 1,995, E as printed = 2,010 (swap Plague Drones for
-the owned Screamers → 1,980). No other points moved since MFM v1.1; GW's next update is due ~Aug 19–26, and
-Purge the Foe (Shadow Legion's disposition) has dropped out of winning tournament lists since the July update —
-irrelevant for learning games, a reason not to rush the ~$250 Khorne-cavalry buy for List E.
+A · Yo-Yo Court (teleport control; **complete**) · B · Festering Court (Nurgle attrition + War Dogs; needs Beasts and
+Drones) · C · Word Bearers Ascendant (marine deep-strike wave; the most buying left) · D · Crimson Cavalry (Khorne turn-one
+alpha) · E · the Fadethirster (the tournament silhouette; stored at 1,980 with Screamers since Skullmaster went to 85) ·
+F · Triple Monster (Be'lakor + Bloodthirster + Lord of Change; **assembly only**). The road: learn on A, assemble the
+Bloodthirster for F, let the two crates decide how close E and D are, then a Skullmaster and a Rendmaster are the only
+purchases the tournament shape still needs. House rule: ten games before the next model. Meta note (Aug 10): Purge the
+Foe, the detachment's disposition, has dropped out of winning tournament lists since the July update — irrelevant for
+learning games, one more reason not to rush the Khorne cavalry.
 
 ## 6. eBay: what exists and the house rules
 
@@ -158,28 +139,37 @@ irrelevant for learning games, a reason not to rush the ~$250 Khorne-cavalry buy
   shadow" — pale ash ground, shadow rising up every daemon, one cold light (whatever burns on Be'lakor's blade),
   crimson and bronze only on the mortals, Colchisian script on everything; War Dogs as House Korvax outriders;
   buy bare/NoS over painted from now on; magnets on steel in Really Useful Boxes for transport.
+- 2026-08-11 — The two lines of work were reconciled: `main`'s codex, audited inventory and ledger are the facts; the
+  overnight branch's pages were corrected to them; nothing was deleted (dedupe map in `DECISIONS.md`). GitHub Pages is live.
+- 2026-08-11 — Muster adopted per `SPEC-muster.md`: one canonical store (`data/muster.json`), one linter (`lint.js`),
+  generated tables in the prose docs, a validation gate in the build, and a review-battery hillclimb logged in `DECISIONS.md`.
+  List E stored at 1,980 (Screamers for Plague Drones) to stay legal after the Skullmaster re-cost.
 
 ## 8. Open threads
 
-1. Confirm the vision's "as it came" assumptions against the box, then Phase 0 (inventory, measure the monsters,
-   magnetise, four test models, a game with List 0). Choose B or F (or A) and buy for it — Bloodthirster first per the
-   vision; re-run the scout before buying (from a machine that can reach eBay).
-2. Inventory the box against `docs/collection.md`; settle the photo-extra counts (Beasts, Drones, Bloodletters, Terminators?).
-3. Re-check `~` points and Dreadblades in the official app before any event; MFM will move again.
-4. Transport: asked, never sized — N52 magnets + a steel-lined box/rack for the three big models, foam for infantry, magnetised wings.
-5. Scorecard refresh whenever the market matters again: `scrape.js` → `data/raw_listings.psv` → `python3 build.py` → photo-sweep the BUYs.
-6. Enable GitHub Pages (admin-only setting) and archive `daemon-quartermaster`, or add `ebg-ant` to it.
-7. Note: the work account's default cloud environment (Aug 2026) cannot reach ebay.com (egress policy); eBay passes
-   have to run from the personal machine or the July cloud environment.
+1. Catalogue the two crates in Muster when they land (Khorne lot window Aug 10–17; Bloodcrushers Aug 18–Sep 1), export the
+   store, commit; the lists recompute.
+2. Assemble and paint the Bloodthirster (unlocks F; the vision's set-piece project); Phase 0/1 of the vision (basing, one
+   varnish, one light) whenever painting starts.
+3. Play List A and log the games (ten before the next purchase); then Skullmaster + Rendmaster if the tournament shape calls.
+4. Re-verify points in the official app before any event — MFM will move again (~Aug 19–26 expected); edit the store, not the docs.
+5. Owner taste questions parked in `DECISIONS.md` §6 (warband naming, codex-skin default, list parity with the personal
+   ledger artifact, Beasts of Nurgle points).
+6. Scorecard refresh whenever the market matters again: `scrape.js` → `data/raw_listings.psv` → `python3 build.py` →
+   photo-sweep the BUYs; targeted single-unit scouting with `tools/ebay_search.js` from a machine that can reach eBay
+   (this cloud environment cannot).
+7. `daemon-quartermaster` (personal, private) can be archived.
 
 ## 9. Working on this repo
 
 ```bash
-pip install markdown             # once
-python3 build.py                 # rescore data → listings/chaos .json/.js, then render docs + sync nav (pages.py)
-python3 pages.py                 # docs only
+pip install markdown             # once (doc rendering); node is needed for the legality lint
+python3 build.py                 # muster.py build (validate store → muster.js + generated tables) → rescore market data → render docs + nav
+python3 muster.py check          # battery gate: store valid AND every generated region in sync
+python3 muster.py fmt            # re-format data/muster.json after hand edits
 NODE_PATH=$(npm root -g) ./make_guide.sh   # GUIDE.pdf from guide.html (needs node playwright + Chromium)
 ```
 
-Add a page: drop a markdown file in `docs/`, register it in `DOCS` (and `NAV` if it deserves the top
-strip) in `pages.py`, run it. Keep this file and `CLAUDE.md` truthful.
+Facts go in `data/muster.json` (units, inventory, orders, lists, rules); prose goes in the docs; `python3 build.py`
+keeps them consistent and refuses to build an invalid store. Add a page: drop a markdown file in `docs/`, register it in
+`DOCS` (and `NAV`) in `pages.py`. Keep this file and `CLAUDE.md` truthful.

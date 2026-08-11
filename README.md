@@ -1,23 +1,45 @@
 # Shadow Legion HQ — Evan's 40K repo
 
 One home for all the Warhammer 40,000 hobby work: the **Shadow Legion** army (Chaos Daemons under
-Be'lakor, bought as one painted eBay lot), the six lists built from it, the **painted-army value
-scorecards** that found it, and the photo-verified paint sweep. Open `index.html` — it is the hub
-and links everything.
+Be'lakor with a Word Bearers half and two War Dogs), the audited inventory and the orders that built it,
+the six lists, the personal codex, the painting vision, the **painted-army value scorecards** that found
+the original lot — and **Muster**, one local-first console over all of it. Open `index.html`.
 
 > Not affiliated with Games Workshop. The scorecards only **organize public listings** — nothing
 > here buys, bids, or checks out on anyone's behalf.
 
-**New Claude session, either account?** Read `CLAUDE.md`, then `docs/CONTEXT.md`.
+**New Claude session, either account?** Read `CLAUDE.md`, then `docs/CONTEXT.md`, then `data/muster.json`.
+Live site (from `main`): https://evbarleyg.github.io/40k-armies/
+
+## Muster and the store
+
+- `data/muster.json` — the one hand-maintained store: unit catalog (points brackets, keywords, leader pairs,
+  legality), inventory (audited counts, paint state, provenance), orders (the ledger), lists (entries reference
+  unit ids; totals are computed), rules gists with sources and verified dates, hobby queue, games, buying notes.
+- `muster.py` — `build` (validate → `muster.js` + regenerate the `<!--gen:…-->` tables in `quartermaster.md`,
+  `codex-umbral-creed.md/.html`, `docs/CONTEXT.md`), `check` (battery gate: valid and in sync), `validate`, `fmt`.
+  Needs `node` for the legality lint; `build.py` runs it first and stops on an invalid store.
+- `lint.js` — the single implementation of the legality rules (Thralls allowlist and cap, Epic Hero ban, mandatory
+  Warlord, Dreadblades, enhancements, leaders, rule of three), ownership coverage and store derivations; used by the
+  app in the browser and by `muster.py` through `tools/lint_cli.js`.
+- `index.html` + `app.js` + `app.css` — the console (vanilla JS, classic scripts, opens from `file://`): home = the four
+  questions (own / field today / buy next / arriving), collection, lists + linter, builder, gap-aware buy view over
+  `listings.js`/`chaos.js`, crates + crate mode, hobby, games, orders, library, hand-off tools; local edits are a
+  `localStorage` overlay until exported (download `muster.json` or copy a patch for a session).
+- `DECISIONS.md` — proposal, dedupe map between the two lines of work, architecture decisions, the design tournament
+  (`design/`), the review-battery log, owner questions. `SPEC-muster.md` — the brief. `tools/shoot.js`,
+  `tools/viewtext.js` — battery helpers (screenshots of every view; text dump of a view).
 
 ## Pages
 
 | Page | What it is | Source |
 |------|------------|--------|
-| `index.html` | Hub: what's current — vision, army, primer, market tool, what's next, cross-account how-to | hand-written |
+| `index.html` | Muster — the console (see above) | `app.js` over `muster.js` ← `data/muster.json` |
 | `vision.html` | The vision: narrative, five painting rules, unit-by-unit treatments, phases, buying order, transport | `docs/VISION.md` (+ `docs/research/`) |
 | `archive.html` | Every dated snapshot (strategy note, sweep, scout, research, lists history, handoff) with its status | hand-written |
-| `quartermaster.html` | The Shadow Legion ledger — collection at MFM v1.1 points, lists A–F, shopping, verified rules | hand-written (from the Jul 27 artifact) |
+| `quartermaster.html` | The army page — audited inventory, six lists with status and gaps, verified rules (tables generated) | `quartermaster.md` ← `data/muster.json` |
+| `codex-umbral-creed.html` | Codex: The Umbral Creed — the army book; its ledger table is generated | hand-written + `muster.py` region |
+| `rules-guide.html` · `decisions.html` · `spec.html` | Rules explainer; the Muster build log; the Muster brief | `belakor-shadow-legion-guide.md` · `DECISIONS.md` · `SPEC-muster.md` |
 | `primer.html` | Beginner's strategy primer — the detachment, each list's play guide, cited appendices | `docs/PRIMER.md` |
 | `guide.html` · `GUIDE.pdf` | The Primer in print layout; 31-page A4 PDF (`./make_guide.sh`) | hand-written (Jul 27) |
 | `lists.html` · `collection.html` · `research.html` | Lists with corrections, box inventory, rules digest + re-verification | `docs/lists.md` · `docs/collection.md` · `docs/research.md` |
@@ -37,7 +59,7 @@ docs and re-stamps the nav (and the hub's market numbers) into every page carryi
 
 ```bash
 pip install markdown        # once, for the doc pages
-python3 build.py            # scores data/raw_*.psv → listings.json/.js + chaos.json/.js, then runs pages.py
+python3 build.py            # muster.py build (store → muster.js + doc tables), scores data/raw_*.psv → listings/chaos .json/.js, then pages.py
 NODE_PATH=$(npm root -g) ./make_guide.sh   # optional: GUIDE.pdf from guide.html (node playwright + Chromium)
 open index.html             # no server needed; everything is static and relative
 ```
