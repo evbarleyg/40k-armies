@@ -262,6 +262,22 @@ cross-build echo is closed rather than the instance. Dates are computed at use. 
 **Waived (with reason):** none new; suggestions from all reviewers (home Q3 density, device-list ids as list letters,
 crimson fills at 2.6–2.9:1 behind ≥6.5:1 text, glossary two-column layout on desktop) are parked as polish.
 
+### Round 6 (reviewed at `ebd8c05`, fixes in `b61dec5`) — and where the loop stops
+
+**Verdicts:** Data + rules dry on numbers for the fourth consecutive round (3 low wording items). Four-questions: all
+four yes, "no factual contradiction between screens". UI: 1 major that every desktop-mode battery was blind to (the
+codex page had no doctype/viewport, so a real phone rendered it at 40%) + 3 nits. Flows: result pending when the loop
+was stopped; round 5's structural change (build-stamped overlays; an older build yields to a newer one) held in the
+author's re-drive of every round-5 repro. All reported items fixed in `b61dec5`.
+
+**Stopping here, deliberately.** Six batteries took the console from ~130 confirmed findings to nits; the last three
+rounds each found one regression class in the cross-tab/storage machinery (each closed structurally) and otherwise
+polish. The spec's "two consecutive dry rounds" was not literally reached — UI and flows reviewers asked to be maximally
+strict will always find a nit — and the owner asked why the loop was still running. Residuals worth knowing about:
+the flows round-6 report (if it lands after this entry, its findings are unreviewed); the parked polish suggestions in
+rounds 3–6 above; Q1–Q3 below. To resume: run the four lenses in §5's protocol against `main` after merge, fix, and log
+a Round 7 here.
+
 ## 6. Questions for the owner (taste, not fact)
 
 - **Q1 — Warband name.** The codex's *Umbral Creed / Long Shadow Host* is used everywhere in the app; the
