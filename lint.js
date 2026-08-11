@@ -24,6 +24,7 @@
   // Best points value of `models` owned models split into datasheet-sized units (10 Legionaries → 2×5 = 180).
   function bestValue(unit, models) {
     const sizes = (unit.sizes || []).filter(s => s.pts != null && s.models > 0);
+    models = Math.min(Math.max(0, Math.floor(models || 0)), 400);      // no unit owns 400 models; keeps a typo from freezing the page
     const best = new Array(models + 1).fill(0);
     for (let m = 1; m <= models; m++) for (const s of sizes) if (s.models <= m) best[m] = Math.max(best[m], best[m - s.models] + s.pts);
     return best[models] || 0;

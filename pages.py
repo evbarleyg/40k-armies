@@ -87,6 +87,7 @@ TEMPLATE = """<!DOCTYPE html>
 </article>
 <footer><p>Rendered from <code>{src}</code> · edit the markdown, then <code>python3 pages.py</code>.</p></footer>
 </div>
+<script>var c=document.querySelector('.sitenav [aria-current]');if(c&&c.scrollIntoView)c.scrollIntoView({{inline:'center',block:'nearest'}});</script>
 </body>
 </html>
 """

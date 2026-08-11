@@ -5,11 +5,12 @@
 .sitenav .mark{ font-family:Palatino,"Palatino Linotype","Book Antiqua",Georgia,serif; font-size:15px;
   letter-spacing:.04em; text-transform:none; color:var(--ink); text-decoration:none; margin-right:10px; }
 .sitenav .mark b{ color:var(--crimson); font-weight:normal; }
-.sitenav a{ color:var(--dim); text-decoration:none; padding:3px 0; }
+.sitenav a{ color:var(--dim); text-decoration:none; padding:10px 0; }
 .sitenav a:hover{ color:var(--ink); }
 .sitenav a[aria-current="page"]{ color:var(--crimson); }
 .sitenav .sep{ color:var(--line); }
 @media (max-width:520px){          /* one scrollable row on phones instead of three wrapped ones */
-  .sitenav{ flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:10px 0 8px; gap:4px 12px; letter-spacing:.12em; scrollbar-width:none; }
+  .sitenav{ flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:4px 0 2px; gap:4px 12px; letter-spacing:.12em; scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%); mask-image:linear-gradient(to right, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%); }
   .sitenav::-webkit-scrollbar{ display:none; }
 }
