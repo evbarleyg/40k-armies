@@ -1,0 +1,420 @@
+<title>Codex: The Umbral Creed</title>
+<style>
+  :root{
+    --ground:#EDE7D8; --panel:#E4DCC8; --panel-2:#DED4BC;
+    --ink:#2B2126; --ink-soft:#5A4C4A; --ink-faint:#8A7A72;
+    --crimson:#87202E; --crimson-deep:#6B1824; --brass:#8A6A3B;
+    --rule:#C9BCA0; --plate-ink:#3A2A2C; --band-ink:#EFE6D2;
+    --shadow:0 1px 0 rgba(43,33,38,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ground:#171218; --panel:#201823; --panel-2:#281E2A;
+      --ink:#E9DFCE; --ink-soft:#B5A79B; --ink-faint:#7E7169;
+      --crimson:#A3273A; --crimson-deep:#7E1E2D; --brass:#A98B54;
+      --rule:#3A2E3C; --plate-ink:#DACFBB; --band-ink:#EFE6D2;
+      --shadow:0 1px 0 rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#171218; --panel:#201823; --panel-2:#281E2A;
+    --ink:#E9DFCE; --ink-soft:#B5A79B; --ink-faint:#7E7169;
+    --crimson:#A3273A; --crimson-deep:#7E1E2D; --brass:#A98B54;
+    --rule:#3A2E3C; --plate-ink:#DACFBB; --band-ink:#EFE6D2;
+    --shadow:0 1px 0 rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --ground:#EDE7D8; --panel:#E4DCC8; --panel-2:#DED4BC;
+    --ink:#2B2126; --ink-soft:#5A4C4A; --ink-faint:#8A7A72;
+    --crimson:#87202E; --crimson-deep:#6B1824; --brass:#8A6A3B;
+    --rule:#C9BCA0; --plate-ink:#3A2A2C; --band-ink:#EFE6D2;
+    --shadow:0 1px 0 rgba(43,33,38,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:Georgia,'Iowan Old Style',Charter,'Times New Roman',serif;
+    font-size:17px; line-height:1.62;
+  }
+  .book{max-width:46rem; margin:0 auto; padding:0 1.25rem 5rem; animation:settle .6s ease-out both}
+  @keyframes settle{from{opacity:0}to{opacity:1}}
+  @media (prefers-reduced-motion: reduce){.book{animation:none}}
+
+  .smallcaps, h1,h2,h3,.eyebrow,.unit-head h4,.pts,.doctrine h4{
+    font-family:'Palatino Linotype','Iowan Old Style',Palatino,'Book Antiqua',Georgia,serif;
+    font-variant-caps:small-caps; letter-spacing:.08em;
+  }
+
+  /* Cover */
+  .cover{border:3px double var(--crimson); margin:2.5rem 0 3rem; padding:3.2rem 1.5rem 2.6rem; text-align:center; background:var(--panel); box-shadow:var(--shadow)}
+  .cover .sigil{display:block; margin:0 auto 1.6rem; width:76px; height:76px}
+  .cover .sigil line{stroke:var(--crimson); stroke-width:5}
+  .cover .sigil circle{fill:var(--crimson)}
+  .cover .over{font-size:.8rem; letter-spacing:.34em; color:var(--brass); text-transform:uppercase; font-family:inherit}
+  h1{font-size:clamp(2.1rem,7vw,3.4rem); line-height:1.05; margin:.7rem 0 .4rem; text-wrap:balance; letter-spacing:.05em; font-weight:600}
+  .cover .under{color:var(--ink-soft); font-style:italic; max-width:30rem; margin:0 auto}
+  .cover .edition{margin-top:1.9rem; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-faint)}
+
+  /* Section furniture */
+  .part{margin:3.4rem 0 0}
+  .eyebrow{display:block; color:var(--brass); font-size:.82rem; letter-spacing:.28em; text-transform:uppercase; margin-bottom:.3rem}
+  h2{font-size:1.75rem; margin:.1rem 0 1rem; letter-spacing:.06em; text-wrap:balance; border-bottom:1px solid var(--rule); padding-bottom:.55rem}
+  h3{font-size:1.18rem; margin:2.1rem 0 .6rem; color:var(--crimson); letter-spacing:.09em}
+  p{margin:.85rem 0}
+  .lede:first-letter{initial-letter:2; -webkit-initial-letter:2; color:var(--crimson); font-weight:700; padding-right:.45rem}
+  .doctrine-line{border-left:3px solid var(--crimson); padding:.55rem .9rem; background:var(--panel); font-style:italic}
+  .note{color:var(--ink-soft); font-size:.92rem}
+
+  /* Quote plates */
+  .plate{border:1px solid var(--rule); border-top:3px solid var(--crimson); background:var(--panel); color:var(--plate-ink); padding:1.15rem 1.3rem .9rem; margin:2rem auto; max-width:34rem; box-shadow:var(--shadow)}
+  .plate p{font-style:italic; margin:.2rem 0; line-height:1.55}
+  .plate cite{display:block; font-style:normal; text-align:right; color:var(--brass); font-size:.85rem; margin-top:.65rem; letter-spacing:.06em}
+  .plate cite::before{content:"— "}
+
+  /* Tables */
+  .scroll{overflow-x:auto; margin:1.2rem 0}
+  table{border-collapse:collapse; width:100%; font-size:.95rem}
+  th{font-family:'Palatino Linotype',Palatino,Georgia,serif; font-variant-caps:small-caps; letter-spacing:.08em; text-align:left; color:var(--crimson); border-bottom:2px solid var(--crimson); padding:.45rem .7rem .35rem; white-space:nowrap}
+  td{border-bottom:1px solid var(--rule); padding:.5rem .7rem; vertical-align:top}
+  td.num, .pts{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; font-variant-numeric:tabular-nums; font-size:.9rem}
+  tr:last-child td{border-bottom:2px solid var(--rule)}
+
+  /* Unit datasheets */
+  .wing{margin:2.6rem 0 0}
+  .unit{margin:1.5rem 0; background:var(--panel); border:1px solid var(--rule); box-shadow:var(--shadow)}
+  .unit-head{display:flex; justify-content:space-between; align-items:baseline; gap:1rem; background:var(--crimson); color:var(--band-ink); padding:.5rem .95rem}
+  .unit-head h4{margin:0; font-size:1.05rem; letter-spacing:.1em; font-weight:600}
+  .unit-head .unit-title{display:block; font-size:.8rem; letter-spacing:.14em; color:var(--band-ink); opacity:.82; font-variant-caps:normal; font-style:italic; font-family:Georgia,serif}
+  .pts{color:var(--band-ink); white-space:nowrap; font-size:.85rem; letter-spacing:.04em}
+  .unit-body{padding:.35rem 1rem .8rem}
+  .unit-body p{margin:.65rem 0}
+  .fluff{font-style:italic; color:var(--ink-soft)}
+  .field b{font-variant-caps:small-caps; letter-spacing:.07em; color:var(--crimson); font-weight:600}
+  .prov{font-size:.8rem; color:var(--ink-faint); letter-spacing:.05em; text-transform:uppercase; border-top:1px solid var(--rule); padding-top:.5rem; margin-top:.75rem}
+
+  /* Doctrines */
+  .doctrine{border:1px solid var(--rule); background:var(--panel); padding:1rem 1.2rem; margin:1.1rem 0}
+  .doctrine h4{margin:0 0 .4rem; color:var(--crimson); font-size:1.05rem}
+  .doctrine .vs{color:var(--brass); font-size:.82rem; letter-spacing:.16em; text-transform:uppercase; font-family:inherit}
+
+  .colophon{margin-top:3.5rem; border-top:3px double var(--crimson); padding-top:1.1rem; font-size:.88rem; color:var(--ink-soft); font-style:italic}
+  .orn{ text-align:center; color:var(--crimson); margin:2.4rem 0; font-size:1.1rem; letter-spacing:.9em; padding-left:.9em}
+</style>
+
+<div class="book">
+
+<header class="cover">
+  <svg class="sigil" viewBox="0 0 100 100" role="img" aria-label="Eight-pointed star of Chaos">
+    <line x1="50" y1="4" x2="50" y2="96"></line>
+    <line x1="4" y1="50" x2="96" y2="50"></line>
+    <line x1="18" y1="18" x2="82" y2="82"></line>
+    <line x1="82" y1="18" x2="18" y2="82"></line>
+    <circle cx="50" cy="50" r="9"></circle>
+  </svg>
+  <span class="over">A Personal Army Book · Warhammer 40,000</span>
+  <h1>Codex:<br>The Umbral Creed</h1>
+  <p class="under">The Long Shadow Host — being the muster, doctrine, and ledger of the collection of Evan Barley-Greenfield</p>
+  <p class="edition">Second Tithe Edition · August 2026 · 11th Edition Rules Era</p>
+</header>
+
+<figure class="plate">
+  <p>Before the four spoke, there was a silence that listened.</p>
+  <p>We are what the silence learned to say.</p>
+  <cite>First Sermon in Darkness, verse i</cite>
+</figure>
+
+<section class="part">
+  <span class="eyebrow">Part I</span>
+  <h2>The Umbral Creed</h2>
+  <p class="lede">The Word Bearers taught the galaxy that faith is a weapon. The Umbral Creed is what happens when a chapter of that Legion reads its own scripture too closely.</p>
+  <p>They were a preaching company like ten thousand others: crimson armor, silver trim, portable reliquaries, a schedule. They burned what they were told to burn and illuminated the margins of the Book of Lorgar by lamplight afterward. The company's Master of Possessions, a patient man named Sor Vekh, noticed the same defect in every summoning he performed: the daemon arrives, the daemon obeys, and behind the daemon's eyes something older watches the transaction and finds it funny.</p>
+  <p>Vekh did what scholars do. He footnoted it.</p>
+  <p>Forty years of footnotes became a concordance, and the concordance became a heresy within the heresy: the four gods are loud, and the thing beneath them is not. Prayer addressed to the silence gets answered more precisely. The company tested this the way the Word Bearers test everything, on a world that could not refuse, and the answer that came back had wings, a blade, and the oldest name in the ledger of the damned.</p>
+  <p>Be'lakor did not demand worship. He corrected their pronunciation.</p>
+  <p>They repainted nothing. The crimson stays, because the Creed holds that they are still Word Bearers, still faithful, still reading the same book. They have simply reached a later chapter. What changed is the congregation: horrors that chant in colors, hounds that answer the tithe, nurglings that annotate the footnotes by chewing them, and above the whole procession the First Prince, who finds everything the gods built derivative and says so.</p>
+  <p class="doctrine-line">The Creed's doctrine, in one line: the gods are quotations. Serve the source.</p>
+
+  <figure class="plate">
+    <p>On the 27th day the Word arrived and none were home to receive it. It waited with a neighbor. This too is recorded.</p>
+    <cite>Remembrancer's marginalia, Ledger of Tithes</cite>
+  </figure>
+
+  <h3>The Blood Tithe</h3>
+  <p>A congregation that worships silence still has to pay its bills, and the coin of Chaos is blood. In the high summer of the Creed's second year the tithe came due, and the court of Khorne arrived to collect it in person: a Bloodthirster, unbound and unassembled, patient in his crate; a Herald with nine sworn killers; five hounds of flesh who can hear a lie at nine inches and take it personally.</p>
+  <p>The Creed does not love Khorne. The Creed pays him, promptly, the way you pay any collector you intend to keep using. Khorne does not care from whence the blood flows. Lately it has flowed mostly from California.</p>
+</section>
+
+<div class="orn">✠ ✠ ✠</div>
+
+<section class="part">
+  <span class="eyebrow">Part II</span>
+  <h2>Armoury of Shadow</h2>
+  <p class="note">The two rules engines the whole army runs on, condensed. The repo's <em>belakor-shadow-legion-guide.md</em> holds the full detail; the official app is the arbiter of exact numbers.</p>
+
+  <h3>Shadow of Chaos — the army rule</h3>
+  <p>The battlefield divides into <em>in shadow</em> and <em>not</em>. Your zone starts in shadow; it spreads with map control (hold at least half the objectives in the enemy deployment zone at the start of a phase and their zone joins yours for that phase), and Be'lakor and the Greater Daemons carry it with them in a 6" bubble.</p>
+  <p><strong>Daemonic Manifestation.</strong> Friendly daemons in shadow add 1 to Battle-shock tests; a passed test heals D3 wounds, or returns up to D3 destroyed models to a Battleline unit. The Horrors are the reason this line matters.</p>
+  <p><strong>Daemonic Terror.</strong> Enemy units in shadow, or near a Greater Daemon, subtract 1 from Battle-shock tests and take D3 mortal wounds on a failure. Battle-shocked units drop to OC 0 and stop holding objectives.</p>
+  <p>The army's true win condition: push the shadow forward, make your holders unkillable, make theirs stop counting.</p>
+
+  <h3>Shadow Legion — the detachment (2 DP · Purge the Foe)</h3>
+  <p>Be'lakor's own legion: every god's daemons plus mortal Chaos Space Marines under one banner. Be'lakor and all Heretic Astartes gain <strong>Shadow Legion</strong> and <strong>Undivided</strong>; all Legiones Daemonica gain <strong>Shadow Legion</strong>.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Allegiance</th><th>Boon</th></tr></thead>
+    <tbody>
+      <tr><td>Khorne</td><td>Advance, shoot <strong>and charge</strong></td></tr>
+      <tr><td>Tzeentch</td><td>Attackers take −1 to hit</td></tr>
+      <tr><td>Nurgle</td><td>−1 to wound when attack Strength beats Toughness</td></tr>
+      <tr><td>Slaanesh</td><td>Cannot be Overwatched</td></tr>
+      <tr><td>Undivided (incl. CSM)</td><td>Gain Dark Pacts; Be'lakor auto-passes its test</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>The mortal half.</strong> Up to half the army from a fixed CSM allowlist (named <em>Thralls of the First Prince</em>): Chaos Lord (foot, Terminator, jump pack), Sorcerer (foot, Terminator), Master of Possessions, Dark Apostle, Legionaries, Chosen, Possessed, Raptors, Warp Talons, Havocs, and Damned units. Heretic Astartes here gain Deep Strike.</p>
+  <p><strong>The fine print.</strong> Be'lakor must be your Warlord when present (Supreme Commander is mandatory). No vehicles — the War Dogs attend via the Chaos Knights <em>Dreadblades</em> rule (max 3 in an all-Chaos army; no Warlord, no enhancements). No Daemon Princes. No Epic Heroes except Be'lakor — Skulltaker and Karanak are specifically illegal.</p>
+  <p><strong>Known toolkit.</strong> <em>Warp Surge</em> (1 CP: a daemon unit in shadow charges after Advancing) · <em>Denizens of the Warp</em> (1 CP: deep strike at 3" instead of 9") · <em>Binding Shadow</em> (pull an endangered unit into reserves — the rescue half of the yo-yo) · <em>Leaping Shadows</em> (enhancement: Scouts 9") · <em>Fade to Darkness</em> (enhancement: the bearer's unit kills, vanishes from the board, and returns next turn — the detachment's signature trick, legal on a Bloodthirster). One stratagem per unit per phase this edition, so spend the command point on the moment that matters.</p>
+</section>
+
+<div class="orn">✠ ✠ ✠</div>
+
+<section class="part">
+  <span class="eyebrow">Part III</span>
+  <h2>The Hosts of the Creed</h2>
+
+  <div class="wing">
+    <h3>The Dark Master</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>Be'lakor <span class="unit-title">The Source</span></h4><span class="pts">390 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">First of the Daemon Princes, author of the silence the Creed reads.</p>
+        <p>On the table he is a moving cathedral: tough (T11, 3+, 20 wounds, invulnerable save, −1 to be hit, no re-rolls against him, untargetable at long range), decently violent (Devastating Wounds on the strike, Sustained Hits on the sweep), and carrying three auras that are the actual purchase — the shadow itself, re-roll 1s to hit for the faithful, and a 9" terror bubble that heals him D3 every time an enemy unit fails its nerve nearby.</p>
+        <p class="field"><b>On the battlefield.</b> He is the umbrella, and everything fragile stands under him. Fly him behind terrain turns one and two, or deep strike him with the second wave. His damage is real but his job is position: wherever he stands, the army rule follows and the enemy's Leadership starts costing them mortal wounds. Do not spend him like an assassin; spend him like weather. Bring him and he is your Warlord whether you like it or not; the Creed likes it.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <figure class="plate">
+      <p>He was first. Every shadow since is quotation.</p>
+      <cite>The Anagnost, Sermons in Reverse</cite>
+    </figure>
+  </div>
+
+  <div class="wing">
+    <h3>The First Choir — Tzeentch</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>Lord of Change <span class="unit-title">The Anagnost</span></h4><span class="pts">320 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">The Creed's reader-aloud, who performs the silence in nine voices.</p>
+        <p class="field"><b>On the battlefield.</b> The second Greater Daemon: second terror aura, second 6" shadow bubble, and the army's only real magic and shooting platform. The other half of the double arrival — land him and Be'lakor together, turn two or three, on the flank with the fewest guns. Two flying monsters at once is a question most opponents can answer only once.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Fateskimmer</h4><span class="pts">95 pts</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On the battlefield.</b> A Herald on a Burning Chariot, fast enough to drag the −1-to-hit boon and a shadow's edge wherever the line is thinnest. Screens for the monsters; harasses; dies loudly if ignored, which is the point.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Exalted Flamer</h4><span class="pts">65 pts</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On the battlefield.</b> Mobile fire support with the Tzeentch boon. Parks near the Horrors and punishes anything that comes to clear them.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Pink Horrors ×10 <span class="unit-title">The Congregation</span></h4><span class="pts">150 pts</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On the battlefield.</b> Battleline, which in this army means the Manifestation rule resurrects them D3 at a time while they hold the midfield and giggle. Split into Blues, then Brimstones, as they die: one purchase, three waves of bodies. The Blue Horrors ×10 and nine Brimstones (125 pts as alternates) are the second and third verses of the same hymn.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Flamers ×3</h4><span class="pts">65 pts</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On the battlefield.</b> Found in the July 27 photo audit, unlisted by the seller. Overwatch-grade fire that walks; babysitters for the Horror line.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21 · audit find</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Screamers ×3</h4><span class="pts">80 pts</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On the battlefield.</b> Fast movement-phase damage for secondaries and rear objectives. They do not fight so much as fly through and apologize.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="wing">
+    <h3>The Blood Tithe — Khorne · New Musters, August 2026</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>Exalted Bloodthirster <span class="unit-title">The Unbound Word</span></h4><span class="pts">320 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">The collector himself. He arrived in pieces, which the Creed regards as theologically correct: wrath, some assembly required.</p>
+        <p class="field"><b>On the battlefield (once mustered).</b> The tournament engine. He is a Character, not an Epic Hero, so <em>Fade to Darkness</em> is legal on him — drop turn two, one-shot a tank (7 attacks, S16, AP-4, D6+2), vanish at the end of the fight, Rapid Ingress back on their turn. Off the board between swings. Both 4-1 tournament lists in the Battle Doctrine deck run exactly this loop. Your copy just needs arms first.</p>
+        <p class="field"><b>On the workbench.</b> The seller ran late, apologized, and enclosed a small gift for the delay. The Creed does not forgive. The Creed left five stars regardless, for the packaging was honest.</p>
+        <p class="prov">Unassembled, unpainted · Delivered August 4 · The host's one true hobby project</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Bloodmaster &amp; Bloodletters ×9 <span class="unit-title">The Tithe-Takers</span></h4><span class="pts">~175 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">A Herald of Khorne and nine hellblades that hit like a legal judgment — the melee hammer the strategy doc said the army lacked, bought at auction for less than the doc budgeted.</p>
+        <p class="field"><b>On the battlefield.</b> Deep strike, or advance under Warp Surge; with the Khorne boon they Advance and charge natively, so every turn they are alive they threaten everything within eighteen inches or so. Point them at whatever is holding an objective, not whatever is scariest. They are here to take ground, and the mortal wounds from Terror finish what the hellblades start.</p>
+        <p class="prov">Painted · Auction win, delivered August 4</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Flesh Hounds ×5 <span class="unit-title">The Nine-Inch Truth</span></h4><span class="pts">75 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">Collared in brass, allergic to sorcery, fast.</p>
+        <p class="field"><b>On the battlefield.</b> The army's missing speed, partially found. Advance-and-charge cavalry that grabs far objectives, hunts backfield characters, and screens the monsters' landing zones. Their anti-psyker collars are a dry joke in an army this magical; the hounds have not noticed.</p>
+        <p class="prov">Well painted · Delivered August 4</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Bloodcrushers <span class="unit-title">Inbound</span></h4><span class="pts">ETA Aug 18–Sep 1</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On arrival.</b> Juggernaut cavalry, "some damaged" per the listing, which for Khorne is practically a blessing. Repair, re-base, and they become the Tithe's armored fist — note the July 2026 balance pass already taxed them 10 points for being good.</p>
+        <p class="prov">Canadian seller · Repairs due</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Khorne Daemons Army Lot <span class="unit-title">Inbound</span></h4><span class="pts">ETA Aug 10–17</span></header>
+      <div class="unit-body">
+        <p class="field"><b>On arrival.</b> A painted lot bought on a $179 offer. The Ledger will be amended when the crate opens; the Creed expects letters, and suspects a Herald.</p>
+        <p class="prov">Contents to be catalogued on arrival</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="wing">
+    <h3>The Margins — Nurgle</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>Nurglings ×3 Bases <span class="unit-title">The Annotators</span></h4><span class="pts">45 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">They chew the footnotes.</p>
+        <p class="field"><b>On the battlefield.</b> Infiltrating objective-sitters who start the midfield shadow economy on turn one — point for point, the most load-bearing comedians in the army. With the Nurgle boon they shrug high-Strength fire, and every phase they survive is a phase the enemy spent shooting at giggles.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="wing">
+    <h3>The Bearers of the Word — Heretic Astartes</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>Chaos Lord <span class="unit-title">Obsidius Mallex, the Creed's Castellan</span></h4><span class="pts">pts: verify</span></header>
+      <div class="unit-body">
+        <p class="fluff">Twenty dollars of Blackstone Fortress plastic in service as the mortal half's missing officer. Runs as a standard Chaos Lord; the Epic Hero ban does not apply because the datasheet is the generic one.</p>
+        <p class="field"><b>On the battlefield.</b> The Fade carrier. Give him <em>Fade to Darkness</em>, attach him to five Legionaries, and run the Quartermaster's signature play: arrive from reserve, kill the babysitters on a marker, vanish at the end of the fight, return on the opponent's turn with his once-per-round free Rapid Ingress. A foot Lord leads Legionaries only — Terminator-armor Lords lead only Terminators, which the Creed does not own.</p>
+        <p class="prov">Painted · Delivered August 1</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Master of Possessions <span class="unit-title">Sor Vekh, First Footnotist</span></h4><span class="pts">60 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">The scholar who started all this, still taking notes.</p>
+        <p class="field"><b>On the battlefield.</b> Glue him to the Possessed. Buffs, protects, and makes the bomb worth its crater.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Possessed ×5 <span class="unit-title">The Later Chapters</span></h4><span class="pts">120 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">What careful reading does to a boarding squad.</p>
+        <p class="field"><b>On the battlefield.</b> The deep-striking melee bomb. Arrive with the monsters, Warp Surge if the charge needs help, and let Vekh handle the paperwork.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Legionaries ×10 <span class="unit-title">The Preaching Company</span></h4><span class="pts">170 / 2×90</span></header>
+      <div class="unit-body">
+        <p class="fluff">The company that footnoted its way here, still crimson, still on schedule.</p>
+        <p class="field"><b>On the battlefield.</b> Actions, secondaries, midfield trades, Dark Pacts on demand. Run as two fives; five brothers is enough for a sermon.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Havocs <span class="unit-title">The Rearguard Chorus</span></h4><span class="pts">125 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">Two lascannon, two autocannon, one home objective.</p>
+        <p class="field"><b>On the battlefield.</b> The only long guns the detachment allows. They have held the home line through every engagement so far and have opinions about the missions where nothing came to them. They recite them.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+    <article class="unit">
+      <header class="unit-head"><h4>Cultist Mob ×10 <span class="unit-title">The Unlisted</span></h4><span class="pts">50 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">The July 27 photo audit found them at the bottom of the crate: ten Dark Vengeance cultists the seller never mentioned. The Creed takes on staff the same way.</p>
+        <p class="field"><b>On the battlefield.</b> The cheapest screens and space-fillers in the book. They stand where enemy reserves would like to land, and when they die protecting something valuable, they did their job.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21 · audit find</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="wing">
+    <h3>Oath-Bound Engines — Chaos Knights Allies</h3>
+    <article class="unit">
+      <header class="unit-head"><h4>War Dog Karnivores ×2 <span class="unit-title">The Iron Cantors</span></h4><span class="pts">310 pts</span></header>
+      <div class="unit-body">
+        <p class="fluff">Not of the detachment — the Shadow Legion admits no vehicles — but the Creed keeps mercenaries the way it keeps footnotes: outside the main text, doing the real work.</p>
+        <p class="field"><b>On the battlefield.</b> Fast anti-tank the daemons cannot otherwise buy, and far-objective muscle while the tithe walks. Verify the ally rule before tournaments; kitchen tables will not ask.</p>
+        <p class="prov">Painted · Shadow Legion lot, July 21</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<div class="orn">✠ ✠ ✠</div>
+
+<section class="part">
+  <span class="eyebrow">Part IV</span>
+  <h2>Ways of War</h2>
+  <p class="note">Three doctrines, one army. Pick by opponent.</p>
+
+  <div class="doctrine">
+    <h4>The Long Shadow <span class="vs">vs. shooting armies</span></h4>
+    <p>Start thin: Nurglings on the midfield objectives, Havocs home, Horrors behind terrain, everything else in reserve as the rules allow (check current reserve caps before writing it on a list). Turns one and two the opponent shoots giggles and terrain. Turns two and three the sky opens: Be'lakor, the Anagnost, and the Possessed arrive together on the weak flank, Denizens of the Warp tightens a charge if one must land, and the shadow arrives with them. Mallex's squad runs the yo-yo underneath it all — kill, Fade, return. You were never not there; you were just late on purpose.</p>
+  </div>
+  <div class="doctrine">
+    <h4>The Crimson Tithe <span class="vs">vs. armies that want time</span></h4>
+    <p>The new wing inverts the tempo. Leaping Shadows on the Bloodthirster, hounds and letters forward, everything Khorne Advancing and still charging. The tithe hits the midfield on turn one or two before a castle finishes forming, and the rest of the codex walks in behind it. Riskier, louder, and the reason the Blood Tithe was purchased.</p>
+  </div>
+  <div class="doctrine">
+    <h4>The Patient Litany <span class="vs">vs. melee armies</span></h4>
+    <p>Castle. Horrors screen, monsters counterpunch, the Manifestation engine resurrects the line while Terror and Be'lakor's aura tax every Leadership check the opponent makes near an objective. Battle-shock the contesters, never the champions; a flipped objective at the right moment beats a dead Terminator squad.</p>
+  </div>
+</section>
+
+<section class="part">
+  <span class="eyebrow">Part V</span>
+  <h2>Musters</h2>
+  <p class="note">The Quartermaster built six; these are the three that matter now. Full tables for all six live in <em>quartermaster.md</em> and the ledger artifact.</p>
+  <p><strong>The Yo-Yo Court — 1,940 pts, COMPLETE as of August 4.</strong> Be'lakor · Lord of Change · Mallex + Fade → 5 Legionaries · 5 Legionaries · MoP → Possessed · Havocs · Fateskimmer → Screamers · Exalted Flamer → Flamers · 10 Pinks · Nurglings · 5 Flesh Hounds · Cultists. Teleport control: the Tzeentch castle holds under the boons while Mallex's squad kills, Fades, and returns. Every model painted. This is the list to learn on, starting today.</p>
+  <p><strong>Triple Monster — 2,000 pts, needs only assembly.</strong> Be'lakor · Bloodthirster (Fade) · Lord of Change · 10 Pinks · 10 Blues · Nurglings · Fateskimmer → Screamers · Havocs · 5 Legionaries · MoP → Possessed · Cultists. Three T10–11 monsters each dragging a 6" shadow bubble own most of the board by turn two. Beginner-forgiving. Unlocked the moment the Unbound Word gets his arms.</p>
+  <p><strong>The Fadethirster — the tournament shape.</strong> Adds Skullmaster + 6 Bloodcrushers and a Rendmaster on Blood Throne to the Bloodthirster loop; every 4-1 result the Battle Doctrine deck studied runs this silhouette, usually pairing in the Cavalcade of Chaos detachment. The inbound Bloodcrushers lot decides how much of it you already own; a Skullmaster and Rendmaster are the true remaining gaps.</p>
+</section>
+
+<section class="part">
+  <span class="eyebrow">Part VI</span>
+  <h2>The Ledger of Tithes</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Date</th><th>Tithe</th><th>Cost (landed)</th><th>State</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Jul 21</td><td>Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts)</td><td class="num">$840.18</td><td>Tabletop paint</td><td>Delivered Jul 28</td></tr>
+      <tr><td>Jul 27</td><td>Exalted Bloodthirster</td><td class="num">$78.03</td><td>Unassembled, unpainted</td><td>Delivered Aug 4</td></tr>
+      <tr><td>Jul 27</td><td>Obsidius Mallex (Chaos Lord)</td><td class="num">~$20.00</td><td>Painted</td><td>Delivered Aug 1</td></tr>
+      <tr><td>Jul 27</td><td>Flesh Hounds ×5</td><td class="num">~$82.00</td><td>Well painted</td><td>Delivered Aug 4</td></tr>
+      <tr><td>Jul 28</td><td>Bloodmaster + Bloodletters ×10</td><td class="num">$45.10</td><td>Painted</td><td>Delivered Aug 4 · auction win</td></tr>
+      <tr><td>Aug 5</td><td>Khorne Daemons Army Lot</td><td class="num">$213.70</td><td>Well painted</td><td>ETA Aug 10–17</td></tr>
+      <tr><td>Aug 5</td><td>Bloodcrushers lot</td><td class="num">~$112.00</td><td>Some damage, repairs due</td><td>ETA Aug 18–Sep 1</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Total tithed: ≈ $1,391.</strong> The strategy doc's plan priced the Night Lords lot at $650; the Creed spent ~$550 building a Khorne wing instead and kept the difference. The Mallex, Flesh Hounds, and Bloodmaster purchases were the Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo audit also surfaced two units the seller never listed (3 Flamers, 10 Cultists), now entered in Part III. Remaining gaps: a Skullmaster and Rendmaster for the tournament list, fast Slaanesh scoring (the Seekers lot went unpurchased), and mobile CSM (Raptors or Warp Talons, someday, painted in crimson).</p>
+  <p class="doctrine-line">Standing rule from the strategy doc, still in force: after the current arrivals are catalogued, play ten games before buying another model.</p>
+</section>
+
+<footer class="colophon">
+  <p>Companion files in the <em>40k-armies</em> repository: <em>codex-umbral-creed.md</em> (this book's source), <em>quartermaster.md</em> (the audited inventory, six lists, and verified rules — distilled from the July 27 Quartermaster and Battle Doctrine artifacts), <em>belakor-shadow-legion-guide.md</em> (rules detail and sources), <em>shadow-legion-strategy.md</em> (the original gameplan). Points are MFM v1.1 as audited 07-27; the official app is the arbiter. The Umbral Creed is original fan fiction for a personal collection and claims nothing of Games Workshop's IP but affection. Rename the warband and the codex follows.</p>
+</footer>
+
+</div>

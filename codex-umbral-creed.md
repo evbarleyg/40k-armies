@@ -61,7 +61,7 @@ everything the gods built derivative and says so.
 A congregation that worships silence still has to pay its bills, and the coin of
 Chaos is blood. In the high summer of the Creed's second year the tithe came due,
 and the court of Khorne arrived to collect it in person: a Bloodthirster, unbound
-and unassembled, patient in his crate; a Herald with ten sworn killers; five
+and unassembled, patient in his crate; a Herald with nine sworn killers; five
 hounds of flesh who can hear a lie at nine inches and take it personally.
 
 The Creed does not love Khorne. The Creed pays him, promptly, the way you pay
@@ -106,18 +106,26 @@ all Legiones Daemonica gain SHADOW LEGION.
 | Slaanesh | Cannot be Overwatched |
 | Undivided (incl. CSM) | Gain Dark Pacts; Be'lakor auto-passes its test |
 
-**The mortal half.** Up to half the army from a fixed CSM allowlist: Chaos Lord
-(foot, Terminator, jump pack), Sorcerer (foot, Terminator), Master of
-Possessions, Dark Apostle, Legionaries, Chosen, Possessed, Raptors, Warp Talons,
-Havocs, and Damned units. Heretic Astartes here gain Deep Strike.
+**The mortal half.** Up to half the army from a fixed CSM allowlist (named
+*Thralls of the First Prince*): Chaos Lord (foot, Terminator, jump pack),
+Sorcerer (foot, Terminator), Master of Possessions, Dark Apostle, Legionaries,
+Chosen, Possessed, Raptors, Warp Talons, Havocs, and Damned units. Heretic
+Astartes here gain Deep Strike.
 
-**The fine print.** No vehicles (the War Dogs attend as Chaos Knights allies,
-outside the detachment). No Daemon Princes. No Epic Heroes except Be'lakor.
+**The fine print.** Be'lakor must be your Warlord when present (Supreme
+Commander is mandatory). No vehicles — the War Dogs attend via the Chaos
+Knights *Dreadblades* rule (max 3 in an all-Chaos army; they take no Warlord
+and no enhancements). No Daemon Princes. No Epic Heroes except Be'lakor —
+Skulltaker and Karanak are specifically illegal.
 
 **Known toolkit.** *Warp Surge* (1 CP: a daemon unit in shadow charges after
 Advancing), *Denizens of the Warp* (1 CP: deep strike at 3" instead of 9"),
-*Leaping Shadows* (enhancement: the bearer's unit gets Scouts 9" — the reviews'
-pick, and the reason the Bloodthirster entry below says what it says).
+*Binding Shadow* (pull an endangered unit off the board into reserves — the
+rescue half of the yo-yo), *Leaping Shadows* (enhancement: Scouts 9"), and
+*Fade to Darkness* (enhancement: the bearer's unit kills, vanishes from the
+board, and returns next turn — the detachment's signature trick, legal on a
+Bloodthirster). One stratagem per unit per phase this edition, so spend the
+command point on the moment that matters.
 
 ---
 
@@ -142,7 +150,8 @@ unit fails its nerve nearby.
 him. Fly him behind terrain turns one and two, or deep strike him with the
 second wave. His damage is real but his job is position: wherever he stands, the
 army rule follows and the enemy's Leadership starts costing them mortal wounds.
-Do not spend him like an assassin; spend him like weather.
+Do not spend him like an assassin; spend him like weather. Bring him and he is
+your Warlord whether you like it or not; the Creed likes it.
 
 > *He was first. Every shadow since is quotation.*
 >
@@ -150,7 +159,7 @@ Do not spend him like an assassin; spend him like weather.
 
 ### The First Choir (Tzeentch)
 
-**LORD OF CHANGE — The Anagnost** *(300 pts, painted)*
+**LORD OF CHANGE — The Anagnost** *(320 pts, painted)*
 
 The Creed's reader-aloud, who performs the silence in nine voices. The second
 Greater Daemon, the second terror aura, the second 6" shadow bubble, and the
@@ -175,31 +184,38 @@ die: one purchase, three waves of bodies.
 **BLUE HORRORS ×10 / BRIMSTONES ×9** *(125 pts as alternates, painted)* — the
 second and third verses of the same hymn.
 
+**FLAMERS ×3** *(65 pts, painted)* — found in the July 27 photo audit, unlisted
+by the seller. Overwatch-grade fire that walks; babysitters for the Horror
+line.
+
 **SCREAMERS ×3** *(80 pts, painted)* — fast movement-phase damage for secondaries
 and rear objectives. They do not fight so much as fly through and apologize.
 
 ### The Blood Tithe (Khorne) — *new musters, August 2026*
 
-**EXALTED BLOODTHIRSTER — The Unbound Word** *(pts: verify; unassembled,
+**EXALTED BLOODTHIRSTER — The Unbound Word** *(320 pts; unassembled,
 unpainted)*
 
 The collector himself. He arrived in pieces, which the Creed regards as
 theologically correct: wrath, some assembly required. He is also the host's one
 true hobby project — sprues, glue, and a red that will have to be earned.
 
-*On the battlefield (once mustered):* the detachment's most violent opening.
-Give him *Leaping Shadows* and he Scouts 9" before the first turn, then uses the
-Khorne boon to Advance and still charge. The reviews call the Scouting
-Bloodthirster the detachment's best trick; your copy just needs arms first.
+*On the battlefield (once mustered):* the tournament engine. He is a Character,
+not an Epic Hero, so *Fade to Darkness* is legal on him — drop turn two,
+one-shot a tank (7 attacks, S16, AP-4, D6+2), vanish at the end of the fight,
+Rapid Ingress back on their turn. Off the board between swings. The Quartermaster's
+audit priced him at 320 points; both 4-1 tournament lists in the Battle
+Doctrine deck run exactly this loop. Your copy just needs arms first.
 
 *On the workbench:* the seller ran late, apologized, and enclosed a small gift
 for the delay. The Creed does not forgive. The Creed left five stars regardless,
 for the packaging was honest.
 
-**BLOODMASTER & BLOODLETTERS ×10 — The Tithe-Takers** *(pts: verify; painted)*
+**BLOODMASTER & BLOODLETTERS ×9 — The Tithe-Takers** *(~175 pts as Herald +
+full brick; painted)*
 
 The melee hammer the strategy doc said the army lacked, bought at auction for
-less than the doc budgeted. A Herald of Khorne and ten hellblades that hit like
+less than the doc budgeted. A Herald of Khorne and nine hellblades that hit like
 a legal judgment.
 
 *On the battlefield:* deep strike or advance under Warp Surge; with the Khorne
@@ -208,7 +224,7 @@ threat everywhere within eighteen inches or so. Point them at whatever is
 holding an objective, not whatever is scariest. They are here to take ground,
 and the mortal wounds from Terror finish what the hellblades start.
 
-**FLESH HOUNDS ×5 — The Nine-Inch Truth** *(pts: verify; well painted)*
+**FLESH HOUNDS ×5 — The Nine-Inch Truth** *(75 pts; well painted)*
 
 Collared in brass, allergic to sorcery, fast.
 
@@ -247,9 +263,12 @@ phase the enemy spent shooting at giggles.
 Blackstone Fortress plastic; runs as a standard Chaos Lord — the Epic Hero ban
 does not apply because the datasheet is the generic one)*
 
-*On the battlefield:* the CSM half's missing officer. Attach to Legionaries or
-Chosen for re-rolls and a Dark Pacts babysitter; with the detachment he deep
-strikes with his unit.
+*On the battlefield:* the CSM half's missing officer and the Fade carrier.
+Give him *Fade to Darkness*, attach him to five Legionaries, and run the
+Quartermaster's signature play: arrive from reserve, kill the babysitters on a
+marker, vanish at the end of the fight, return on the opponent's turn with his
+once-per-round free Rapid Ingress. A foot Lord leads Legionaries only —
+Terminator-armor Lords lead only Terminators, which the Creed does not own.
 
 **MASTER OF POSSESSIONS — Sor Vekh, First Footnotist** *(60 pts, painted)*
 
@@ -265,7 +284,8 @@ What careful reading does to a boarding squad.
 *On the battlefield:* the deep-striking melee bomb. Arrive with the monsters,
 Warp Surge if the charge needs help, and let Vekh handle the paperwork.
 
-**LEGIONARIES ×10 — The Preaching Company** *(180 pts as 1–2 units, painted)*
+**LEGIONARIES ×10 — The Preaching Company** *(170 pts as ten, or 90 per five;
+painted)*
 
 The company that footnoted its way here, still crimson, still on schedule.
 
@@ -278,6 +298,16 @@ painted)*
 *On the battlefield:* the home objective and the only long guns the detachment
 allows. They have held the home line through every engagement so far and have
 opinions about the missions where nothing came to them. They recite them.
+
+**CULTIST MOB ×10 — The Unlisted** *(50 pts, painted)*
+
+The July 27 photo audit found them at the bottom of the crate: ten Dark
+Vengeance cultists the seller never mentioned. The Creed takes on staff the
+same way.
+
+*On the battlefield:* the cheapest screens and space-fillers in the book. They
+stand where enemy reserves would like to land, and when they die protecting
+something valuable, they did their job.
 
 ### Oath-Bound Engines (Chaos Knights allies)
 
@@ -302,8 +332,8 @@ reserve as the rules allow (check current reserve caps before writing it on a
 list). Turns one and two the opponent shoots giggles and terrain. Turns two and
 three the sky opens: Be'lakor, the Anagnost, and the Possessed arrive together
 on the weak flank, Denizens of the Warp tightens a charge if one must land, and
-the shadow arrives with them. You were never not there; you were just late on
-purpose.
+the shadow arrives with them. Mallex's squad runs the yo-yo underneath it all —
+kill, Fade, return. You were never not there; you were just late on purpose.
 
 **The Crimson Tithe** *(vs. armies that want time).* The new wing inverts the
 tempo. Leaping Shadows on the Bloodthirster, hounds and letters forward,
@@ -322,17 +352,28 @@ right moment beats a dead Terminator squad.
 
 ## PART V — MUSTERS
 
-**List A — The Sermon of Arrival** *(the original lot, ~2,110 pts as sold; trim
-one Tzeentch piece to legalize at 2,000).* Be'lakor · Lord of Change ·
-Fateskimmer · Exalted Flamer · 10 Pinks (or Blues) · Screamers · 3 Nurgling
-bases · Master of Possessions · 10 Legionaries · 5 Possessed · Havocs · 2 War
-Dogs (allies). The Long Shadow doctrine as written.
+*The Quartermaster built six; these are the three that matter now. Full tables
+for all six live in `quartermaster.md` and the ledger artifact.*
 
-**List B — The Tithe Ascendant** *(pending arrivals; points to be verified).*
-Be'lakor · Exalted Bloodthirster (Leaping Shadows) · Bloodmaster + 10
-Bloodletters · 5 Flesh Hounds · Bloodcrushers · 10 Pinks · 3 Nurgling bases ·
-Chaos Lord + Legionaries · Havocs. The Crimson Tithe doctrine; the Anagnost
-sits out and disapproves.
+**The Yo-Yo Court — 1,940 pts, COMPLETE as of August 4.** Be'lakor · Lord of
+Change · Mallex + Fade → 5 Legionaries · 5 Legionaries · MoP → Possessed ·
+Havocs · Fateskimmer → Screamers · Exalted Flamer → Flamers · 10 Pinks ·
+Nurglings · 5 Flesh Hounds · Cultists. Teleport control: the Tzeentch castle
+holds under the boons while Mallex's squad kills, Fades, and returns. Every
+model painted. This is the list to learn on, starting today.
+
+**Triple Monster — 2,000 pts, needs only assembly.** Be'lakor · Bloodthirster
+(Fade) · Lord of Change · 10 Pinks · 10 Blues · Nurglings · Fateskimmer →
+Screamers · Havocs · 5 Legionaries · MoP → Possessed · Cultists. Three T10–11
+monsters each dragging a 6" shadow bubble own most of the board by turn two.
+Beginner-forgiving. Unlocked the moment the Unbound Word gets his arms.
+
+**The Fadethirster — the tournament shape.** Adds Skullmaster + 6 Bloodcrushers
+and a Rendmaster on Blood Throne to the Bloodthirster loop; every 4-1 result
+the Battle Doctrine deck studied runs this silhouette, usually with the
+Cavalcade of Chaos detachment paired in. The inbound Bloodcrushers lot decides
+how much of it you already own; a Skullmaster and Rendmaster are the true
+remaining gaps.
 
 ---
 
@@ -350,9 +391,12 @@ sits out and disapproves.
 
 **Total tithed: ≈ $1,391.** The strategy doc's plan priced the Night Lords lot
 at $650; the Creed spent ~$550 building a Khorne wing instead and kept the
-difference. Remaining gaps from the doc: fast Slaanesh scoring (the Seekers lot
-went unpurchased) and mobile CSM (Raptors or Warp Talons, someday, painted in
-crimson).
+difference. The Mallex, Flesh Hounds, and Bloodmaster purchases were the
+Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo
+audit also surfaced two units the seller never listed (3 Flamers, 10 Cultists),
+now entered in Part III. Remaining gaps: a Skullmaster and Rendmaster for the
+tournament list, fast Slaanesh scoring (the Seekers lot went unpurchased), and
+mobile CSM (Raptors or Warp Talons, someday, painted in crimson).
 
 **Standing rule from the strategy doc, still in force:** after the current
 arrivals are catalogued, play ten games before buying another model.
