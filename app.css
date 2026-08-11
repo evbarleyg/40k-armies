@@ -280,3 +280,5 @@ footer p{ max-width:90ch; }
 @media (max-width:400px){ .tbl.units th, .tbl.units td{ padding-left:6px; padding-right:6px; } .tbl.units .tag{ white-space:normal; } .tbl.units td:first-child{ width:auto; } }
 .toast{ pointer-events:none; }
 .withbtn input[type="date"]{ min-width:9.5em; }
+.tbl td.opts input{ width:100%; }
+@media (max-width:520px){ .f .row2.crmeta{ grid-template-columns:1fr; } }

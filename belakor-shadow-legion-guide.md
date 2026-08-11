@@ -1,6 +1,6 @@
 # Be'lakor & the Shadow Legion — understanding the model and its place in armies
 
-*Companion to `shadow-legion-strategy.md`. That doc says what to do with your army; this one
+*Companion to `shadow-legion-strategy.md` (now `docs/strategy-2026-07-20.md`, rendered as `strategy.html`). That doc says what to do with your army; this one
 explains **why** — who Be'lakor is, how his rules actually work, and why the community
 (r/ChaosDaemons40k included) builds armies around him the way it does.*
 

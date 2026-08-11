@@ -182,12 +182,15 @@ def gap_estimate(missing, prices, units):
     """Quantity-aware floor for a list's missing entries: each priced unit costs ceil(models / smallest
     datasheet size) × its cheapest usable listing (min) or its median. Returns (lo, mid, n_priced)."""
     lo = mid = 0.0; priced = 0
+    pooled = {}
+    for m_ in missing: pooled[m_["unit"]] = pooled.get(m_["unit"], 0) + m_["models"]
+    missing = [{"unit": k, "models": v} for k, v in pooled.items()]
     for m_ in missing:
         p = prices.get(m_["unit"]); u = units.get(m_["unit"])
         if not p or not u: continue
         per = min(s["models"] for s in u["sizes"]) or 1
         boxes = -(-m_["models"] // per)
-        lo += boxes * p["min"]; mid += boxes * p["med"]; priced += 1
+        lo += round(boxes * p["min"]); mid += round(boxes * p["med"]); priced += 1
     return lo, mid, priced
 
 # ---------- generated regions ----------
