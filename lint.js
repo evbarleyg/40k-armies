@@ -52,7 +52,7 @@
       else {
         if (e.models < smallest) out.flags.push(flag('error', 'under-size', `${u.name}: ${e.models} models is below the smallest unit size (${smallest}).`));
         else if (s.models !== e.models) out.flags.push(flag('warn', 'size-bracket', `${u.name}: ${e.models} models pays for the ${s.models}-model bracket.`));
-        if (s.pts == null) out.flags.push(flag('error', 'no-points', `${u.name}: no points recorded for ${s.models} models — check the app and edit the store.`));
+        if (s.pts == null) out.flags.push(flag('error', 'no-points', `${u.name}: no points recorded for ${s.models} models — check the official app and edit the store.`));
         let pts = s.pts || 0;
         if (n >= 3 && s.pts_third != null) { pts = s.pts_third; out.flags.push(flag('info', 'third-copy', `${u.name}: third copy costs ${s.pts_third} (MFM surcharge).`)); }
         out.unitPts = pts; out.pts = pts;
@@ -66,10 +66,10 @@
           if (!isChar(u)) out.flags.push(flag('error', 'enh-target', `${en.name} needs a CHARACTER; ${u.name} is not one.`, { rule: R.enhancement_rules }));
           if (isEpic(u)) out.flags.push(flag('error', 'enh-epic', `${u.name} is an Epic Hero and can never take an enhancement.`, { rule: R.enhancement_rules }));
           if (u.legality === 'ally') out.flags.push(flag('error', 'enh-ally', `${u.name} rides along under Dreadblades: no enhancements, never the Warlord.`, { rule: R.allies && R.allies.dreadblades }));
-          if (en.verify) out.flags.push(flag('warn', 'enh-verify', `${en.name}: text not on file — read it in the app before relying on it.`));
+          if (en.verify) out.flags.push(flag('warn', 'enh-verify', `${en.name}: text not on file — read it in the official app before relying on it.`));
         }
       }
-      if (u.verify) out.flags.push(flag('warn', 'verify', `${u.name}: ${u.note || 'points unverified — check the app.'}`));
+      if (u.verify) out.flags.push(flag('warn', 'verify', `${u.name}: ${u.note || 'points unverified — check the official app.'}`));
       if (u.legality === 'banned') out.flags.push(flag('error', 'banned', `${u.name} is illegal in ${R.detachment.name}: ${u.note || 'Epic Hero'}`, { rule: R.bans }));
       else if (isEpic(u) && !(R.bans.epic_heroes_except || []).includes(u.id)) out.flags.push(flag('error', 'epic-hero', `${u.name} is an Epic Hero; only Be'lakor is exempt in ${R.detachment.name}.`, { rule: R.bans }));
       if (isEpic(u) && n > 1) out.flags.push(flag('error', 'epic-twice', `${u.name} is an Epic Hero — one per army.`, { rule: R.bans }));
@@ -95,7 +95,7 @@
       const tgt = byId.get(e.leads);
       if (!tgt || !tgt.unit) { out.flags.push(flag('error', 'leads-missing', `${u.name} is set to lead entry "${e.leads}", which is not in this list.`)); continue; }
       if (!(u.leads || []).includes(tgt.unit.id)) out.flags.push(flag('error', 'leader-pair', `${u.name} cannot lead ${tgt.unit.name} (allowed: ${(u.leads || []).map(id => (ix.units.get(id) || {}).name || id).join(', ') || 'nothing'}).`));
-      else if ((u.leads_verify || []).includes(tgt.unit.id)) out.flags.push(flag('warn', 'leader-verify', `${u.name} → ${tgt.unit.name}: this Leader pairing is recorded from the July list book, not from the datasheet — confirm the Leader line in the app.`));
+      else if ((u.leads_verify || []).includes(tgt.unit.id)) out.flags.push(flag('warn', 'leader-verify', `${u.name} → ${tgt.unit.name}: this Leader pairing was taken from the Jul 27 lists, not from the datasheet — confirm the Leader line in the official Warhammer 40,000 app.`));
       if (e.models !== 1) out.flags.push(flag('error', 'leader-models', `${u.name} leads as a single model.`));
       tgt.leaders = (tgt.leaders || 0) + 1;
       if (tgt.leaders > 1) tgt.flags.push(flag('warn', 'two-leaders', `${tgt.unit.name} has more than one leader attached — only some datasheets allow that; check.`));
@@ -111,7 +111,7 @@
     if (warDogs > DB.max_war_dog_models) flags.push(flag('error', 'war-dogs', `${warDogs} War Dog models — Dreadblades allows at most ${DB.max_war_dog_models}.`, { rule: DB }));
     if (titanic > (DB.titanic_alternative || 1)) flags.push(flag('error', 'titanic', `Only one Titanic Chaos Knight may join under Dreadblades.`, { rule: DB }));
     if (titanic && warDogs) flags.push(flag('error', 'titanic-or-dogs', `Dreadblades is one Titanic Knight OR up to ${DB.max_war_dog_models} War Dogs, not both.`, { rule: DB }));
-    if ((warDogs || titanic) && DB.verify) flags.push(flag('warn', 'ally-verify', `War Dogs join under the Chaos Knights Dreadblades ally rule — no repo document quotes its text; verify it (and whether it scales with battle size) in the app before an event.`, { rule: DB }));
+    if ((warDogs || titanic) && DB.verify) flags.push(flag('warn', 'ally-verify', `War Dogs join under the Chaos Knights Dreadblades ally rule — no repo document quotes its text; check it (and whether it scales with battle size) in the official app before an event.`, { rule: DB }));
     for (const [id, n] of usedEnh) if (n > 1) flags.push(flag('error', 'enh-twice', `${ix.enh.get(id).name} is taken ${n} times; each enhancement once per army.`, { rule: R.enhancement_rules }));
     const hasBelakor = entries.some(o => o.unit && o.unit.id === (R.warlord.unit || 'belakor'));
     const warlords = entries.filter(o => o.entry.warlord);
@@ -130,7 +130,7 @@
       const budget = R.battle_size.detachment_points;
       if (!sd) flags.push(flag('warn', 'secondary-unknown', `Secondary detachment "${list.secondary}" is not in the store.`));
       else if (budget != null && (R.detachment.dp || 0) + (sd.dp || 0) > budget) flags.push(flag('error', 'dp-over', `${R.detachment.name} (${R.detachment.dp} DP) + ${sd.name} (${sd.dp} DP) is over the ${budget} detachment points available.`));
-      else if (sd.verify) flags.push(flag('warn', 'secondary-verify', `${sd.name} (${sd.dp} DP): ${sd.gist} — recorded from the Primer, verify the current text.`));
+      else if (sd.verify) flags.push(flag('warn', 'secondary-verify', `${sd.name} (${sd.dp} DP) — ${String(sd.gist).replace(/[.\s]+$/, '')}. Recorded from the Primer; check the current text in the official app.`));
     }
 
     const all = flags.concat(...entries.map(o => o.flags));

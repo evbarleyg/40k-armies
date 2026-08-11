@@ -242,7 +242,8 @@ def region_inventory_md(store, d):
         v = best_value(u, i["models"] or 0)
         exact = any(s["models"] == i["models"] for s in u["sizes"])
         smallest = min(u["sizes"], key=lambda s: s["models"])
-        pts = (f"{v}" + ("" if exact or len(u["sizes"]) == 1 else " (best split)")) if v else ("—" if smallest.get("pts") is None else f"— ({smallest['pts']} per {smallest['models']})")
+        size_price = next((s.get("pts") for s in u["sizes"] if s["models"] == i["models"]), None)
+        pts = (f"{v}" + (f" (best split — one unit of {i['models']} is {size_price})" if size_price not in (None, v) else "" if exact or len(u["sizes"]) == 1 else " (best split)")) if v else ("—" if smallest.get("pts") is None else f"— ({smallest['pts']} per {smallest['models']})")
         o = orders.get(i.get("order"))
         frm = f"{fmt_date(o['date'])} · {o['item'].split(' (')[0]}" if o else ""
         count = f"≈{i['models']}" if i.get("approx") else str(i["models"])

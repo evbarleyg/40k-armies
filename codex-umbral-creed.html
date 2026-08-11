@@ -99,6 +99,11 @@
 
   .colophon{margin-top:3.5rem; border-top:3px double var(--crimson); padding-top:1.1rem; font-size:.88rem; color:var(--ink-soft); font-style:italic}
   .orn{ text-align:center; color:var(--crimson); margin:2.4rem 0; font-size:1.1rem; letter-spacing:.9em; padding-left:.9em}
+  /* battery r3 contrast: lighter crimson text in dark, darker brass and faint ink in light */
+  :root, :root[data-theme="light"]{ --brass:#6e5126; --ink-faint:#6f625b; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --crimson:#d24d5f; --brass:#b89a60; --ink-faint:#9d9087; } :root:not([data-theme="light"]) .unit-head{ background:var(--crimson-deep); } }
+  :root[data-theme="dark"]{ --crimson:#d24d5f; --brass:#b89a60; --ink-faint:#9d9087; }
+  :root[data-theme="dark"] .unit-head{ background:var(--crimson-deep); }
 </style>
 
 <div class="book">
@@ -403,7 +408,7 @@
 <table>
     <thead><tr><th>Date</th><th>Tithe</th><th>Cost (landed)</th><th>State</th><th>Status</th></tr></thead>
     <tbody>
-    <tr><td>Jul 21</td><td>Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts)</td><td class="num">$840.18 ($730 price + tax and shipping)</td><td>Tabletop paint</td><td>Delivered Jul 28</td></tr>
+    <tr><td>Jul 21</td><td>Shadow Legion Army Lot (Word Bearer theme; seller counted ~2,110 pts)</td><td class="num">$840.18 ($730 price + tax and shipping)</td><td>Tabletop paint</td><td>Delivered Jul 28</td></tr>
     <tr><td>Jul 27</td><td>Exalted Bloodthirster</td><td class="num">$78.03</td><td>Unassembled, unpainted</td><td>Delivered Aug 4</td></tr>
     <tr><td>Jul 27</td><td>Obsidius Mallex (Chaos Lord)</td><td class="num">≈$20 (combined order with the Flesh Hounds)</td><td>Painted</td><td>Delivered Aug 1</td></tr>
     <tr><td>Jul 27</td><td>Flesh Hounds ×5</td><td class="num">≈$82 (combined order with Mallex)</td><td>Well painted</td><td>Delivered Aug 4</td></tr>

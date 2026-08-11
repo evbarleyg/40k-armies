@@ -22,16 +22,24 @@
   const nb = s => String(s).replace(/ /g, ' ');
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const dshort = iso => iso ? nb(`${MON[+iso.slice(5, 7) - 1]} ${+iso.slice(8, 10)}`) : '';
-  const drange = eta => !eta || eta.length !== 2 ? 'no window' : (eta[0].slice(0, 7) === eta[1].slice(0, 7) ? `${dshort(eta[0])}–${+eta[1].slice(8)}` : `${dshort(eta[0])}–${dshort(eta[1])}`);
+  const drange = eta => !eta || eta.length !== 2 ? 'no window' : (eta[0].slice(0, 7) === eta[1].slice(0, 7) ? `${dshort(eta[0])}–\u2060${+eta[1].slice(8)}` : `${dshort(eta[0])}–\u2060${dshort(eta[1])}`);
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
   const daysBetween = (a, b) => Math.round((new Date(b + 'T12:00:00') - new Date(a + 'T12:00:00')) / 864e5);
   const TODAY = todayISO();
   const plural = (n, w, ws) => `${n} ${n === 1 ? w : (ws || w + 's')}`;
   const LS = {
-    get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { toast('Could not save on this device (storage blocked)'); return false; } },
-    del(k) { try { localStorage.removeItem(k); } catch (e) { /* nothing stored */ } }
+    raw(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    // shape-checked read: a blob of the wrong shape is moved aside once instead of breaking a view for good
+    get(k, d, ok) { const r = LS.raw(k); if (r == null) return d; let v; try { v = JSON.parse(r); } catch (e) { LS.quarantine(k, r); return d; } if (v == null) return d; if (ok && !ok(v)) { LS.quarantine(k, r); return d; } return v; },
+    set(k, v, quiet) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { if (!quiet) toast('Could not save on this device (storage blocked or full)'); return false; } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { /* nothing stored */ } },
+    quarantine(k, r) { try { localStorage.setItem('muster.quarantine.' + k, String(r).slice(0, 200000)); localStorage.removeItem(k); } catch (e) { /* best effort */ } setTimeout(() => toast(`Unreadable saved data for ${k.replace('muster.', '')} was set aside on this device`), 0); }
   };
+  const isObj = v => v && typeof v === 'object' && !Array.isArray(v);
+  const okDrafts = v => isObj(v) && Object.values(v).every(d => isObj(d) && Array.isArray(d.rows) && d.rows.every(r => isObj(r) && typeof r.unit === 'string'));
+  const okList = l => isObj(l) && typeof l.id === 'string' && Array.isArray(l.entries) && l.entries.every(e => isObj(e) && typeof e.unit === 'string');
+  const okLists = v => Array.isArray(v) && v.every(okList);
+  const okStale = v => isObj(v) && Array.isArray(v.changes) && v.changes.every(c => isObj(c) && typeof c.text === 'string');
   function toast(msg) {
     let t = $('.toast'); if (t) t.remove();
     t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg; document.body.appendChild(t);
@@ -47,7 +55,15 @@
   }
 
   // ---------- patches: the one mutation path (used by commit and by replay after a rebuild) ----------
+  function validPatch(p) {
+    if (!isObj(p) || typeof p.op !== 'string') return false;
+    if (p.op === 'inventory.update') return typeof p.id === 'string' && isObj(p.set);
+    if (p.op === 'games.add' || p.op === 'games.remove') return isObj(p.value);
+    if (p.op === 'crate.catalogue') return typeof p.order === 'string' && typeof p.delivered === 'string' && Array.isArray(p.inventory) && p.inventory.every(r => isObj(r) && typeof r.unit === 'string' && typeof r.id === 'string');
+    return false;
+  }
   function applyPatch(s, p) {
+    if (!validPatch(p)) return false;
     if (p.op === 'inventory.update') { const i = s.inventory.find(x => x.id === p.id); if (!i) return false; Object.assign(i, p.set); return true; }
     if (p.op === 'games.add') { s.games.log = s.games.log || []; s.games.log.push(clone(p.value)); return true; }
     if (p.op === 'games.remove') { const log = s.games.log || []; const n = log.findIndex(g => same(g, p.value)); if (n < 0) return false; log.splice(n, 1); return true; }
@@ -60,6 +76,7 @@
     return false;
   }
   function isApplied(s, p) {
+    if (!validPatch(p)) return false;
     if (p.op === 'inventory.update') { const i = s.inventory.find(x => x.id === p.id); return !!i && Object.keys(p.set).every(k => same(i[k], p.set[k])); }
     if (p.op === 'games.add') return (s.games.log || []).some(g => same(g, p.value));
     if (p.op === 'games.remove') return !(s.games.log || []).some(g => same(g, p.value));
@@ -74,57 +91,92 @@
   // ---------- store + local overlay ----------
   function sig(store) { const s = JSON.stringify(store); let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0; return `${store.meta.updated}:${s.length}:${h}`; }
   const BASE_SIG = sig(SHIPPED.store);
-  let local = LS.get('muster.local', null), STORE, BOOT_NOTE = null;
-  const usable = l => l && typeof l === 'object' && l.store && Array.isArray(l.store.units) && Array.isArray(l.store.inventory) && Array.isArray(l.store.orders) && Array.isArray(l.store.lists) && l.store.rules && l.store.games && Array.isArray(l.changes) && l.changes.every(c => c && c.patch && c.patch.op);
-  if (local && !usable(local)) {                 // corrupt overlay: park whatever is readable, boot from the repo data
-    const prev = LS.get('muster.stale', { changes: [] });
-    const salvage = Array.isArray(local.changes) ? local.changes.filter(c => c && c.text) .map(c => ({ at: c.at || '', text: c.text, patch: c.patch || { op: 'unknown' } })) : [{ at: '', text: 'unreadable local data: ' + JSON.stringify(local).slice(0, 400), patch: { op: 'unknown' } }];
-    LS.set('muster.stale', { at: new Date().toISOString(), changes: (prev.changes || []).concat(salvage) }); LS.del('muster.local'); local = null;
+  let local = null, STORE, BOOT_NOTE = null;
+  const usableStore = s => isObj(s) && isObj(s.meta) && Array.isArray(s.units) && Array.isArray(s.inventory) && Array.isArray(s.orders) && Array.isArray(s.lists) && isObj(s.rules) && isObj(s.games) && isObj(s.hobby) && isObj(s.buying);
+  const usable = l => isObj(l) && typeof l.baseSig === 'string' && usableStore(l.store) && Array.isArray(l.changes) && l.changes.every(c => isObj(c) && typeof c.text === 'string' && validPatch(c.patch));
+  function park(items) {           // parked changes are only forgotten once they are safely written
+    if (!items.length) return true;
+    const prev = LS.get('muster.stale', { changes: [] }, okStale);
+    return LS.set('muster.stale', { at: new Date().toISOString(), changes: prev.changes.concat(items) });
   }
-  if (local && local.baseSig === BASE_SIG) STORE = local.store;
-  else if (local && local.changes.length) {
+  function bootOverlay() {
+    const raw = LS.raw('muster.local');
+    if (raw == null) { STORE = clone(SHIPPED.store); return; }
+    let l = null; try { l = JSON.parse(raw); } catch (e) { l = null; }
+    if (!usable(l)) {                              // corrupt overlay: park whatever is readable, boot from the repo data
+      const salvage = l && Array.isArray(l.changes) && l.changes.some(c => isObj(c) && typeof c.text === 'string')
+        ? l.changes.filter(c => isObj(c) && typeof c.text === 'string').map(c => ({ at: c.at || '', text: c.text, patch: validPatch(c.patch) ? c.patch : { op: 'unknown' } }))
+        : [{ at: new Date().toISOString(), text: 'unreadable local data: ' + String(raw).slice(0, 400), patch: { op: 'unknown' } }];
+      // a readable change list on an unreadable store can still be replayed onto the repo data
+      if (l && Array.isArray(l.changes) && salvage.length && salvage.every(c => c.patch.op !== 'unknown')) l = { baseSig: 'salvaged', rev: 0, store: clone(SHIPPED.store), changes: salvage };
+      else { if (park(salvage)) LS.del('muster.local'); STORE = clone(SHIPPED.store); BOOT_NOTE = { done: 0, replayed: 0, parked: salvage.length }; return; }
+    }
+    if (l.baseSig === BASE_SIG) { local = l; local.rev = local.rev || 0; STORE = local.store; return; }
     // the repo store changed underneath local edits: keep what it already contains, replay the rest, park what cannot replay
     STORE = clone(SHIPPED.store);
     const done = [], replayed = [], parked = [];
-    for (const c of local.changes) { if (isApplied(STORE, c.patch)) done.push(c); else if (applyPatch(STORE, c.patch)) replayed.push(c); else parked.push(c); }
-    if (parked.length) { const prev = LS.get('muster.stale', { changes: [] }); LS.set('muster.stale', { at: new Date().toISOString(), changes: prev.changes.concat(parked) }); }
-    local = replayed.length ? { baseSig: BASE_SIG, store: STORE, changes: replayed } : null;
-    if (local) LS.set('muster.local', local); else LS.del('muster.local');
+    for (const c of l.changes) { try { if (isApplied(STORE, c.patch)) done.push(c); else { const trial = clone(STORE); if (applyPatch(trial, c.patch)) { STORE = trial; replayed.push(c); } else parked.push(c); } } catch (e) { parked.push(c); } }
+    if (!park(parked)) { local = null; STORE = clone(SHIPPED.store); BOOT_NOTE = { done: 0, replayed: 0, parked: 0, failed: true }; return; }   // could not write: leave muster.local untouched for next time
+    local = replayed.length ? { baseSig: BASE_SIG, rev: (l.rev || 0) + 1, store: STORE, changes: replayed } : null;
+    if (local) { if (!LS.set('muster.local', local, true)) { /* keep going in memory */ } } else LS.del('muster.local');
     BOOT_NOTE = { done: done.length, replayed: replayed.length, parked: parked.length };
-  } else { local = null; LS.del('muster.local'); STORE = clone(SHIPPED.store); }
-  let STALE = LS.get('muster.stale', null); if (STALE && !(STALE.changes || []).length) STALE = null;
+  }
+  try { bootOverlay(); } catch (e) { console.error(e); local = null; STORE = clone(SHIPPED.store); BOOT_NOTE = { done: 0, replayed: 0, parked: 0, failed: true }; }
+  let STALE = LS.get('muster.stale', null, okStale); if (STALE && !STALE.changes.length) STALE = null;
+  // orphaned crate drafts (order since delivered in the data) are dropped quietly
+  { const drafts = LS.get('muster.crates', null, okDrafts); if (drafts) { let ch = false; for (const k of Object.keys(drafts)) { const o = STORE.orders.find(x => x.id === k); if (!o || o.status === 'delivered' || !drafts[k].rows.length && !drafts[k].note) { delete drafts[k]; ch = true; } } if (ch) LS.set('muster.crates', drafts, true); } }
   let D = L.derive(STORE);
   const PRICES = (SHIPPED.gapPrices && SHIPPED.gapPrices.units) || {}, PRICE_DATE = (SHIPPED.gapPrices && SHIPPED.gapPrices.date) || '';
 
-  function commit(text, patch, then, note) {
-    // another tab may have written since this one loaded: adopt its overlay first so nothing is dropped
+  // adopt whatever another tab wrote since we last looked: a discard there sticks here, an edit there is kept here
+  function adoptDisk() {
     const disk = LS.get('muster.local', null);
-    if (disk && disk.baseSig === BASE_SIG && disk.store && Array.isArray(disk.changes) && (!local || disk.changes.length !== local.changes.length)) { local = disk; STORE = disk.store; }
-    const before = clone(STORE);
-    if (!applyPatch(STORE, patch)) { toast('That change no longer applies to the current data'); return; }
-    const next = local ? { baseSig: BASE_SIG, store: STORE, changes: local.changes.slice() } : { baseSig: BASE_SIG, store: STORE, changes: [] };
-    next.changes.push({ at: new Date().toISOString(), text, patch });
-    next.changes = coalesce(next.changes);
-    if (!next.changes.length) { LS.del('muster.local'); local = null; D = L.derive(STORE); toast('Back to the repo data — nothing to export'); if (then) then(); else render(true); return; }
-    if (!LS.set('muster.local', next)) { STORE = before; if (local) local.store = STORE; D = L.derive(STORE); toast('Not saved — this browser refused to store it (storage full or blocked). Nothing was changed; export what you have from More.'); render(true); return; }
-    local = next; D = L.derive(STORE);
-    toast(`${note ? note + ' · ' : ''}Saved on this device · ${plural(local.changes.length, 'change')} to export`);
-    if (then) then(); else render(true);
+    if (!disk) { if (local) { local = null; STORE = clone(SHIPPED.store); return true; } return false; }
+    if (!usable(disk)) return false;
+    if (!local || disk.rev !== local.rev || disk.baseSig !== local.baseSig) { local = disk; local.rev = local.rev || 0; STORE = disk.store; return true; }
+    return false;
   }
+  function commit(text, patch, opts) {
+    opts = opts || {};
+    const fail = msg => { toast(msg); if (opts.onFail) opts.onFail(); else render(true); };
+    adoptDisk();
+    const before = clone(STORE), beforeLocal = local ? clone(local) : null;
+    try {
+      if (!applyPatch(STORE, patch)) { STORE = before; fail('That change no longer applies to the current data'); return false; }
+      const sigForWrite = local ? local.baseSig : BASE_SIG;      // an overlay written by a tab on another build keeps that build's signature
+      const next = { baseSig: sigForWrite, rev: (local ? local.rev : 0) + 1, store: STORE, changes: local ? local.changes.slice() : [] };
+      next.changes.push({ at: new Date().toISOString(), text, patch });
+      next.changes = coalesce(next.changes);
+      if (!next.changes.length) { LS.del('muster.local'); local = null; STORE = sigForWrite === BASE_SIG ? STORE : clone(SHIPPED.store); D = L.derive(STORE); toast('Back to the repo data — nothing to export'); if (opts.then) opts.then(); else render(true); return true; }
+      if (!LS.set('muster.local', next, true)) { STORE = before; local = beforeLocal; D = L.derive(STORE); fail('Not saved — this browser refused to store it (storage full or blocked). Nothing was changed; export what you have from More.'); return false; }
+      local = next; D = L.derive(STORE);
+      toast(`${opts.note ? opts.note + ' · ' : ''}Saved on this device · ${plural(local.changes.length, 'change')} to export`);
+      if (opts.then) opts.then(); else render(true);
+      return true;
+    } catch (e) { console.error(e); STORE = before; local = beforeLocal; D = L.derive(STORE); fail('Not saved — something in the saved data on this device is unreadable. Export or discard it from More.'); return false; }
+  }
+  // another tab saved or discarded: pick it up (deferred while a field here has focus)
+  window.addEventListener('storage', e => { if (e.key !== 'muster.local' && e.key !== null) return; const busy = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName); const go = () => { if (adoptDisk()) { D = L.derive(STORE); render(true); } }; if (busy) document.activeElement.addEventListener('blur', go, { once: true }); else go(); });
   // successive paint edits of one entry collapse into the last; an edit back to the repo value disappears
   function coalesce(changes) {
+    const isPaint = c => validPatch(c.patch) && c.patch.op === 'inventory.update' && Object.keys(c.patch.set).join() === 'paint';
     const lastPaint = new Map();
-    changes.forEach((c, i) => { if (c.patch && c.patch.op === 'inventory.update' && Object.keys(c.patch.set).join() === 'paint') lastPaint.set(c.patch.id, i); });
-    return changes.filter((c, i) => {
-      if (!(c.patch && c.patch.op === 'inventory.update' && Object.keys(c.patch.set).join() === 'paint')) return true;
+    changes.forEach((c, i) => { if (isPaint(c)) lastPaint.set(c.patch.id, i); });
+    let out = changes.filter((c, i) => {
+      if (!isPaint(c)) return true;
       if (lastPaint.get(c.patch.id) !== i) return false;
       const shipped = SHIPPED.store.inventory.find(x => x.id === c.patch.id);
       return !(shipped && shipped.paint === c.patch.set.paint);
     });
+    // a game logged and then removed on this device cancels out
+    const removed = out.filter(c => c.patch.op === 'games.remove').map(c => JSON.stringify(c.patch.value));
+    for (const key of removed) { const a = out.findIndex(c => c.patch.op === 'games.add' && JSON.stringify(c.patch.value) === key); const r = out.findIndex(c => c.patch.op === 'games.remove' && JSON.stringify(c.patch.value) === key); if (a >= 0 && r > a) out = out.filter((c, i) => i !== a && i !== r); }
+    return out;
   }
   const unitById = id => STORE.units.find(u => u.id === id);
   const orderById = id => STORE.orders.find(o => o.id === id);
-  const deviceLists = () => LS.get('muster.lists', []);
+  const deviceLists = () => LS.get('muster.lists', [], okLists);
+  const curDraft = () => LS.get('muster.builder', null, okList) || builderState({});
   const listById = id => STORE.lists.find(l => l.id === id) || deviceLists().find(l => l.id === id);
   const uname = id => (unitById(id) || { name: id }).name;
   const shortItem = o => o.item.split(' (')[0];
@@ -142,7 +194,8 @@
   function listStatus(l) {
     const r = D.lists[l.id] || { lint: L.lintList(STORE, l), coverage: L.coverage(STORE, l) };
     const owned = !r.coverage.missing.length, ready = owned && !r.coverage.hobby.length;
-    return { lint: r.lint, cov: r.coverage, legal: r.lint.legal, owned, ready, status: r.coverage.status, verify: r.lint.warnings };
+    const notes = new Set(r.lint.flags.concat(...r.lint.entries.map(o => o.flags)).filter(f => f.level === 'warn').map(f => f.msg));
+    return { lint: r.lint, cov: r.coverage, legal: r.lint.legal, owned, ready, status: r.coverage.status, verify: notes.size };
   }
   // quantity-aware price floor: ceil(models / smallest datasheet size) boxes × cheapest usable listing (or median)
   function unitCost(unitId, models) {
@@ -160,8 +213,10 @@
     const g = new Map();
     for (const m of missing) { const x = g.get(m.unit) || { unit: m.unit, parts: [], have: 0 }; x.parts.push(m.models); if (m.have) x.have += m.have; g.set(m.unit, x); }
     let items = [...g.values()].map(x => { const n = x.parts.reduce((a, b) => a + b, 0); const u = unitById(x.unit); const smallest = u ? Math.min(...u.sizes.map(s => s.models)) : 0;
-      if (x.have && n < smallest) return `${uname(x.unit)}: ${plural(n, 'more model')} (${x.have} of ${x.have + n} owned)`;
-      return `${uname(x.unit)} ×${n}${x.parts.length > 1 ? ` (${x.parts.join('+')})` : ''}`; });
+      const topup = x.have ? x.parts.find(pn => pn < smallest) : null;                 // e.g. one more Bloodletter to make nine a legal ten
+      if (topup != null && x.parts.length === 1) return `${uname(x.unit)}: ${plural(topup, 'more model')} (${x.have} of ${x.have + topup} owned)`;
+      if (topup != null) { const rest = x.parts.filter(pn => pn !== topup); return `${uname(x.unit)}: ${plural(topup, 'more model')} to complete the owned unit, plus ${rest.length === 1 ? `a unit of ${rest[0]}` : `units of ${rest.join(' and ')}`}`; }
+      return `${uname(x.unit)}\u00a0×${n}${x.parts.length > 1 ? ` (as ${x.parts.length} units: ${x.parts.join(' and ')})` : ''}`; });
     const more = max && items.length > max ? items.length - max : 0;
     if (more) items = items.slice(0, max);
     return items.join(', ') + (more ? ` + ${more} more` : '');
@@ -179,7 +234,7 @@
     if (STALE) out.push({ lvl: 'err', text: `<b>${plural(STALE.changes.length, 'parked change')}</b> from older data could not be re-applied. <a href="#/more">Copy or discard them in More →</a>` });
     for (const l of STORE.lists) { const s = listStatus(l); if (!s.legal) out.push({ lvl: 'err', text: `<b>List ${esc(l.id)} does not pass the rules check as stored:</b> ${esc(s.lint.flags.filter(f => f.level === 'error').map(f => f.msg).join('; ') || 'see its rules check')} <a href="#/lists/${esc(l.id)}">open →</a>` }); }
     for (const o of D.inbound) { const s = etaState(o); if (s.cls === 'n') out.push({ lvl: 'err', text: `<b>${esc(o.item)}</b> — ${esc(s.text)}. <a href="#/crates/${esc(o.id)}">Open the crate →</a>` }); }
-    if (R.recheck) out.push({ text: `<b>Points re-check</b> — ${esc(R.recheck)}` });
+    if (R.recheck) out.push({ text: `<b>Points news</b> — ${esc(R.recheck)}` });
     for (const c of (STORE.buying.closed_paths || [])) if (daysBetween(c.date, TODAY) <= 14) out.push({ text: `<b>${dshort(c.date)}:</b> ${esc(c.what)}` });
     return out;
   }
@@ -217,9 +272,11 @@
   const PHONE_KEY = { build: 'lists', orders: 'more', hobby: 'more', games: 'more', library: 'more', glossary: 'more' };
   function route() {
     const h = location.hash.replace(/^#\/?/, ''); const [path, qs] = h.split('?');
-    return { parts: path.split('/').filter(Boolean).map(decodeURIComponent), q: Object.fromEntries(new URLSearchParams(qs || '')) };
+    const dec = s => { try { return decodeURIComponent(s); } catch (e) { return s; } };
+    let q = {}; try { q = Object.fromEntries(new URLSearchParams(qs || '')); } catch (e) { q = {}; }
+    return { parts: path.split('/').filter(Boolean).map(dec), q };
   }
-  let lastPath = null, lastOpen = null;
+  let lastPath = null, lastOpen = null, lastSubmit = 0, lastTap = 0;
   function focusKey() { const a = document.activeElement; if (!a || a === document.body) return null; if (a.dataset && a.dataset.fkey) return a.dataset.fkey; if (a.matches('tr[data-id]')) return 'row:' + a.dataset.id; return null; }
   function render(keepScroll) {
     const fk = focusKey();
@@ -236,7 +293,7 @@
     const R = STORE.rules.snapshot, age = daysBetween(R.verified, TODAY);
     $('.mast .meta').innerHTML = `<abbr title="Munitorum Field Manual — Games Workshop's points document; every total here uses this dated version">${esc(PSHORT)}</abbr> points · <span class="${age > 45 ? 'stale' : ''}">rules verified ${dshort(R.verified)} (${age}d ago)</span> · data ${dshort(STORE.meta.updated)}${local ? ` · <span class="stale">${plural(local.changes.length, 'local edit')}</span>` : ''} · <a href="#/glossary">glossary</a>`;
     let html;
-    try { html = VIEWS[v](parts, q); } catch (err) { html = `<p>Something in this view broke: <code>${esc(err.message)}</code>. The data is fine; <a href="#/">go home</a>.</p>`; console.error(err); }
+    try { html = VIEWS[v](parts, q); } catch (err) { html = `<p>Something in this view broke: <code>${esc(err.message)}</code>. The repo data is fine; the drafts kept on this device may not be — <button class="linkbtn" data-act="resetdrafts">reset this device's drafts</button> (crate drafts, the builder, device lists; not your unexported changes) or <a href="#/">go home</a>.</p>`; console.error(err); }
     $('#view').innerHTML = html;
     document.title = `Muster · ${v === 'home' ? 'the Long Shadow Host' : v}`;
     const path = parts.join('/') + (q.f || '') ;
@@ -248,7 +305,8 @@
     fillModels();
   }
   const tag = (cls, text, title) => `<span class="tag ${cls}"${title ? ` title="${esc(title)}"` : ''}>${esc(text)}</span>`;
-  const paintTag = p => L.NOT_READY_PAINT.has(p) ? tag('todo', p === 'unassembled' ? 'on sprue' : p, p === 'unassembled' ? 'still on the plastic frame — needs assembly and paint' : 'not table-ready yet') : '';
+  const paintWord = p => p === 'unassembled' ? 'on sprue' : p;
+  const paintTag = p => L.NOT_READY_PAINT.has(p) ? tag('todo', paintWord(p), p === 'unassembled' ? 'still on the plastic frame — needs assembly and paint' : 'not table-ready yet') : '';
   const row = (href, l, r, sub) => `<li>${href ? `<a href="${href}">` : '<span class="row">'}<span class="l">${l}</span><span class="r">${r == null ? '' : r}</span>${sub ? `<span class="sub">${sub}</span>` : ''}${href ? '</a>' : '</span>'}</li>`;
   const epi = u => u.epithet ? `<span class="epi-inline" title="the codex's name for it">“${esc(u.epithet)}”</span>` : '';
 
@@ -272,7 +330,7 @@
     const next = buyable[0];
     const transitApprox = D.inbound.some(o => o.approx);
     return `
-${al.length ? `<ul class="alerts" aria-label="Notices">${al.slice(0, al.length > 2 ? 1 : 2).map(a => `<li class="${a.lvl || ''}">${a.text}</li>`).join('')}${al.length > 2 ? `<li class="morealerts"><details><summary>${al.length - 1} more notice${al.length - 1 === 1 ? '' : 's'}</summary><ul class="alerts inner">${al.slice(1).map(a => `<li class="${a.lvl || ''}">${a.text}</li>`).join('')}</ul></details></li>` : ''}</ul>` : ''}
+${al.length ? `<ul class="alerts" aria-label="Notices"><li class="${al[0].lvl || ''}">${al[0].text}</li>${al.length > 1 ? `<li class="morealerts"><details><summary>${al.length - 1} more notice${al.length - 1 === 1 ? '' : 's'}</summary><ul class="alerts inner">${al.slice(1).map(a => `<li class="${a.lvl || ''}">${a.text}</li>`).join('')}</ul></details></li>` : ''}</ul>` : ''}
 <div class="qs">
  <section class="q" aria-labelledby="q1"><a class="head" href="#/collection"><p class="k" id="q1">What do I own <span aria-hidden="true">›</span></p>
   <p class="big">${pts(D.fieldablePoints)} pts <span class="small">${D.readyPoints !== D.fieldablePoints ? `${pts(D.readyPoints)} of it table-ready · ` : ''}at ${esc(PSHORT)} · ${plural(D.records, 'entry', 'entries')} · ${D.approxModels ? '≈' : ''}${D.modelsOwned} models · ${usd(D.spent, true)} spent${D.inbound.length ? `, incl. ${usd(D.inTransit, true)} for ${plural(D.inbound.length, 'crate')} whose contents are not counted until opened` : ''}</span></p></a>
@@ -292,9 +350,9 @@ ${al.length ? `<ul class="alerts" aria-label="Notices">${al.slice(0, al.length >
  <section class="q" aria-labelledby="q3"><a class="head" href="#/buy"><p class="k" id="q3">What should I buy next <span aria-hidden="true">›</span></p>
   <p class="big ${paused ? 'dim' : ''}">${paused ? `Paused · ${games} of ${thr} games` : next ? esc(gapWords(next.x.s.cov.missing, 2)) : 'No priced gaps'} <span class="small">${paused ? `house rule: ${thr} games before the next model, counting ${esc(STORE.games.rule.counts_from)}.${next ? ` When it lifts, the cheapest finish is ${esc(next.x.l.id)}, below.` : ''}` : next ? `cheapest list to finish: ${esc(next.x.l.id)} · ${esc(next.x.l.name)} · from ${range(next.c.lo, next.c.mid, next.c.partial)} at ${dshort(PRICE_DATE)} scout prices` : 'run the scout for current prices'}</span></p></a>
   <ul class="rows">
-   ${buyable.slice(0, 2).map(({ x, c }) => row(`#/lists/${esc(x.l.id)}`, `Finish ${esc(x.l.id)} · ${esc(x.l.name)}`, `${range(c.lo, c.mid, c.partial)}`, `${esc(gapWords(x.s.cov.missing))}${x.s.cov.missing.some(m => gaps.find(g => g.unit === m.unit && g.inbound)) ? ' — an inbound crate may cover part of it' : ''}`)).join('')}
+   ${buyable.slice(0, 2).map(({ x, c }) => row(`#/lists/${esc(x.l.id)}`, `Finish ${esc(x.l.id)} · ${esc(x.l.name)}`, `${range(c.lo, c.mid)}${c.partial ? ` (${c.priced} of ${x.s.cov.missing.length} priced)` : ''}`, `${esc(gapWords(x.s.cov.missing))}${x.s.cov.missing.some(m => gaps.find(g => g.unit === m.unit && g.inbound)) ? ' — an inbound crate may cover part of it' : ''}`)).join('')}
    ${topN.length ? row('#/buy', `Most-wanted: ${topN.map(g => esc(uname(g.unit))).join(', ')}`, topN.length === 1 && PRICES[topN[0].unit] ? `${range(PRICES[topN[0].unit].min, PRICES[topN[0].unit].med)}` : topN.length > 1 ? `${topN.length}-way tie` : 'unpriced', `${topN.length === 1 ? `missing from ${Object.keys(topN[0].lists).join(', ')}` : topN.map(g => `${esc(uname(g.unit))}: ${Object.keys(g.lists).join(', ')}`).join(' · ')} · prices are the ${dshort(PRICE_DATE)} scout's, not live`) : ''}
-   ${row('#/buy?f=flagged', 'In the market feed', `${feedHits} worth a look · ${feedDnb} do-not-buy`, `${FEED.rows.length} painted-army listings scanned ${esc(dshort((FEED.meta && FEED.meta.scanned) || ''))} — a dated snapshot, most long ended`)}
+   ${row('#/buy?f=flagged', 'In the market feed', `${feedHits} worth a look · ${feedDnb} do\u2011not\u2011buy`, `${FEED.rows.length} painted-army listings scanned ${esc(dshort((FEED.meta && FEED.meta.scanned) || ''))} — a dated snapshot, most long ended`)}
   </ul></section>
 
  <section class="q" aria-labelledby="q4"><a class="head" href="#/crates"><p class="k" id="q4">What is arriving <span aria-hidden="true">›</span></p>
@@ -336,17 +394,18 @@ ${al.length ? `<ul class="alerts" aria-label="Notices">${al.slice(0, al.length >
 <tbody>
 ${shown.map(r => { const p = rowPts(r), lists = use[r.u.id] ? [...use[r.u.id]].join(' ') : 'none'; const isOpen = open === r.i.id; const from = r.o ? `${dshort(r.o.date)} · ${esc(shortItem(r.o))}` : '';
       return `
-<tr data-id="${esc(r.i.id)}" data-act="open" class="${isOpen ? 'open' : ''}" tabindex="0"><td><span class="name">${esc(r.u.name)}</span> ${paintTag(r.i.paint)}${r.u.verify ? ' ' + tag('warn', 'verify', r.u.note || 'points unverified') : ''}<span class="sub clamp narrow">${dot(epi(r.u), `lists ${esc(lists)}`, r.i.note ? esc(r.i.note) : null, from)}</span><span class="sub clamp wide">${dot(epi(r.u), r.i.note ? esc(r.i.note) : null)}</span></td>
-<td class="wide">${esc(r.i.paint)}</td><td class="wide mono nowrap">${esc(lists)}</td><td class="wide">${from}</td>
+<tr data-id="${esc(r.i.id)}" data-act="open" class="${isOpen ? 'open' : ''}" tabindex="0"><td><span class="name">${esc(r.u.name)}</span> ${paintTag(r.i.paint)}${r.u.verify ? ' ' + tag('warn', 'verify', r.u.note || 'points unverified') : ''}<span class="sub clamp narrow">${dot(epi(r.u), `lists ${esc(lists)}`, r.i.note ? esc(sentence(r.i.note)) : null, from)}</span><span class="sub clamp wide">${dot(epi(r.u), r.i.note ? esc(sentence(r.i.note)) : null)}</span></td>
+<td class="wide">${esc(paintWord(r.i.paint))}</td><td class="wide mono nowrap">${esc(lists)}</td><td class="wide">${from}</td>
 <td class="n">${r.i.approx ? '<span class="glyph">≈</span>' : ''}${r.i.models}${p.short ? `<span class="glyph"> of ${p.min}</span>` : ''}</td><td class="n">${p.text}${r.u.verify && p.v ? '<span class="glyph" title="points not verified in the app">~</span>' : ''}</td></tr>
 ${isOpen ? `<tr class="detail"><td colspan="6">${unitDetail(r.u, r.i, r.o, lists)}</td></tr>` : ''}`; }).join('')}
-${showInbound ? D.inbound.map(o => `<tr class="inbound" data-act="go" data-href="#/crates/${esc(o.id)}" tabindex="0"><td><span class="name">${esc(o.item)}</span> ${tag('inb', 'inbound')}<span class="sub">${esc(dot(sentence(o.expected) || 'contents pending', etaState(o).text))}</span></td><td class="wide">${esc(o.state.toLowerCase())}</td><td class="wide"></td><td class="wide">${dshort(o.date)}</td><td class="n"><span class="glyph">?</span></td><td class="n">—</td></tr>`).join('') : ''}
+${showInbound ? D.inbound.map(o => `<tr class="inbound" data-act="go" data-href="#/crates/${esc(o.id)}" tabindex="0"><td><span class="name">${esc(o.item)}</span> ${tag('inb', 'inbound')}<span class="sub">${esc(dot(sentence(o.expected) || 'contents pending', etaState(o).text))}</span></td><td class="wide">? · listed as “${esc(o.state.toLowerCase())}”</td><td class="wide"></td><td class="wide">${dshort(o.date)}</td><td class="n"><span class="glyph">?</span></td><td class="n">—</td></tr>`).join('') : ''}
 </tbody></table></div>
-<p class="hint">${plural(shown.length, 'entry', 'entries')}${f[0] !== 'all' ? ` (filter: ${esc(f[1])})` : ''}${showInbound && D.inbound.length ? ` + ${plural(D.inbound.length, 'inbound crate')}` : ''} · ${D.approxModels ? '≈' : ''}${D.modelsOwned} models · ${pts(D.fieldablePoints)} pts owned${D.readyPoints !== D.fieldablePoints ? `, ${pts(D.readyPoints)} table-ready` : ''}${D.unfieldable.length ? ` · not counted: ${D.unfieldable.map(x => `${esc(uname(x.unit))} (${esc(x.why)})`).join(', ')}` : ''}.</p>`;
+<p class="hint">${plural(shown.length, 'entry', 'entries')}${f[0] !== 'all' ? ` shown (filter: ${esc(f[1])})` : ''}${showInbound && D.inbound.length ? ` + ${plural(D.inbound.length, 'inbound crate')}` : ''} · whole collection: ${D.approxModels ? '≈' : ''}${D.modelsOwned} models · ${pts(D.fieldablePoints)} pts owned${D.readyPoints !== D.fieldablePoints ? `, ${pts(D.readyPoints)} table-ready` : ''}${D.unfieldable.length ? ` · not counted: ${D.unfieldable.map(x => `${esc(uname(x.unit))} (${esc(x.why)})`).join(', ')}` : ''}.</p>`;
   };
   function rowPts(r) {
     const v = L.bestValue(r.u, r.i.models || 0), min = Math.min(...r.u.sizes.map(s => s.models));
-    if (v) return { v, text: pts(v), min, short: false };
+    const exact = r.u.sizes.find(s => s.models === (r.i.models || 0));
+    if (v) return { v, text: pts(v) + (exact && exact.pts != null && exact.pts !== v ? `<span class="sub">best split, not one unit of ${exact.models} (${exact.pts})</span>` : ''), min, short: false };
     const s0 = r.u.sizes.slice().sort((a, b) => a.models - b.models)[0];
     return { v: 0, text: s0 && s0.pts != null ? `<span class="glyph" title="points for a full unit of ${s0.models}">${s0.pts} per ${s0.models}</span>` : '—', min, short: (r.i.models || 0) < min };
   }
@@ -379,9 +438,9 @@ ${dl.length ? `<h3 class="sh">On this device</h3><p class="lead">Lists you built
   };
   function listCard(l, device) {
     const s = listStatus(l), c = gapCost(s.cov.missing);
-    const why = s.status === 'ready' ? 'Playable today.' : s.status === 'hobby' ? `Owned — build and paint first: ${s.cov.hobby.map(h => `${esc(uname(h.unit))} (${esc(h.paint)})`).join(', ')}.` : `Missing ${esc(gapWords(s.cov.missing))}${c.none ? '' : ` — from ${range(c.lo, c.mid, c.partial)} at ${dshort(PRICE_DATE)} prices`}.`;
+    const why = s.status === 'ready' ? 'Playable today.' : s.status === 'hobby' ? `Owned — build and paint first: ${s.cov.hobby.map(h => `${esc(uname(h.unit))} (${esc(paintWord(h.paint))})`).join(', ')}.` : `Missing ${esc(gapWords(s.cov.missing))}${c.none ? '' : ` — from ${range(c.lo, c.mid)}${c.partial ? ` (${c.priced} of ${s.cov.missing.length} units priced)` : ''} at ${dshort(PRICE_DATE)} prices`}.`;
     return `<article class="cardx clickable"><h3><a class="cover" href="#/lists/${esc(l.id)}">${esc(l.id)} · ${esc(l.name)}</a></h3>
-<p class="meta">${pts(s.lint.total)} of ${pts(l.limit || 2000)} · ${ticks(s)}${s.verify ? ` · ${plural(s.verify, 'thing')} to verify` : ''}${device ? ' · on this device' : ''}</p>
+<p class="meta">${pts(s.lint.total)} of ${pts(l.limit || 2000)} · ${ticks(s)}${s.verify ? ` · ${plural(s.verify, 'note')} to check in the official app (not violations)` : ''}${device ? ' · on this device' : ''}</p>
 <p>${esc(l.idea || '')}</p><p class="muted">${why}${!s.legal ? ` <b>Fails the rules check:</b> ${esc(s.lint.flags.filter(f => f.level === 'error').map(f => f.msg).join('; '))}` : ''}</p>
 <p class="acts"><span class="linkbtn open">Open ›</span><button class="linkbtn" data-act="copylist" data-list="${esc(l.id)}">Copy as text</button>${device ? `<a class="linkbtn" href="#/build?resume=${esc(l.id)}">Continue editing</a><button class="linkbtn" data-act="devdel" data-list="${esc(l.id)}">Delete</button>` : `<a class="linkbtn" href="#/build?from=${esc(l.id)}">Edit a copy</a>`}</p></article>`;
   }
@@ -403,7 +462,7 @@ ${dl.length ? `<h3 class="sh">On this device</h3><p class="lead">Lists you built
 <div class="scroll"><table class="tbl units"><thead><tr><th>Unit</th><th class="n">#</th><th class="n">Pts</th><th>Owned</th></tr></thead><tbody>
 ${l.entries.map(e => { const o = byEntry.get(e.id) || { pts: 0, unitPts: 0, flags: [] }, cv = cov.get(e.id) || { short: e.models, from: [] }; const u = unitById(e.unit) || { name: e.unit, sizes: [] }; const led = e.leads ? l.entries.find(x => x.id === e.leads) : null;
       const notReadyFrom = cv.from.find(f => L.NOT_READY_PAINT.has(f.paint));
-      return `<tr><td><span class="name">${esc(u.name)}</span>${e.warlord ? ' ' + tag('warn', 'warlord') : ''}${e.enh ? ` ${tag('inb', (o.enh && o.enh.name) || e.enh, o.enh ? o.enh.gist : '')}` : ''}<span class="sub">${dot(led ? `leads ${esc(uname(led.unit))} ×${led.models}` : null, o.enh ? `${o.unitPts} + ${o.enh.pts} for ${esc(o.enh.name)}` : null, ...o.flags.filter(f => f.level === 'error').map(f => `<span class="glyph">✗</span> ${esc(f.msg)}`), o.flags.some(f => f.level === 'warn') ? `<span class="glyph">verify ↓</span>` : null)}</span></td>
+      return `<tr><td><span class="name">${esc(u.name)}</span>${e.warlord ? ' ' + tag('warn', 'warlord') : ''}${e.enh ? ` ${tag('inb', (o.enh && o.enh.name) || e.enh, o.enh ? o.enh.gist : '')}` : ''}<span class="sub">${dot(led ? `leads ${esc(uname(led.unit))} ×${led.models}` : null, o.enh ? `${o.unitPts} + ${o.enh.pts} for ${esc(o.enh.name)}` : null, ...o.flags.filter(f => f.level === 'error').map(f => `<span class="glyph">✗</span> ${esc(f.msg)}`), o.flags.some(f => f.level === 'warn') ? `<span class="glyph">see rules check</span>` : null)}</span></td>
 <td class="n">${e.models}</td><td class="n">${pts(o.pts)}</td><td>${cv.short ? tag('todo', cv.short === e.models ? 'buy' : `${e.models - cv.short}/${e.models}`, cv.short === e.models ? 'not owned' : `${cv.short} short`) : notReadyFrom ? paintTag(notReadyFrom.paint) : '<span class="ok">✓</span>'}</td></tr>`; }).join('')}
 </tbody></table></div>
 <div class="total-line ${lint.total > lint.limit ? 'over' : ''}"><span>Total</span><span>${pts(lint.total)} of ${pts(lint.limit)}</span></div>
@@ -411,17 +470,17 @@ ${l.entries.map(e => { const o = byEntry.get(e.id) || { pts: 0, unitPts: 0, flag
 <h3 class="sh">Rules check</h3>
 ${flagList(lint)}
 <h3 class="sh">To field it</h3>
-<ul class="flags">${mergeMissing(s.cov.missing).map(m => { const uc = unitCost(m.unit, m.models); return `<li><b>Buy</b> ${esc(uname(m.unit))} ×${m.models}${m.parts > 1 ? ` (${m.parts} units)` : ''}${m.have ? ` <span class="src">${m.have} owned; ${m.models} more makes a legal unit</span>` : ''}${uc ? ` <span class="src">${range(uc.lo, uc.mid)}${uc.boxes > 1 ? ` for ${uc.boxes} lots` : ''} · ${uc.n} usable of ${uc.of} listings</span>` : ' <span class="src">no price on file</span>'}</li>`; }).join('')}
+<ul class="flags">${mergeMissing(s.cov.missing).map(m => { const uc = unitCost(m.unit, m.models); return `<li><b>Buy</b> ${esc(uname(m.unit))}\u00a0×${m.models}${m.parts > 1 ? ` (${m.parts} units)` : ''}${m.have ? ` <span class="src">${m.have} owned — ${m.topup} more completes that unit${m.models > m.topup ? `; the other ${m.models - m.topup} are ${m.parts - 1 > 1 ? 'further units' : 'a second unit'}` : ''}</span>` : ''}${uc ? ` <span class="src">${range(uc.lo, uc.mid)} total${uc.boxes > 1 ? ` for ${uc.boxes} lots` : ''} · ${uc.n} usable of ${uc.of} listings</span>` : ' <span class="src">no price on file</span>'}</li>`; }).join('')}
 ${s.cov.hobby.map(h => `<li>${paintTag(h.paint)} ${esc(uname(h.unit))} — build and paint it before the list counts as painted. <a href="#/hobby?list=${esc(l.id)}">Hobby queue →</a></li>`).join('')}
 ${!s.cov.missing.length && !s.cov.hobby.length ? '<li class="ok">✓ Every entry is covered by owned, painted models.</li>' : ''}
 ${s.cov.missing.length && !c.none ? `<li><span class="src">Whole gap from ${range(c.lo, c.mid, c.partial)}${c.partial ? ' (some units unpriced)' : ''}. Prices are landed Buy-It-Now figures from the ${dshort(PRICE_DATE)} read-only scout, auctions and part-kits excluded — a dated floor, not a live offer. House rule: ${STORE.games.rule.threshold} games before the next model (${D.games} played).</span></li>` : ''}
 </ul></aside></div>`;
   }
-  function mergeMissing(missing) { const m = new Map(); for (const x of missing) { const y = m.get(x.unit) || { unit: x.unit, models: 0, have: 0, parts: 0 }; y.models += x.models; y.have += x.have || 0; y.parts += 1; m.set(x.unit, y); } return [...m.values()]; }
+  function mergeMissing(missing) { const m = new Map(); for (const x of missing) { const y = m.get(x.unit) || { unit: x.unit, models: 0, have: 0, parts: 0, topup: 0 }; y.models += x.models; if (x.have) { y.have += x.have; y.topup += x.models; } y.parts += 1; m.set(x.unit, y); } return [...m.values()]; }
   function srcLine(rule) {
     if (!rule || !(rule.why || rule.source)) return '';
     const src = rule.source ? (/^https?:/.test(rule.source) ? `<a href="${esc(rule.source)}" target="_blank" rel="noopener">${esc(rule.source.replace(/^https?:\/\/(www\.)?/, '').slice(0, 60))}</a>` : esc(rule.source)) : '';
-    return `<span class="src">${rule.why ? esc(rule.why) + ' ' : ''}${src ? `Source: ${src}` : ''}${rule.verified ? ` · verified ${esc(rule.verified)}` : ''}</span>`;
+    return `<span class="src">${rule.why ? esc(rule.why) + ' ' : ''}${src ? `Source: ${src}` : ''}${rule.verified ? ` · ${rule.verify ? 'source read' : 'verified'} ${esc(rule.verified)}` : ''}</span>`;
   }
   function flagList(lint) {
     const seen = new Set(), all = lint.flags.concat(...lint.entries.map(o => o.flags)).filter(f => { const k = f.level + f.msg; if (seen.has(k)) return false; seen.add(k); return true; });
@@ -446,7 +505,7 @@ ${s.cov.missing.length && !c.none ? `<li><span class="src">Whole gap from ${rang
   // ----- BUILDER -----
   const newId = () => 'dev-' + Date.now().toString(36).slice(-5);
   function builderState(q) {
-    let b = LS.get('muster.builder', null);
+    let b = LS.get('muster.builder', null, okList);
     const dirty = b && b.touched;
     if (q && (q.from || q.resume)) {
       const src = listById(q.from || q.resume);
@@ -476,9 +535,9 @@ ${s.cov.missing.length && !c.none ? `<li><span class="src">Whole gap from ${rang
 ${b.entries.map(e => { const u = unitById(e.unit); if (!u) return `<tr><td colspan="5">${esc(e.unit)}? <button class="btn ghost" data-act="b-del" data-e="${esc(e.id)}">remove</button></td></tr>`; const o = by.get(e.id) || { pts: 0, flags: [] }, c = cv.get(e.id) || { short: 0, from: [] };
       const canEnh = L.isChar(u) && !L.isEpic(u) && u.legality !== 'ally';
       const targets = b.entries.filter(x => x.id !== e.id && (u.leads || []).includes(x.unit));
-      return `<tr><td class="namecell"><span class="name">${esc(u.name)}</span><span class="sub">${o.flags.filter(f => f.level !== 'info').map(f => `<span class="glyph">${f.level === 'error' ? '✗' : '~'}</span> ${esc(f.msg)}`).join(' · ') || (c.short ? `${c.short === e.models ? 'not owned' : `short ${plural(c.short, 'model')}`}` : c.from.some(f => L.NOT_READY_PAINT.has(f.paint)) ? 'owned, not yet built and painted' : 'owned')}</span></td>
+      return `<tr><td class="namecell"><span class="name">${esc(u.name)}</span><span class="sub">${dot(c.short ? (c.short === e.models ? 'not owned' : `short ${plural(c.short, 'model')}`) : c.from.some(f => L.NOT_READY_PAINT.has(f.paint)) ? 'owned, not yet built and painted' : 'owned', ...o.flags.filter(f => f.level !== 'info').map(f => `<span class="glyph">${f.level === 'error' ? '✗' : 'check:'}</span> ${esc(f.msg)}`))}</span></td>
 <td class="n"><select data-bentry="${esc(e.id)}" data-bkey="models" data-fkey="bm-${esc(e.id)}" aria-label="models">${u.sizes.map(sz => `<option${sz.models === e.models ? ' selected' : ''}>${sz.models}</option>`).join('')}${u.sizes.some(sz => sz.models === e.models) ? '' : `<option selected>${e.models}</option>`}</select></td>
-<td class="n">${pts(o.pts)}</td>
+<td class="n">${pts(o.pts)}<span class="narrow"> pts</span></td>
 <td class="opts">${canEnh ? `<select data-bentry="${esc(e.id)}" data-bkey="enh" data-fkey="be-${esc(e.id)}" aria-label="enhancement"><option value="">no enhancement</option>${enhs.map(x => `<option value="${esc(x.id)}"${x.id === e.enh ? ' selected' : ''}>${esc(x.name)} +${x.pts}</option>`).join('')}</select>` : ''}
 ${(u.leads || []).length ? `<select data-bentry="${esc(e.id)}" data-bkey="leads" data-fkey="bl-${esc(e.id)}" aria-label="leads"><option value="">leads nobody</option>${targets.map(t => `<option value="${esc(t.id)}"${t.id === e.leads ? ' selected' : ''}>→ ${esc(uname(t.unit))} ×${t.models}</option>`).join('')}</select>` : ''}
 ${L.isChar(u) || L.isEpic(u) ? `<label class="pill"><input type="checkbox" data-bentry="${esc(e.id)}" data-bkey="warlord" data-fkey="bw-${esc(e.id)}"${e.warlord ? ' checked' : ''}> Warlord</label>` : ''}</td>
@@ -491,7 +550,7 @@ ${L.isChar(u) || L.isEpic(u) ? `<label class="pill"><input type="checkbox" data-
 <h3 class="sh">Ownership</h3><ul class="flags">${cov.missing.length ? mergeMissing(cov.missing).map(m => { const uc = unitCost(m.unit, m.models); return `<li><b>Buy</b> ${esc(uname(m.unit))} ×${m.models}${uc ? ` <span class="src">${range(uc.lo, uc.mid)} at ${dshort(PRICE_DATE)}</span>` : ''}</li>`; }).join('') : '<li class="ok">✓ Every entry is covered by owned models.</li>'}${cov.hobby.map(h => `<li>${paintTag(h.paint)} ${esc(uname(h.unit))} — owned, not table-ready</li>`).join('')}</ul>
 <p class="hint">Allowances: ${esc(capsLine(lint) || 'no capped units in this list')}</p></aside></div>`;
   };
-  function builderMut(fn, silent) { const b = LS.get('muster.builder', null) || builderState({}); fn(b); b.touched = true; LS.set('muster.builder', b); if (!silent) render(true); }
+  function builderMut(fn, silent) { const b = curDraft(); fn(b); b.touched = true; LS.set('muster.builder', b); if (!silent) render(true); }
 
   // ----- BUY -----
   const FEED_PAGE = 40;
@@ -508,8 +567,8 @@ ${L.isChar(u) || L.isEpic(u) ? `<label class="pill"><input type="checkbox" data-
 <div class="banner ${paused ? 'paused' : ''}"><span>${paused ? `<b>Buying is paused by a house rule:</b> ${thr} games before the next model — ${games} logged, counting ${esc(STORE.games.rule.counts_from)}. Nothing below is hidden; it just waits.` : override ? `House rule overridden on this device (${games} of ${thr} games).` : `${games} games logged — the ${thr}-games rule is satisfied.`} <a class="linkbtn" href="#/games">Games log</a>${override || paused ? ` <button class="linkbtn" data-act="override">${override ? 'Respect the rule again' : 'Override on this device'}</button>` : ''}</span></div>
 <h3 class="sh">What the lists still need</h3>
 <p class="lead">Priced from the last read-only scout (${dshort(PRICE_DATE)}, landed = price + shipping, US-shippable, Buy-It-Now only — auctions, the scout's flagged listings and part-kits are excluded because a bid is not a price and bits are not a unit). Every stored price is a dated floor: re-run the scout before buying.</p>
-<ul class="rows gaprows narrowonly">${gaps.map(g => { const uc = unitCost(g.unit, g.models); const u = unitById(g.unit) || {}; return row(null, `<span class="name">${esc(uname(g.unit))}</span> ${g.inbound ? tag('inb wrap', 'inbound crate may cover') : ''}${u.verify ? ' ' + tag('warn', 'verify pts') : ''}`, uc ? `${range(uc.lo, uc.mid)}${uc.boxes > 1 ? ` · ${uc.boxes} lots` : ''}<br><span class="muted">${uc.n} of ${uc.of} listings usable</span>` : '<span class="muted">no price on file</span>', esc(dot(`need up to ×${g.models}`, `for ${listCells(g)}`, u.legality === 'thrall' ? 'Chaos Space Marines' : null))); }).join('')}</ul>
-<div class="scroll wideonly"><table class="tbl gaps"><thead><tr><th>Unit</th><th class="n">Need</th><th>For lists</th><th class="n">Floor price</th><th>Usable listings</th><th>Note</th></tr></thead><tbody>${gaps.map(g => { const uc = unitCost(g.unit, g.models); const u = unitById(g.unit) || {}; return `<tr><td><span class="name">${esc(uname(g.unit))}</span>${u.verify ? ' ' + tag('warn', 'verify pts') : ''}</td><td class="n">×${g.models}</td><td class="mono nowrap">${esc(listCells(g))}</td><td class="n">${uc ? `${range(uc.lo, uc.mid)}${uc.boxes > 1 ? ` (${uc.boxes} lots)` : ''}` : '—'}</td><td>${uc ? `${uc.n} of ${uc.of}` : 'no price on file'}</td><td>${g.inbound ? 'an inbound crate may cover it' : ''}${u.legality === 'thrall' ? `${g.inbound ? ' · ' : ''}Chaos Space Marines` : ''}</td></tr>`; }).join('')}</tbody></table></div>
+<ul class="rows gaprows narrowonly">${gaps.map(g => { const uc = unitCost(g.unit, g.models); const u = unitById(g.unit) || {}; return row(null, `<span class="name">${esc(uname(g.unit))}</span> ${g.inbound ? tag('inb wrap', 'inbound crate may cover') : ''}${u.verify ? ' ' + tag('warn', 'verify pts') : ''}`, uc ? `${range(uc.lo, uc.mid)}${uc.boxes > 1 ? ` total for ${uc.boxes} lots` : ''}<br><span class="muted">${uc.n} of ${uc.of} listings usable</span>` : '<span class="muted">no price on file</span>', esc(dot(`need up to ×${g.models}`, `for ${listCells(g)}`, u.legality === 'thrall' ? 'Chaos Space Marines' : null))); }).join('')}</ul>
+<div class="scroll wideonly"><table class="tbl gaps"><thead><tr><th>Unit</th><th class="n">Need</th><th>For lists</th><th class="n">Floor price</th><th>Usable listings</th><th>Note</th></tr></thead><tbody>${gaps.map(g => { const uc = unitCost(g.unit, g.models); const u = unitById(g.unit) || {}; return `<tr><td><span class="name">${esc(uname(g.unit))}</span>${u.verify ? ' ' + tag('warn', 'verify pts') : ''}</td><td class="n">×${g.models}</td><td class="mono nowrap">${esc(listCells(g))}</td><td class="n">${uc ? `${range(uc.lo, uc.mid)}${uc.boxes > 1 ? ` total, ${uc.boxes} lots` : ''}` : '—'}</td><td>${uc ? `${uc.n} of ${uc.of}` : 'no price on file'}</td><td>${g.inbound ? 'an inbound crate may cover it' : ''}${u.legality === 'thrall' ? `${g.inbound ? ' · ' : ''}Chaos Space Marines` : ''}</td></tr>`; }).join('')}</tbody></table></div>
 <h3 class="sh">Do not buy</h3>
 <ul class="flags dnblist">${STORE.buying.do_not_buy.map(d => `<li><b>${esc(d.match)}</b> — ${esc(d.why)}</li>`).join('')}${(STORE.buying.closed_paths || []).map(c => `<li><span class="lv info">closed</span> ${dshort(c.date)}: ${esc(c.what)}</li>`).join('')}</ul>
 <div class="vh"><h3 class="sh">The market feed</h3><div class="tools"><a class="linkbtn" href="scorecard.html">Full scorecard</a><a class="linkbtn" href="chaos.html">Chaos-only scorecard</a></div></div>
@@ -534,10 +593,10 @@ ${set.length > shown.length ? `<p class="acts"><span class="hint">Showing ${show
 <div class="vh"><h2>Crates</h2><div class="tools"><a class="btn ghost" href="#/orders">All orders</a></div></div>
 <p class="lead">${D.inbound.length} inbound · ${usd(D.inTransit, D.inbound.some(o => o.approx))} in transit · a crate's contents stay “pending” until you tick them off in crate mode — the collection never guesses a count.</p>
 <div class="cards fit">${D.inbound.map(o => { const s = etaState(o), dr = (drafts[o.id] || { rows: [] }).rows.length; return `<article class="cardx clickable"><h3><a class="cover" href="#/crates/${esc(o.id)}">${esc(o.item)}</a></h3>
-<p class="meta">${esc(dot(`ordered ${dshort(o.date)}`, usd(o.cost_usd, o.approx) + (o.cost_note ? ` (${o.cost_note})` : ''), o.state))}</p>
+<p class="meta">${esc(dot(`ordered ${dshort(o.date)}`, usd(o.cost_usd, o.approx) + (o.cost_note ? ` (${o.cost_note})` : ''), `listed as “${o.state.toLowerCase()}”`))}</p>
 <p><span class="ticks"><span class="${s.cls}">●</span></span> ${esc(dot(s.text, o.eta_note, o.shipped ? `shipped ${dshort(o.shipped)}${o.carrier ? ' via ' + o.carrier : ''}` : null))}</p>
 <p class="muted">${esc(o.expected || 'Contents pending.')}</p>
-<p class="acts">${dr ? tag('warn', `draft in progress: ${plural(dr, 'row')}`) + ' ' : ''}<span class="linkbtn">Open the crate ›</span></p></article>`; }).join('') || '<p class="muted">Nothing inbound. The rule stands: ten games.</p>'}</div>
+<p class="acts">${dr ? tag('warn', `draft in progress: ${plural(dr, 'row')}`) + ' ' : ''}<span class="linkbtn open">Open the crate ›</span></p></article>`; }).join('') || '<p class="muted">Nothing inbound. The rule stands: ten games.</p>'}</div>
 <h3 class="sh">Delivered</h3>
 <ul class="rows">${delivered.map(o => row(`#/crates/${esc(o.id)}`, esc(o.item), `${usd(o.cost_usd, o.approx)} · delivered ${dshort(o.delivered)}`, esc(dot(o.cost_note, o.state, o.note)))).join('')}</ul>`;
   };
@@ -554,8 +613,17 @@ ${STORE.orders.map(o => `<tr data-act="go" data-href="#/crates/${esc(o.id)}" tab
 <h3 class="sh">Still wanted</h3><p class="lead">${esc(STORE.buying.remaining_gaps_note || '')}</p>`;
   };
 
-  function crateDraft(oid) { const all = LS.get('muster.crates', {}); if (!all[oid]) { all[oid] = { rows: [], delivered: TODAY, note: '' }; LS.set('muster.crates', all); } return all[oid]; }
-  function crateMut(oid, fn, silent) { const all = LS.get('muster.crates', {}); all[oid] = all[oid] || { rows: [], delivered: TODAY, note: '' }; fn(all[oid]); LS.set('muster.crates', all); if (!silent) render(true); }
+  function crateDraft(oid) { const all = LS.get('muster.crates', {}, okDrafts); return all[oid] || { rows: [], delivered: TODAY, note: '' }; }
+  const rid = () => Math.random().toString(36).slice(2, 8);
+  function crateMut(oid, fn, silent) {
+    if (!oid || !orderById(oid)) return;
+    const all = LS.get('muster.crates', {}, okDrafts); all[oid] = all[oid] || { rows: [], delivered: TODAY, note: '' };
+    for (const r of all[oid].rows) if (!r.rid) r.rid = rid();
+    fn(all[oid]);
+    if (!LS.set('muster.crates', all) && !silent) { render(true); return; }
+    if (!silent) render(true);
+  }
+  const rowOf = (d, key) => d.rows.find(r => r.rid === key) || d.rows[+key];
   function quickUnits(o) {
     const exp = o.expected_units || [];
     const q = exp.map(u => { const un = unitById(u); return un ? [u, Math.min(...un.sizes.map(s => s.models))] : null; }).filter(Boolean);
@@ -575,10 +643,10 @@ ${STORE.orders.map(o => `<tr data-act="go" data-href="#/crates/${esc(o.id)}" tab
 <p class="lead">${esc(dot(`Ordered ${dshort(o.date)}`, usd(o.cost_usd, o.approx) + (o.cost_note ? ` (${o.cost_note})` : ''), etaState(o).text))}. ${esc(sentence(o.expected) || 'Contents unknown')}. Tick what actually came out of the box — count models, judge paint honestly (a squad with any bare or primed models is not “painted”), add anything unlisted. Nothing changes until you save; then export the file or copy the change for a session.</p>
 <h3 class="sh">In the box</h3>
 <div class="scroll"><table class="tbl stack crate"><thead><tr><th>Unit</th><th class="n">Models</th><th>Paint</th><th>Note</th><th><span class="sr">Remove</span></th></tr></thead><tbody>
-${d.rows.map((r, n) => `<tr><td class="namecell"><span class="name">${esc(uname(r.unit))}</span></td><td class="n"><input type="number" inputmode="numeric" step="1" min="1" max="200" value="${r.models}" data-crow="${n}" data-ckey="models" data-fkey="cm-${n}" aria-label="models"></td><td class="paintcell"><select data-crow="${n}" data-ckey="paint" data-fkey="cp-${n}" aria-label="paint">${r.paint ? '' : '<option value="" selected>— judge the paint —</option>'}${STORE.hobby.paint_states.map(p => `<option${p === r.paint ? ' selected' : ''}>${esc(p)}</option>`).join('')}</select></td><td class="opts"><input data-crow="${n}" data-ckey="note" data-fkey="cn-${n}" value="${esc(r.note || '')}" aria-label="note" placeholder="e.g. unlisted find, one arm missing"></td><td class="rm"><button class="btn ghost icon" data-act="c-del" data-n="${n}" aria-label="remove ${esc(uname(r.unit))}">✕</button></td></tr>`).join('') || `<tr><td colspan="5" class="muted">Nothing ticked yet. Use the quick buttons or the picker below.</td></tr>`}
+${d.rows.map((r, n) => { const k = esc(r.rid || String(n)); return `<tr><td class="namecell"><span class="name">${esc(uname(r.unit))}</span></td><td class="n"><input type="number" inputmode="numeric" step="1" min="1" max="200" value="${esc(clampModels(r.models))}" data-crow="${k}" data-ckey="models" data-fkey="cm-${k}" aria-label="models"></td><td class="paintcell"><select data-crow="${k}" data-ckey="paint" data-fkey="cp-${k}" aria-label="paint">${r.paint ? '' : '<option value="" selected>— judge the paint —</option>'}${STORE.hobby.paint_states.map(p => `<option${p === r.paint ? ' selected' : ''}>${esc(p)}</option>`).join('')}</select></td><td class="opts"><input data-crow="${k}" data-ckey="note" data-fkey="cn-${k}" value="${esc(r.note || '')}" aria-label="note" placeholder="e.g. unlisted find, one arm missing"></td><td class="rm"><button class="btn ghost icon" data-act="c-del" data-n="${k}" aria-label="remove ${esc(uname(r.unit))}">✕</button></td></tr>`; }).join('') || `<tr><td colspan="5" class="muted">Nothing ticked yet. Use the quick buttons or the picker below.</td></tr>`}
 </tbody></table></div>
-<div class="chipbar" aria-label="Quick add">${quick.map(([u, m]) => { const used = d.rows.filter(r => r.unit === u).length; return `<button data-act="c-quick" data-unit="${u}" data-models="${m}" data-fkey="cq-${u}" aria-pressed="${used ? 'true' : 'false'}">+ ${esc(uname(u))} ×${m}${used ? ` (${used} added)` : ''}</button>`; }).join('')}</div>
-<div class="f"><div class="row3"><label>Add any unit<select id="c-unit" data-fkey="c-unit">${STORE.units.map(u => `<option value="${esc(u.id)}"${u.id === last ? ' selected' : ''}>${esc(u.name)}${u.legality === 'banned' ? ' (illegal in Shadow Legion — still worth recording)' : ''}</option>`).join('')}</select></label><label>Models<input id="c-models" data-fkey="c-models" type="number" inputmode="numeric" step="1" min="1" max="200" value="${LS.get('muster.lastModels', 1)}"></label><div class="endcell"><button class="btn" data-act="c-add">Add row</button></div></div>
+<p class="hint">Quick add — the usual contents of a lot like this; anything else is in the picker below.</p><div class="chipbar" aria-label="Quick add">${quick.map(([u, m]) => { const used = d.rows.filter(r => r.unit === u).length; return `<button data-act="c-quick" data-unit="${u}" data-models="${m}" data-fkey="cq-${u}" aria-pressed="${used ? 'true' : 'false'}">+ ${esc(uname(u))} ×${m}${used ? ` (${used} added)` : ''}</button>`; }).join('')}</div>
+<div class="f"><div class="row3"><label>Add any unit<select id="c-unit" data-fkey="c-unit">${STORE.units.map(u => `<option value="${esc(u.id)}"${u.id === last ? ' selected' : ''}>${esc(u.name)}${u.legality === 'banned' ? ' (illegal in Shadow Legion — still worth recording)' : ''}</option>`).join('')}</select></label><label>Models<input id="c-models" data-fkey="c-models" type="number" inputmode="numeric" step="1" min="1" max="200" value="${clampModels(LS.get('muster.lastModels', 1))}"></label><div class="endcell"><button class="btn" data-act="c-add">Add row</button></div></div>
 <div class="row2"><label>Delivered on<span class="withbtn"><input type="date" data-cmeta="delivered" data-fkey="c-date" value="${esc(d.delivered)}">${d.delivered !== TODAY ? `<button class="linkbtn" data-act="c-today">today</button>` : ''}</span></label><label>Order note<input data-cmeta="note" data-fkey="c-onote" value="${esc(d.note)}" placeholder="e.g. box crushed, seller refunded $10"></label></div></div>
 <p class="acts"><button class="btn pri" data-act="c-save" id="c-save"${crateProblem(d) ? ' disabled' : ''}>${saveLabel(d)}</button> <span class="hint">Kept on this device; then export the file or copy the change from More.</span></p>`;
   }
@@ -586,7 +654,7 @@ ${d.rows.map((r, n) => `<tr><td class="namecell"><span class="name">${esc(uname(
   const validDate = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '');
   const crateProblem = d => !d.rows.length ? 'Tick at least one unit to save' : d.rows.some(r => !r.paint) ? 'Judge the paint on every row to save' : !validDate(d.delivered) ? 'Set the delivery date to save' : '';
   const saveLabel = d => crateProblem(d) || `Save: mark delivered + add ${plural(d.rows.length, 'entry', 'entries')}${d.delivered > TODAY ? ' (future date!)' : ''}`;
-  function syncSave() { const b = $('#c-save'); if (!b) return; const d = crateDraft(route().parts[1]); const prob = crateProblem(d); b.disabled = !!prob; b.textContent = saveLabel(d); }
+  function syncSave() { const b = $('#c-save'); if (!b || !route().parts[1]) return; const d = crateDraft(route().parts[1]); const prob = crateProblem(d); b.disabled = !!prob; b.textContent = saveLabel(d); }
 
   // ----- HOBBY -----
   VIEWS.hobby = (parts, q) => {
@@ -597,7 +665,7 @@ ${d.rows.map((r, n) => `<tr><td class="namecell"><span class="name">${esc(uname(
 <p class="lead">Not a backlog — a queue driven by the list you want to field fully painted. Paint states change the collection on this device; export when done.</p>
 <div class="chipbar" role="toolbar" aria-label="Target list">${STORE.lists.map(x => `<button data-act="hobbylist" data-list="${esc(x.id)}" data-fkey="hl-${esc(x.id)}" aria-pressed="${x.id === l.id}">${esc(x.id)} · ${listStatus(x).cov.hobby.length} to paint</button>`).join('')}</div>
 <h3 class="sh">Between you and a painted ${esc(l.id)} · ${esc(l.name)}</h3>
-<ul class="flags">${s.cov.hobby.length ? s.cov.hobby.map(h => { const qi = (STORE.hobby.queue || []).find(x => x.inventory === h.inv); return `<li>${tag('warn', h.paint === 'unassembled' ? 'on sprue' : h.paint)} <b>${esc(uname(h.unit))}</b>${qi ? ` — ${esc(qi.task.replace(/^[^:]+:\s*/, ''))}${qi.est_hours ? ` · ≈${qi.est_hours[0]}–${qi.est_hours[1]} h` : ''}${qi.note ? `<span class="src">${esc(qi.note)}</span>` : ''}` : ''}</li>`; }).join('') : s.cov.missing.length ? `<li>${esc(l.id)} is short of models first: ${esc(gapWords(s.cov.missing))}.</li>` : `<li class="ok">✓ Everything in ${esc(l.id)} is built and painted.</li>`}</ul>
+<ul class="flags">${s.cov.hobby.length ? s.cov.hobby.map(h => { const qi = (STORE.hobby.queue || []).find(x => x.inventory === h.inv); return `<li>${paintTag(h.paint)} <b>${esc(uname(h.unit))}</b>${qi ? ` — ${esc(qi.task.replace(/^[^:]+:\s*/, ''))}${qi.est_hours ? ` · ≈${qi.est_hours[0]}–${qi.est_hours[1]} h` : ''}${qi.note ? `<span class="src">${esc(qi.note)}</span>` : ''}` : ''}</li>`; }).join('') : s.cov.missing.length ? `<li>${esc(l.id)} is short of models first: ${esc(gapWords(s.cov.missing))}.</li>` : `<li class="ok">✓ Everything in ${esc(l.id)} is built and painted.</li>`}</ul>
 <h3 class="sh">Standing queue</h3>
 <ul class="flags">${(STORE.hobby.queue || []).map(x => `<li>${esc(x.task)}${x.est_hours ? ` · ≈${x.est_hours[0]}–${x.est_hours[1]} h` : ''}${x.unlocks ? ` · unlocks ${x.unlocks.join(', ')}` : ''}${x.note ? `<span class="src">${esc(x.note)}</span>` : ''}</li>`).join('')}</ul>
 <h3 class="sh">Paint state per entry</h3>
@@ -611,7 +679,7 @@ ${rows.map(i => `<tr><td><span class="name">${esc(uname(i.unit))}</span>${i.note
     const g = STORE.games, log = g.log || [], lastList = LS.get('muster.lastList', 'A');
     return `
 <div class="vh"><h2>Games</h2></div>
-<p class="lead"><b class="mono">${log.length} of ${g.rule.threshold}</b> — ${esc(g.rule.name)}, counting ${esc(g.rule.counts_from)}. ${esc(g.rule.override_note || '')}</p>
+<p class="lead"><b class="mono">${log.length} of ${g.rule.threshold}</b> — ${esc(g.rule.name)}, counting ${esc(g.rule.counts_from)}. Log every game anyway; the record is the point. ${esc(g.rule.override_note || '')}</p>
 <form class="f narrowf" data-form="game"><div class="row3 gamerow"><label>Date<input type="date" name="date" value="${TODAY}" required data-fkey="g-date"></label><label>List<select name="list" data-fkey="g-list">${STORE.lists.concat(deviceLists()).map(l => `<option value="${esc(l.id)}"${l.id === lastList ? ' selected' : ''}>${esc(l.id)} · ${esc(l.name)}</option>`).join('')}</select></label><label>Result<select name="result" data-fkey="g-result"><option value="W">Win</option><option value="L">Loss</option><option value="D">Draw</option></select></label></div>
 <div class="row2"><label>Opponent<input name="opponent" data-fkey="g-opp" placeholder="faction or player, e.g. Necrons"></label><label>Score<input name="score" data-fkey="g-score" placeholder="e.g. 62–48"></label></div>
 <label>One lesson<textarea name="lesson" data-fkey="g-lesson" placeholder="e.g. Battle-shock the contesters, not the champions."></textarea></label>
@@ -641,7 +709,7 @@ ${rows.map(i => `<tr><td><span class="name">${esc(uname(i.unit))}</span>${i.note
 ${local ? `<div class="banner local"><span><b>${plural(local.changes.length, 'change')} kept in this browser</b> since data ${esc(dshort(STORE.meta.updated))}. Git is the database: export the file (replace <code>data/muster.json</code>, run <code>python3 build.py</code>, commit) or copy the change into a Claude session. After the rebuild this page recognises what landed and clears it; anything that did not land is re-applied on top, never dropped.</span></div>
 <p class="acts"><button class="btn pri" data-act="export">Export muster.json</button> <button class="btn" data-act="patch">Copy the change for a session</button> <button class="btn ghost" data-act="discard">Discard local changes</button></p>
 <pre class="out">${esc(local.changes.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : '<p class="muted">No local changes. What you see is the repo data.</p>'}
-${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.length, 'change')} recorded against older data could not be re-applied automatically (the entries they touch no longer exist). They stay here until you copy or discard them.</span><span><button class="btn" data-act="stalecopy">Copy them</button> <button class="btn ghost" data-act="stalediscard">Discard</button></span></div><pre class="out">${esc(STALE.changes.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : ''}
+${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.length, 'change')} recorded against older data could not be re-applied automatically (the repo now says something different about what they touch, or the saved data was unreadable). They stay here until you copy or discard them.</span><span><button class="btn" data-act="stalecopy">Copy them</button> <button class="btn ghost" data-act="stalediscard">Discard</button></span></div><pre class="out">${esc(STALE.changes.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : ''}
 <h3 class="sh">Hand-off</h3>
 <p class="lead">Sessions, artifacts and memory stay inside the Claude account that made them; the repo does not care. Paste the briefing into a session from either account and it starts on the same page.</p>
 <p class="acts"><button class="btn" data-act="briefing">Copy briefing</button> <button class="btn ghost" data-act="prompt">Copy the new-session prompt</button></p>
@@ -686,21 +754,22 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
     else if (act === 'hobbylist') location.hash = `#/hobby?list=${el.dataset.list}`;
     else if (act === 'b-add') { const uid = $('#b-unit').value, m = +$('#b-models').value || 1; LS.set('muster.lastUnit', uid); builderMut(b => b.entries.push({ id: 'n' + (Date.now() % 1e6).toString(36) + b.entries.length, unit: uid, models: m })); }
     else if (act === 'b-del') builderMut(b => { b.entries = b.entries.filter(x => x.id !== el.dataset.e); for (const x of b.entries) if (x.leads === el.dataset.e) delete x.leads; });
-    else if (act === 'b-new') { const b = LS.get('muster.builder'); if (!b || !b.touched || confirm('Clear the builder and start a new list?')) { LS.del('muster.builder'); render(true); } }
-    else if (act === 'b-save') { const b = LS.get('muster.builder'); if (STORE.lists.some(x => x.id === b.id)) b.id = newId(); if (!String(b.name || '').trim()) b.name = 'Untitled list'; b.touched = false; const all = deviceLists().filter(x => x.id !== b.id); const saved = clone(b); delete saved.touched; all.push(saved); LS.set('muster.lists', all); LS.set('muster.builder', b); toast(`Saved “${b.name}” on this device`); render(true); }
-    else if (act === 'b-copy') copyText(listText(LS.get('muster.builder')), 'List');
-    else if (act === 'b-json') copyText(JSON.stringify(LS.get('muster.builder')), "This list's data");
-    else if (act === 'c-quick') crateMut(parts[1], d => d.rows.push({ unit: el.dataset.unit, models: +el.dataset.models, paint: '', note: '' }));
-    else if (act === 'c-add') { const u = $('#c-unit').value, m = clampModels($('#c-models').value); LS.set('muster.lastUnit', u); crateMut(parts[1], d => d.rows.push({ unit: u, models: m, paint: '', note: '' })); }
-    else if (act === 'c-del') crateMut(parts[1], d => d.rows.splice(+el.dataset.n, 1));
+    else if (act === 'b-new') { const b = LS.get('muster.builder', null, okList); if (!b || !b.touched || confirm('Clear the builder and start a new list?')) { LS.del('muster.builder'); render(true); } }
+    else if (act === 'b-save') { const b = curDraft(); if (STORE.lists.some(x => x.id === b.id)) b.id = newId(); if (!String(b.name || '').trim()) b.name = 'Untitled list'; const all = deviceLists().filter(x => x.id !== b.id); const saved = clone(b); delete saved.touched; all.push(saved); if (!LS.set('muster.lists', all)) { render(true); return; } b.touched = false; LS.set('muster.builder', b, true); toast(`Saved “${b.name}” on this device`); render(true); }
+    else if (act === 'b-copy') copyText(listText(curDraft()), 'List');
+    else if (act === 'b-json') { const b = clone(curDraft()); delete b.touched; copyText(JSON.stringify(b), "This list's data"); }
+    else if (act === 'c-quick') crateMut(parts[1], d => d.rows.push({ rid: rid(), unit: el.dataset.unit, models: +el.dataset.models, paint: '', note: '' }));
+    else if (act === 'c-add') { const u = $('#c-unit').value, m = clampModels($('#c-models').value); LS.set('muster.lastUnit', u, true); crateMut(parts[1], d => d.rows.push({ rid: rid(), unit: u, models: m, paint: '', note: '' })); }
+    else if (act === 'c-del') { if (Date.now() - lastTap < 350) return; lastTap = Date.now(); crateMut(parts[1], d => { const r = rowOf(d, el.dataset.n); if (r) d.rows.splice(d.rows.indexOf(r), 1); }); }
     else if (act === 'c-today') crateMut(parts[1], d => { d.delivered = TODAY; });
     else if (act === 'c-save') crateSave(parts[1]);
-    else if (act === 'g-del') { const n = +el.dataset.n; const x = STORE.games.log[n]; if (x && confirm(`Remove the ${x.date} game vs ${x.opponent || '?'}?`)) commit(`games.log: remove ${x.date} vs ${x.opponent || '?'}`, { op: 'games.remove', value: clone(x) }); }
+    else if (act === 'g-del') { if (Date.now() - lastTap < 350) return; lastTap = Date.now(); const n = +el.dataset.n; const x = (STORE.games.log || [])[n]; if (x && confirm(`Remove the ${x.date} game vs ${x.opponent || '?'}?`)) commit(`games.log: remove ${x.date} vs ${x.opponent || '?'}`, { op: 'games.remove', value: clone(x) }); }
     else if (act === 'export') { const s = clone(STORE); s.meta.updated = TODAY; download('muster.json', JSON.stringify(s, null, 2)); toast('muster.json downloaded — replace data/muster.json, run python3 build.py, commit'); }
     else if (act === 'patch') copyText(patchText(local ? local.changes : []), 'The change');
-    else if (act === 'discard') { if (confirm('Discard every local change on this device and go back to the repo data?')) { LS.del('muster.local'); LS.del('muster.crates'); location.reload(); } }
+    else if (act === 'discard') { if (confirm('Discard every local change on this device (and any half-filled crate drafts) and go back to the repo data?')) { LS.del('muster.local'); LS.del('muster.crates'); location.reload(); } }
     else if (act === 'stalecopy') copyText(patchText(STALE.changes), 'Parked changes');
     else if (act === 'stalediscard') { if (confirm('Discard the parked changes for good?')) { LS.del('muster.stale'); STALE = null; render(true); } }
+    else if (act === 'resetdrafts') { for (const k of ['muster.crates', 'muster.builder', 'muster.lists', 'muster.lastUnit', 'muster.lastModels', 'muster.sort2']) LS.del(k); toast('Drafts on this device were reset'); render(true); }
     else if (act === 'briefing') copyText(briefing(), 'Briefing');
     else if (act === 'prompt') copyText(NEW_SESSION_PROMPT, 'Prompt');
     else if (act === 'copyclose') { $('#copyfallback').hidden = true; }
@@ -715,10 +784,10 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
   document.addEventListener('input', e => {
     const t = e.target;
     if (t.matches('[data-bfield="name"]')) builderMut(b => { b.name = t.value; }, true);
-    else if (t.matches('[data-crow][data-ckey="note"]')) crateMut(route().parts[1], d => { d.rows[+t.dataset.crow].note = t.value; }, true);
-    else if (t.matches('[data-crow][data-ckey="models"]')) crateMut(route().parts[1], d => { d.rows[+t.dataset.crow].models = clampModels(t.value); }, true);
+    else if (t.matches('[data-crow][data-ckey="note"]')) crateMut(route().parts[1], d => { const r = rowOf(d, t.dataset.crow); if (r) r.note = t.value; }, true);
+    else if (t.matches('[data-crow][data-ckey="models"]')) crateMut(route().parts[1], d => { const r = rowOf(d, t.dataset.crow); if (r) r.models = clampModels(t.value); }, true);
     else if (t.matches('[data-cmeta="note"]')) crateMut(route().parts[1], d => { d.note = t.value; }, true);
-    else if (t.matches('#c-models')) LS.set('muster.lastModels', clampModels(t.value));
+    else if (t.matches('#c-models')) { const v = Math.round(+t.value); if (v >= 1 && v <= 200) LS.set('muster.lastModels', v, true); }
   });
   document.addEventListener('change', e => {
     const t = e.target;
@@ -727,8 +796,8 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
     else if (t.matches('[data-bentry]')) builderMut(b => { const en = b.entries.find(x => x.id === t.dataset.bentry); const k = t.dataset.bkey; if (k === 'models') en.models = +t.value; else if (k === 'warlord') { for (const x of b.entries) delete x.warlord; if (t.checked) en.warlord = true; } else if (t.value) en[k] = t.value; else delete en[k]; });
     else if (t.matches('#b-unit')) { LS.set('muster.lastUnit', t.value); fillModels(); }
     else if (t.matches('#c-unit')) LS.set('muster.lastUnit', t.value);
-    else if (t.matches('[data-crow][data-ckey="models"]')) { crateMut(route().parts[1], d => { d.rows[+t.dataset.crow].models = clampModels(t.value); }, true); t.value = clampModels(t.value); }
-    else if (t.matches('[data-crow][data-ckey="paint"]')) { crateMut(route().parts[1], d => { d.rows[+t.dataset.crow].paint = t.value; }, true); syncSave(); }
+    else if (t.matches('[data-crow][data-ckey="models"]')) { crateMut(route().parts[1], d => { const r = rowOf(d, t.dataset.crow); if (r) r.models = clampModels(t.value); }, true); t.value = clampModels(t.value); }
+    else if (t.matches('[data-crow][data-ckey="paint"]')) { crateMut(route().parts[1], d => { const r = rowOf(d, t.dataset.crow); if (r) r.paint = t.value; }, true); syncSave(); }
     else if (t.matches('[data-cmeta="delivered"]')) { crateMut(route().parts[1], d => { d.delivered = t.value; }, true); syncSave(); const w = t.closest('.withbtn'); if (w && !w.querySelector('[data-act=c-today]') && t.value !== TODAY) w.insertAdjacentHTML('beforeend', '<button class="linkbtn" data-act="c-today">today</button>'); }
     else if (t.matches('[data-setting="theme"]')) { LS.set('muster.theme', t.value); applyDisplay(); }
     else if (t.matches('[data-setting="skin"]')) { LS.set('muster.skin', t.value); applyDisplay(); }
@@ -739,20 +808,24 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
     const fd = Object.fromEntries(new FormData(f)); const g = { date: fd.date, list: fd.list, result: fd.result, opponent: fd.opponent.trim(), score: fd.score.trim(), lesson: fd.lesson.trim() };
     if (!validDate(g.date)) { toast('Pick the date the game was played'); return; }
     LS.set('muster.lastList', g.list);
-    commit(`games.log: add ${g.date} ${g.result} vs ${g.opponent || '?'} (list ${g.list})`, { op: 'games.add', value: g }, null, g.date > TODAY ? 'Future date logged as typed' : '');
+    if (Date.now() - lastSubmit < 900) return;            // a double tap on the button must not log a phantom second game
+    const ok = commit(`games.log: add ${g.date} ${g.result} vs ${g.opponent || '?'} (list ${g.list})`, { op: 'games.add', value: g }, { note: g.date > TODAY ? 'Future date logged as typed' : '', onFail: () => {} });
+    if (ok) lastSubmit = Date.now();
   });
   window.addEventListener('hashchange', () => { const w = $('#copyfallback'); if (w) w.hidden = true; render(); });
   function fillModels() { const sel = $('#b-models'), u = unitById($('#b-unit') && $('#b-unit').value); if (!sel || !u) return; const cur = sel.value; sel.innerHTML = u.sizes.map(s => `<option>${s.models}</option>`).join(''); if ([...sel.options].some(o => o.value === cur)) sel.value = cur; }
   function crateSave(oid) {
-    const d = crateDraft(oid), o = orderById(oid); if (!d.rows.length || !o) return;
+    const d = crateDraft(oid), o = orderById(oid);
+    if (!o) return;
+    if (o.status === 'delivered') { toast('This crate was already saved (perhaps in another tab)'); render(true); return; }
+    if (crateProblem(d)) { toast(crateProblem(d)); render(true); return; }
     const stamp = Date.now().toString(36).slice(-4);
-    if (crateProblem(d)) { toast(crateProblem(d)); return; }
     const rows = d.rows.map((r, n) => { const x = { id: `i_${r.unit}_${oid}_${n + 1}_${stamp}`, unit: r.unit, models: clampModels(r.models), paint: r.paint, status: 'owned', order: oid }; if (r.note) x.note = r.note; return x; });
     const text = `orders[${oid}] (${o.item}) delivered ${d.delivered}${d.note ? ` (${d.note})` : ''}; inventory += ${rows.map(r => `${uname(r.unit)} ×${r.models} (${r.paint})`).join(', ')}`;
-    commit(text, { op: 'crate.catalogue', order: oid, delivered: d.delivered, note: d.note || undefined, inventory: rows }, () => {
-      const all = LS.get('muster.crates', {}); delete all[oid]; LS.set('muster.crates', all);
+    commit(text, { op: 'crate.catalogue', order: oid, delivered: d.delivered, note: d.note || undefined, inventory: rows }, { then: () => {
+      const all = LS.get('muster.crates', {}, okDrafts); delete all[oid]; LS.set('muster.crates', all, true);
       location.hash = `#/crates/${oid}`; render();
-    });
+    } });
   }
   function applyDisplay() {
     const theme = LS.get('muster.theme', 'system'), skin = LS.get('muster.skin', '');

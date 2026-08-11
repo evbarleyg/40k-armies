@@ -34,7 +34,7 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 | Cultist Mob | ≈10 | 50 | painted | Jul 21 · Shadow Legion Army Lot | ≈10 Dark Vengeance cultists found in the Jul 27 photo audit; count them when convenient. |
 | Master of Possession | 1 | 60 | painted | Jul 21 · Shadow Legion Army Lot |  |
 | Possessed | 5 | 120 | painted | Jul 21 · Shadow Legion Army Lot |  |
-| Legionaries | 10 | 180 | painted | Jul 21 · Shadow Legion Army Lot | Run as two fives. |
+| Legionaries | 10 | 180 (best split — one unit of 10 is 170) | painted | Jul 21 · Shadow Legion Army Lot | Run as two fives. |
 | Havocs | 5 | 125 | painted | Jul 21 · Shadow Legion Army Lot | 2 lascannon / 2 autocannon. |
 | War Dog Karnivore | 2 | 310 | painted | Jul 21 · Shadow Legion Army Lot |  |
 | Bloodthirster | 1 | 320 | unassembled | Jul 27 · Exalted Bloodthirster | Exalted Bloodthirster kit, on sprue. The whole hobby queue today. |

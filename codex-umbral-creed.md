@@ -386,7 +386,7 @@ remaining gaps.
 <!--gen:ledger-->
 | Date | Tithe | Cost (landed) | State | Status |
 |---|---|---|---|---|
-| Jul 21 | Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts) | $840.18 ($730 price + tax and shipping) | Tabletop paint | Delivered Jul 28 |
+| Jul 21 | Shadow Legion Army Lot (Word Bearer theme; seller counted ~2,110 pts) | $840.18 ($730 price + tax and shipping) | Tabletop paint | Delivered Jul 28 |
 | Jul 27 | Exalted Bloodthirster | $78.03 | Unassembled, unpainted | Delivered Aug 4 |
 | Jul 27 | Obsidius Mallex (Chaos Lord) | ≈$20 (combined order with the Flesh Hounds) | Painted | Delivered Aug 1 |
 | Jul 27 | Flesh Hounds ×5 | ≈$82 (combined order with Mallex) | Well painted | Delivered Aug 4 |
