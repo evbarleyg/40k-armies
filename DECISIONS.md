@@ -243,6 +243,25 @@ reachable; a revision counter is kept over a content hash for readability); a de
 accepted (a real back-dated correction is more likely than a typo, and the ledger shows the year when it differs); the
 copy-sheet textarea stays selectable rather than read-only so partial copies remain possible.
 
+### Round 5 (reviewed at `447b6ed`, fixes in `950c497`)
+
+**Verdicts:** UI 8 defects (0/0/1/7) — the read-only list table clipped its deciding "Owned" column at 320–375 (every
+earlier battery shot at 390, where it fits exactly), plus contrast on the `--hi` surface, seller paint words unhedged in
+two tables, a stray separator, doubled linter phrasing, and naming ("local edit/change", "browser/device"). Data + rules:
+numerically dry a third time (2 low: "LoV" mis-glossed; the approximate-count caveat missing from the list's own page).
+Flows: 8 defects, the HIGH again a regression from the previous round's fix (an old-build tab and a new-build tab
+re-based each other's overlay ~100 times a second until one closed; data survived, taps could not land), plus a parked
+list that did not refresh at runtime, games Result/Date lost to the deferred sync render, a false crate toast, `today`
+stale after midnight, tamper-only bricks one level deeper than round 4's checks, and a toast that intercepted taps.
+Four-questions: **all four yes** ("buy" from the home block alone in ~45 s), residual copy contradictions only.
+
+**Fixed:** all of it (see the commit). Structurally: overlays now carry a build stamp; an older build never writes over a
+newer one (it yields and asks for a reload) and a newer one replays an older overlay exactly once — the class of
+cross-build echo is closed rather than the instance. Dates are computed at use. The games form is fully drafted.
+
+**Waived (with reason):** none new; suggestions from all reviewers (home Q3 density, device-list ids as list letters,
+crimson fills at 2.6–2.9:1 behind ≥6.5:1 text, glossary two-column layout on desktop) are parked as polish.
+
 ## 6. Questions for the owner (taste, not fact)
 
 - **Q1 — Warband name.** The codex's *Umbral Creed / Long Shadow Host* is used everywhere in the app; the
