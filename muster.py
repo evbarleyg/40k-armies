@@ -363,10 +363,20 @@ def apply_regions(store, d, check_only=False):
 # ---------- muster.js ----------
 
 def emit_js(store, d):
-    payload = {"store": store, "gapPrices": gap_prices(), "generated": datetime.date.today().isoformat(),
-               "built": store["meta"]["updated"] + "/" + hashlib.sha1(dumps(store).encode()).hexdigest()[:10]}   # orderable enough: data date first
-    text = "window.MUSTER = " + json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + ";\n"
-    write_if_changed(OUT_JS, text)
+    """muster.js carries a build stamp the app orders overlays by (an older build's tab yields to a newer one).
+    The stamp is data date + UTC build time, so it is monotonic; it is refreshed only when the payload changes."""
+    body = {"store": store, "gapPrices": gap_prices(), "generated": datetime.date.today().isoformat()}
+    enc = lambda payload: "window.MUSTER = " + json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + ";\n"
+    prev_built = None
+    if os.path.exists(OUT_JS):
+        old_text = open(OUT_JS, encoding="utf-8").read()
+        mt = re.search(r'"built":"([^"]*)"', old_text)
+        prev_built = mt.group(1) if mt else None
+        if prev_built and old_text == enc(dict(body, built=prev_built)):
+            return                                            # nothing changed: keep the existing stamp
+    built = store["meta"]["updated"] + "/" + datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if prev_built and built <= prev_built: built = prev_built + "+"   # same second or clock skew: still strictly newer
+    write_if_changed(OUT_JS, enc(dict(body, built=built)))
 
 # ---------- cli ----------
 

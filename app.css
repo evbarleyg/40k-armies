@@ -55,7 +55,7 @@ header.mast h1{ font-size:24px; margin:0; }
   .tabbar a[aria-current="page"]{ color:var(--eyebrow); }
   .tabbar a[aria-current="page"]::before{ content:""; position:absolute; top:0; left:22%; right:22%; height:3px; background:var(--eyebrow); }
   .tabbar a[aria-current="page"]{ font-weight:600; }
-  .tabbar .badge{ position:absolute; top:7px; left:calc(50% + 14px); margin:0; }
+  .tabbar .badge{ position:absolute; top:7px; left:auto; right:max(2px, calc(50% - 36px)); margin:0; }
 }
 
 /* notices strip */

@@ -146,8 +146,8 @@
     if (!disk) { if (local) { const had = local.changes.length; local = null; STORE = clone(SHIPPED.store); if (had) toast('Your local changes were cleared or re-filed by another tab'); return true; } return false; }
     if (!usable(disk)) return false;
     if (disk.baseSig !== BASE_SIG) {
-      if ((disk.built || '') > BUILT) { if (!NEWER_TAB) { NEWER_TAB = true; return true; } return false; }   // a newer build is open elsewhere: yield, never write over it
-      const key = disk.baseSig + ':' + (disk.rev || 0); if (key === lastForeign) return false; lastForeign = key;
+      if ((disk.built || '') > BUILT) { if (!NEWER_TAB) { NEWER_TAB = true; toast('Newer data was saved from another tab — this page is read-only until you reload'); return true; } return false; }   // a newer build is open elsewhere: yield, never write over it
+      const key = disk.baseSig + '|' + disk.changes.map(c => (c.at || '') + c.text).join('|'); if (key === lastForeign) return false; lastForeign = key;
       const r = rebase(disk); local = r.local; STORE = r.store; return true;                                  // an older build wrote: replay it onto this data
     }
     if (!local || disk.rev !== local.rev) {
@@ -163,7 +163,10 @@
   function rebase(l) {
     let store = clone(SHIPPED.store); const replayed = [], parked = [];
     for (const c of l.changes) { try { if (isApplied(store, c.patch)) continue; const trial = clone(store); if (applyPatch(trial, c.patch)) { store = trial; replayed.push(c); } else parked.push(c); } catch (e) { parked.push(c); } }
-    if (parked.length) { if (park(parked)) toast(`${plural(parked.length, 'change')} from another tab could not be re-applied — parked in More`); }
+    if (parked.length) {
+      if (park(parked)) toast(`${plural(parked.length, 'change')} from another tab could not be re-applied — parked in More`);
+      else { UNFILED = (UNFILED || []).concat(parked); toast('Storage is full: changes from another tab could not be re-filed — copy them from More'); return { store: STORE, local }; }   // leave the disk overlay alone
+    }
     const nl = replayed.length ? { baseSig: BASE_SIG, built: BUILT, rev: (l.rev || 0) + 1, store, changes: replayed } : null;
     if (nl) LS.set('muster.local', nl, true); else LS.del('muster.local');
     return { store, local: nl };
@@ -192,7 +195,7 @@
   let pendingSync = false;
   function syncFromDisk() {
     const busy = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
-    if (busy) { pendingSync = true; return; }                       // never under the user's hands
+    if (busy) { pendingSync = true; const dk = LS.get('muster.local', null); if (dk && usable(dk) && dk.baseSig !== BASE_SIG && (dk.built || '') > BUILT && !NEWER_TAB) { NEWER_TAB = true; toast('Newer data was saved from another tab — this page is read-only until you reload'); } return; }   // never re-render under the user's hands
     pendingSync = false;
     try { const changed = adoptDisk(); if (changed) D = L.derive(STORE); } catch (e) { console.error(e); local = null; STORE = clone(SHIPPED.store); D = L.derive(STORE); toast('Data saved by another tab was unreadable — showing the repo data'); }
     render(true);
@@ -286,6 +289,7 @@
     const out = [], R = STORE.rules.snapshot;
     const age = daysBetween(R.verified, todayISO());
     if (age > 45) out.push({ lvl: 'err', text: `<b>Points snapshot is ${age} days old</b> (verified ${dshort(R.verified)}). Re-verify in the official app before trusting any total.` });
+    if (NEWER_TAB) out.push({ lvl: 'err', text: `<b>Newer data was saved from another tab or a newer copy of this page.</b> Reload this page — until then it only reads; nothing here can be saved, exported or discarded.` });
     if (BOOT_NOTE && BOOT_NOTE.failed) out.push({ lvl: 'err', text: BOOT_NOTE.failed > 0 ? `<b>This browser's storage is full or blocked:</b> ${plural(BOOT_NOTE.failed, 'local change')} could not be re-filed against the new data. They are still on this device — <a href="#/more">copy them from More</a> now, then free some space.` : `<b>The saved data on this device was unreadable</b> and has been set aside; you are looking at the repo data. <a href="#/more">More</a> has whatever could be salvaged.` });
     else if (BOOT_NOTE) out.push({ lvl: BOOT_NOTE.parked ? 'err' : 'ok', text: `<b>The repo data changed since your last visit.</b> ${BOOT_NOTE.done ? `${plural(BOOT_NOTE.done, 'local change')} of yours ${BOOT_NOTE.done === 1 ? 'is' : 'are'} in it now${BOOT_NOTE.replayed || BOOT_NOTE.parked ? '. ' : ' — nothing left to export. '}` : ''}${BOOT_NOTE.replayed ? `${plural(BOOT_NOTE.replayed, 'change')} not yet in it ${BOOT_NOTE.replayed === 1 ? 'was' : 'were'} re-applied on top and still ${BOOT_NOTE.replayed === 1 ? 'needs' : 'need'} exporting. ` : ''}${BOOT_NOTE.parked ? `${plural(BOOT_NOTE.parked, 'change')} could not be re-applied — see the parked list in <a href="#/more">More</a>.` : ''}` });
     if (STALE) out.push({ lvl: 'err', text: `<b>${plural(STALE.changes.length, 'parked change')}</b> from older data could not be re-applied. <a href="#/more">Copy or discard ${STALE.changes.length === 1 ? 'it' : 'them'} in More →</a>` });
@@ -333,7 +337,7 @@
     let q = {}; try { q = Object.fromEntries(new URLSearchParams(qs || '')); } catch (e) { q = {}; }
     return { parts: path.split('/').filter(Boolean).map(dec), q };
   }
-  let lastPath = null, lastOpen = null, lastSubmit = 0, lastTap = { kind: '', at: 0 }, memDraft = null;
+  let lastPath = null, lastOpen = null, lastSubmit = 0, lastGame = null, lastTap = { kind: '', at: 0 }, memDraft = null;
   function focusKey() { const a = document.activeElement; if (!a || a === document.body) return null; if (a.dataset && a.dataset.fkey) return a.dataset.fkey; if (a.matches('tr[data-id]')) return 'row:' + a.dataset.id; return null; }
   function render(keepScroll) {
     const fk = focusKey();
@@ -784,6 +788,7 @@ ${rows.map(i => `<tr><td><span class="name">${esc(uname(i.unit))}</span>${i.note
 ${local ? `<div class="banner local"><span><b>${plural(local.changes.length, 'change')} kept on this device</b> since data ${esc(dshort(STORE.meta.updated))}. Git is the database: export the file (replace <code>data/muster.json</code>, run <code>python3 build.py</code>, commit) or copy the change into a Claude session. After the rebuild this page recognises what landed and clears it; anything that did not land is re-applied on top, never dropped.</span></div>
 <p class="acts"><button class="btn pri" data-act="export">Export muster.json</button> <button class="btn" data-act="patch">Copy the change for a session</button> <button class="btn ghost" data-act="discard">Discard local changes</button></p>
 <pre class="out">${esc(local.changes.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : '<p class="muted">No local changes. What you see is the repo data.</p>'}
+${NEWER_TAB ? `<div class="banner"><span><b>Read-only:</b> newer data was saved from another tab or a newer copy of this page. Reload to pick it up; export, copy and discard are disabled here so they cannot roll it back.</span><span><button class="btn" data-act="reload">Reload</button></span></div>` : ''}
 ${UNFILED ? `<div class="banner"><span><b>Not re-filed (storage full):</b> ${plural(UNFILED.length, 'change')} from before the last data update. Copy them into a session before they are lost.</span><span><button class="btn" data-act="unfiledcopy">Copy them</button></span></div><pre class="out">${esc(UNFILED.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : ''}
 ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.length, 'change')} recorded against older data could not be re-applied automatically (the repo now says something different about what they touch, or the saved data was unreadable). ${STALE.changes.length === 1 ? 'It stays' : 'They stay'} here until you copy or discard ${STALE.changes.length === 1 ? 'it' : 'them'}.</span><span><button class="btn" data-act="stalecopy">Copy them</button> <button class="btn ghost" data-act="stalediscard">Discard</button></span></div><pre class="out">${esc(STALE.changes.map((c, n) => `${n + 1}. ${c.text}`).join('\n'))}</pre>` : ''}
 <h3 class="sh">Hand-off</h3>
@@ -840,13 +845,15 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
     else if (act === 'c-today') crateMut(parts[1], d => { d.delivered = todayISO(); });
     else if (act === 'c-save') crateSave(parts[1]);
     else if (act === 'g-del') { if (tapGuard('g-del')) return; const n = +el.dataset.n; const x = (STORE.games.log || [])[n]; if (x && confirm(`Remove the ${x.date} game vs ${x.opponent || '?'}?`)) commit(`games.log: remove ${x.date} vs ${x.opponent || '?'}`, { op: 'games.remove', value: clone(x) }); }
-    else if (['export', 'patch', 'briefing'].includes(act) && adoptDisk()) { D = L.derive(STORE); render(true); }
+    else if (['export', 'patch', 'briefing', 'discard', 'stalediscard'].includes(act) && adoptDisk()) { D = L.derive(STORE); render(true); }
+    if (NEWER_TAB && ['export', 'patch', 'discard', 'stalediscard', 'c-save', 'b-save'].includes(act)) { toast('Newer data was saved from another tab — reload this page first (nothing here was changed)'); return; }
     if (act === 'export') { const s = clone(STORE); s.meta.updated = todayISO(); download('muster.json', JSON.stringify(s, null, 2)); toast('muster.json downloaded — replace data/muster.json, run python3 build.py, commit'); }
     else if (act === 'patch') copyText(patchText(local ? local.changes : []), 'The change');
     else if (act === 'discard') { if (confirm('Discard every local change on this device (and any half-filled crate drafts) and go back to the repo data?')) { LS.del('muster.local'); LS.del('muster.crates'); location.reload(); } }
     else if (act === 'stalecopy') copyText(patchText(STALE.changes), 'Parked changes');
     else if (act === 'unfiledcopy') copyText(patchText(UNFILED), 'Changes');
     else if (act === 'stalediscard') { const now = LS.get('muster.stale', null, okStale); const n = now ? now.changes.length : 0; if (n && confirm(`Discard ${plural(n, 'parked change')} for good?${STALE && n !== STALE.changes.length ? ' (the list changed since this page was drawn)' : ''}`)) { LS.del('muster.stale'); STALE = null; } else STALE = n ? now : null; render(true); }
+    else if (act === 'reload') location.reload();
     else if (act === 'resetdrafts') { for (const k of ['muster.crates', 'muster.builder', 'muster.lists', 'muster.lastUnit', 'muster.lastModels', 'muster.sort2', 'muster.gamedraft']) LS.del(k); sortState = { key: 'store', dir: 1 }; memDraft = null; toast('Drafts on this device were reset'); render(true); }
     else if (act === 'briefing') copyText(briefing(), 'Briefing');
     else if (act === 'prompt') copyText(NEW_SESSION_PROMPT, 'Prompt');
@@ -887,10 +894,9 @@ ${STALE ? `<div class="banner"><span><b>Parked:</b> ${plural(STALE.changes.lengt
     const fd = Object.fromEntries(new FormData(f)); const g = { date: fd.date, list: fd.list, result: fd.result, opponent: fd.opponent.trim(), score: fd.score.trim(), lesson: fd.lesson.trim() };
     if (!validDate(g.date)) { toast('Pick the date the game was played'); return; }
     LS.set('muster.lastList', g.list);
-    const blank = !g.opponent && !g.score && !g.lesson;
-    if (Date.now() - lastSubmit < (blank ? 3000 : 900)) { toast('Already logged — change something to log another game'); return; }   // a double tap must not log a phantom second game
+    if (lastGame && same(g, lastGame) && Date.now() - lastSubmit < 3000) { toast('Same game as the one just logged — change something, or wait a moment to log it twice'); return; }   // a double tap must not log a phantom second game
     const ok = commit(`games.log: add ${g.date} ${g.result} vs ${g.opponent || '?'} (list ${g.list})`, { op: 'games.add', value: g }, { note: g.date > todayISO() ? 'Future date logged as typed' : '', onFail: () => {}, then: () => { LS.del('muster.gamedraft'); render(true); } });
-    if (ok) lastSubmit = Date.now();
+    if (ok) { lastSubmit = Date.now(); lastGame = clone(g); }
   });
   window.addEventListener('hashchange', () => { const w = $('#copyfallback'); if (w) w.hidden = true; render(); });
   function fillModels() { const sel = $('#b-models'), u = unitById($('#b-unit') && $('#b-unit').value); if (!sel || !u) return; const cur = sel.value; sel.innerHTML = u.sizes.map(s => `<option>${s.models}</option>`).join(''); if ([...sel.options].some(o => o.value === cur)) sel.value = cur; }
