@@ -307,6 +307,22 @@ crimson (separate tool, dark-only by design, logged before); the codex keeps its
 contrast override instead of adopting the site tokens (it is a book from the other line of work); suggestions from all
 three reviewers (leads-picker disambiguation, hobby note duplication, order-row date prefix, etc.) are parked as polish,
 not defects.</p>
+<h3 id="round-4-reviewed-at-9998e3c-fixes-in-3ac24cf">Round 4 (reviewed at <code>9998e3c</code>, fixes in <code>3ac24cf</code>)</h3>
+<p><strong>Verdicts:</strong> UI 15 defects (0/0/4/11) — crate paint prompt clipped under 390, the prose-nav fade ate letters, field
+boundaries and dark hovers under 3:1, plus naming/width nits. Data + rules: numerically dry again (3 low labels: a stale
+example price, two round-3 wordings that had reached the app but not the generated army page). Flows: 11 defects, of
+which the one HIGH was a regression from round 3's own fix (the cross-tab listener re-rendered on blur and swallowed the
+tap that caused it, wiping a typed game); the rest were two-tab, full-storage or hand-tampered-storage cases plus a
+midnight-stale date and prototype-named routes. Four-questions: 3 yes; <strong>"what should I buy next" no</strong> — the headline
+was under a minute but a confident dollar figure took ~3 minutes across four screens (per-unit prices on Buy quoted
+another list's quantities, the "crate may cover" hedge had no number, and a partly-priced list looked cheaper).</p>
+<p><strong>Fixed:</strong> all of the above (see the commit). The buy answer is now one screen: Buy opens with each list's remaining
+cost and the after-the-crates figure, and Home says why a partly unpriced list is not called cheapest. The house rule
+distinguishes games <em>counted</em> (from the day the crates are catalogued) from games <em>logged</em>.</p>
+<p><strong>Waived (with reason):</strong> simultaneous commits from two tabs within the same millisecond can still diverge (not humanly
+reachable; a revision counter is kept over a content hash for readability); a delivery date earlier than the order date is
+accepted (a real back-dated correction is more likely than a typo, and the ledger shows the year when it differs); the
+copy-sheet textarea stays selectable rather than read-only so partial copies remain possible.</p>
 <h2 id="6-questions-for-the-owner-taste-not-fact">6. Questions for the owner (taste, not fact)</h2>
 <ul>
 <li><strong>Q1 — Warband name.</strong> The codex's <em>Umbral Creed / Long Shadow Host</em> is used everywhere in the app; the
