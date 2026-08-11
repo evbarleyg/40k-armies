@@ -9,6 +9,7 @@
 data/muster.json is the one hand-maintained store. Numbers anywhere else are generated from it here,
 inside <!--gen:NAME--> … <!--/gen:NAME--> markers, or carry a "snapshot — see the app" line.
 """
+import hashlib
 import datetime, glob, json, os, re, shutil, statistics, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -359,7 +360,8 @@ def apply_regions(store, d, check_only=False):
 # ---------- muster.js ----------
 
 def emit_js(store, d):
-    payload = {"store": store, "gapPrices": gap_prices(), "generated": datetime.date.today().isoformat()}
+    payload = {"store": store, "gapPrices": gap_prices(), "generated": datetime.date.today().isoformat(),
+               "built": store["meta"]["updated"] + "/" + hashlib.sha1(dumps(store).encode()).hexdigest()[:10]}   # orderable enough: data date first
     text = "window.MUSTER = " + json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + ";\n"
     write_if_changed(OUT_JS, text)
 

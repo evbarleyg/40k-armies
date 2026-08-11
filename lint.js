@@ -70,7 +70,7 @@
         }
       }
       if (u.verify) out.flags.push(flag('warn', 'verify', `${u.name}: ${u.note || 'points unverified — check the official app.'}`));
-      if (u.legality === 'banned') out.flags.push(flag('error', 'banned', `${u.name} is illegal in ${R.detachment.name}: ${u.note || 'Epic Hero'}`, { rule: R.bans }));
+      if (u.legality === 'banned') out.flags.push(flag('error', 'banned', `${u.name} is not legal in ${R.detachment.name}${u.note && !/illegal in shadow legion/i.test(u.note) ? ': ' + u.note : ' (Epic Hero other than Be\'lakor) — remove it; nothing to buy.'}`, { rule: R.bans }));
       else if (isEpic(u) && !(R.bans.epic_heroes_except || []).includes(u.id)) out.flags.push(flag('error', 'epic-hero', `${u.name} is an Epic Hero; only Be'lakor is exempt in ${R.detachment.name}.`, { rule: R.bans }));
       if (isEpic(u) && n > 1) out.flags.push(flag('error', 'epic-twice', `${u.name} is an Epic Hero — one per army.`, { rule: R.bans }));
       if ((u.keywords || []).includes('DAEMON PRINCE') || /daemon_prince/.test(u.id)) out.flags.push(flag('error', 'daemon-prince', `Daemon Princes are excluded by ${R.thralls.name}.`, { rule: R.thralls }));
@@ -95,7 +95,7 @@
       const tgt = byId.get(e.leads);
       if (!tgt || !tgt.unit) { out.flags.push(flag('error', 'leads-missing', `${u.name} is set to lead entry "${e.leads}", which is not in this list.`)); continue; }
       if (!(u.leads || []).includes(tgt.unit.id)) out.flags.push(flag('error', 'leader-pair', `${u.name} cannot lead ${tgt.unit.name} (allowed: ${(u.leads || []).map(id => (ix.units.get(id) || {}).name || id).join(', ') || 'nothing'}).`));
-      else if ((u.leads_verify || []).includes(tgt.unit.id)) out.flags.push(flag('warn', 'leader-verify', `${u.name} → ${tgt.unit.name}: this Leader pairing was taken from the Jul 27 lists, not from the datasheet — confirm the Leader line in the official Warhammer 40,000 app.`));
+      else if ((u.leads_verify || []).includes(tgt.unit.id)) out.flags.push(flag('warn', 'leader-verify', `${u.name} → ${tgt.unit.name}: this Leader pairing was taken from the Jul 27 army lists (quartermaster.md), not from the datasheet — confirm the Leader line in the official Warhammer 40,000 app.`));
       if (e.models !== 1) out.flags.push(flag('error', 'leader-models', `${u.name} leads as a single model.`));
       tgt.leaders = (tgt.leaders || 0) + 1;
       if (tgt.leaders > 1) tgt.flags.push(flag('warn', 'two-leaders', `${tgt.unit.name} has more than one leader attached — only some datasheets allow that; check.`));
@@ -103,7 +103,7 @@
 
     // list-level rules
     const limit = list.limit || R.battle_size.points;
-    if (total > limit) flags.push(flag('error', 'over', `${total} pts is ${total - limit} over the ${limit} limit.`));
+    if (total > limit) flags.push(flag('error', 'over', `${total.toLocaleString('en-US')} pts is ${(total - limit).toLocaleString('en-US')} over the ${limit.toLocaleString('en-US')} limit.`));
     const capKey = CAP_BY_LIMIT[limit] || 'strike_force', cap = (R.thralls.cap || {})[capKey];
     if (cap != null && ha > cap) flags.push(flag('error', 'thrall-cap', `Heretic Astartes units total ${ha} pts — over the ${R.thralls.name} cap of ${cap}.`, { rule: R.thralls }));
     else if (cap != null && ha + haEnh > cap) flags.push(flag('error', 'thrall-cap-enh', `Heretic Astartes total ${ha} + ${haEnh} of enhancements = ${ha + haEnh} against a ${cap} cap. Enhancement points raise the bearer's unit cost in GW's points documents, so this reads as over the cap — trim ${ha + haEnh - cap} pts of marines or move the enhancement to a daemon character.`, { rule: R.thralls }));

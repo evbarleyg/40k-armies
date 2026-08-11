@@ -1,12 +1,12 @@
 /* Muster — app chrome. Tokens and base type come from ledger.css; this file adds the console furniture.
    Concept A (four questions first) with the tournament grafts and the round-1 battery fixes — DECISIONS.md §4–§5. */
 
-:root, :root[data-theme="dark"]{ --eyebrow:#d9737b; --link:#e08a90; --warn:#d9a441; --err:#cf3840; --err-ink:#e8646a; --ok:#8fbf88; --bar:#1c1316; --field:#1c1418; --field-line:#806a6d; --hi:#3a262b; }
+:root, :root[data-theme="dark"]{ --eyebrow:#d9737b; --link:#e08a90; --warn:#d9a441; --err:#cf3840; --err-ink:#e8646a; --ok:#8fbf88; --bar:#1c1316; --field:#1c1418; --field-line:#806a6d; --hi:#30202a; }
 @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --eyebrow:#8e1c26; --link:#8e1c26; --warn:#7a4f00; --err:#a3141d; --err-ink:#a3141d; --ok:#3f6a37; --bar:#efe5d3; --field:#faf4e8; --field-line:#8a7558; --hi:#eadfca; --line:#cbb898; } }
 :root[data-theme="light"]{ --eyebrow:#8e1c26; --link:#8e1c26; --warn:#7a4f00; --err:#a3141d; --err-ink:#a3141d; --ok:#3f6a37; --bar:#efe5d3; --field:#faf4e8; --field-line:#8a7558; --hi:#eadfca; --line:#cbb898; }
 
 /* codex skin: parchment and serif over the same DOM (never renames or hides anything) */
-:root[data-skin="codex"], :root[data-skin="codex"][data-theme="light"]{ --ground:#EDE7D8; --panel:#E4DCC8; --panel2:#DED4BC; --ink:#2B2126; --dim:#5A4C4A; --crimson:#87202E; --crimson-soft:#87202E; --brass:#6e5126; --line:#C9BCA0; --code:#DED4BC; --eyebrow:#87202E; --link:#6B1824; --bar:#E4DCC8; --own:#3f5c38; --buy:#87202E; --warn:#744b00; --err:#8f1a22; --err-ink:#8f1a22; --ok:#3f5c38; --field:#f3ecdc; --field-line:#85704f; --hi:#d8ccb2; color-scheme:light; }
+:root[data-skin="codex"], :root[data-skin="codex"][data-theme="light"]{ --ground:#EDE7D8; --panel:#E4DCC8; --panel2:#DED4BC; --ink:#2B2126; --dim:#5A4C4A; --crimson:#87202E; --crimson-soft:#87202E; --brass:#6e5126; --line:#C9BCA0; --code:#DED4BC; --eyebrow:#87202E; --link:#6B1824; --bar:#E4DCC8; --own:#3f5c38; --buy:#87202E; --warn:#744b00; --err:#8f1a22; --err-ink:#8f1a22; --ok:#3f5c38; --field:#f3ecdc; --field-line:#85704f; --hi:#dbd0b7; color-scheme:light; }
 @media (prefers-color-scheme: dark){ :root[data-skin="codex"]:not([data-theme="light"]){ --ground:#171218; --panel:#201823; --panel2:#281E2A; --ink:#E9DFCE; --dim:#B5A79B; --crimson:#A3273A; --crimson-soft:#c9646b; --brass:#b89a60; --line:#3A2E3C; --code:#281E2A; --eyebrow:#d9737b; --link:#e08a90; --bar:#201823; --own:#79a274; --buy:#A3273A; --warn:#d9a441; --err:#cf3840; --err-ink:#ec7076; --ok:#8fbf88; --field:#1c1418; --field-line:#8a7884; --hi:#33263a; color-scheme:dark; } }
 :root[data-skin="codex"][data-theme="dark"]{ --ground:#171218; --panel:#201823; --panel2:#281E2A; --ink:#E9DFCE; --dim:#B5A79B; --crimson:#A3273A; --crimson-soft:#c9646b; --brass:#b89a60; --line:#3A2E3C; --code:#281E2A; --eyebrow:#d9737b; --link:#e08a90; --bar:#201823; --own:#79a274; --buy:#A3273A; --warn:#d9a441; --err:#cf3840; --err-ink:#ec7076; --ok:#8fbf88; --field:#1c1418; --field-line:#8a7884; --hi:#33263a; color-scheme:dark; }
 :root[data-skin="codex"] body{ font-family:Georgia,"Iowan Old Style",Charter,serif; font-size:16px; }
@@ -275,3 +275,8 @@ pre.out{ white-space:pre-wrap; font-size:12px; max-height:320px; overflow:auto; 
 @media (max-width:899px){ #copyfallback textarea{ font-size:16px; } }
 #copyfallback .bar{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
 footer p{ max-width:90ch; }
+
+/* r5: read-only unit tables must fit 320–375 without a hidden side-scroll */
+@media (max-width:400px){ .tbl.units th, .tbl.units td{ padding-left:6px; padding-right:6px; } .tbl.units .tag{ white-space:normal; } .tbl.units td:first-child{ width:auto; } }
+.toast{ pointer-events:none; }
+.withbtn input[type="date"]{ min-width:9.5em; }
