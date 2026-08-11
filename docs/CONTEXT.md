@@ -8,11 +8,11 @@ of the army or the plan, update this file in the same commit.
 ## 0. Current state (generated — do not edit by hand)
 
 <!--gen:state-->
-- **Store:** `data/muster.json` (schema 1, updated 2026-08-11); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. 2026-08-10: Skullmaster 85 (was ~75); nothing else in these lists moved. Next balance window expected ~2026-08-19/26.
-- **Owned:** 21 inventory records, 92 models, 2,720 fieldable pts; spent ≈ $1,391 over 7 orders.
+- **Store:** `data/muster.json` (schema 1, updated 2026-08-11); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. Aug 10: Skullmaster is 85 pts (carried as ~75 before); nothing else in these lists moved. A points revision (MFM v1.2, Aug 5) is reported with no Daemons/CSM/Knights changes — confirm the version banner in the app. Next balance update expected Aug 19–26.
+- **Owned:** 21 inventory records, ≈92 models, 2,730 pts at MFM v1.1 (2,410 table-ready); spent ≈ $1,391 over 7 orders.
 - **Inbound:** Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed 2026-08-11).
-- **Lists:** playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,920), D (1,995), E (1,980).
-- **Games logged:** 0 (rule: 10 before the next model, counting after the current arrivals (o6, o7) are catalogued).
+- **Lists:** playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,950), D (1,995), E (1,980).
+- **Games logged:** 0 (rule: 10 before the next model, counting after the two inbound crates (the Khorne lot and the Bloodcrushers) are catalogued).
 <!--/gen:state-->
 
 *Generated from `data/muster.json` by `muster.py build`. The Muster app (`index.html`) reads the same store; the
@@ -122,7 +122,7 @@ learning games, one more reason not to rush the Khorne cavalry.
 
 ## 7. Decisions log
 
-- 2026-07-20 — Bought lot 236942163636 ($730) rather than an army + a separate painted Be'lakor
+- 2026-07-20/21 — Bought lot 236942163636 ($730 + tax and shipping = $840.18 landed; ordered on the 20th, dated the 21st in the ledger) rather than an army + a separate painted Be'lakor
   (no complete Be'lakor armies were listed; singles ran $450–600 from Eastern-EU sellers).
 - 2026-07-20 — Scorecard: never score a current auction bid (two "4.9×/4.8× steals" were opening bids).
 - 2026-07-21 — Paint tiers come from photos only; strict Partial rule adopted.

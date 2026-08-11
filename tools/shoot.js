@@ -18,14 +18,14 @@ const PAGES = ['quartermaster.html', 'codex-umbral-creed.html', 'context.html', 
     p.on('console', m => { if (m.type() === 'error') problems.push(`[console ${w} ${scheme}] ${m.text()}`); });
     p.on('pageerror', e => problems.push(`[pageerror ${w} ${scheme}] ${e.message}`));
     for (const v of VIEWS) {
-      await p.goto(ROOT + 'index.html' + v); await p.waitForTimeout(120);
+      await p.goto(ROOT + 'index.html' + v); await p.waitForTimeout(120); await p.addStyleTag({ content: '.tabbar{position:static !important} body{padding-bottom:16px !important}' });
       const name = 'app' + (v.replace(/[#/?=&]+/g, '_').replace(/_$/, '') || '_home');
       await p.screenshot({ path: path.join(out, `${name}-${w}-${scheme}${process.env.SKIN ? '-' + process.env.SKIN : ''}.png`), fullPage: true });
       const ov = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (ov > 0) problems.push(`[overflow ${w} ${scheme}] ${v} by ${ov}px`);
     }
     for (const pg of PAGES) {
-      await p.goto(ROOT + pg); await p.waitForTimeout(80);
+      await p.goto(ROOT + pg); await p.waitForTimeout(700);
       await p.screenshot({ path: path.join(out, `${pg.replace('.html', '')}-${w}-${scheme}.png`), fullPage: true });
       const ov = await p.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       if (ov > 0) problems.push(`[overflow ${w} ${scheme}] ${pg} by ${ov}px`);

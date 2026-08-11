@@ -361,7 +361,7 @@ The arc from here, one step at a time:
 | now | nothing | **List A** — play it; log the games | Every model owned and painted; the house rule says ten games before the next model |
 | 1 | assemble and paint the Bloodthirster (owned) | **List F** (Triple Monster), the most forgiving list — and the army's second monument | No money, the biggest change in how the army plays *and* looks |
 | 2 | open the two crates (Khorne lot, Bloodcrushers) and catalogue them in Muster | most of **E** and **D**, depending on what is inside | Already paid for; repairs and re-basing are Phase 3 work |
-| 3 | Skullmaster + Rendmaster on Blood Throne (≈ $40–50 and ≈ $40–70 landed at July prices) | **List E** (the Fadethirster) and **D** complete | The only purchases the tournament shape still needs — after the ten games |
+| 3 | Skullmaster + Rendmaster on Blood Throne (≈ $45 and ≈ $72 for a complete Blood Throne kit, landed, at July Buy-It-Now prices) | **List E** (the Fadethirster) and **D** complete | The only purchases the tournament shape still needs — after the ten games |
 | — | Beasts ×2 + Plague Drones ×3 (≈ $180) | **List B** | Only if Nurgle attrition is the game you want; nothing else uses them |
 | — | Terminator Lord + Terminators, Chosen, Warp Talons, ten more Cultists | **List C** (Word Bearers Ascendant) | The theme list; buy when the marine half is what you enjoy painting — single units now that the Night Lords lot is gone |
 
@@ -376,8 +376,9 @@ price — the tools are in `tools/`, and this environment can't reach eBay, so r
 
 What is left to buy is short, and all of it waits on the ten-games rule and on what the two crates turn out to hold:
 
-1. Skullmaster (thin market: OOP resin/metal ≈ $40–50 landed, or a Juggernaut-lord conversion) and a Rendmaster on Blood
-   Throne (the Blood Throne / Skull Cannon kit, ≈ $40–70) — the tournament list's only real gaps.
+1. Skullmaster (thin market: OOP resin/metal ≈ $45 landed in July, or a Juggernaut-lord conversion) and a Rendmaster on Blood
+   Throne (a complete Blood Throne / Skull Cannon kit ≈ $72; part-kits and cannon builds go cheaper and are not a Throne) —
+   the tournament list's only real gaps.
 2. One Bloodletter, if the Khorne lot does not supply it — nine were counted against ten listed.
 3. Only if List B appeals: Beasts of Nurgle ×2 and Plague Drones ×3 (≈ $180 together in July).
 4. Only if List C appeals: a Terminator Lord and five Terminators, five Chosen, five Warp Talons, ten more Cultists — bought

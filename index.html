@@ -13,13 +13,13 @@
 <div class="wrap">
 <header class="mast">
   <h1><a href="#/">Muster</a></h1>
-  <p class="meta" aria-live="polite">loading the store…</p>
+  <p class="meta">loading the data…</p>
 </header>
 <nav class="topnav" aria-label="Views"></nav>
-<main id="view" aria-live="polite">
+<main id="view">
   <noscript><p>Muster needs JavaScript. The prose pages work without it: <a href="quartermaster.html">the army</a>, <a href="codex-umbral-creed.html">the codex</a>, <a href="primer.html">the primer</a>, <a href="scorecard.html">the market scorecard</a>.</p></noscript>
 </main>
-<div id="copyfallback" hidden><p class="hint">Clipboard blocked here — select all and copy:</p><textarea rows="8" style="width:100%"></textarea></div>
+<div id="copyfallback" hidden role="dialog" aria-label="Copy this text"><div class="bar"><p class="hint what">Select all and copy:</p><button class="btn" data-act="copyclose">Done</button></div><textarea rows="8" aria-label="text to copy"></textarea></div>
 <p class="marg"></p>
 <footer><p>Muster reads <code>data/muster.json</code> (canonical) and the market feed; nothing here bids, buys or logs in anywhere. Points and rules are a dated snapshot — verify in the official app before an event. Not affiliated with Games Workshop.</p></footer>
 </div>

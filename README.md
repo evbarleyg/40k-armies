@@ -97,7 +97,7 @@ of them turned out `Partial`.
 | `scrape.js` | Paste-into-console scraper for the eBay category feeds (captures bid counts) |
 | `pages.py` | Doc renderer + nav sync |
 | `docs/` | Markdown sources (Primer, lists, collection, research, scout report, handoff, context, sweep, strategy, eBay method) |
-| `data/scout-2026-07-26.json` · `data/scout-2026-07-27.json` | Shopping scrapes for the six lists (14 → 114 listings) |
+| `data/scout-2026-07-26.json` · `data/scout-2026-07-27.json` | Shopping scrapes for the six lists (25 → 114 listings) |
 | `tools/ebay_search.js` · `tools/ebay_fetch.js` | The scout's headless-Chromium search + item/gallery fetchers |
 | `guide.html` · `make_guide.sh` · `GUIDE.pdf` | Print-layout guide and its PDF build |
 | `archive/` | Provenance from the superseded `daemon-quartermaster` repo (first Quartermaster page, BOOTSTRAP, build_site.sh, paste prompt) |

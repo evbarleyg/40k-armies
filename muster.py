@@ -133,25 +133,44 @@ def validate(store, d):
 
 # ---------- derived extras that only python needs ----------
 
+JUNK_NOTE = re.compile(r"bits only|not a complete|built as skull cannon|\bauction\b|current bid", re.I)
+
 def gap_prices():
-    """Landed-price snapshot per unit id from the last read-only scout run (never a live price)."""
+    """Landed-price snapshot per unit id from the last read-only scout run (never a live price).
+    Excludes auctions (a bid is not a price), the scout's own flagged listings, and rows whose notes say
+    they are not a complete kit. Prices keep their cents; callers round once, after summing."""
     try:
         d = load(SCOUT)
     except (OSError, ValueError):
         return {}
     keymap = {"cultists": "cultist_mob"}      # scout search keys → unit ids where they differ
+    flagged = {f.get("id") for f in d.get("flagged", []) if isinstance(f, dict)}
     out = {}
     for key, items in d.items():
         if not isinstance(items, list) or not items or not isinstance(items[0], dict) or "landed" not in items[0]:
             continue
-        prices = []
+        prices, seen = [], 0
         for x in items:
-            if x.get("type", "").lower().startswith("auction"): continue   # a bid is not a price
-            try: prices.append(float(str(x.get("landed")).replace("$", "").replace(",", "")))
+            seen += 1
+            if str(x.get("type", "")).upper().startswith("AUC"): continue          # a bid is not a price
+            if x.get("id") in flagged or JUNK_NOTE.search(str(x.get("note") or "")): continue
+            try: prices.append(round(float(str(x.get("landed")).replace("$", "").replace(",", "")), 2))
             except (TypeError, ValueError): pass
         if prices:
-            out[keymap.get(key, key)] = {"n": len(prices), "min": round(min(prices)), "med": round(statistics.median(prices)), "max": round(max(prices))}
+            out[keymap.get(key, key)] = {"n": len(prices), "of": seen, "min": min(prices), "med": round(statistics.median(prices), 2), "max": max(prices)}
     return {"date": d.get("scraped", "2026-07-27"), "units": out}
+
+def gap_estimate(missing, prices, units):
+    """Quantity-aware floor for a list's missing entries: each priced unit costs ceil(models / smallest
+    datasheet size) × its cheapest usable listing (min) or its median. Returns (lo, mid, n_priced)."""
+    lo = mid = 0.0; priced = 0
+    for m_ in missing:
+        p = prices.get(m_["unit"]); u = units.get(m_["unit"])
+        if not p or not u: continue
+        per = min(s["models"] for s in u["sizes"]) or 1
+        boxes = -(-m_["models"] // per)
+        lo += boxes * p["min"]; mid += boxes * p["med"]; priced += 1
+    return lo, mid, priced
 
 # ---------- generated regions ----------
 
@@ -192,7 +211,9 @@ def region_ledger_html(store, d):
         cost = money(o["cost_usd"], o.get("approx")) + (f" ({esc(o['cost_note'])})" if o.get("cost_note") else "")
         rows.append(f"    <tr><td>{fmt_date(o['date'])}</td><td>{esc(o['item'])}</td><td class=\"num\">{cost}</td><td>{esc(o['state'])}</td><td>{esc(order_status(o))}</td></tr>")
     total = d["spent"] if d else sum(o["cost_usd"] for o in store["orders"])
-    rows += ["    </tbody>", f"    <tfoot><tr><td colspan=\"2\">Total tithed</td><td colspan=\"3\">≈ {money(round(total))} · {len(store['orders'])} orders</td></tr></tfoot>", "  </table>"]
+    transit = [o for o in store["orders"] if o["status"] != "delivered"]
+    rows += ["    </tbody>", f"    <tfoot><tr><td colspan=\"2\">Total tithed</td><td colspan=\"3\">≈ {money(round(total))} · {len(store['orders'])} orders"
+             + (f" · {len(transit)} still in transit ({esc(', '.join(o['item'] for o in transit))})" if transit else "") + "</td></tr></tfoot>", "  </table>"]
     return "\n".join(rows)
 
 def region_inventory_md(store, d):
@@ -205,16 +226,35 @@ def region_inventory_md(store, d):
         pts = "—" if not size else (str(size["pts"]) if size["models"] == i["models"] else f"{size['pts']} per {size['models']}")
         o = orders.get(i.get("order"))
         frm = f"{fmt_date(o['date'])} · {o['item'].split(' (')[0]}" if o else ""
-        rows.append(f"| {u['name']} | {i['models']} | {pts}{' *verify*' if u.get('verify') else ''} | {i['paint']} | {frm} | {i.get('note', '')} |")
+        count = f"≈{i['models']}" if i.get("approx") else str(i["models"])
+        rows.append(f"| {u['name']} | {count} | {pts}{' *verify*' if u.get('verify') else ''} | {i['paint']} | {frm} | {i.get('note', '')} |")
     for o in store["orders"]:
         if o["status"] != "delivered":
             rows.append(f"| **{o['item']}** | ? | — | {o['state'].lower()} | {fmt_date(o['date'])} | {order_status(o)} — {o.get('expected', 'contents pending')} |")
     if d:
-        rows += ["", f"Fieldable today: **{d['fieldablePoints']:,} pts** across {d['records']} records ({d['modelsOwned']} models); "
-                 f"spent ≈ {money(round(d['spent']))}, of which {money(d['inTransit'])} is still in transit."]
+        approx_models = any(i.get("approx") for i in store["inventory"] if i["status"] == "owned")
+        approx_transit = any(o.get("approx") for o in store["orders"] if o["status"] != "delivered")
+        not_ready = [f"{units[x['unit']]['name']} {x['paint']}" for x in d.get("notReady", [])]
+        rows += ["", f"Owned at MFM v1.1: **{d['fieldablePoints']:,} pts** — {d['readyPoints']:,} table-ready"
+                 + (f" ({'; '.join(not_ready)})" if not_ready else "") + f" — across {d['records']} records ({'≈' if approx_models else ''}{d['modelsOwned']} models); "
+                 f"spent ≈ {money(round(d['spent']))}, of which {money(round(d['inTransit']) if approx_transit else d['inTransit'], approx_transit)} is still in transit."]
     return "\n".join(rows)
 
 STATUS_WORD = {"ready": "**Playable today**", "hobby": "Owned — hobby work first", "buy": "Needs purchases"}
+
+def merge_gap(text):
+    """'Bloodcrushers ×6, Bloodcrushers ×3' → 'Bloodcrushers ×9 (6+3)' for readability."""
+    parts = [p.strip() for p in text.split(",")] if "×" in text else []
+    agg, order = {}, []
+    for p in parts:
+        if "×" not in p: return text
+        name, n = p.rsplit("×", 1)
+        try: n = int(n)
+        except ValueError: return text
+        name = name.strip()
+        if name not in agg: agg[name] = []; order.append(name)
+        agg[name].append(n)
+    return ", ".join(f"{name} ×{sum(ns)}" + (f" ({'+'.join(map(str, ns))})" if len(ns) > 1 else "") for name, ns in ((k, agg[k]) for k in order)) or text
 
 def region_lists_md(store, d):
     if not d: return "*(list status needs node — run `python3 muster.py build` where node is installed)*"
@@ -224,18 +264,18 @@ def region_lists_md(store, d):
     for l in store["lists"]:
         r = d["lists"][l["id"]]; lint, cov = r["lint"], r["coverage"]
         gap = ", ".join(f"{units[m['unit']]['name']} ×{m['models']}" for m in cov["missing"]) or ("; ".join(f"{units[h['unit']]['name']}: {h['paint']}" for h in cov["hobby"]) or "—")
-        priced = [m for m in cov["missing"] if m["unit"] in prices]
-        est = sum(prices[m["unit"]]["min"] for m in priced)
-        partial = " for the priced part" if len(priced) < len(cov["missing"]) else ""
-        legal = "yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}"
-        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {gap}{f' (from ≈${est:,}{partial}, Jul 27 prices)' if est else ''} |")
+        lo, mid, priced = gap_estimate(cov["missing"], prices, units)
+        partial = " for the priced part" if priced < len(cov["missing"]) else ""
+        verify = [f["msg"] for f in lint["flags"] if f["level"] == "warn"]
+        legal = ("yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}") + (f" (verify: {'; '.join(verify)})" if verify else "")
+        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {merge_gap(gap)}{f' (from ≈${round(lo):,}{partial}, Jul 27 BIN prices, auctions and part-kits excluded)' if priced else ''} |")
     return "\n".join(rows)
 
 def region_context_md(store, d):
     inbound = [o for o in store["orders"] if o["status"] != "delivered"]
     lines = [f"- **Store:** `data/muster.json` (schema {store['meta']['schema']}, updated {store['meta']['updated']}); points {store['rules']['snapshot']['points']}, rules verified {store['rules']['snapshot']['verified']}. {store['rules']['snapshot']['recheck']}",
              f"- **Owned:** {len([i for i in store['inventory'] if i['status']=='owned'])} inventory records"
-             + (f", {d['modelsOwned']} models, {d['fieldablePoints']:,} fieldable pts" if d else "") + f"; spent ≈ {money(round(sum(o['cost_usd'] for o in store['orders'])))} over {len(store['orders'])} orders.",
+             + (f", {'≈' if any(i.get('approx') for i in store['inventory']) else ''}{d['modelsOwned']} models, {d['fieldablePoints']:,} pts at MFM v1.1 ({d['readyPoints']:,} table-ready)" if d else "") + f"; spent ≈ {money(round(sum(o['cost_usd'] for o in store['orders'])))} over {len(store['orders'])} orders.",
              f"- **Inbound:** " + ("; ".join(f"{o['item']} — {order_status(o)}" for o in inbound) or "nothing") + "."]
     if d:
         by = {k: [] for k in STATUS_WORD}

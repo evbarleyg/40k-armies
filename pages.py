@@ -109,7 +109,10 @@ def render_docs():
             text = text.split("\n---\n", 1)[-1]
         body = markdown.markdown(text, extensions=["tables", "fenced_code", "toc", "sane_lists"])
         # tables scroll inside their own box instead of pushing the page sideways
-        body = body.replace("<table>", '<div class="scroll"><table>').replace("</table>", "</table></div>")
+        def wrap_table(m):
+            cols = m.group(0).split("</thead>", 1)[0].count("<th")
+            return f'<div class="scroll{" wide" if cols >= 5 else ""}">{m.group(0)}</div>'
+        body = re.sub(r"<table>.*?</table>", wrap_table, body, flags=re.S)
         # docs link to each other as .md; the site serves the rendered .html
         def relink(m):
             target = DOC_PAGES.get(m.group(1))

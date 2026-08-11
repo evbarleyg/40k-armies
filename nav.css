@@ -9,3 +9,7 @@
 .sitenav a:hover{ color:var(--ink); }
 .sitenav a[aria-current="page"]{ color:var(--crimson); }
 .sitenav .sep{ color:var(--line); }
+@media (max-width:520px){          /* one scrollable row on phones instead of three wrapped ones */
+  .sitenav{ flex-wrap:nowrap; overflow-x:auto; white-space:nowrap; padding:10px 0 8px; gap:4px 12px; letter-spacing:.12em; scrollbar-width:none; }
+  .sitenav::-webkit-scrollbar{ display:none; }
+}
