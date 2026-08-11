@@ -25,6 +25,7 @@ buckets** (~157 live listings as of the last run).
 | `codex-umbral-creed.md` | Personal codex for the collection: original lore, unit entries, doctrines, purchase ledger |
 | `codex-umbral-creed.html` | Standalone styled edition of the codex (open in any browser) |
 | `quartermaster.md` | Audited inventory, six 2,000-pt lists, and verified rules — distilled from the July 27 Quartermaster + Battle Doctrine artifacts |
+| `SPEC-muster.md` | Handoff spec: unify all the frontends into one local-first console over a single canonical data store |
 
 ### Chaos / Be'lakor edition
 
