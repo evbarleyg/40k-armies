@@ -20,13 +20,13 @@ Explain jargon inline when talking to Evan — he wants to learn unit roles and 
 
 | Thing | Location |
 |---|---|
-| Hub / site | `index.html` (GitHub Pages URL once enabled: `https://evbarleyg.github.io/40k-armies/`; any branch via `raw.githack.com/evbarleyg/40k-armies/<branch>/index.html`) |
+| Hub / site | `index.html` → Army (`quartermaster.html`) · Primer · Market (`scorecard.html`) · Archive (`archive.html`, all dated material) · Context. GitHub Pages URL once enabled: `https://evbarleyg.github.io/40k-armies/`; any branch via `raw.githack.com/evbarleyg/40k-armies/<branch>/index.html` |
 | Collection, six lists, shopping, verified rules | `quartermaster.html` (the "Shadow Legion Quartermaster" ledger) |
 | Full play guide | `docs/PRIMER.md` → `primer.html`; print layout `guide.html` → `GUIDE.pdf` (31 pp, `./make_guide.sh`) |
 | Lists with history and corrections | `docs/lists.md` |
 | Rules digest + re-verification | `docs/research.md` |
 | What came in the box | `docs/collection.md` |
-| eBay buy targets for the lists (2026-07-27) | `docs/SCOUT_REPORT.md`, data `data/scout-2026-07-27.json` (114 listings), tools `tools/ebay_search.js`, `tools/ebay_fetch.js` |
+| eBay buy targets for the lists (2026-07-27, archived — prices expired) | `docs/SCOUT_REPORT.md`, data `data/scout-2026-07-27.json` (114 listings), tools `tools/ebay_search.js`, `tools/ebay_fetch.js` |
 | Painted-army value scorecards | `build.py` + `data/raw_*.psv` → `scorecard.html`, `chaos.html` |
 | Photo paint-tier sweep (2026-07-21) | `docs/sweep-2026-07-21.md`; tiers merged via the `SWEEP` overlay in `build.py` |
 | How to reach eBay from a cloud session | `docs/ebay-access.md` |
@@ -141,6 +141,8 @@ Sigmar — "Blades of Khorne" listings are the same models, often cheaper.
 4. Transport: asked, never sized — N52 magnets + a steel-lined box/rack for the three big models, foam for infantry, magnetised wings.
 5. Scorecard refresh whenever the market matters again: `scrape.js` → `data/raw_listings.psv` → `python3 build.py` → photo-sweep the BUYs.
 6. Enable GitHub Pages (admin-only setting) and archive `daemon-quartermaster`, or add `ebg-ant` to it.
+7. Note: the work account's default cloud environment (Aug 2026) cannot reach ebay.com (egress policy); eBay passes
+   have to run from the personal machine or the July cloud environment.
 
 ## 9. Working on this repo
 

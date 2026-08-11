@@ -14,7 +14,8 @@ and links everything.
 
 | Page | What it is | Source |
 |------|------------|--------|
-| `index.html` | Hub: army, market, ledger of work, open threads, cross-account how-to | hand-written |
+| `index.html` | Hub: what's current — army, primer, market tool, what's next, cross-account how-to | hand-written |
+| `archive.html` | Every dated snapshot (strategy note, sweep, scout, research, lists history, handoff) with its status | hand-written |
 | `quartermaster.html` | The Shadow Legion ledger — collection at MFM v1.1 points, lists A–F, shopping, verified rules | hand-written (from the Jul 27 artifact) |
 | `primer.html` | Beginner's strategy primer — the detachment, each list's play guide, cited appendices | `docs/PRIMER.md` |
 | `guide.html` · `GUIDE.pdf` | The Primer in print layout; 31-page A4 PDF (`./make_guide.sh`) | hand-written (Jul 27) |

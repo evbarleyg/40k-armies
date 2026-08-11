@@ -13,7 +13,7 @@ const money = v => v==null?'—':'$'+Number(v).toLocaleString(undefined,{maximum
 const ratioColor = r => r>=1.5?'var(--green)':r>=0.8?'var(--amber)':'var(--red)';
 
 document.getElementById('sub').textContent =
-  `Feed scanned ${M.scanned} (${M.count} listings live that day) · photo sweep ${M.photoSweep} · rebuilt ${M.generated} · ${M.factions?M.factions.length:''} factions · source: eBay category feeds. ${M.scoredCount} have points/contents known and are scored; the rest are price-listed (UNSCORED). Paint tiers marked (assumed) were not photo-checked.`;
+  `Snapshot — feed scanned ${M.scanned} (${M.count} listings live that day; most have since ended) · photo sweep ${M.photoSweep} · rebuilt ${M.generated} · ${M.factions?M.factions.length:''} factions · source: eBay category feeds. ${M.scoredCount} have points/contents known and are scored; the rest are price-listed (UNSCORED). Paint tiers marked (assumed) were not photo-checked.`;
 
 const kpis=[['Listings',M.count],['Factions',M.factions?M.factions.length:''],['Scored',M.scoredCount],['BUY-grade',M.buyCount]];
 document.getElementById('kpis').innerHTML = kpis.map(k=>`<div class="kpi"><b>${esc(k[1])}</b><span>${k[0]}</span></div>`).join('');

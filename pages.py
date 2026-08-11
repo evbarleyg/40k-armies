@@ -15,29 +15,27 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # (href, label) — order is the nav order.
 NAV = [
-    ("quartermaster.html", "Quartermaster"),
+    ("quartermaster.html", "Army"),
     ("primer.html", "Primer"),
-    ("lists.html", "Lists"),
-    ("scout.html", "Scout"),
-    ("scorecard.html", "Scorecard"),
-    ("chaos.html", "Chaos board"),
-    ("sweep-2026-07-21.html", "Paint sweep"),
-    ("index.html#shelf", "Shelf"),          # everything else is one click from the hub
+    ("scorecard.html", "Market"),
+    ("archive.html", "Archive"),
+    ("context.html", "Context"),
 ]
 
 # source markdown -> (output page, eyebrow line)
+ARCHIVED = "Archived snapshot · "      # eyebrow prefix for dated material kept for the record
 DOCS = {
     "docs/PRIMER.md":            ("primer.html", "Shadow Legion · beginner's strategy primer · verified 2026-07-27 (MFM v1.1)"),
-    "docs/lists.md":             ("lists.html", "Army lists · the original four, the corrections, and lists 5–6"),
-    "docs/collection.md":        ("collection.html", "Collection · what came in the box"),
-    "docs/research.md":          ("research.html", "Rules research · 11th-ed Shadow Legion digest, re-verified 2026-07-27"),
-    "docs/SCOUT_REPORT.md":      ("scout.html", "eBay scout · graded buy targets and cost to complete each list · 2026-07-27"),
-    "docs/HANDOFF_2026-07-27.md": ("handoff-2026-07-27.html", "Handoff · state of the daemon-quartermaster repo on 2026-07-27"),
-    "docs/sweep-2026-07-21.md":  ("sweep-2026-07-21.html", "eBay sweep · photos viewed 2026-07-21"),
-    "docs/strategy-2026-07-20.md": ("strategy.html", "First strategy note · 2026-07-20 (superseded by the Primer)"),
     "docs/CONTEXT.md":           ("context.html", "Portable context · read this first in any new session, either account"),
     "docs/ebay-access.md":       ("ebay-access.html", "Method note · reaching eBay from a cloud session"),
-    "docs/memory-export.md":     ("memory-export.html", "Memory export · who Evan is in this hobby (from the personal account)"),
+    "docs/lists.md":             ("lists.html", ARCHIVED + "how the six lists came to be: the original four (Jul 26), the corrections, lists 5–6 (Jul 27)"),
+    "docs/collection.md":        ("collection.html", ARCHIVED + "the box as inventoried on 2026-07-25 (the Army page carries the current table)"),
+    "docs/research.md":          ("research.html", ARCHIVED + "rules digest 2026-07-26 + primary-source re-verification 2026-07-27"),
+    "docs/SCOUT_REPORT.md":      ("scout.html", ARCHIVED + "eBay scout 2026-07-27 · every listing long ended; grades and method still hold"),
+    "docs/HANDOFF_2026-07-27.md": ("handoff-2026-07-27.html", ARCHIVED + "handoff note when work moved machines, 2026-07-27"),
+    "docs/sweep-2026-07-21.md":  ("sweep-2026-07-21.html", ARCHIVED + "photo paint-tier sweep of 29 listings, 2026-07-21"),
+    "docs/strategy-2026-07-20.md": ("strategy.html", ARCHIVED + "day-one strategy note, 2026-07-20 · superseded by the Primer"),
+    "docs/memory-export.md":     ("memory-export.html", ARCHIVED + "the personal account's memory note, 2026-07-25"),
 }
 DOC_PAGES = {os.path.basename(src): out for src, (out, _) in DOCS.items()}
 
@@ -84,7 +82,7 @@ TEMPLATE = """<!DOCTYPE html>
 <body>
 <div class="wrap">
 {nav}
-<p class="docmeta">{eyebrow}</p>
+<p class="{metacls}">{eyebrow}</p>
 <article class="doc">
 {body}
 </article>
@@ -124,6 +122,7 @@ def render_docs():
         m = re.search(r"^#\s+(.+)$", text, re.M)
         title = m.group(1).strip() if m else out
         page = TEMPLATE.format(title=html.escape(title), nav=nav_html(out), eyebrow=html.escape(eyebrow),
+                               metacls="docmeta archived" if eyebrow.startswith(ARCHIVED) else "docmeta",
                                body=body, src=src)
         write_if_changed(os.path.join(HERE, out), page)
 

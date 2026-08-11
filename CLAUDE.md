@@ -23,8 +23,9 @@ Then read `docs/CONTEXT.md` — the portable summary: what he owns, what's decid
 - **The market** — `build.py` scores painted-army eBay listings (`data/raw_*.psv` → `listings.json`
   / `chaos.json` → `scorecard.html` / `chaos.html`). Photo-verified paint tiers from the 2026-07-21
   sweep are in the `SWEEP` overlay in `build.py`; the write-up is `docs/sweep-2026-07-21.md`.
-- **The site** — `index.html` is the hub; `ledger.css` the shared theme; `pages.py` renders
-  `docs/*.md` and keeps the nav in sync. `pip install markdown`, then `python3 build.py` runs it all.
+- **The site** — `index.html` is the hub (Army · Primer · Market · Archive · Context); dated snapshots
+  live behind `archive.html` and render with an "Archived snapshot" banner. `ledger.css` is the theme,
+  `pages.py` renders `docs/*.md` and keeps the nav in sync. `pip install markdown`, then `python3 build.py`.
 
 ## House rules
 

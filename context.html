@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="wrap">
-<!--nav--><nav class="sitenav" aria-label="Site"><a class="mark" href="index.html">Shadow <b>Legion</b> HQ</a><a href="quartermaster.html">Quartermaster</a><span class="sep">·</span><a href="primer.html">Primer</a><span class="sep">·</span><a href="lists.html">Lists</a><span class="sep">·</span><a href="scout.html">Scout</a><span class="sep">·</span><a href="scorecard.html">Scorecard</a><span class="sep">·</span><a href="chaos.html">Chaos board</a><span class="sep">·</span><a href="sweep-2026-07-21.html">Paint sweep</a><span class="sep">·</span><a href="index.html#shelf">Shelf</a></nav><!--/nav-->
+<!--nav--><nav class="sitenav" aria-label="Site"><a class="mark" href="index.html">Shadow <b>Legion</b> HQ</a><a href="quartermaster.html">Army</a><span class="sep">·</span><a href="primer.html">Primer</a><span class="sep">·</span><a href="scorecard.html">Market</a><span class="sep">·</span><a href="archive.html">Archive</a><span class="sep">·</span><a href="context.html" aria-current="page">Context</a></nav><!--/nav-->
 <p class="docmeta">Portable context · read this first in any new session, either account</p>
 <article class="doc">
 <h1 id="40k-context-read-this-first-state-as-of-2026-08-11">40K context — read this first (state as of 2026-08-11)</h1>
@@ -37,7 +37,7 @@ Explain jargon inline when talking to Evan — he wants to learn unit roles and 
 <tbody>
 <tr>
 <td>Hub / site</td>
-<td><code>index.html</code> (GitHub Pages URL once enabled: <code>https://evbarleyg.github.io/40k-armies/</code>; any branch via <code>raw.githack.com/evbarleyg/40k-armies/&lt;branch&gt;/index.html</code>)</td>
+<td><code>index.html</code> → Army (<code>quartermaster.html</code>) · Primer · Market (<code>scorecard.html</code>) · Archive (<code>archive.html</code>, all dated material) · Context. GitHub Pages URL once enabled: <code>https://evbarleyg.github.io/40k-armies/</code>; any branch via <code>raw.githack.com/evbarleyg/40k-armies/&lt;branch&gt;/index.html</code></td>
 </tr>
 <tr>
 <td>Collection, six lists, shopping, verified rules</td>
@@ -60,7 +60,7 @@ Explain jargon inline when talking to Evan — he wants to learn unit roles and 
 <td><code>docs/collection.md</code></td>
 </tr>
 <tr>
-<td>eBay buy targets for the lists (2026-07-27)</td>
+<td>eBay buy targets for the lists (2026-07-27, archived — prices expired)</td>
 <td><code>docs/SCOUT_REPORT.md</code>, data <code>data/scout-2026-07-27.json</code> (114 listings), tools <code>tools/ebay_search.js</code>, <code>tools/ebay_fetch.js</code></td>
 </tr>
 <tr>
@@ -342,6 +342,8 @@ Sigmar — "Blades of Khorne" listings are the same models, often cheaper.</p>
 <li>Transport: asked, never sized — N52 magnets + a steel-lined box/rack for the three big models, foam for infantry, magnetised wings.</li>
 <li>Scorecard refresh whenever the market matters again: <code>scrape.js</code> → <code>data/raw_listings.psv</code> → <code>python3 build.py</code> → photo-sweep the BUYs.</li>
 <li>Enable GitHub Pages (admin-only setting) and archive <code>daemon-quartermaster</code>, or add <code>ebg-ant</code> to it.</li>
+<li>Note: the work account's default cloud environment (Aug 2026) cannot reach ebay.com (egress policy); eBay passes
+   have to run from the personal machine or the July cloud environment.</li>
 </ol>
 <h2 id="9-working-on-this-repo">9. Working on this repo</h2>
 <pre><code class="language-bash">pip install markdown             # once
