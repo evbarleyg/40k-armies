@@ -198,6 +198,31 @@ honest empty state beats a stale $194 army for a Terminator gap); the codex page
 plain way-back line rather than the site nav (it is a book); user-typed 200-character tokens can still widen a device
 list card at 320px after `overflow-wrap:anywhere` (names are capped at 60 characters instead).
 
+### Round 3 (reviewed at `79eefc3`, fixes in `a203c3c`)
+
+**Battery:** the same four lenses, now separating *defects* from *suggestions* so a dry round can be called honestly.
+UI: 23 defects (1 major — the crate paint select had zero slack at 390 and overlapped the count at 360–375; 9 minor;
+13 nit). Data + rules: 3 low defects (a raw-vs-distinct verify count on one card, a wrong top-up sentence after merging,
+an unmarked best-split value) and every recomputed number correct — "otherwise dry". Flows: 18 defects, of which 5 were
+everyday (double-tap logged a phantom game, a pasted URL widened the phone layout, the "today" shortcut sat under the
+next field at 320–384, a Back press with a field focused threw, Library overflowed 16px at 320) and 13 needed two tabs,
+write-refusing storage or hand-corrupted blobs. Four-questions: **all four yes** again, with copy-level contradictions
+(the seller's "~2,110 pts" against the audited 2,180, "verified Jul 27" beside "re-check Aug 10", three "wanted"
+framings, three paint vocabularies) and a few undecodable phrases ("the app", "the July list book", "(1+10)").
+Verification: each flows/UI major and the data items were reproduced in a drive script before fixing and re-driven
+after (boot with four kinds of corrupt overlay, quarantine of wrong-shape drafts, double tap, long URL, today button at
+320, cross-tab discard/adoption, malformed hash) — all held after the fix.
+
+**Fixed:** everything listed, as described in commit `a203c3c` — including the whole class behind the storage findings
+(shape-checked reads with quarantine, payload-validated patches, revision-based cross-tab adoption, honest failure on
+every write path) rather than the individual repros only.
+
+**Waived (with reason):** viewer.css (the scorecard pages) still has no `--crimson-soft`, so its nav falls back to
+crimson (separate tool, dark-only by design, logged before); the codex keeps its own palette with a minimal additive
+contrast override instead of adopting the site tokens (it is a book from the other line of work); suggestions from all
+three reviewers (leads-picker disambiguation, hobby note duplication, order-row date prefix, etc.) are parked as polish,
+not defects.
+
 ## 6. Questions for the owner (taste, not fact)
 
 - **Q1 — Warband name.** The codex's *Umbral Creed / Long Shadow Host* is used everywhere in the app; the
