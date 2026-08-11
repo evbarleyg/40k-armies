@@ -274,7 +274,7 @@ author's re-drive of every round-5 repro. All reported items fixed in `b61dec5`.
 rounds each found one regression class in the cross-tab/storage machinery (each closed structurally) and otherwise
 polish. The spec's "two consecutive dry rounds" was not literally reached — UI and flows reviewers asked to be maximally
 strict will always find a nit — and the owner asked why the loop was still running. Residuals worth knowing about:
-the flows round-6 report (if it lands after this entry, its findings are unreviewed); the parked polish suggestions in
+the flows round-6 report landed after the stop: its four cross-build findings (same-day builds ordered by hash, a yielded tab still able to export/discard, a dedupe key that could drop a second change, a rebase that deleted an overlay it could not park) plus a games-guard false refusal and a badge clip were data-loss class or cheap, so they were fixed and re-driven in one targeted commit without a further battery; the parked polish suggestions in
 rounds 3–6 above; Q1–Q3 below. To resume: run the four lenses in §5's protocol against `main` after merge, fix, and log
 a Round 7 here.
 
