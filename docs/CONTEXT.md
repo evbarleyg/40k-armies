@@ -10,7 +10,7 @@ of the army or the plan, update this file in the same commit.
 <!--gen:state-->
 - **Store:** `data/muster.json` (schema 1, updated 2026-08-11); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. Aug 10: Skullmaster is 85 pts (carried as ~75 before); nothing else in these lists moved. A points revision (MFM v1.2, Aug 5) is reported with no Daemons/CSM/Knights changes — confirm the version banner in the app. Next balance update expected Aug 19–26.
 - **Owned:** 21 inventory records, ≈92 models, 2,730 pts at MFM v1.1 (2,410 table-ready); spent ≈ $1,391 over 7 orders.
-- **Inbound:** Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed 2026-08-11).
+- **Inbound:** Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed Aug 11).
 - **Lists:** playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,950), D (1,995), E (1,980).
 - **Games logged:** 0 (rule: 10 before the next model, counting after the two inbound crates (the Khorne lot and the Bloodcrushers) are catalogued).
 <!--/gen:state-->

@@ -133,7 +133,8 @@ def validate(store, d):
 
 # ---------- derived extras that only python needs ----------
 
-JUNK_NOTE = re.compile(r"bits only|not a complete|built as skull cannon|\bauction\b|current bid", re.I)
+JUNK_NOTE = re.compile(r"bits only|not a complete|built as skull cannon|\bauction, ends|^auction\b|current bid|only \d+ models|short of target|wrong model", re.I)
+LORD_KIND = [(re.compile(r"terminator", re.I), "chaos_lord_terminator"), (re.compile(r"jump\s*pack|raptor", re.I), "chaos_lord_jump_pack"), (re.compile(r"juggernaut|bike|disc|daemonic mount", re.I), None)]
 
 def gap_prices():
     """Landed-price snapshot per unit id from the last read-only scout run (never a live price).
@@ -145,20 +146,36 @@ def gap_prices():
         return {}
     keymap = {"cultists": "cultist_mob"}      # scout search keys → unit ids where they differ
     flagged = {f.get("id") for f in d.get("flagged", []) if isinstance(f, dict)}
-    out = {}
+    buckets = {}                              # unit id -> {"prices": [...], "seen": n}
+    def unit_for(key, x):
+        if key == "chaos_lord":               # that search returned foot, Terminator, jump and mounted lords together
+            for pat, uid in LORD_KIND:
+                if pat.search(str(x.get("t") or "")): return uid
+            return "chaos_lord"
+        return keymap.get(key, key)
     for key, items in d.items():
         if not isinstance(items, list) or not items or not isinstance(items[0], dict) or "landed" not in items[0]:
             continue
-        prices, seen = [], 0
         for x in items:
-            seen += 1
+            uid = unit_for(key, x)
+            if uid is None: continue
+            b = buckets.setdefault(uid, {"prices": [], "seen": 0}); b["seen"] += 1
             if str(x.get("type", "")).upper().startswith("AUC"): continue          # a bid is not a price
             if x.get("id") in flagged or JUNK_NOTE.search(str(x.get("note") or "")): continue
-            try: prices.append(round(float(str(x.get("landed")).replace("$", "").replace(",", "")), 2))
+            try: b["prices"].append(round(float(str(x.get("landed")).replace("$", "").replace(",", "")), 2))
             except (TypeError, ValueError): pass
-        if prices:
-            out[keymap.get(key, key)] = {"n": len(prices), "of": seen, "min": min(prices), "med": round(statistics.median(prices), 2), "max": max(prices)}
+    out = {uid: {"n": len(b["prices"]), "of": b["seen"], "min": min(b["prices"]), "med": round(statistics.median(b["prices"]), 2), "max": max(b["prices"])}
+           for uid, b in buckets.items() if b["prices"]}
     return {"date": d.get("scraped", "2026-07-27"), "units": out}
+
+def best_value(unit, models):
+    """Best points value of `models` models split into datasheet sizes (10 Legionaries → 2×5 = 180) — mirrors lint.js."""
+    sizes = [s for s in unit["sizes"] if s.get("pts") is not None and s["models"] > 0]
+    best = [0] * (models + 1)
+    for m_ in range(1, models + 1):
+        for s in sizes:
+            if s["models"] <= m_: best[m_] = max(best[m_], best[m_ - s["models"]] + s["pts"])
+    return best[models]
 
 def gap_estimate(missing, prices, units):
     """Quantity-aware floor for a list's missing entries: each priced unit costs ceil(models / smallest
@@ -222,8 +239,10 @@ def region_inventory_md(store, d):
     rows = ["| Unit | Count | Pts (MFM v1.1) | Paint | From | Notes |", "|---|---|---|---|---|---|"]
     for i in store["inventory"]:
         u = units[i["unit"]]
-        size = next((s for s in sorted(u["sizes"], key=lambda s: -s["models"]) if s["models"] <= (i["models"] or 0) and s["pts"] is not None), None)
-        pts = "—" if not size else (str(size["pts"]) if size["models"] == i["models"] else f"{size['pts']} per {size['models']}")
+        v = best_value(u, i["models"] or 0)
+        exact = any(s["models"] == i["models"] for s in u["sizes"])
+        smallest = min(u["sizes"], key=lambda s: s["models"])
+        pts = (f"{v}" + ("" if exact or len(u["sizes"]) == 1 else " (best split)")) if v else ("—" if smallest.get("pts") is None else f"— ({smallest['pts']} per {smallest['models']})")
         o = orders.get(i.get("order"))
         frm = f"{fmt_date(o['date'])} · {o['item'].split(' (')[0]}" if o else ""
         count = f"≈{i['models']}" if i.get("approx") else str(i["models"])
@@ -266,8 +285,10 @@ def region_lists_md(store, d):
         gap = ", ".join(f"{units[m['unit']]['name']} ×{m['models']}" for m in cov["missing"]) or ("; ".join(f"{units[h['unit']]['name']}: {h['paint']}" for h in cov["hobby"]) or "—")
         lo, mid, priced = gap_estimate(cov["missing"], prices, units)
         partial = " for the priced part" if priced < len(cov["missing"]) else ""
-        verify = [f["msg"] for f in lint["flags"] if f["level"] == "warn"]
-        legal = ("yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}") + (f" (verify: {'; '.join(verify)})" if verify else "")
+        verify = [f["msg"] for f in lint["flags"] if f["level"] == "warn"] + [f"{f['msg']}" for e in lint["entries"] for f in e["flags"] if f["level"] == "warn"]
+        seen_v = []; [seen_v.append(x) for x in verify if x not in seen_v]
+        short = [re.split(r"[—:(]", x)[0].strip() for x in seen_v]
+        legal = ("yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}") + (f" ({len(seen_v)} to verify in the app: {'; '.join(short)})" if seen_v else "")
         rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {merge_gap(gap)}{f' (from ≈${round(lo):,}{partial}, Jul 27 BIN prices, auctions and part-kits excluded)' if priced else ''} |")
     return "\n".join(rows)
 

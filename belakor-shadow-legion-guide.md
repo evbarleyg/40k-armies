@@ -83,6 +83,13 @@ the strongest enemy unit" — is this rule, weaponized.
 
 ## 4. The Shadow Legion detachment (what your army is built for)
 
+> *Later note (2026-08-11): this section is the Jul 24 digest. The verified gists now live in `data/muster.json` →
+> `rules` and on Muster's rules check. Corrections since: Chaos Terminator Squad is on the Thralls list; the Tzeentch boon
+> (Penumbral Puppetry) is Stealth / −1 to be hit in melee and the Slaanesh boon (Shadow's Caress) covers all snap shooting;
+> the six Shadow Legion stratagems are Channelled Wrath, Binding Shadow, Death Denied, Encroaching Darkness, Spiteful Demise
+> and Shade Path (Warp Surge and Denizens of the Warp are unverified here); Deep Strike is more than 8" this edition; the
+> Lord of Change is 320 at MFM v1.1 (the table in §5 has the seller's 300).*
+
 Introduced in the mid-2025 Chaos Daemons index update (the modern successor to 9th edition's
 "Disciples of Be'lakor" army of renown), and carried into 11th edition's June 2026 faction
 pack as a **2 Detachment Point** option (disposition: Purge the Foe). It's the

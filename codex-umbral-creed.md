@@ -73,7 +73,11 @@ blood flows. Lately it has flowed mostly from California.
 ## PART II — ARMOURY OF SHADOW
 
 *The two rules engines the whole army runs on. Condensed from
-`belakor-shadow-legion-guide.md`; that file holds the full detail.*
+`belakor-shadow-legion-guide.md`; that file holds the full detail. This is the July digest: the later-verified gists
+live in `data/muster.json` → `rules` (Muster shows them on every list's rules check), and where they differ — Chaos
+Terminators are on the Thralls list; the Tzeentch boon is Stealth / −1 to be hit in melee and the Slaanesh boon covers
+all snap shooting; Deep Strike is normally more than 8"; the six verified stratagems are Channelled Wrath, Binding
+Shadow, Death Denied, Encroaching Darkness, Spiteful Demise and Shade Path — the store wins.*
 
 ### Shadow of Chaos (army rule)
 
@@ -388,7 +392,7 @@ remaining gaps.
 | Jul 27 | Flesh Hounds ×5 | ≈$82 (combined order with Mallex) | Well painted | Delivered Aug 4 |
 | Jul 28 | Bloodmaster + Bloodletters ×10 (auction win) | $45.10 | Painted | Delivered Aug 4 |
 | Aug 5 | Khorne Daemons Army Lot | $213.70 ($179 offer accepted) | Well painted | Shipped Aug 6 (USPS), ETA Aug 10–17 |
-| Aug 5 | Bloodcrushers lot | ≈$112 (C$154.76) | Some damage, repairs due | ETA Aug 18–Sep 1 (reconfirmed 2026-08-11) |
+| Aug 5 | Bloodcrushers lot | ≈$112 (C$154.76) | Some damage, repairs due | ETA Aug 18–Sep 1 (reconfirmed Aug 11) |
 
 **Total tithed: ≈ $1,391** across 7 orders; 2 still in transit (Khorne Daemons Army Lot, Bloodcrushers lot).
 <!--/gen:ledger-->

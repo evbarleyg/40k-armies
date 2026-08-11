@@ -350,8 +350,8 @@ shopping list. The Muster app computes each list's status live from the store, s
 (Blues and Brimstones as split tokens) · Flamers ×3 · Screamers ×3 · Nurglings ×3 · Havocs · Legionaries ×10 · Master of
 Possession → Possessed ×5 · War Dog Karnivores ×2 — 1,995 at MFM v1.1, Be'lakor Warlord, War Dogs via Dreadblades. It is the
 all-original-lot list: worth knowing for a day when the Khorne wing is on the painting desk, and a slower cousin of List A
-(no Chaos Lord, so no <i>Fade to Darkness</i> yo-yo — put an enhancement on the Master of Possession instead and learn the
-phases, the aura and the scoring).</p>
+(no Chaos Lord, so no <i>Fade to Darkness</i> yo-yo, and at 1,995 no enhancement fits — learn the phases, the aura and
+the scoring first).</p>
 </div>
 
 The arc from here, one step at a time:
@@ -361,8 +361,8 @@ The arc from here, one step at a time:
 | now | nothing | **List A** — play it; log the games | Every model owned and painted; the house rule says ten games before the next model |
 | 1 | assemble and paint the Bloodthirster (owned) | **List F** (Triple Monster), the most forgiving list — and the army's second monument | No money, the biggest change in how the army plays *and* looks |
 | 2 | open the two crates (Khorne lot, Bloodcrushers) and catalogue them in Muster | most of **E** and **D**, depending on what is inside | Already paid for; repairs and re-basing are Phase 3 work |
-| 3 | Skullmaster + Rendmaster on Blood Throne (≈ $45 and ≈ $72 for a complete Blood Throne kit, landed, at July Buy-It-Now prices) | **List E** (the Fadethirster) and **D** complete | The only purchases the tournament shape still needs — after the ten games |
-| — | Beasts ×2 + Plague Drones ×3 (≈ $180) | **List B** | Only if Nurgle attrition is the game you want; nothing else uses them |
+| 3 | Skullmaster + Rendmaster on Blood Throne (≈ $45 and ≈ $72 for a complete Blood Throne kit, landed, at July Buy-It-Now prices) | **List E** (the Fadethirster); **D** then still wants Warp Talons, five more Flesh Hounds and three more Nurgling bases | The only purchases the tournament shape still needs — after the ten games |
+| — | Beasts ×2 + Plague Drones ×3 (unpriced in the July scout; the earlier ≈ $180 was a guess) | **List B** | Only if Nurgle attrition is the game you want; nothing else uses them |
 | — | Terminator Lord + Terminators, Chosen, Warp Talons, ten more Cultists | **List C** (Word Bearers Ascendant) | The theme list; buy when the marine half is what you enjoy painting — single units now that the Night Lords lot is gone |
 
 Two properties keep the order robust: every step is playable on its own, and almost every model bought sits in at least two lists.
@@ -380,7 +380,7 @@ What is left to buy is short, and all of it waits on the ten-games rule and on w
    Throne (a complete Blood Throne / Skull Cannon kit ≈ $72; part-kits and cannon builds go cheaper and are not a Throne) —
    the tournament list's only real gaps.
 2. One Bloodletter, if the Khorne lot does not supply it — nine were counted against ten listed.
-3. Only if List B appeals: Beasts of Nurgle ×2 and Plague Drones ×3 (≈ $180 together in July).
+3. Only if List B appeals: Beasts of Nurgle ×2 and Plague Drones ×3 (never scouted; price them before deciding).
 4. Only if List C appeals: a Terminator Lord and five Terminators, five Chosen, five Warp Talons, ten more Cultists — bought
    as single painted-or-bare units now that the Night Lords lot has sold elsewhere.
 5. Some day: Seekers, for the Slaanesh boon and fast scoring — nothing in the six lists needs them.

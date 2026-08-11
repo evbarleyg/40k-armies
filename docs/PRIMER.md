@@ -159,6 +159,13 @@ You **control an objective marker** if the total **OC** (Objective Control — a
 
 ## Part 2 — Your List Options
 
+> **Read the rosters below with the store, not instead of it (note added 2026-08-11).** The "own / buy / verify" tags and a
+> few compositions in this part are the Jul 27 pre-audit state: the photo re-audit found no Beasts, Plague Drones,
+> Terminators or Bloodletters in the original box (and unlisted Flamers and Cultists), the August purchases added a
+> Bloodthirster, a Chaos Lord, Flesh Hounds and a Bloodmaster with nine Bloodletters, Skullmaster went to 85, and lists C
+> and E were re-stored at 1,950 and 1,980. Muster (Lists → each list) has the current rosters, ownership and prices;
+> the play guides here — how each list wins, deploys and spends CP — still hold.
+
 Six complete 2,000-pt lists. **A–D** are the four `lists.md` archetypes rebuilt with corrected points and legality fixes; **E–F** are new. Each roster table marks whether you already own the unit or need to buy it (prices from `listings.json`, eBay 2026-07-26). All Heretic Astartes (HA) subtotals are checked against the 1,000-pt cap.
 
 ---

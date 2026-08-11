@@ -178,5 +178,5 @@ tagging objectives at OC 0, the Tzeentch and/or) are recorded in the store's not
 - **Q3 — List parity.** The six list compositions come from the Jul 27 work-account Quartermaster; the
   personal ledger artifact (a56e6f5e…) is unreadable from this account. If its tables differ (e.g. List C
   after the audit removed the Terminators), paste them into a session and the store follows.
-- **Q4 — Beasts of Nurgle points.** Sources in the repo disagree (140 vs 150 for two); stored as 150 with a
-  verify flag until the app is checked.
+- **Q4 — Beasts of Nurgle points.** Resolved in round 1: every repo table says 140 for two (the "150" was two one-model
+  units); stored as 75 / 140 with a verify flag on the third-model question only.
