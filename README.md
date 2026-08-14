@@ -18,6 +18,7 @@ buckets** (~157 live listings as of the last run).
 | `listings.js` | Same payload as `window.SCORECARD_DATA` so `index.html` opens standalone |
 | `index.html` | Self-contained scorecard viewer (filters by faction/verdict, sortable) |
 | `scrape.js` | Paste-into-console scraper to refresh `raw_listings.psv` |
+| `scrape-search.js` | Paste-into-console scorer for a single eBay search: landed price at the real 10.55% tax rate, plus 3D-print / wrong-model / auction flags |
 | `data/raw_chaos.psv` | **Chaos edition** raw scrape (fresh sweep, feed pages 1–5, Chaos factions only) |
 | `chaos.json` / `chaos.js` / `chaos.html` | Chaos/Be'lakor edition data + standalone viewer |
 | `shadow-legion-strategy.md` | Gameplan + shopping list for the purchased Shadow Legion army |
