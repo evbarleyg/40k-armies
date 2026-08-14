@@ -61,8 +61,10 @@ everything the gods built derivative and says so.
 A congregation that worships silence still has to pay its bills, and the coin of
 Chaos is blood. In the high summer of the Creed's second year the tithe came due,
 and the court of Khorne arrived to collect it in person: a Bloodthirster, unbound
-and unassembled, patient in his crate; a Herald with nine sworn killers; five
-hounds of flesh who can hear a lie at nine inches and take it personally.
+and unassembled, patient in his crate; two Heralds, each with a brick of sworn
+killers; five hounds of flesh who can hear a lie at nine inches and take it
+personally. A Daemon Prince came with them, uninvited, and was turned away at
+the door for reasons the Creed considers settled scripture.
 
 The Creed does not love Khorne. The Creed pays him, promptly, the way you pay
 any collector you intend to keep using. Khorne does not care from whence the
@@ -194,11 +196,20 @@ and rear objectives. They do not fight so much as fly through and apologize.
 ### The Blood Tithe (Khorne) — *new musters, August 2026*
 
 **EXALTED BLOODTHIRSTER — The Unbound Word** *(320 pts; unassembled,
-unpainted)*
+unpainted; ⚠ 3D-printed resin, 100mm base)*
 
 The collector himself. He arrived in pieces, which the Creed regards as
 theologically correct: wrath, some assembly required. He is also the host's one
-true hobby project — sprues, glue, and a red that will have to be earned.
+true hobby project — resin, superglue, and a red that will have to be earned.
+
+*On provenance:* he is not a Citadel model. The listing disclosed it in the
+description body — "This is a 3D Resin kit," ABS resin, and a **100mm** base
+where a true Bloodthirster stands on a 120mm oval — while the photograph showed
+the seller's own painted GW model, "for reference only." Fine at any kitchen
+table, and the seller reports using his without trouble at stores. Not
+acceptable at Games Workshop's own events, which require Citadel miniatures.
+Re-base him on a 120mm oval before he ever sees a table, and assemble with
+superglue: plastic cement will not bond resin.
 
 *On the battlefield (once mustered):* the tournament engine. He is a Character,
 not an Epic Hero, so *Fade to Darkness* is legal on him — drop turn two,
@@ -239,11 +250,35 @@ listing, which for Khorne is practically a blessing)*
 Juggernaut cavalry. Repair, re-base, and they become the Tithe's armored fist —
 note the July 2026 balance pass already taxed them 10 points for being good.
 
-**KHORNE DAEMONS ARMY LOT — inbound** *(shipped Aug 6 via USPS; ETA Aug 10–17;
-contents to be catalogued on arrival)*
+**SECOND BLOODMASTER & BLOODLETTERS — The Appendix** *(~175 pts as Herald +
+brick; painted; confirm exact count)*
 
-A painted lot bought on a $179 offer. The Ledger will be amended when the crate
-opens; the Creed expects letters, and suspects a Herald.
+The crate opened on August 13 and the Creed's expectations were met precisely:
+letters, and a Herald. A second Bloodmaster and a second full brick, complete
+with hornblower and icon bearer, filed after the main text and no less lethal
+for it.
+
+*On the battlefield:* two Bloodmasters means two led bricks, which is the whole
+Crimson Tithe in one purchase. Run them on opposite flanks and the opponent
+cannot screen both; each advances and charges under the Khorne boon, and each
+stands back up D3 models at a time inside the shadow. Roughly twenty
+Bloodletters is no longer a garnish — it is the infantry core the army never
+had.
+
+**DAEMON PRINCE — The Rival** *(no points in this detachment; painted)*
+
+Black-armored, red-winged, and mistaken for a Bloodthirster by everyone
+including his new owner until the bases were measured. He came with the Blood
+Tithe and he cannot march with the Creed, for reasons doctrinal rather than
+tactical: Be'lakor was the First Daemon Prince, and the Shadow Legion admits no
+second. The Dark Master does not share the title.
+
+*On the battlefield:* nowhere, here. He is legal in any other Chaos Daemons
+detachment — Daemonic Incursion, the mono-god legions, Cavalcade of Chaos — and
+in a Chaos Space Marines force. Casually he stands in for the Bloodthirster
+still in his box: seat him on a 120mm oval, tell your opponent he is shorter
+than the thing he represents, and let them measure line of sight as though he
+were not.
 
 ### The Margins (Nurgle)
 
@@ -368,6 +403,12 @@ Screamers · Havocs · 5 Legionaries · MoP → Possessed · Cultists. Three T10
 monsters each dragging a 6" shadow bubble own most of the board by turn two.
 Beginner-forgiving. Unlocked the moment the Unbound Word gets his arms.
 
+**The Crimson Tithe list — now buildable.** Be'lakor · Bloodmaster + brick ·
+Bloodmaster + brick · 5 Flesh Hounds · Nurglings · Pinks · Mallex +
+Legionaries · Havocs · Cultists. The August 13 crate supplied the second Herald
+and second brick outright, so the doctrine that was theory in July is a list you
+can deploy once the Bloodletters' shipping damage is repaired.
+
 **The Fadethirster — the tournament shape.** Adds Skullmaster + 6 Bloodcrushers
 and a Rendmaster on Blood Throne to the Bloodthirster loop; every 4-1 result
 the Battle Doctrine deck studied runs this silhouette, usually with the
@@ -382,11 +423,11 @@ remaining gaps.
 | Date | Tithe | Cost (landed) | State | Status |
 |---|---|---|---|---|
 | Jul 21 | Shadow Legion Army Lot (Word Bearer theme, ~2,110 pts) | $840.18 | Tabletop paint | Delivered Jul 28 |
-| Jul 27 | Exalted Bloodthirster | $78.03 | Unassembled, unpainted | Delivered Aug 4 |
+| Jul 27 | Exalted Bloodthirster | $78.03 | Unassembled, unpainted — 3D-print resin, 100mm base | Delivered Aug 4 |
 | Jul 27 | Obsidius Mallex (Chaos Lord) | ~$20 (combined order) | Painted | Delivered Aug 1 |
 | Jul 27 | Flesh Hounds ×5 | ~$82 (combined order) | Well painted | Delivered Aug 4 |
 | Jul 28 | Bloodmaster + Bloodletters ×10 | $45.10 | Painted | Delivered Aug 4 (auction win) |
-| Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | Shipped Aug 6 (USPS), ETA Aug 10–17 |
+| Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | Delivered Aug 13 — Bloodmaster + brick + Daemon Prince |
 | Aug 5 | Bloodcrushers lot | ~C$154.76 (~$112) | Some damage, repairs due | ETA Aug 18 – Sep 1 (reconfirmed Aug 11) |
 
 **Total tithed: ≈ $1,391.** The strategy doc's plan priced the Night Lords lot
@@ -394,9 +435,12 @@ at $650; the Creed spent ~$550 building a Khorne wing instead and kept the
 difference. The Mallex, Flesh Hounds, and Bloodmaster purchases were the
 Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo
 audit also surfaced two units the seller never listed (3 Flamers, 10 Cultists),
-now entered in Part III. Remaining gaps: a Skullmaster and Rendmaster for the
-tournament list, fast Slaanesh scoring (the Seekers lot went unpurchased), and
-mobile CSM (Raptors or Warp Talons, someday, painted in crimson). The $650
+now entered in Part III. The August 13 crate then closed buy-queue #5 (a second
+Bloodletter brick) and threw in a second Herald, at the cost of a Daemon Prince
+the detachment will not seat. Remaining gaps: a Skullmaster and Rendmaster for
+the tournament list, five more Flesh Hounds, fast Slaanesh scoring (the Seekers
+lot went unpurchased), and mobile CSM (Raptors or Warp Talons, someday, painted
+in crimson). The $650
 Night Lords lot sold to another buyer on Aug 10, closing that road for good;
 mobile CSM now means single-unit purchases.
 
