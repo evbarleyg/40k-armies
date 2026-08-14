@@ -14,7 +14,7 @@ import datetime, glob, json, os, re, shutil, statistics, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STORE = os.path.join(HERE, "data", "muster.json")
-SCOUT = os.path.join(HERE, "data", "scout-2026-07-27.json")
+SCOUTS = os.path.join(HERE, "data", "scout-*.json")   # dated snapshots on disk; buying.scan_log in the store says which one prices the gaps
 OUT_JS = os.path.join(HERE, "muster.js")
 
 # ---------- io ----------
@@ -103,6 +103,14 @@ def integrity(store):
     if DATE.match(snap):
         age = (datetime.date.today() - datetime.date.fromisoformat(snap)).days
         if age > 45: print(f"[muster] warning: rules snapshot verified {age} days ago ({snap}) — re-verify points in the app")
+    scans = store.get("buying", {}).get("scan_log") or []
+    for s in scans:
+        if not DATE.match(str(s.get("date", ""))): errs.append(f"buying.scan_log: bad date {s.get('date')!r}")
+        if not os.path.exists(os.path.join(HERE, str(s.get("file", "")))): errs.append(f"buying.scan_log: {s.get('file')} does not exist")
+    if [s.get("date") for s in scans] != sorted(s.get("date") for s in scans): errs.append("buying.scan_log: entries must be in date order (the last one prices the gaps)")
+    on_disk = sorted(os.path.relpath(p, HERE) for p in glob.glob(SCOUTS))
+    if on_disk and (not scans or on_disk[-1] > scans[-1].get("file", "")):
+        print(f"[muster] warning: {on_disk[-1]} is newer than anything registered in buying.scan_log ({scans[-1].get('file') if scans else 'empty'}) — register it there to price the gaps from it")
     return errs
 
 def derived(store_path=STORE):
@@ -137,12 +145,20 @@ def validate(store, d):
 JUNK_NOTE = re.compile(r"bits only|not a complete|built as skull cannon|\bauction, ends|^auction\b|current bid|only \d+ models|short of target|wrong model", re.I)
 LORD_KIND = [(re.compile(r"terminator", re.I), "chaos_lord_terminator"), (re.compile(r"jump\s*pack|raptor", re.I), "chaos_lord_jump_pack"), (re.compile(r"juggernaut|bike|disc|daemonic mount", re.I), None)]
 
-def gap_prices():
-    """Landed-price snapshot per unit id from the last read-only scout run (never a live price).
-    Excludes auctions (a bid is not a price), the scout's own flagged listings, and rows whose notes say
-    they are not a complete kit. Prices keep their cents; callers round once, after summing."""
+def price_snapshot(store):
+    """The scout snapshot the store points at: the last entry of buying.scan_log ({date, file, what}), or None."""
+    log = store.get("buying", {}).get("scan_log") or []
+    return log[-1] if log else None
+
+def gap_prices(store):
+    """Landed-price snapshot per unit id from the scout file the store registers last in buying.scan_log
+    (a whole-file snapshot, never a live price: a unit only an older file priced is unpriced now). Excludes
+    auctions (a bid is not a price), the scout's own flagged listings, and rows whose notes say they are not a
+    complete kit. Prices keep their cents; callers round once, after summing."""
+    snap = price_snapshot(store)
+    if not snap: return {}
     try:
-        d = load(SCOUT)
+        d = load(os.path.join(HERE, snap["file"]))
     except (OSError, ValueError):
         return {}
     keymap = {"cultists": "cultist_mob"}      # scout search keys → unit ids where they differ
@@ -167,7 +183,7 @@ def gap_prices():
             except (TypeError, ValueError): pass
     out = {uid: {"n": len(b["prices"]), "of": b["seen"], "min": min(b["prices"]), "med": round(statistics.median(b["prices"]), 2), "max": max(b["prices"])}
            for uid, b in buckets.items() if b["prices"]}
-    return {"date": d.get("scraped", "2026-07-27"), "units": out}
+    return {"date": d.get("scraped") or snap["date"], "file": snap["file"], "what": snap.get("what", ""), "units": out}
 
 def best_value(unit, models):
     """Best points value of `models` models split into datasheet sizes (10 Legionaries → 2×5 = 180) — mirrors lint.js."""
@@ -180,18 +196,18 @@ def best_value(unit, models):
 
 def gap_estimate(missing, prices, units):
     """Quantity-aware floor for a list's missing entries: each priced unit costs ceil(models / smallest
-    datasheet size) × its cheapest usable listing (min) or its median. Returns (lo, mid, n_priced)."""
+    datasheet size) × its cheapest usable listing (min) or its median. Entries are pooled by unit first, the
+    way the app's gapCost pools them. Returns (lo, mid, n_priced, n_units)."""
     lo = mid = 0.0; priced = 0
     pooled = {}
     for m_ in missing: pooled[m_["unit"]] = pooled.get(m_["unit"], 0) + m_["models"]
-    missing = [{"unit": k, "models": v} for k, v in pooled.items()]
-    for m_ in missing:
-        p = prices.get(m_["unit"]); u = units.get(m_["unit"])
+    for uid, models in pooled.items():
+        p = prices.get(uid); u = units.get(uid)
         if not p or not u: continue
         per = min(s["models"] for s in u["sizes"]) or 1
-        boxes = -(-m_["models"] // per)
+        boxes = -(-models // per)
         lo += round(boxes * p["min"]); mid += round(boxes * p["med"]); priced += 1
-    return lo, mid, priced
+    return lo, mid, priced, len(pooled)
 
 # ---------- generated regions ----------
 
@@ -301,18 +317,20 @@ def merge_gap(text):
 def region_lists_md(store, d):
     if not d: return "*(list status needs node — run `python3 muster.py build` where node is installed)*"
     units = {u["id"]: u for u in store["units"]}
-    prices = gap_prices().get("units", {})
+    gp = gap_prices(store)
+    prices = gp.get("units", {})
+    pdate = fmt_date(gp["date"]) if gp else ""          # only rendered when something is priced, i.e. when gp exists
     rows = ["| List | Idea | Total | Legal | Status | Gap |", "|---|---|---|---|---|---|"]
     for l in store["lists"]:
         r = d["lists"][l["id"]]; lint, cov = r["lint"], r["coverage"]
         gap = gap_words(cov["missing"], units) or ("; ".join(f"{units[h['unit']]['name']}: {'on sprue' if h['paint'] == 'unassembled' else h['paint']}" for h in cov["hobby"]) or "—")
-        lo, mid, priced = gap_estimate(cov["missing"], prices, units)
-        partial = f" ({priced} of {len(cov['missing'])} units priced)" if priced < len(cov["missing"]) else ""
+        lo, mid, priced, n_units = gap_estimate(cov["missing"], prices, units)
+        partial = f" ({priced} of {n_units} units priced)" if priced < n_units else ""
         verify = [f["msg"] for f in lint["flags"] if f["level"] == "warn"] + [f"{f['msg']}" for e in lint["entries"] for f in e["flags"] if f["level"] == "warn"]
         seen_v = []; [seen_v.append(x) for x in verify if x not in seen_v]
         short = [re.split(r"[—:(]", x)[0].strip() for x in seen_v]
         legal = ("yes" if lint["legal"] else f"**no** — {'; '.join(f['msg'] for f in lint['flags'] if f['level'] == 'error')}") + (f" ({len(seen_v)} to verify in the app: {'; '.join(short)})" if seen_v else "")
-        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {gap}{f' (from ≈${round(lo):,}{partial}, Jul 27 BIN prices, auctions and part-kits excluded)' if priced else ''} |")
+        rows.append(f"| **{l['id']} · {l['name']}** | {l['idea']} | {lint['total']:,} | {legal} | {STATUS_WORD[cov['status']]} | {gap}{f' (from ≈${round(lo):,}{partial}, {pdate} Buy-It-Now floors, auctions and part-kits excluded)' if priced else ''} |")
     return "\n".join(rows)
 
 def region_context_md(store, d):
@@ -365,7 +383,7 @@ def apply_regions(store, d, check_only=False):
 def emit_js(store, d):
     """muster.js carries a build stamp the app orders overlays by (an older build's tab yields to a newer one).
     The stamp is data date + UTC build time, so it is monotonic; it is refreshed only when the payload changes."""
-    body = {"store": store, "gapPrices": gap_prices(), "generated": datetime.date.today().isoformat()}
+    body = {"store": store, "gapPrices": gap_prices(store), "generated": datetime.date.today().isoformat()}
     enc = lambda payload: "window.MUSTER = " + json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + ";\n"
     prev_built = None
     if os.path.exists(OUT_JS):

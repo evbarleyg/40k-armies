@@ -30,7 +30,7 @@ DOCS = {
     "docs/lists.md":             ("lists.html", ARCHIVED + "how the six lists came to be: the original four (Jul 26), the corrections, lists 5–6 (Jul 27)"),
     "docs/collection.md":        ("collection.html", ARCHIVED + "the box as inventoried on 2026-07-25 (the Army page carries the current table)"),
     "docs/research.md":          ("research.html", ARCHIVED + "rules digest 2026-07-26 + primary-source re-verification 2026-07-27"),
-    "docs/SCOUT_REPORT.md":      ("scout.html", ARCHIVED + "eBay scout 2026-07-27 · every listing long ended; grades and method still hold"),
+    "docs/SCOUT_REPORT.md":      ("scout.html", "Buying · price scan 2026-08-14 (search index: retail floors and leads to open by hand) · the photo-graded eBay scout of 2026-07-27 follows for the method"),
     "docs/HANDOFF_2026-07-27.md": ("handoff-2026-07-27.html", ARCHIVED + "handoff note when work moved machines, 2026-07-27"),
     "docs/sweep-2026-07-21.md":  ("sweep-2026-07-21.html", ARCHIVED + "photo paint-tier sweep of 29 listings, 2026-07-21"),
     "docs/strategy-2026-07-20.md": ("strategy.html", ARCHIVED + "day-one strategy note, 2026-07-20 · superseded by the Primer"),

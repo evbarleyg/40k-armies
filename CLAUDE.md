@@ -30,9 +30,11 @@ Then read `docs/CONTEXT.md` (the portable summary; its top block is generated fr
   ledger), `belakor-shadow-legion-guide.md` → `rules-guide.html`, `docs/PRIMER.md` → `primer.html`
   (beginner's play guide; print layout `guide.html` → `GUIDE.pdf` via `./make_guide.sh`), `docs/VISION.md`
   → `vision.html` (five painting rules, unit treatments, phases, what is left to buy, transport).
-- **Buying** — `docs/SCOUT_REPORT.md` → `scout.html` (graded targets, 2026-07-27), `data/scout-*.json`,
-  and the read-only scripts `tools/ebay_search.js` / `tools/ebay_fetch.js` (headless Chromium; see
-  `docs/ebay-access.md`; this cloud environment cannot reach eBay).
+- **Buying** — `docs/SCOUT_REPORT.md` → `scout.html` (price scan 2026-08-14 above the photo-graded targets of
+  2026-07-27), `data/scout-*.json` (Muster prices gaps from the file registered last in the store's `buying.scan_log`), and the read-only scripts
+  `tools/ebay_search.js` / `tools/ebay_fetch.js` (headless Chromium; see `docs/ebay-access.md`; this cloud
+  environment cannot reach eBay or any retailer — the August scan went through a web-search index, so its
+  listings are leads to open by hand, never photo-checked verdicts).
 - **The market** — `build.py` scores painted-army eBay listings (`data/raw_*.psv` → `listings.json`
   / `chaos.json` → `scorecard.html` / `chaos.html`, and Muster's Buy view). Photo-verified paint tiers
   from the 2026-07-21 sweep are in the `SWEEP` overlay in `build.py`; the write-up is `docs/sweep-2026-07-21.md`.

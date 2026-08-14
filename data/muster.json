@@ -4,7 +4,7 @@
     "title": "Muster — the Long Shadow Host",
     "owner": "Evan",
     "warband": "The Umbral Creed — the Long Shadow Host",
-    "updated": "2026-08-11",
+    "updated": "2026-08-14",
     "audited": "2026-07-27",
     "points_snapshot": "MFM v1.1 (2026-07-22)",
     "note": "Canonical store. Edit this file; everything numeric elsewhere is generated from it by muster.py or marked as a snapshot.",
@@ -143,13 +143,23 @@
       {"match": "Skulltaker", "why": "EPIC HERO — illegal in Shadow Legion (only Be'lakor is exempt)."},
       {"match": "Karanak", "why": "EPIC HERO — illegal in Shadow Legion."},
       {"match": "Cultists ×10 listing with four models", "why": "Title says ten, photos show four (Jul 27 scout)."},
-      {"match": "'Bloodthirster' listings that are a Cygor or a Deathbringer blister", "why": "Two July listings used the name for other kits — judge the gallery, never the title."}
+      {"match": "'Bloodthirster' listings that are a Cygor or a Deathbringer blister", "why": "Two July listings used the name for other kits — judge the gallery, never the title."},
+      {"match": "Overseas listings (GBP/EUR/CAD/AUD prices, 'ships from outside US')", "why": "De minimis is gone for good (permanent regulation since 2026-06-24): import duty plus carrier brokerage on delivery erase the saving — buy US-located (Aug 14 scan)."},
+      {"match": "A model built as a Skull Cannon, or 'throne only' bits, sold as a Rendmaster", "why": "The Rendmaster needs the unbuilt dual kit or a throne build; a glued cannon is not a Blood Throne."},
+      {"match": "'Classic' or Made-to-Order Beasts of Nurgle", "why": "Old sculpts are collector-priced ($60–133 in the Aug 14 scan); the current plastic Beast is cheaper new (≈$48–51)."},
+      {"match": "Boarding Patrol: Chaos Daemons or the Khorne Daemonkin battleforce as a shortcut", "why": "The Boarding Patrol's centrepiece is Karanak (banned here) and half the battleforce is World Eaters — break-even at best against singles."}
     ],
     "closed_paths": [
+      {"date": "2026-08-08", "what": "The 2019 Raptors/Warp Talons kit was replaced by a new $65 box (new sculpts, first seen in Kill Team: Shadowhunt); the old kit is now 'OOP' stock — either builds legal Warp Talons."},
       {"date": "2026-08-10", "what": "The watched $650 Night Lords lot sold to another buyer — mobile CSM (Raptors / Warp Talons / Chosen) now means single-unit purchases."}
     ],
-    "remaining_gaps_note": "Beyond the six lists: fast Slaanesh scoring (Seekers) and mobile Chaos Space Marines painted in crimson, some day. Within the lists, Buy shows exactly what is still needed — today a Skullmaster and a Rendmaster for the tournament shape, once the crates and the ten games are done.",
-    "price_snapshot_source": "data/scout-2026-07-27.json (landed US prices, read-only scout; a dated snapshot — re-run before buying)"
+    "remaining_gaps_note": "Beyond the six lists: fast Slaanesh scoring (Seekers) and mobile Chaos Space Marines painted in crimson, some day. Within the lists, Buy shows exactly what is still needed — today a Skullmaster and a Rendmaster for the tournament shape, once the crates and the ten games are done. Aug 14 scan: the pair is ≈ $90–100 landed new (a $45 free-shipped Blood Throne kit on eBay, item 167360168204; the Skullmaster is a $52 GW-direct resin character, $44–45 at a 15%-off indie or Walmart marketplace) — inside the vision's ≈ $80–120 estimate. List B priced for the first time at ≈ $170 new; List C ≈ $187 at 15%-off retail.",
+    "price_snapshot_source": "The last entry of scan_log below prices the gaps (a dated snapshot — open the listing and its photos before buying); earlier entries stay on disk for the record.",
+    "scan_log": [
+      {"date": "2026-07-26", "file": "data/scout-2026-07-26.json", "what": "first shopping scrape, 25 listings"},
+      {"date": "2026-07-27", "file": "data/scout-2026-07-27.json", "what": "headless-Chromium eBay scout, 114 listings, photo-graded"},
+      {"date": "2026-08-14", "file": "data/scout-2026-08-14.json", "what": "a web-search-index scan: 13 units, 101 rows, 35 of them priced (US retail ceilings and eBay or marketplace leads), plus bundle maths and US used-mini stores; nothing photo-checked"}
+    ]
   },
   "glossary": [
     {"term": "MFM", "means": "Munitorum Field Manual — Games Workshop's free points document. v1.1 (2026-07-22) is the snapshot every total here uses; it changes a few times a year, so totals are dated."},
@@ -171,7 +181,7 @@
     {"term": "On sprue · NoS · NIB · bare", "means": "Unbuilt plastic still on its frame; New on Sprue; New in Box; assembled but unpainted. Cheaper to buy and faster to paint shadow-first than repainting someone else's work."},
     {"term": "Paint tiers", "means": "How the scorecard grades a lot from its photos: Primer-only (bare or undercoated) · Partial (any unpainted or primed squad in an otherwise painted lot) · Basic · Tabletop · Tabletop+ · High TT · Display. 'Assumed' means nobody has checked the gallery yet."},
     {"term": "Landed · OBO · BUY 1.5×", "means": "Landed = price + roughly 3% + estimated shipping (what actually leaves your account). OBO = 'or best offer'. The value ratio is kit retail × paint premium ÷ landed price: ≥1.5× BUY, 0.8–1.49 FAIR, under 0.8 SKIP; auctions are never scored because a bid is not a price."},
-    {"term": "Scout", "means": "A read-only, dated pass over eBay for specific units (last run 2026-07-27) — the source of price floors such as \"Skullmaster ≈$44\". Buy-It-Now only; auctions, flagged and part-kit listings are excluded. Re-run before buying; nothing here is a live offer."},
+    {"term": "Scout", "means": "A read-only, dated pass over the market for specific units — the source of price floors such as \"Skullmaster ≈$44\". Runs so far: 2026-07-27 (eBay via headless Chromium, photo-graded) and 2026-08-14 (a web-search-index scan: US retail ceilings plus eBay leads to open by hand, nothing photo-checked). Auctions, flagged and part-kit listings are excluded from the floors. A snapshot, never a live offer: open the listing before buying."},
     {"term": "Store · patch · export", "means": "data/muster.json is the one file every number comes from. Edits made in this app stay on this device until you hand them over: Export downloads the updated file, and 'Copy the change for a session' copies plain instructions (a patch) for a Claude session on either account to apply and commit."},
     {"term": "≈ · ? · ~ · 9/10", "means": "≈ approximate count or cost; ? unknown until the crate is opened; ~ points not verified to the point; 9/10 nine models owned where the smallest legal unit is ten. In list ticks, ✓ = yes, ✗ = no, ◐ = owned but not yet table-ready (something is on sprue or unpainted)."},
     {"term": "Codex (here)", "means": "In the game a codex is an official army rulebook. On these pages 'the codex' means Codex: The Umbral Creed — the personal army book written for this collection (fiction, unit nicknames, doctrines, the purchase ledger). Quoted names such as “The Source” are its nicknames."},

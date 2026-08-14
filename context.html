@@ -20,7 +20,7 @@ of the army or the plan, update this file in the same commit.</p>
 <h2 id="0-current-state-generated-do-not-edit-by-hand">0. Current state (generated — do not edit by hand)</h2>
 <!--gen:state-->
 <ul>
-<li><strong>Store:</strong> <code>data/muster.json</code> (schema 1, updated 2026-08-11); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. Aug 10: the community data files (BSData) now carry Skullmaster at 85 pts (these pages had ~75); nothing else in the six lists moved. A points revision (MFM v1.2, Aug 5) is reported with no Daemons/CSM/Knights changes. Confirm both in the official Warhammer 40,000 app. Next balance update expected Aug 19–26.</li>
+<li><strong>Store:</strong> <code>data/muster.json</code> (schema 1, updated 2026-08-14); points Munitorum Field Manual v1.1 (2026-07-22), rules verified 2026-07-27. Aug 10: the community data files (BSData) now carry Skullmaster at 85 pts (these pages had ~75); nothing else in the six lists moved. A points revision (MFM v1.2, Aug 5) is reported with no Daemons/CSM/Knights changes. Confirm both in the official Warhammer 40,000 app. Next balance update expected Aug 19–26.</li>
 <li><strong>Owned:</strong> 21 inventory records, ≈92 models, 2,730 pts at MFM v1.1 (2,410 table-ready); spent ≈ $1,391 over 7 orders.</li>
 <li><strong>Inbound:</strong> Khorne Daemons Army Lot — Shipped Aug 6 (USPS), ETA Aug 10–17; Bloodcrushers lot — ETA Aug 18–Sep 1 (reconfirmed Aug 11).</li>
 <li><strong>Lists:</strong> playable today: A (1,940); hobby work first: F (2,000); need purchases: B (1,960), C (1,950), D (1,995), E (1,980).</li>
@@ -98,8 +98,8 @@ roles and nuances, not be handed conclusions.</p>
 <td><code>docs/collection.md</code></td>
 </tr>
 <tr>
-<td>eBay buy targets for the lists (2026-07-27, archived — prices expired)</td>
-<td><code>docs/SCOUT_REPORT.md</code>, data <code>data/scout-2026-07-27.json</code> (114 listings), tools <code>tools/ebay_search.js</code>, <code>tools/ebay_fetch.js</code></td>
+<td>Buy targets and prices for the lists — the 2026-08-14 price scan (US retail floors, bundle maths, eBay leads to open by hand) above the 2026-07-27 photo-graded scout (archived — listings ended)</td>
+<td><code>docs/SCOUT_REPORT.md</code> → <code>scout.html</code>; data <code>data/scout-2026-08-14.json</code> (101 rows, 35 priced) and <code>data/scout-2026-07-27.json</code> (114 listings) — Muster reads the one registered last in <code>buying.scan_log</code>; tools <code>tools/ebay_search.js</code>, <code>tools/ebay_fetch.js</code></td>
 </tr>
 <tr>
 <td>Painted-army value scorecards</td>
@@ -165,8 +165,14 @@ Foe, the detachment's disposition, has dropped out of winning tournament lists s
 learning games, one more reason not to rush the Khorne cavalry.</p>
 <h2 id="6-ebay-what-exists-and-the-house-rules">6. eBay: what exists and the house rules</h2>
 <ul>
-<li><strong>Everything price-related is a July snapshot</strong> (scorecard feed 2026-07-20, sweep 07-21, shopping
-  scrape 07-26, scout 07-27). Assume every specific listing has ended; the <em>methods</em> and <em>grades</em> hold.</li>
+<li><strong>Everything price-related is a dated snapshot</strong> (scorecard feed 2026-07-20, sweep 07-21, shopping
+  scrape 07-26, scout 07-27, price scan 08-14). Assume every specific listing has ended; the <em>methods</em> and <em>grades</em> hold.
+  The Aug 14 scan was made through a web-search index (no photos, nothing confirmed live): trust its new-kit ceilings
+  (Blood Throne $48 web-exclusive, Skullmaster $52 GW-direct resin, Plague Drones $65 web-exclusive, most trade kits 15%
+  off at US discounters with free shipping from $75), treat its eBay item numbers as leads to open. Headline: a new Blood
+  Throne kit at $45 free-shipped (eBay 167360168204) and Skullmaster at $44–45 put List E's remaining pair at ≈ $90–100;
+  B ≈ $170, C ≈ $187 new. US import duty now applies to every foreign parcel (de minimis suspension made permanent
+  2026-06-24) — buy US-located.</li>
 <li><strong>Read-only, always</strong>: load public pages and photos; never log in, bid, offer, watch, message or check
   out for Evan. Present findings; he buys.</li>
 <li><strong>Paint is judged from full galleries + zoom crops, never titles.</strong> Strict scale: PRIMER-ONLY /
@@ -206,6 +212,12 @@ learning games, one more reason not to rush the Khorne cavalry.</p>
 <li>2026-08-11 — Muster adopted per <code>SPEC-muster.md</code>: one canonical store (<code>data/muster.json</code>), one linter (<code>lint.js</code>),
   generated tables in the prose docs, a validation gate in the build, and a review-battery hillclimb logged in <code>DECISIONS.md</code>.
   List E stored at 1,980 (Screamers for Plague Drones) to stay legal after the Skullmaster re-cost.</li>
+<li>2026-08-14 — Price scan of every gap unit through a web-search index (<code>docs/SCOUT_REPORT.md</code>, <code>data/scout-2026-08-14.json</code>;
+  Muster prices gaps from the snapshot registered last in the store's <code>buying.scan_log</code>). Nothing bought and the ten-games rule untouched; the scan
+  records that the Blood Throne kit ($45 new, free-shipped) is the one price unlikely to improve, that the pair List E still
+  needs is ≈ $90–100, that List B is ≈ $170 and List C ≈ $187 new, and that no bundle beats singles unless the crates
+  disappoint (then the Combat Patrol or a $98 on-sprue Khorne split does). New do-not-buy lines: overseas parcels (duty),
+  Cannon-built "Rendmasters", collector-priced classic Beasts, Boarding Patrol / Khorne Daemonkin shortcuts.</li>
 </ul>
 <h2 id="8-open-threads">8. Open threads</h2>
 <ol>
@@ -213,13 +225,18 @@ learning games, one more reason not to rush the Khorne cavalry.</p>
    store, commit; the lists recompute.</li>
 <li>Assemble and paint the Bloodthirster (unlocks F; the vision's set-piece project); Phase 0/1 of the vision (basing, one
    varnish, one light) whenever painting starts.</li>
-<li>Play List A and log the games (ten before the next purchase); then Skullmaster + Rendmaster if the tournament shape calls.</li>
-<li>Re-verify points in the official app before any event — MFM will move again (~Aug 19–26 expected); edit the store, not the docs.</li>
+<li>Play List A and log the games (ten before the next purchase); then Skullmaster + Rendmaster if the tournament shape calls
+   (≈ $90–100 for the pair at Aug 14 prices — leads and ceilings in <code>scout.html</code>; open the listing and its photos first, US sellers only).</li>
+<li>Re-verify points in the official app before any event — MFM will move again (~Aug 19–26 expected); edit the store, not the docs.
+   When C or D gets close: the Raptors/Warp Talons kit was replaced on 2026-08-08 (old-kit stock or the new $65 box both build
+   legal Warp Talons) and the January faction pack gave Warp Talons GRENADES — re-read that datasheet too.</li>
 <li>Owner taste questions parked in <code>DECISIONS.md</code> §6 (warband naming, codex-skin default, list parity with the personal
    ledger artifact, Beasts of Nurgle points).</li>
 <li>Scorecard refresh whenever the market matters again: <code>scrape.js</code> → <code>data/raw_listings.psv</code> → <code>python3 build.py</code> →
    photo-sweep the BUYs; targeted single-unit scouting with <code>tools/ebay_search.js</code> from a machine that can reach eBay
-   (this cloud environment cannot).</li>
+   (this cloud environment cannot — the Aug 14 scan went through a search index instead; a new dated
+   <code>data/scout-YYYY-MM-DD.json</code> in the same shape, registered in <code>buying.scan_log</code>, reprices every gap; the build warns
+   if a newer file sits in <code>data/</code> unregistered).</li>
 <li><code>daemon-quartermaster</code> (personal, private) can be archived.</li>
 </ol>
 <h2 id="9-working-on-this-repo">9. Working on this repo</h2>

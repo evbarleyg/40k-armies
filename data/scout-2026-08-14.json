@@ -1,0 +1,1838 @@
+{
+ "scraped": "2026-08-14",
+ "source": "Web-search index scan (this cloud session cannot reach eBay or any retailer directly; egress policy). Five research passes over US discount retailers, GW's own store, eBay, Walmart/Amazon marketplace and US second-hand shops. Prices are only those that literally appeared in search results; nothing was photo-checked and no listing was confirmed live. RETAIL rows are orderable new-kit prices (a ceiling nobody should exceed); BIN rows with a price are leads to open by hand; rows without a price are indexed listings whose price the index did not show.",
+ "notes": [
+  "landed = price × 1.03 + shipping (July convention; US sales tax not included). Where a snippet did not state shipping, a US-webstore guess of $6 was used and marked ship_note.",
+  "US import rules changed the maths on overseas sellers: de minimis is suspended (made permanent regulation on 2026-06-24) and a baseline tariff applies, collected with carrier brokerage on delivery — prefer US-located sellers; every GBP/EUR/CAD/AUD listing here is flagged.",
+  "GW raised US prices ~4% on 2026-10-06 (2025) and has been nudging kit prices since; MSRPs below are as seen in August 2026: Skullmaster $52 (resin, GW-direct only), Blood Throne/Skull Cannon $48 (web-exclusive), Bloodcrushers now a 6-model box at $110, Bloodletters $43.50, Flesh Hounds $60, Bloodmaster $35, Beast of Nurgle ≈$58–60, Plague Drones $65 (web-exclusive), Nurglings $39, Chaos Terminators $65, Terminator Lord/Sorcerer kit $35, Chosen $65, Raptors/Warp Talons (new 2026 kit, released 2026-08-08) $65.",
+  "US discounter norms: 15% off MSRP is standard (Game Nerdz, Miniature Market, Frontline, Flipside, most Shopify indies); free shipping from $75 at Game Nerdz ($6 flat below) and Miniature Market ($6.99 below; some pages say $99). Web-exclusive kits (Blood Throne, Skullmaster, Plague Drones) are rarely discounted more than 5–15% and often out of stock at indies.",
+  "An eBay '20% off eligible items' code (BRANDS20) is reported by coupon sites for Aug 10–16 2026; it only applies where the listing page itself shows the banner — a bonus, not a plan.",
+  "reddit (r/Miniswap) is not reachable from this search tool and Mercari returned only category pages — neither is covered."
+ ],
+ "retail_terms": {
+  "standard_discount": "15% off GW MSRP",
+  "game_nerdz": "free shipping ≥ $75, else $6 flat (gamenerdz.com/shipping-returns)",
+  "miniature_market": "free shipping ≥ $75 (some pages say $99), else $6.99 flat",
+  "gw_direct": "web-exclusive kits at full MSRP; shipping extra below GW's free-shipping threshold"
+ },
+ "skullmaster": [
+  {
+   "id": "planetcomics-skullmaster",
+   "t": "Skullmaster, Herald of Khorne on Juggernaut — Planet Comics (Greenville SC), new resin kit",
+   "p": 44.2,
+   "ship": 6.0,
+   "landed": 51.53,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "15% off the $52.00 GW price; stock not shown in the index — a US indie carrying a GW-direct resin character.",
+   "u": "https://www.planetcomicsdirect.com/products/chaos-daemons-herald-of-khorne-on-juggernaut-of-khorne",
+   "src": "planetcomicsdirect.com",
+   "q": "regular price is $52.00, with a sale price of $44.20",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "walmart-781165647",
+   "t": "Herald on Juggernaut of Khorne Miniature — Walmart marketplace (third-party seller)",
+   "p": 45.0,
+   "ship": 0,
+   "landed": 46.35,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "new (marketplace)",
+   "fb": null,
+   "note": "'$45.00, was $57.00' — confirm it is the GW Skullmaster kit and who the seller is before ordering; marketplace snippets go stale.",
+   "u": "https://www.walmart.com/ip/Warhammer-Age-of-Sigmar-Daemons-of-Khorne-Herald-on-Juggernaut-of-Khorne-Miniature/781165647",
+   "src": "walmart.com",
+   "q": "$45.00 at Walmart (currently on sale, was $57.00)",
+   "ship_note": "marketplace shipping not shown"
+  },
+  {
+   "id": "gw-direct-skullmaster",
+   "t": "Skullmaster, Herald of Khorne — Games Workshop US webstore (resin, online only)",
+   "p": 52.0,
+   "ship": 0,
+   "landed": 53.56,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Full price, always available; the ceiling. GW shipping is extra below their free-shipping threshold.",
+   "u": "https://www.warhammer.com/en-US/shop/Skullmaster-Herald-of-Khorne",
+   "src": "planetcomicsdirect.com 'regular price' = GW MSRP",
+   "q": "regular price is $52.00",
+   "ship_note": "GW shipping not included"
+  },
+  {
+   "id": "warbattlegames-skullmaster",
+   "t": "Skullmaster Herald of Khorne on Juggernaut NIB — War Battle Games",
+   "p": 52.0,
+   "ship": 6.0,
+   "landed": 59.56,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Full MSRP at a US indie ('pickup available'); no reason to prefer it over GW direct unless bundling.",
+   "u": "https://www.warbattlegames.com/products/skullmaster-herald-of-khorne-on-juggernaut-warhammer-age-of-sigmar-nib-wbgames",
+   "src": "warbattlegames.com",
+   "q": "offers this product for $52.00 USD",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "186715630199",
+   "t": "Skullmaster Herald of Khorne on Juggernaut Chaos Daemons Warhammer Age of Sigmar",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "brand-new (per index)",
+   "fb": null,
+   "note": "Free USPS Ground Advantage (US seller). Price not visible in the index — open it; good at ≤ $45.",
+   "u": "https://www.ebay.com/itm/186715630199"
+  },
+  {
+   "id": "395755556959",
+   "t": "Skullmaster, Herald of Khorne on Juggernaut Brand New Warhammer 40k GW Daemons",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "title says new; condition field says Used",
+   "fb": null,
+   "note": "US $4.90 shipping. Title/condition contradict — read the description and photos.",
+   "u": "https://www.ebay.com/itm/395755556959"
+  },
+  {
+   "id": "nobleknight-2147766661",
+   "t": "Herald of Khorne on Juggernaut #4 — Noble Knight Games (used singles, graded)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used (graded by the store)",
+   "fb": null,
+   "note": "Noble Knight lists loose/used copies with condition grades; price/stock not in the index.",
+   "u": "https://www.nobleknight.com/P/2147766661/Herald-of-Khorne-on-Juggernaut-4"
+  },
+  {
+   "id": "mindtaker-78601",
+   "t": "Herald of Khorne on Juggernaut — Mindtaker Miniatures (US used-minis shop)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used",
+   "fb": null,
+   "note": "Second copy at /herald-of-khorne-on-juggernaut-72256/. Prices not in the index.",
+   "u": "https://www.mindtaker.org/product/herald-of-khorne-on-juggernaut-78601/"
+  },
+  {
+   "id": "gamershaven-case-78",
+   "t": "Chaos Daemons: Skullmaster, Herald of Khorne (used) — The Gamer's Haven (Spokane WA) used-miniatures case",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used (one-off lot)",
+   "fb": null,
+   "note": "One-off used lots turn over quickly; also 'Heralds of Khorne (used)' at /used-miniature-case-47. Price not in the index.",
+   "u": "https://thegamershaven.net/products/used-miniature-case-78"
+  },
+  {
+   "id": "frontline-HNY-26",
+   "t": "Skullmaster, Herald of Khorne on Juggernaut (HNY-26) — Frontline Gaming second-hand SKU",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used (one-off lot)",
+   "fb": null,
+   "note": "Frontline's used section lists coded one-off lots; may already be sold. Price not in the index.",
+   "u": "https://store.frontlinegaming.org/products/daemons-of-khorne-skullmaster-herald-of-khorne-on-juggernaut-hny-26"
+  },
+  {
+   "id": "304529258295",
+   "t": "Warhammer Fantasy - Chaos - Herald of Khorne on Juggernaut - Skullmaster (EU seller)",
+   "p": 51.8,
+   "ship": null,
+   "landed": 53.35,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used · OVERSEAS",
+   "fb": null,
+   "note": "FLAG: EUR-priced (≈US $51.80) — import duty + brokerage on delivery; not competitive with $44–52 US new. wrong model of buying, listed for completeness",
+   "u": "https://www.ebay.com/itm/304529258295",
+   "q": "EUR 49.99 (approximately US $51.80), condition is used"
+  }
+ ],
+ "rendmaster": [
+  {
+   "id": "167360168204",
+   "t": "Rendmaster on Bloodthrone Skull Cannon Chaos Daemons Warhammer 40K Khorne NewBox",
+   "p": 45.0,
+   "ship": 0,
+   "landed": 46.35,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per index: brand-new, unopened)",
+   "fb": null,
+   "note": "Best lead of the scan: below the $48 web-exclusive price, free delivery, a volume seller ('80 sold'; Toccoa GA per one snippet). Unbuilt kit = builds the Blood Throne. Confirm sealed/complete sprues in photos.",
+   "u": "https://www.ebay.com/itm/167360168204",
+   "src": "ebay.com (item page snippet)",
+   "q": "$45.00 with free delivery, and 80 have been sold"
+  },
+  {
+   "id": "towerofgames-bloodthrone",
+   "t": "Chaos Daemons Blood Throne / Skull Cannon (Rendmaster) — Tower of Games (VA)",
+   "p": 48.0,
+   "ship": 6.0,
+   "landed": 55.44,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Full web-exclusive price at a US indie; stock not shown.",
+   "u": "https://towerofgames.com/warhammer-40k-chaos-daemons-blood-throne-skull-cannon/",
+   "src": "towerofgames.com",
+   "q": "Blood Throne/Skull Cannon at $48.00",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "bruteforce-453104",
+   "t": "Rendmaster on Blood Throne // Skull Cannon (Web Exclusive, 'SL:2') — Brute Force Games",
+   "p": 47.99,
+   "ship": 6.0,
+   "landed": 55.43,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Filed under 'Warhammer Web Exclusives'; 'SL:2' may be a stock level of two (unverified).",
+   "u": "https://www.bruteforcemtg.com/catalog/warhammer_web_exclusives/chaos_daemons_rendmaster_herald_of_khorne_on_blood_throne__daemons_of_khorne_skull_cannon_e_sl1/453104",
+   "src": "bruteforcemtg.com",
+   "q": "Available at Brute Force Games for $47.99",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "164028038720",
+   "t": "Rendmaster on Bloodthrone Skull Cannon Chaos Daemons NO BOX Warhammer 40K Khorne",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new, no box (per title)",
+   "fb": null,
+   "note": "An eBay summary showed a NO BOX copy at $48.80 with free US delivery — probably this listing; confirm. New-on-sprue without box builds either variant.",
+   "u": "https://www.ebay.com/itm/164028038720"
+  },
+  {
+   "id": "157607065669",
+   "t": "Daemons of Khorne Skull Cannon Bloodthrone Rendmaster Warhammer 40k AoS Daemons",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/157607065669"
+  },
+  {
+   "id": "256911691964",
+   "t": "Rendmaster Bloodthrone Daemons Khorne Skull Cannon Warhammer AoS",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/256911691964"
+  },
+  {
+   "id": "target-A-1003519676",
+   "t": "Rendmaster Bloodthrone Daemons Khorne Skull Cannon — Target marketplace",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (marketplace)",
+   "fb": null,
+   "note": "'free standard shipping with $35 orders'; price not in the index.",
+   "u": "https://www.target.com/p/rendmaster-bloodthrone-daemons-khorne-skull-cannon-warhammer-aos/-/A-1003519676"
+  },
+  {
+   "id": "ebay-uk-skullcannon-nib",
+   "t": "Skull Cannon Blood Throne NIB New GW (United Kingdom seller)",
+   "p": 80.41,
+   "ship": 33.5,
+   "landed": 116.32,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB · OVERSEAS",
+   "fb": null,
+   "note": "FLAG: UK — $33.50 postage plus US import duty; wrong model of buying at twice the US price. Unattributed to an item number.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=skull+cannon+blood+throne+NIB",
+   "q": "$80.41 or Best Offer with +$33.50 delivery, located in United Kingdom"
+  }
+ ],
+ "bloodcrushers": [
+  {
+   "id": "ebay-nos-crushers-3",
+   "t": "Bloodcrushers of Khorne ×3 NEW on sprue — US eBay seller with multi-buy pricing (one of items 297467642241 / 117323446520)",
+   "p": 60.0,
+   "ship": 0,
+   "landed": 61.8,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": "Reference only — the inbound Bloodcrushers crate may cover this. '$60 each; 2 for $57 each, 3 for $54 each, 4+ for $51 each' with free USPS Ground Advantage; the index did not say which of the two NoS listings carries the offer.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=bloodcrushers+sprue&LH_BIN=1&LH_PrefLoc=1",
+   "q": "New on Sprue models at $60.00 each with bulk savings available (2 for $57.00 each, 3 for $54.00 each, or 4 or more for $51.00 each)"
+  },
+  {
+   "id": "thrifthammer-ebay-crushers",
+   "t": "Bloodcrushers of Khorne — cheapest eBay price tracked by ThriftHammer (3-model box implied)",
+   "p": 59.95,
+   "ship": 0,
+   "landed": 61.75,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per tracker)",
+   "fb": null,
+   "note": "Tracker blurb, no item number: '$59.95 on eBay, 46% off the MSRP of $110.00' — the $110 MSRP is the new SIX-model box, so this is an old 3-model box, not half price.",
+   "u": "https://thrifthammer.com/",
+   "q": "Bloodcrushers of Khorne is $59.95 on eBay, which is 46% off the MSRP of $110.00",
+   "ship_note": "shipping unknown"
+  },
+  {
+   "id": "warpfire-crushers-3",
+   "t": "3 x Daemons Of Khorne Bloodcrushers — Warpfire Minis (Ocala FL; new + used GW dealer)",
+   "p": 66.0,
+   "ship": 6.0,
+   "landed": 73.98,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "likely used/built (no 'NIB' tag in the title)",
+   "fb": null,
+   "note": "Fixed-price US used-minis shop; condition and stock not shown. They also list '1 x Bloodcrushers NIB' unpriced.",
+   "u": "https://warpfireminis.com/3-x-daemons-of-khorne-bloodcrushers/",
+   "src": "warpfireminis.com",
+   "q": "3 x Daemons Of Khorne Bloodcrushers are priced at $66.00",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "wargameportal-crushers-6",
+   "t": "Bloodcrushers (current GW box of SIX) — Wargame Portal $99.00 (regular $110.00)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail, 6 models)",
+   "fb": null,
+   "note": "Retail reference for the new box size: $99 for six = $49.50 per three, the cheapest per-model new price seen; kept unpriced here so the per-3 gap arithmetic is not skewed. Free shipping thresholds apply.",
+   "u": "https://wargameportal.com/products/bloodcrushers"
+  },
+  {
+   "id": "127580662902",
+   "t": "NIS Bloodcrushers Khorne NEW IN BOX (3)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/127580662902"
+  },
+  {
+   "id": "137239375073",
+   "t": "Bloodcrushers, Blades of Khorne, World Eaters, AOS, 40k — 3 full sprues (July: $61.80 landed, photo-verified then)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/137239375073"
+  },
+  {
+   "id": "137264558068",
+   "t": "Bloodcrushers [x3] Blades of Khorne [Warhammer AOS] On Sprue (ships from Canada)",
+   "p": null,
+   "ship": 14.0,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS · OVERSEAS",
+   "fb": null,
+   "note": "FLAG: C$14 shipping from Canada plus US import duty.",
+   "u": "https://www.ebay.com/itm/137264558068"
+  }
+ ],
+ "bloodletters": [
+  {
+   "id": "miniaturemarket-97-08",
+   "t": "Bloodletters (10) — Miniature Market, 15% off",
+   "p": 36.98,
+   "ship": 6.99,
+   "landed": 45.08,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Reference only — nine owned, the Khorne crate should bring the tenth. $6.99 ships under $75; free if bundled past the threshold. Attribution of the $36.98 to Miniature Market is probable, not certain (Walmart/Target/Rogue Traders were in the same result).",
+   "u": "https://www.miniaturemarket.com/gw-97-08.html",
+   "src": "miniaturemarket.com (probable)",
+   "q": "regular price is $43.50 with a sale price of $36.98"
+  }
+ ],
+ "flesh_hounds": [
+  {
+   "id": "miniaturemarket-97-63",
+   "t": "Flesh Hounds (5) — Miniature Market, 15% off",
+   "p": 51.0,
+   "ship": 6.99,
+   "landed": 59.52,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "MSRP $60. Free shipping if the order clears $75 (pair it with anything else on the list).",
+   "u": "https://www.miniaturemarket.com/gw-97-63.html",
+   "src": "miniaturemarket.com",
+   "q": "$60.00 (with a sale price of $51.00) according to Miniature Market"
+  },
+  {
+   "id": "ebay-nib-hounds-51",
+   "t": "Daemons of Khorne Flesh Hounds New in box — US eBay (unattributed)",
+   "p": 51.0,
+   "ship": 0,
+   "landed": 52.53,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": "Same money as Miniature Market; only better if a coupon banner shows.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=flesh+hounds+khorne&LH_BIN=1&LH_PrefLoc=1&_sop=15",
+   "q": "New in box for $51.00 with Free delivery"
+  },
+  {
+   "id": "ebay-nos-hounds-26",
+   "t": "Flesh Hounds — Daemons of Khorne, New on Sprue — US eBay (unattributed)",
+   "p": 26.0,
+   "ship": 6.44,
+   "landed": 33.22,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title) · verify all five",
+   "fb": null,
+   "note": "Cheap enough that it may be a part-squad (the Combat Patrol sprue splits oddly) — count five hounds and five 50mm bases in the photos before believing it.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=flesh+hounds+sprue&LH_BIN=1&LH_PrefLoc=1&_sop=15",
+   "q": "New on Sprue at $26.00 with $6.44 delivery"
+  },
+  {
+   "id": "176527067097",
+   "t": "Flesh Hounds of Khorne (5) Warhammer AoS 40k TOW Daemons of Khorne NEW NO BOX",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new, no box (per title)",
+   "fb": null,
+   "note": "Free shipping (US). Open it — good at ≤ $40.",
+   "u": "https://www.ebay.com/itm/176527067097"
+  },
+  {
+   "id": "295858112970",
+   "t": "5x Khorne Dogs Flesh Hounds Warhammer Age Sigmar Bloodbound Blades Daemons 40k",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS, no box (per snippet)",
+   "fb": null,
+   "note": "Free USPS Ground Advantage (US); 'new on sprue, no box'.",
+   "u": "https://www.ebay.com/itm/295858112970"
+  },
+  {
+   "id": "166625087430",
+   "t": "Flesh Hounds (New on Sprue) - Warhammer 40k AoS Daemons of Khorne",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/166625087430"
+  },
+  {
+   "id": "195812561768",
+   "t": "Flesh Hounds — Brand New, Sealed",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "sealed (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/195812561768"
+  },
+  {
+   "id": "175772444350",
+   "t": "Flesh Hounds NIB 5011921113170",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/175772444350"
+  },
+  {
+   "id": "134253470009",
+   "t": "Flesh Hounds of Khorne Chaos Daemons Warhammer 40k NOS",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/134253470009"
+  },
+  {
+   "id": "163612836511",
+   "t": "Flesh Hounds ×5 NO BOX (ex-Combat Patrol sprues)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new, no box (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/163612836511"
+  },
+  {
+   "id": "374492919453",
+   "t": "5 Flesh Hounds, NEW on sprue with bases (ships from outside the US)",
+   "p": null,
+   "ship": 1.22,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS · OVERSEAS",
+   "fb": null,
+   "note": "FLAG: 'US $1.22 Standard Shipping from outside US' — import duty and slow post; 19 sold, so it is a volume overseas seller.",
+   "u": "https://www.ebay.com/itm/374492919453"
+  },
+  {
+   "id": "333336176321",
+   "t": "(6 Packs!) Metal OOP Flesh Hounds",
+   "p": 88.95,
+   "ship": 0,
+   "landed": 91.62,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "old metal · wrong kit",
+   "fb": null,
+   "note": "wrong model — old metal sculpts in blisters, collector pricing; not the unit you want.",
+   "u": "https://www.ebay.com/itm/333336176321",
+   "q": "$88.95 Buy It Now with Free USPS Ground Advantage"
+  }
+ ],
+ "bloodmaster": [
+  {
+   "id": "wargameportal-bloodmaster",
+   "t": "Bloodmaster, Herald of Khorne — Wargame Portal (regular price)",
+   "p": 35.0,
+   "ship": 6.0,
+   "landed": 42.05,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Reference only — one owned, and the Khorne crate may hold another. 15%-off shops should be ≈ $29.75; stock not shown.",
+   "u": "https://wargameportal.com/products/copy-of-flesh-hounds",
+   "src": "wargameportal.com",
+   "q": "regular price for Bloodmaster, Herald of Khorne is $3500 USD (Shopify snippet = $35.00)",
+   "ship_note": "shipping not shown; $6 assumed"
+  }
+ ],
+ "beasts_of_nurgle": [
+  {
+   "id": "373078242781",
+   "t": "Daemons of Nurgle Beast of Nurgle - Warhammer 40k / Sigmar - Brand New! 83-15 (Cataclysm Games, N. Illinois)",
+   "p": 51.0,
+   "ship": 0,
+   "landed": 52.53,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": "A US game store's eBay listing; '$48.45 with coupon' per the index. Need two — check the quantity available. Shipping was not shown (store listings at this price are usually free — confirm).",
+   "u": "https://www.ebay.com/itm/373078242781",
+   "src": "ebay.com",
+   "q": "The price is $51.00 (with a coupon price of $48.45)",
+   "ship_note": "shipping not shown; assumed free — confirm"
+  },
+  {
+   "id": "ebay-new-beast-50obo",
+   "t": "Beast of Nurgle, new — US eBay '$50.00 or best offer, free delivery' (unattributed)",
+   "p": 50.0,
+   "ship": 0,
+   "landed": 51.5,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per hub page)",
+   "fb": null,
+   "note": "From eBay's hub page 'as of Aug 4': new copies at $54.99, $51.00 free delivery, $50.00 OBO free delivery. An offer of ~$45 each for two is reasonable.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=beast+of+nurgle&LH_BIN=1&LH_PrefLoc=1&_sop=15",
+   "q": "$51.00 with free delivery; $50.00 or best offer with free delivery"
+  },
+  {
+   "id": "walmart-441340970",
+   "t": "Beast of Nurgle — Walmart marketplace (third-party sellers)",
+   "p": 55.48,
+   "ship": 0,
+   "landed": 57.14,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "new (marketplace)",
+   "fb": null,
+   "note": "Marketplace range $49.30–$58.00 across sellers; which price is live was not stated. MSRP ≈ $58–60.",
+   "u": "https://www.walmart.com/ip/Games-Workshop-Daemons-of-Nurgle-Beast-of-Nurgle-Warhammer-40-000-Age-of-Sigmar/441340970",
+   "src": "walmart.com",
+   "q": "$55.48 (though other listings show varying prices ranging from $49.30 to $58.00)",
+   "ship_note": "marketplace shipping not shown"
+  },
+  {
+   "id": "283416057721",
+   "t": "Beast of Nurgle GW 83-15 NIB (Philadelphia, free standard shipping)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": "US seller, free shipping; price not in the index — open it.",
+   "u": "https://www.ebay.com/itm/283416057721"
+  },
+  {
+   "id": "183297511327",
+   "t": "Beast of Nurgle Warhammer 40K NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/183297511327"
+  },
+  {
+   "id": "284211967948",
+   "t": "3 Beasts of Nurgle - GW",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown (three models — covers both needed; sculpt and condition unknown)",
+   "fb": null,
+   "note": "Could be the whole List B beast requirement in one lot — or old metal on square bases. Photos decide.",
+   "u": "https://www.ebay.com/itm/284211967948"
+  },
+  {
+   "id": "137001616476",
+   "t": "Beast of Nurgle, Daemons of Nurgle, Maggotkin, AOS, 40k",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/137001616476"
+  },
+  {
+   "id": "173989844265",
+   "t": "GW AoS 40k Daemons of Nurgle Beast of Nurgle",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/173989844265"
+  },
+  {
+   "id": "warpfire-beast-nib",
+   "t": "1 x Beast of Nurgle NIB — Warpfire Minis (US second-hand dealer)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": "Price/stock not in the index.",
+   "u": "https://warpfireminis.com/1-x-beast-of-nurgle-nib/"
+  },
+  {
+   "id": "ebay-classic-beast-125",
+   "t": "Classic Beast of Nurgle (old metal), Pre-Owned NM, United States",
+   "p": 125.0,
+   "ship": 0,
+   "landed": 128.75,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "old metal · collector",
+   "fb": null,
+   "note": "wrong model of saving — the 1990s/2008 sculpts and GW's Made-to-Order resin re-run are collector-priced ($60–133), not a budget route. Unattributed.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=classic+beast+of+nurgle",
+   "q": "$125.00 ($118.75 with coupon) - Pre-Owned, NM condition, from United States"
+  }
+ ],
+ "plague_drones": [
+  {
+   "id": "gw-direct-plague-drones",
+   "t": "Plague Drones of Nurgle (3) — Games Workshop US webstore (web-exclusive)",
+   "p": 65.0,
+   "ship": 0,
+   "landed": 66.95,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Direct-only kit: indies list it as 'Web Exclusive' at $65–65.95 and are mostly out of stock (Saga Concepts' $55.25 sale price is OOS). GW shipping extra below their threshold.",
+   "u": "https://www.warhammer.com/en-US/shop/plague-drones-of-nurgle-2017",
+   "src": "sagaconcepts.com / wargameportal.com regular prices",
+   "q": "Regular price: $65.95 | Sale price: $55.25 … Out of Stock; regular price is $65.00 USD",
+   "ship_note": "GW shipping not included"
+  },
+  {
+   "id": "walmart-758737224",
+   "t": "Plague Drones of Nurgle — Walmart marketplace (third-party)",
+   "p": 69.48,
+   "ship": 0,
+   "landed": 71.56,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "new (marketplace)",
+   "fb": null,
+   "note": "Above MSRP — listed only to show the going rate when indies are out. Do not pay this.",
+   "u": "https://www.walmart.com/ip/Warhammer-40k-Daemons-of-Nurgle-Plague-Drones/758737224",
+   "src": "walmart.com",
+   "q": "$69.48 (with another listing showing $70.00)",
+   "ship_note": "marketplace shipping not shown"
+  },
+  {
+   "id": "176436107933",
+   "t": "Plague Drones of Nurgle NIB! 'OOP RARE Origin' (US, free USPS Ground Advantage)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": "'OOP RARE' is hype — the kit is current; free US shipping. Open it; good at ≤ $58.",
+   "u": "https://www.ebay.com/itm/176436107933"
+  },
+  {
+   "id": "175418710225",
+   "t": "Plague Drones Daemons of Nurgle Chaos Warhammer 40K NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/175418710225"
+  },
+  {
+   "id": "256911692418",
+   "t": "Plague Drones Of Nurgle 5011921085545 (new, unused per index)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per index)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/256911692418"
+  },
+  {
+   "id": "197239603537",
+   "t": "CHAOS DAEMONS PLAGUE DRONES FACTORY SEALED MIP NEW",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "sealed (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/197239603537"
+  },
+  {
+   "id": "116916712103",
+   "t": "Games Workshop Warhammer 40K: Daemons of Nurgle - Plague Drones",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/116916712103"
+  },
+  {
+   "id": "296631398629",
+   "t": "Plague Drones Unit ASSEMBLED PRIMED",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "assembled + primed (per title)",
+   "fb": null,
+   "note": "Fine for the shadow-first repaint the vision wants — worth it only well under $45; count three drones, riders and flight stands.",
+   "u": "https://www.ebay.com/itm/296631398629"
+  },
+  {
+   "id": "mindtaker-90784",
+   "t": "Plague Drones of Nurgle (x3) #90784 — Mindtaker Miniatures (US used shop)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "used",
+   "fb": null,
+   "note": "Price/stock not in the index.",
+   "u": "https://www.mindtaker.org/product/plague-drones-of-nurgle-x3-90784/"
+  },
+  {
+   "id": "pendulum-plague-drones",
+   "t": "Nurgle Plague Drones — Pendulum Gaming ('only 1 item left in stock')",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "A US indie that showed stock but no price in the index; expect $55–65.",
+   "u": "https://www.pendulumgaming.com/products/nurgle-plague-drones"
+  }
+ ],
+ "nurglings": [
+  {
+   "id": "smalladdictions-97-18",
+   "t": "Nurglings (3 bases) — Small Addictions RC (US hobby shop)",
+   "p": 30.59,
+   "ship": 6.0,
+   "landed": 37.51,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "Cheapest new price seen; stock not shown. MSRP $39.",
+   "u": "https://www.smalladdictionsrc.com/warhammer-40000-armies-of-chaos-chaos-daemons-maggotkin-of-nurgle-nurglings-97-18/",
+   "src": "smalladdictionsrc.com",
+   "q": "Small Addictions RC lists it at $30.59",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "armada-nurglings",
+   "t": "Maggotkin of Nurgle Nurglings — Armada Games (Tampa FL)",
+   "p": 33.15,
+   "ship": 6.0,
+   "landed": 40.14,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "15% off the $39 MSRP.",
+   "u": "https://shoparmada.com/products/maggotkin-of-nurgle-nurglings",
+   "src": "shoparmada.com",
+   "q": "$33.15 (discounted from $39.00 MSRP)",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "276486648284",
+   "t": "Nurglings GW 97-18 NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/276486648284"
+  },
+  {
+   "id": "204866834248",
+   "t": "Maggotkin of Nurgle Nurglings (3) GWS 97-18",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/204866834248"
+  },
+  {
+   "id": "236460634280",
+   "t": "Chaos, Nurglings, Games Workshop",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/236460634280"
+  },
+  {
+   "id": "warpfire-nurglings-nib",
+   "t": "1 x Nurglings NIB — Warpfire Minis (US second-hand dealer)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://warpfireminis.com/1-x-nurglings-nib/"
+  }
+ ],
+ "chaos_terminators": [
+  {
+   "id": "walmart-152380835",
+   "t": "Chaos Space Marines Terminators (5) — Walmart ($55.25, from $65.00)",
+   "p": 55.25,
+   "ship": 0,
+   "landed": 56.91,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail/marketplace)",
+   "fb": null,
+   "note": "15% off MSRP; Walmart snippets go stale and are often marketplace sellers — confirm seller and delivery date. Frontline Gaming sells at the same 15% off.",
+   "u": "https://www.walmart.com/ip/Games-Workshop-Warhammer-40-000-Chaos-Space-Marines-Terminators/152380835",
+   "src": "walmart.com",
+   "q": "Walmart currently has it priced at $55.25 (discounted from the original $65.00)",
+   "ship_note": "shipping not shown"
+  },
+  {
+   "id": "thrifthammer-terminators",
+   "t": "Chaos Terminator Squad — cheapest US retailer tracked by ThriftHammer",
+   "p": 52.99,
+   "ship": 6.0,
+   "landed": 60.58,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "The comparison site's best price; the retailer behind it was not shown in the index — click through from thrifthammer.com.",
+   "u": "https://thrifthammer.com/",
+   "src": "thrifthammer.com",
+   "q": "The Chaos Terminator Squad is priced at $52.99 on ThriftHammer",
+   "ship_note": "shipping unknown; $6 assumed"
+  },
+  {
+   "id": "ebay-new-terminators",
+   "t": "Chaos Terminator Squad NIB — several US eBay copies (unattributed: $48.00, $52.00, $52.50, $53.13, $55.25…)",
+   "p": 52.0,
+   "ship": 0,
+   "landed": 53.56,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per titles)",
+   "fb": null,
+   "note": "The index listed these prices without tying them to item numbers; the NIB item numbers below are the ones to open. $48 free-shipped would be the buy.",
+   "u": "https://www.ebay.com/sch/i.html?_nkw=chaos+terminator+squad+NIB&LH_BIN=1&LH_PrefLoc=1&_sop=15",
+   "q": "$52.00 / $52.50 / $48.00 / $55.25 (multiple listings) / $60.00 / $58.50 / $53.13 (New condition)",
+   "ship_note": "varies; first listing said free shipping"
+  },
+  {
+   "id": "133015201710",
+   "t": "Warhammer 40k Chaos Space Marines Chaos Terminator Squad NIB 5011921114467 (free shipping)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/133015201710"
+  },
+  {
+   "id": "406251034501",
+   "t": "Chaos Terminator Squad Chaos Space Marines Warhammer 40k Games Workshop NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/406251034501"
+  },
+  {
+   "id": "373093358520",
+   "t": "Chaos Space Marines Terminator Squad - Warhammer 40k - Brand New! 43-19",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/373093358520"
+  },
+  {
+   "id": "404258188883",
+   "t": "Chaos Space Marines Terminator Squad NO BOX Warhammer 40K Terminators",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new, no box (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/404258188883"
+  },
+  {
+   "id": "135012010822",
+   "t": "Chaos Terminator Squad … New! Terminators",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/135012010822"
+  },
+  {
+   "id": "256559017560",
+   "t": "Chaos Space Marines Terminators Sealed 5011921178247",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "sealed (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/256559017560"
+  },
+  {
+   "id": "nobleknight-2147984594",
+   "t": "Chaos Terminator Squad (current kit) — Noble Knight Games",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new/used (graded)",
+   "fb": null,
+   "note": "Avoid their '2004 Edition' / '1996 Edition' entries — old sculpts.",
+   "u": "https://www.nobleknight.com/P/2147984594/Chaos-Terminator-Squad"
+  }
+ ],
+ "chaos_lord_terminator": [
+  {
+   "id": "retail-termilord-15pct",
+   "t": "Chaos Lord / Sorcerer in Terminator Armour (kit 43-12 builds either) — US indie at 15% off (retailer not pinned by the index)",
+   "p": 29.75,
+   "ship": 6.0,
+   "landed": 36.64,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "'sale price $29.75 (regularly $35.00)'; the same result listed Discount Games Inc, Manatorsk ('low stock, 2 left'), Rogue Traders (OOS), Boardtopia (OOS) — thin trade stock, so check two or three shops.",
+   "u": "https://www.discountgamesinc.com/chaos-space-marines-chaos-lord-in-terminator-armou.html",
+   "q": "The current sale price is $29.75 (regularly $35.00)",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "thrifthammer-termilord",
+   "t": "Chaos Sorcerer Lord in Terminator Armour — ThriftHammer listing at MSRP",
+   "p": 35.0,
+   "ship": 6.0,
+   "landed": 42.05,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "MSRP ceiling; likely the same dual-build box.",
+   "u": "https://thrifthammer.com/products/chaos-sorcerer-lord-terminator/",
+   "src": "thrifthammer.com",
+   "q": "Chaos Sorcerer Lord in Terminator Armour at $35.00",
+   "ship_note": "shipping unknown; $6 assumed"
+  },
+  {
+   "id": "173676988591",
+   "t": "Chaos Lord in Terminator Armor NIB 5011921178223",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/173676988591"
+  },
+  {
+   "id": "135410759408",
+   "t": "Chaos Lord in Terminator Armour NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/135410759408"
+  },
+  {
+   "id": "175659496023",
+   "t": "Lord in Terminator Armour NIB 5011921178223",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/175659496023"
+  },
+  {
+   "id": "117336460906",
+   "t": "Chaos Lord in Terminator Armour",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/117336460906"
+  },
+  {
+   "id": "146104668942",
+   "t": "Chaos Lord in Terminator Armour",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/146104668942"
+  },
+  {
+   "id": "nobleknight-2147686303",
+   "t": "Chaos Lord in Terminator Armor (metal, loose) — Noble Knight Games",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "metal loose mini (older sculpt — acceptable stand-in)",
+   "fb": null,
+   "note": "July's cheapest painted Terminator Lord was $20.60 landed; a metal one under $25 is fair.",
+   "u": "https://www.nobleknight.com/P/2147686303/Chaos-Lord-in-Terminator-Armor-1"
+  }
+ ],
+ "chosen": [
+  {
+   "id": "amazon-B0B6W558CR",
+   "t": "Chaos Space Marines Chosen (5) — Amazon, 31 offers from $52.77",
+   "p": 52.77,
+   "ship": 0,
+   "landed": 54.35,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (marketplace)",
+   "fb": null,
+   "note": "Marketplace offers; shipping depends on the seller/Prime. MSRP $65 (some shops still tag $62.50).",
+   "u": "https://www.amazon.com/Warhammer-40-000-Marines-Chosen/dp/B0B6W558CR",
+   "src": "amazon.com",
+   "q": "31 offers starting from $52.77",
+   "ship_note": "shipping depends on offer"
+  },
+  {
+   "id": "chaoslegion-chosen",
+   "t": "Chosen — Chaos Legion Gaming / Gamescape at 15% off",
+   "p": 55.25,
+   "ship": 6.0,
+   "landed": 62.91,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "'regular $65.00, sale $55.25'; another shop showed $53.13 against a $62.50 tag.",
+   "u": "https://chaos-legion.com/products/chosen",
+   "src": "chaos-legion.com",
+   "q": "regular price is $65.00 USD, with a sale price of $55.25 USD",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "127172632630",
+   "t": "Warhammer 40K Chaos Chosen (x5) NEW on SPRUE No Box (index says active, brand-new)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS, no box (per title)",
+   "fb": null,
+   "note": "The one to open first — NoS Chosen usually sit $40–48.",
+   "u": "https://www.ebay.com/itm/127172632630"
+  },
+  {
+   "id": "166227154085",
+   "t": "Warhammer 40k - 5x Chaos Chosen - Chaos Space Marines - NOS",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/166227154085"
+  },
+  {
+   "id": "175360188321",
+   "t": "Chosen Squad NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/175360188321"
+  },
+  {
+   "id": "284916640550",
+   "t": "Chosen GW 43-84 NIB",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/284916640550"
+  },
+  {
+   "id": "374196417432",
+   "t": "Chosen NEW FACTORY SEALED",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "sealed (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/374196417432"
+  },
+  {
+   "id": "255656460385",
+   "t": "Chaos Space Marines Chosen Brand New! 43-84",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "new (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/255656460385"
+  },
+  {
+   "id": "137313809404",
+   "t": "Dark Vengeance Chaos Chosen Sprue (2012 snap-fit — lesser substitute: 6 monopose models, no wargear options)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (old DV sculpts)",
+   "fb": null,
+   "note": "Only if very cheap (≤ $25): legal as Chosen, but fixed loadouts.",
+   "u": "https://www.ebay.com/itm/137313809404"
+  }
+ ],
+ "warp_talons": [
+  {
+   "id": "flipside-raptors-2026",
+   "t": "Raptors / Warp Talons (new 2026 kit, released 2026-08-08) — Flipside Gaming, 15% off",
+   "p": 55.25,
+   "ship": 6.0,
+   "landed": 62.91,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (retail)",
+   "fb": null,
+   "note": "MSRP $65. Game Nerdz and Miniature Market have (pre)order pages for the same kit; expect the same $55.25 and free shipping past $75.",
+   "u": "https://flipsidegaming.com/products/chaos-space-marines-raptors-2026-ver",
+   "src": "flipsidegaming.com",
+   "q": "available at prices of $65.00 and $55.25 according to Flipside Gaming",
+   "ship_note": "shipping not shown; $6 assumed"
+  },
+  {
+   "id": "walmart-1092892153",
+   "t": "Raptors / Warp Talons (OLD 2019 kit) — Walmart marketplace $40.80 (from $48.00)",
+   "p": 40.8,
+   "ship": 0,
+   "landed": 42.02,
+   "type": "RETAIL",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB (old kit, marketplace)",
+   "fb": null,
+   "note": "Snippet looked stale (a November delivery estimate) — the old kit is going out of production; confirm it is still purchasable. Old sculpts are rules-identical Warp Talons.",
+   "u": "https://www.walmart.com/ip/Warhammer-40k-Chaos-Space-Marines-Raptors-Warp-Talons/1092892153",
+   "src": "walmart.com",
+   "q": "$40.80 on sale from $48.00",
+   "ship_note": "marketplace shipping not shown"
+  },
+  {
+   "id": "166782949555",
+   "t": "Warp Talons / Raptors - Chaos Space Marines - OOP - NOS (old kit)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": "Old kit new-on-sprue; fair at ≤ $45 now that the new box is $55.",
+   "u": "https://www.ebay.com/itm/166782949555"
+  },
+  {
+   "id": "117320877103",
+   "t": "Raptors / Warp Talons New (Damaged Box) (old kit)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NIB, damaged box (per title)",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/117320877103"
+  },
+  {
+   "id": "168143830880",
+   "t": "NEW Warp Talons 2026 Kill Team Shadowhunt Murderwing - Chaos Space Marines - NOS (new sculpts split from the Kill Team box)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS (per title)",
+   "fb": null,
+   "note": "The new sculpts without paying $65 — splits thin out fast (Noble Knight already lists Shadowhunt as out of print).",
+   "u": "https://www.ebay.com/itm/168143830880"
+  },
+  {
+   "id": "166802490626",
+   "t": "Raptors / Warp Talons (old kit)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/166802490626"
+  },
+  {
+   "id": "196607884233",
+   "t": "Raptors / Warp Talons (old kit)",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "unknown",
+   "fb": null,
+   "note": null,
+   "u": "https://www.ebay.com/itm/196607884233"
+  },
+  {
+   "id": "326960801015",
+   "t": "Kill Team Shadowhunt Chaos Raptors Chaos Lord KT Murderwing Team ~ '$0 US TARRIFS'",
+   "p": null,
+   "ship": null,
+   "landed": null,
+   "type": "BIN",
+   "bids": null,
+   "ends": null,
+   "tier": "NoS · likely OVERSEAS",
+   "fb": null,
+   "note": "FLAG: tariff wording implies a non-US seller pre-paying duty — read the location line.",
+   "u": "https://www.ebay.com/itm/326960801015"
+  }
+ ],
+ "bundles": [
+  {
+   "name": "Combat Patrol: Chaos Daemons (2022– )",
+   "contents": "1 Bloodmaster, 3 Bloodcrushers, 10 Flesh Hounds, 20 Bloodletters (34 models)",
+   "msrp": 170.0,
+   "best_price_seen": "Walmart marketplace $128.00 (stock unverified); 15%-off norm = $144.50; sealed eBay copies indexed without prices (144701338633 NIB, 116316245977 'NEW Free Shipping', 375123567290 'FACTORY SEALED', 127948605906); an EUR 112.50 copy is overseas (flag)",
+   "availability": "patchy — Noble Knight 'Out of Print', Game Kastle OOS, Gongaii backordered, Castle of Games OOS; no 11th-edition replacement announced",
+   "verdict": "Only if the two crates come up short: it covers List D's Flesh Hounds ×5, Bloodletters ×11 and 3 of the 9 Bloodcrushers for ≈$128–145 against ≈$180 of discounted singles, leaving 5 Hounds, 9 Letters and a Bloodmaster spare. If the crates deliver, skip it.",
+   "urls": [
+    "https://spikeybits.com/chaos-daemons-combat-patrol/",
+    "https://www.walmart.com/ip/Warhammer-40k-Age-of-Sigmar-Combat-Patrol-Chaos-Daemons/1948105096",
+    "https://www.gamenerdz.com/warhammer-40k-combat-patrol-chaos-daemons-preorder"
+   ]
+  },
+  {
+   "name": "Warpfire Minis 'on sprue' Khorne bundle (a US dealer's split box)",
+   "contents": "1 Karanak (BANNED in Shadow Legion — resell or shelve), 10 Bloodletters, 3 Bloodcrushers, 5 Flesh Hounds, all on sprue",
+   "msrp": null,
+   "best_price_seen": "$98.00 at warpfireminis.com (exact product URL not shown — find it under /chaos-daemons/; stock unknown)",
+   "verdict": "If the crates come up short this is the tidiest top-up seen: List D's Hounds ×5, ten of its eleven Bloodletters and three Crushers for $98 + shipping against ≈$135 of discounted singles. Useless if the crates deliver.",
+   "urls": [
+    "https://warpfireminis.com/chaos-daemons/"
+   ]
+  },
+  {
+   "name": "Start Collecting! Daemons of Khorne (OOP)",
+   "contents": "Herald on Blood Throne (the Rendmaster kit), 3 Bloodcrushers, 10 Bloodletters (14 models)",
+   "msrp": null,
+   "best_price_seen": "eBay sealed ≈$150 (no saving); small US store pages at $80.75–$90 (Saga Concepts OOS; Collected Comics Fort Worth $90 — probably stale, worth a two-minute check)",
+   "verdict": "Contains the Blood Throne. Worth it only at ≈$110 or less shipped from a US seller, and only if Crushers/Letters are still needed after the crates.",
+   "urls": [
+    "https://www.ebay.com/p/1557450674",
+    "https://stores.comichub.com/collected_fort_worth/products/start-collecting-daemons-of-khorne",
+    "https://www.nobleknight.com/P/2147609626/Start-Collecting---Daemons-of-Khorne"
+   ]
+  },
+  {
+   "name": "World Eaters Battleforce: Khorne Daemonkin (Feb 2026)",
+   "contents": "Lord on Juggernaut / Lord Invocatus, Master of Executions, 6 Bloodcrushers, 10 Khorne Berzerkers, 20 Bloodletters (38 models)",
+   "msrp": 250.0,
+   "best_price_seen": "Miniature Market $212.50",
+   "verdict": "Poor fit: half the box is World Eaters (not usable in Shadow Legion) unless resold; the Lord on Juggernaut is not a Skullmaster.",
+   "urls": [
+    "https://www.miniaturemarket.com/Warhammer-40K-World-Eaters-Battleforce-Khorne-Daemonkin/GW-67-07-2026",
+    "https://spikeybits.com/40k-world-eaters-khorne-daemonkin-battleforce-box-review/"
+   ]
+  },
+  {
+   "name": "Boarding Patrol: Chaos Daemons (2023, OOP)",
+   "contents": "Karanak (BANNED in Shadow Legion), 10 Flesh Hounds, 10 Bloodletters",
+   "msrp": null,
+   "best_price_seen": "eBay $110.50 (US); GBP 80 copy is UK (flag)",
+   "verdict": "Break-even at best and its centrepiece is illegal for this army — skip.",
+   "urls": [
+    "https://www.ebay.com/p/5059298630"
+   ]
+  },
+  {
+   "name": "Battleforce: Veterans of the Long War (CSM, late 2024)",
+   "contents": "Chaos Lord (on foot), 5 Possessed, 5 Chosen, 10 Chaos Terminators, 10 Legionaries",
+   "msrp": 240.0,
+   "best_price_seen": "$230–240 at US stores (Empire Games $240); stock not shown",
+   "verdict": "Needed content (5 Chosen + 5 of the 10 Terminators) is ≈$106 of singles — only worth it at ≈$160 or if the rest is resold.",
+   "urls": [
+    "https://spikeybits.com/veterans-of-the-long-war-battleforce/",
+    "https://empire-games.com/products/warhammer-40k-chaos-space-marines-battleforce-veterans-of-the-long-war-presale"
+   ]
+  },
+  {
+   "name": "Kill Team: Shadowhunt (Feb 2026)",
+   "contents": "Murderwing (Chaos Lord with Jump Pack + 5 new-sculpt Raptors/Warp Talons) vs Celestian Insidiants, boards, book",
+   "msrp": 145.0,
+   "best_price_seen": "MSRP $145; Noble Knight already 'Out of Print'",
+   "verdict": "Whole box no; a Murderwing/Warp Talons split on eBay (e.g. 168143830880) is the cheap way to the new sculpts.",
+   "urls": [
+    "https://spruesandbrews.com/2026/01/24/kill-team-shadowhunt-review-and-unboxing-warhammer-40k/",
+    "https://www.nobleknight.com/P/2148404183/Kill-Team---Shadowhunt"
+   ]
+  },
+  {
+   "name": "Start Collecting! Daemons of Nurgle (OOP)",
+   "contents": "Herald of Nurgle, 3 Plague Drones, 3 Nurgling bases, 10 Plaguebearers (17 models)",
+   "msrp": null,
+   "best_price_seen": "historic eBay $60–100 sealed; the live-looking sealed copy is $150 (127983371178)",
+   "verdict": "Drones + Nurglings are ≈$90–105 of the need; buy only at ≈$90 landed or less.",
+   "urls": [
+    "https://www.ebay.com/p/1865501735",
+    "https://www.ebay.com/itm/127983371178"
+   ]
+  },
+  {
+   "name": "Spearhead: Maggotkin of Nurgle – Bubonic Cell (Jan 2026)",
+   "contents": "Rotbringer Sorcerer, 1 Beast of Nurgle, 6 Nurglings, 10 Rotmire Creed",
+   "msrp": 150.0,
+   "best_price_seen": "MSRP $150",
+   "verdict": "No — one Beast and some Nurglings for $150 plus eleven mortals of no use here; no Drones.",
+   "urls": [
+    "https://spikeybits.com/new-aos-maggotkin-vanguard-box-pricing-release-date/"
+   ]
+  },
+  {
+   "name": "Combat Patrol: Chaos Space Marines (2024) · Battleforces Dread Talons (2024), Hellforged Warband (2025), CSM Warband (2026) · Spearhead: Blades of Khorne",
+   "contents": "no needed units (Dread Talons' 10 old Raptors aside); the Khorne Spearhead is mortals only",
+   "msrp": null,
+   "best_price_seen": "$170 / $240 / $250 / $255",
+   "verdict": "Skip all.",
+   "urls": [
+    "https://spikeybits.com/chaos-space-marines-combat-patrol/",
+    "https://spikeybits.com/chaos-dread-talons-battleforce/"
+   ]
+  }
+ ],
+ "market_context": [
+  {
+   "what": "US de minimis exemption suspended for all countries since 2025-08-29; CBP made the suspension permanent regulation on 2026-06-24 — every foreign parcel is dutiable, fees collected by the carrier on delivery.",
+   "urls": [
+    "https://www.federalregister.gov/documents/2026/06/24/2026-12670/indefinite-suspension-of-the-de-minimis-exemption-for-merchandise-arriving-through-all-modes-other",
+    "https://pages.ebay.com/tariffs/"
+   ]
+  },
+  {
+   "what": "GW US price rise ≈4% from 2025-10-06; a further tariff-driven rise is expected in 2026 (GW cites ≈£13m of US tariff cost); kit examples seen: Terminators/Chosen $62.50 → $65, Combat Patrol CSM $160 → $170, battleforces to $255.",
+   "urls": [
+    "https://frontlinegaming.org/2025/09/01/gw-announces-upcoming-price-increases/",
+    "https://www.wargamer.com/warhammer-40k/price-rise-usa-tariffs",
+    "https://spikeybits.com/2026-warhammer-price-increases-what-to-expect/"
+   ]
+  },
+  {
+   "what": "The 2019 Raptors/Warp Talons kit was replaced: new sculpts shipped in Kill Team: Shadowhunt (2026-02-07) and as a $65 standalone box on 2026-08-08; the old kit is now sold as 'OOP' on eBay. Rules: the January 2026 faction-pack update gave Warp Talons the GRENADES keyword.",
+   "urls": [
+    "https://www.belloflostsouls.net/2026/01/warhammer-40k-new-chaos-raptors-warptalons-are-here-are-they-any-good.html",
+    "https://www.gamenerdz.com/warhammer-40k-chaos-space-marines-raptors-11th-edition-preorder",
+    "https://flipsidegaming.com/products/chaos-space-marines-raptors-2026-ver"
+   ]
+  },
+  {
+   "what": "Bloodcrushers now retail only as a six-model box ($110; $99 at Wargame Portal); three-model lots persist on eBay at ≈$54–60 NoS.",
+   "urls": [
+    "https://wargameportal.com/products/bloodcrushers"
+   ]
+  },
+  {
+   "what": "Chaos Daemons in 11th edition: index faction with three detachments in the current faction pack; no kit retirements or new Combat Patrol announced — buying needed singles now is low-risk, waiting gains nothing known.",
+   "urls": [
+    "https://spikeybits.com/11th-edition-40k-qa-reveals-big-changes-for-2026/"
+   ]
+  },
+  {
+   "what": "Coupon-site claim: eBay code BRANDS20 (20% off eligible items, Aug 10–16 2026, no minimum, $500 cap). Only real where the listing shows the banner.",
+   "urls": [
+    "https://couponfollow.com/site/ebay.com"
+   ]
+  }
+ ],
+ "someday": [
+  {
+   "unit": "seekers",
+   "note": "Not priced — no list needs them; new copies are indexed on eBay (136602448922 NIB, 166686629520 'new in box') without visible prices."
+  }
+ ],
+ "stores_to_bookmark": [
+  {
+   "store": "Warpfire Minis (Ocala FL)",
+   "url": "https://warpfireminis.com/chaos-daemons/",
+   "why": "US new-at-discount + used dealer; NIB pages for nearly every target (Blood Throne, Bloodletters, Beast, Plague Drones, Nurglings, Terminators, Terminator Lord) and the only long-tail shop whose prices surfaced; ships in a day."
+  },
+  {
+   "store": "The Gamer's Haven — used miniatures (Spokane WA)",
+   "url": "https://thegamershaven.net/collections/used-miniatures",
+   "why": "Had a used Skullmaster, Heralds of Khorne, Warp Talons and a CSM Terminator Lord indexed; one-off lots, check often."
+  },
+  {
+   "store": "Rogue Traders Gaming — pre-owned (Jim Thorpe PA)",
+   "url": "https://www.theroguetraders.com/chaos-daemons",
+   "why": "Large East Coast new + used inventory with a pre-owned Chaos Daemons page; US-only shipping."
+  },
+  {
+   "store": "Bazooka Games — used Warhammer (ships from NC)",
+   "url": "https://bazookagamestore.com/collections/used-warhammer",
+   "why": "Advertises used at up to 50% off retail; online stock is the NC store's."
+  },
+  {
+   "store": "Frontline Gaming — used section",
+   "url": "https://store.frontlinegaming.org/collections/warhammer-40-000-used",
+   "why": "Coded one-off used lots (Bloodletters, a Skullmaster SKU) alongside 15%-off new kits; one order clears free shipping."
+  },
+  {
+   "store": "Noble Knight Games — loose/used GW",
+   "url": "https://www.nobleknight.com/P/2147766661/Herald-of-Khorne-on-Juggernaut-4",
+   "why": "Graded used singles (Herald on Juggernaut, metal Terminator Lords, Blood Throne) at fixed prices; the index never shows their prices, so look by hand."
+  },
+  {
+   "store": "ThriftHammer (price comparison)",
+   "url": "https://thrifthammer.com/",
+   "why": "US-retailer price tracker for new kits; the quickest way to see who is cheapest and in stock this week."
+  },
+  {
+   "store": "The Bitz Barn (US bits)",
+   "url": "https://thebitzbarn.com/",
+   "why": "For the odd missing part after the crates (a Bloodcrusher banner, a Juggernaut head): $6 flat US shipping, free over $50."
+  }
+ ],
+ "flagged": [
+  {
+   "id": "405379404237",
+   "reason": "'Khorne Throne ONLY from Skull Cannon' — bits, not a Blood Throne kit (carried over from July)"
+  },
+  {
+   "id": "304529258295",
+   "reason": "Skullmaster from an EU seller (EUR 49.99) — import duty + brokerage on delivery"
+  },
+  {
+   "id": "374492919453",
+   "reason": "Flesh Hounds 'NEW on sprue' — ships from outside the US ($1.22 'standard shipping from outside US')"
+  },
+  {
+   "id": "137264558068",
+   "reason": "Bloodcrushers on sprue from Canada (C$14 shipping) — duty applies"
+  },
+  {
+   "id": "326960801015",
+   "reason": "Kill Team Murderwing split advertising '$0 US TARRIFS' — non-US seller wording; check location"
+  },
+  {
+   "id": "333336176321",
+   "reason": "'(6 Packs!) Metal OOP' Flesh Hounds at $88.95 — old metal blisters, not the plastic unit"
+  },
+  {
+   "id": "385378660518",
+   "reason": "'1x PLAGUE DRONE' — a single model, not the unit of three"
+  },
+  {
+   "id": "285082401524",
+   "reason": "Plague Drone 'SINGLE MODEL'"
+  },
+  {
+   "id": "314305299476",
+   "reason": "Plague Drone part ('top') — a bit"
+  },
+  {
+   "id": "186031667312",
+   "reason": "Beast of Nurgle 'Pro Painted … Commission' — a painting service, made to order"
+  },
+  {
+   "id": "195997916215",
+   "reason": "'Commission Rendmaster, Herald of Khorne on Blood Throne' — painting service, not stock"
+  },
+  {
+   "id": "175196426885",
+   "reason": "Warp Talons **COMMISSION** listing — painting service"
+  },
+  {
+   "id": "224771128760",
+   "reason": "Warp Talons **COMMISSION** listing — painting service"
+  },
+  {
+   "id": "178358001621",
+   "reason": "Warp Talons lightning-claw BITS"
+  },
+  {
+   "id": "276102758109",
+   "reason": "Raptors/Warp Talons 'Bits multi listing'"
+  },
+  {
+   "id": "195172963847",
+   "reason": "Chaos Terminator 'Bits' listing"
+  },
+  {
+   "id": "137411932612",
+   "reason": "Scarab Occult Terminators (Thousand Sons) — wrong kit for Chaos Terminators"
+  },
+  {
+   "id": "176656781931",
+   "reason": "Loyalist Leviathan Terminators — wrong kit"
+  },
+  {
+   "id": "276019984869",
+   "reason": "Terminator Lord 'BITS'"
+  },
+  {
+   "id": "136979325249",
+   "reason": "Cultists ×10 title, four models in the photos (July)"
+  },
+  {
+   "id": "walmart-319703216",
+   "reason": "'Start Collecting Daemons of Khorne $11.48 out of stock' — a placeholder page, not an offer"
+  },
+  {
+   "id": "cheap-n-fast / darkminiatures",
+   "reason": "Recast sellers surfaced with 'Skull Cannon $15.75' / 'Flesh Hounds $24.48' — overseas recasts; avoid"
+  },
+  {
+   "id": "mindtaker-108513",
+   "reason": "'Flesh Hounds of Khorne (x5)' at $9 (from $18) with an x4 URL — old sculpt / count mismatch / probably sold; curiosity only"
+  }
+ ]
+}

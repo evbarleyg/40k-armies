@@ -169,6 +169,16 @@ Newest entries at the bottom of each section; every waived finding is recorded w
 <li><strong>D6 — Market overrides stay in <code>build.py</code> for now.</strong> Moving <code>VERIFIED</code>/<code>SWEEP</code> into JSON is right but
   touches the scoring engine both lines of work share; deferred to keep this pass merge-safe. Logged, not
   forgotten.</li>
+<li><strong>D7 — Scout snapshots are dated files registered in the store (2026-08-14).</strong> <code>buying.scan_log</code> lists every
+  <code>data/scout-YYYY-MM-DD.json</code> with its date and a one-line description; <code>muster.py</code> prices the gaps from the last
+  entry (validation fails on a missing file or entries out of date order, and warns if a newer file sits in <code>data/</code>
+  unregistered), ships that entry's date and description to the app, and the generated list table names the date
+  instead of a literal "Jul 27". <code>gap_estimate</code> now pools entries by unit and returns the unit count, matching the
+  app's <code>gapCost</code>, so "N of M units priced" agrees in both places. The Aug 14 file adds <code>RETAIL</code> rows (orderable
+  new-kit prices) beside <code>BIN</code> leads; the parser needed no change (auctions, flagged ids and part-kit notes stay
+  excluded; rows without a price are leads and are skipped). Its provenance limits — search-index only, no photos,
+  unattributed prices linked to searches rather than guessed item numbers — are stated in the file's <code>source</code>/<code>notes</code>
+  and in <code>docs/SCOUT_REPORT.md</code>.</li>
 </ul>
 <h2 id="4-design-tournament-home-screen-and-navigation">4. Design tournament (home screen and navigation)</h2>
 <p>Three concepts were sketched as real pages over the theme tokens (<code>design/concepts/a-dashboard.html</code>,

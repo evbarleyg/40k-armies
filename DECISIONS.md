@@ -95,6 +95,16 @@ Marked ★ = would fight for it. Cheap ones ship; taste-heavy ones are listed as
 - **D6 — Market overrides stay in `build.py` for now.** Moving `VERIFIED`/`SWEEP` into JSON is right but
   touches the scoring engine both lines of work share; deferred to keep this pass merge-safe. Logged, not
   forgotten.
+- **D7 — Scout snapshots are dated files registered in the store (2026-08-14).** `buying.scan_log` lists every
+  `data/scout-YYYY-MM-DD.json` with its date and a one-line description; `muster.py` prices the gaps from the last
+  entry (validation fails on a missing file or entries out of date order, and warns if a newer file sits in `data/`
+  unregistered), ships that entry's date and description to the app, and the generated list table names the date
+  instead of a literal "Jul 27". `gap_estimate` now pools entries by unit and returns the unit count, matching the
+  app's `gapCost`, so "N of M units priced" agrees in both places. The Aug 14 file adds `RETAIL` rows (orderable
+  new-kit prices) beside `BIN` leads; the parser needed no change (auctions, flagged ids and part-kit notes stay
+  excluded; rows without a price are leads and are skipped). Its provenance limits — search-index only, no photos,
+  unattributed prices linked to searches rather than guessed item numbers — are stated in the file's `source`/`notes`
+  and in `docs/SCOUT_REPORT.md`.
 
 ## 4. Design tournament (home screen and navigation)
 

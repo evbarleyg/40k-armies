@@ -43,7 +43,7 @@ Live site (from `main`): https://evbarleyg.github.io/40k-armies/
 | `primer.html` | Beginner's strategy primer — the detachment, each list's play guide, cited appendices | `docs/PRIMER.md` |
 | `guide.html` · `GUIDE.pdf` | The Primer in print layout; 31-page A4 PDF (`./make_guide.sh`) | hand-written (Jul 27) |
 | `lists.html` · `collection.html` · `research.html` | Lists with corrections, box inventory, rules digest + re-verification | `docs/lists.md` · `docs/collection.md` · `docs/research.md` |
-| `scout.html` | eBay scout (Jul 27): graded buy targets, cost to complete each list | `docs/SCOUT_REPORT.md` (+ `data/scout-*.json`) |
+| `scout.html` | Price scan (Aug 14: retail floors, bundle maths, leads to open by hand) above the eBay scout (Jul 27: photo-graded targets); cost to complete each list | `docs/SCOUT_REPORT.md` (+ `data/scout-*.json`; Muster reads the one registered last in `buying.scan_log`) |
 | `scorecard.html` | All-faction painted-army value scorecard (filter/sort) | `listings.js` ← `build.py` |
 | `chaos.html` | Chaos / Be'lakor edition scorecard | `chaos.js` ← `build.py` |
 | `sweep-2026-07-21.html` | Visual paint-tier sweep of 29 listings (photos, not titles) | `docs/sweep-2026-07-21.md` |
@@ -97,7 +97,7 @@ of them turned out `Partial`.
 | `scrape.js` | Paste-into-console scraper for the eBay category feeds (captures bid counts) |
 | `pages.py` | Doc renderer + nav sync |
 | `docs/` | Markdown sources (Primer, lists, collection, research, scout report, handoff, context, sweep, strategy, eBay method) |
-| `data/scout-2026-07-26.json` · `data/scout-2026-07-27.json` | Shopping scrapes for the six lists (25 → 114 listings) |
+| `data/scout-2026-07-26.json` · `data/scout-2026-07-27.json` · `data/scout-2026-08-14.json` | Shopping snapshots for the six lists (25 → 114 photo-graded listings in July; the August file is a search-index scan: US retail floors plus unverified leads). `muster.py` prices gaps from whichever file the store's `buying.scan_log` registers last |
 | `tools/ebay_search.js` · `tools/ebay_fetch.js` | The scout's headless-Chromium search + item/gallery fetchers |
 | `guide.html` · `make_guide.sh` · `GUIDE.pdf` | Print-layout guide and its PDF build |
 | `archive/` | Provenance from the superseded `daemon-quartermaster` repo (first Quartermaster page, BOOTSTRAP, build_site.sh, paste prompt) |
