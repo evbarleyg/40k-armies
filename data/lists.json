@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "title": "The Shadow Legion list book",
+    "subtitle": "Seven sample 2,000-point lists with full options, built from the collection",
+    "snapshot_date": "2026-09-05",
+    "sources": "Rosters A to F rebuild the six lists from the 2026-07-27 Quartermaster ledger with the August 2026 deliveries applied; G is new. Plans condense the Battle Doctrine deck and codex-umbral-creed.md Part IV."
+  },
+  "lists": [
+    {
+      "id": "A",
+      "name": "The Yo-Yo Court",
+      "shape": "Teleport control",
+      "warlord": "belakor",
+      "plan": "Positional attrition. The Tzeentch package holds the midfield under the -1-to-hit boon while Mallex and five Legionaries arrive from reserve, kill whoever babysits an objective, Fade at the end of the fight, and come straight back on the opponent's turn with the Lord's free Rapid Ingress. Binding Shadow yo-yos anything else out of danger. Be'lakor stands in the centre and is terrifying; the Lord of Change rains fire from behind the Horrors; the Havocs sit home and crack armour; the hounds and Screamers run errands at the board edges.",
+      "deployment": "Nurglings infiltrate onto the midfield objectives. Havocs on the home objective with lascannon sightlines. Horrors, Flamers and the Exalted Flamer behind terrain inside Be'lakor's bubble. Mallex's squad and the Possessed in reserve; the monsters behind line-of-sight blockers or in reserve, subject to the current reserve cap. Land the monsters and the Possessed together on the thin flank on turn two or three.",
+      "history": "Complete since the Aug 4 deliveries (Mallex and the Flesh Hounds closed the July gap). Identical to the 07-27 card.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "loc", "unit": "lord_of_change"},
+        {"ref": "lord", "unit": "chaos_lord", "enhancement": "fade_to_darkness", "leads": "leg_a", "loadout": ["Plasma pistol", "Daemon hammer (the thunder hammer on the model)"]},
+        {"ref": "leg_a", "unit": "legionaries", "size": 5, "label": "A"},
+        {"ref": "leg_b", "unit": "legionaries", "size": 5, "label": "B"},
+        {"ref": "mop", "unit": "master_of_possessions", "leads": "possessed"},
+        {"ref": "possessed", "unit": "possessed", "size": 5},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "fateskimmer", "unit": "fateskimmer", "leads": "screamers"},
+        {"ref": "screamers", "unit": "screamers", "size": 3},
+        {"ref": "exalted", "unit": "exalted_flamer", "leads": "flamers"},
+        {"ref": "flamers", "unit": "flamers", "size": 3},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "hounds", "unit": "flesh_hounds", "size": 5},
+        {"ref": "cultists", "unit": "cultist_mob", "size": 10}
+      ],
+      "swaps": [
+        {"note": "Spend the spare sixty: the Exalted Flamer and Flamers out, a Bloodmaster leading ten Bloodletters in. Loses the Tzeentch overwatch line, gains a second melee threat that Advances and charges.", "remove": ["exalted", "flamers"], "add": [{"unit": "bloodmaster", "leads": "letters"}, {"ref": "letters", "unit": "bloodletters", "size": 10}]},
+        {"note": "One ten of Legionaries instead of two fives, with Mallex leading the ten. Ten points cheaper and a bigger bodyguard for the yo-yo; one fewer activation for actions.", "remove": ["leg_a", "leg_b"], "add": [{"ref": "leg_ten", "unit": "legionaries", "size": 10}], "relead": {"lord": "leg_ten"}},
+        {"note": "Leaping Shadows on the Fateskimmer puts the Screamers nine inches up the board before turn one.", "add_enhancement": [{"ref": "fateskimmer", "enhancement": "leaping_shadows"}]}
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Festering Court",
+      "shape": "Nurgle attrition with War Dogs",
+      "warlord": "belakor",
+      "plan": "Score by refusing to die. Beasts of Nurgle and the Horrors squat objectives under the Nurgle and Tzeentch boons while the War Dogs and Havocs do the shooting the daemons cannot. The Drones and Nurglings run the errands. Be'lakor and the Lord of Change arrive together where the enemy is thinnest, and the Possessed land with them.",
+      "deployment": "Nurglings on the midfield objectives, Beasts walking up behind them, Havocs home. War Dogs on a flank with sightlines and room to run. The Horrors screen the home half inside a monster's bubble.",
+      "history": "The 07-27 re-audit found the seller's 'Beasts' were Nurgling bases and the 'Drones' were the Screamers, so this list is no longer the cheapest to finish. Identical to the 07-27 card.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "loc", "unit": "lord_of_change"},
+        {"ref": "beast_a", "unit": "beast_of_nurgle", "size": 1, "label": "A"},
+        {"ref": "beast_b", "unit": "beast_of_nurgle", "size": 1, "label": "B"},
+        {"ref": "drones", "unit": "plague_drones", "size": 3},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "leg_a", "unit": "legionaries", "size": 5, "label": "A"},
+        {"ref": "leg_b", "unit": "legionaries", "size": 5, "label": "B"},
+        {"ref": "mop", "unit": "master_of_possessions", "leads": "possessed"},
+        {"ref": "possessed", "unit": "possessed", "size": 5},
+        {"ref": "dog_a", "unit": "war_dog_karnivore", "size": 1, "label": "A"},
+        {"ref": "dog_b", "unit": "war_dog_karnivore", "size": 1, "label": "B"}
+      ],
+      "swaps": [
+        {"note": "The spare forty buys nothing on the sheet. Running the Legionaries as one ten frees enough for a second Nurglings unit (a purchase).", "remove": ["leg_a", "leg_b"], "add": [{"unit": "legionaries", "size": 10}, {"unit": "nurglings", "size": 3, "label": "B"}]},
+        {"note": "No War Dogs, for an event that reads the Dreadblades rule against you: both out, a Bloodmaster with ten Bloodletters, the Flesh Hounds and the Screamers in. All owned.", "remove": ["dog_a", "dog_b"], "add": [{"unit": "bloodmaster", "leads": "letters"}, {"ref": "letters", "unit": "bloodletters", "size": 10}, {"unit": "flesh_hounds", "size": 5}, {"unit": "screamers", "size": 3}]}
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Word Bearers Ascendant",
+      "shape": "Marine deep-strike wave",
+      "warlord": "belakor",
+      "plan": "Every marine deep-strikes with Dark Pacts. Half the army starts off the board and lands on turn two in a wave: Mallex's Legionaries, the Chosen, the Warp Talons and the Possessed together, on the flank the Fateskimmer and Screamers have already scouted into. The daemons are the garnish; the Word Bearers are the sermon. Cultists and Nurglings hold the home half so the wave can be greedy.",
+      "deployment": "Fateskimmer and Screamers scout nine inches before the first turn. Nurglings on the midfield, both Cultist mobs and the Havocs home, the Horrors and Flamers behind terrain under Be'lakor. Everything Heretic Astartes except the Havocs in reserve, subject to the current reserve cap.",
+      "history": "The 07-27 card carried a Terminator Lord leading five Chaos Terminators (260, flagged verify). Chaos Terminators are not on the Thralls of the First Prince allowlist as this repo records it, so this book replaces them with the second Legionaries five and the Havocs, both owned. Forty-five points are left open.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "lord", "unit": "chaos_lord", "enhancement": "fade_to_darkness", "leads": "leg_a", "loadout": ["Plasma pistol", "Daemon hammer (the thunder hammer on the model)"]},
+        {"ref": "leg_a", "unit": "legionaries", "size": 5, "label": "A"},
+        {"ref": "leg_b", "unit": "legionaries", "size": 5, "label": "B"},
+        {"ref": "chosen", "unit": "chosen", "size": 5},
+        {"ref": "talons", "unit": "warp_talons", "size": 5},
+        {"ref": "mop", "unit": "master_of_possessions", "leads": "possessed"},
+        {"ref": "possessed", "unit": "possessed", "size": 5},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "cult_a", "unit": "cultist_mob", "size": 10, "label": "A"},
+        {"ref": "cult_b", "unit": "cultist_mob", "size": 10, "label": "B"},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "exalted", "unit": "exalted_flamer", "leads": "flamers"},
+        {"ref": "flamers", "unit": "flamers", "size": 3},
+        {"ref": "fateskimmer", "unit": "fateskimmer", "enhancement": "leaping_shadows", "leads": "screamers"},
+        {"ref": "screamers", "unit": "screamers", "size": 3},
+        {"ref": "hounds", "unit": "flesh_hounds", "size": 5}
+      ],
+      "swaps": [
+        {"note": "Fill the last forty-five with a second Nurglings unit (a purchase) for an exact two thousand.", "add": [{"unit": "nurglings", "size": 3, "label": "B"}]},
+        {"note": "Until the Chosen are bought: a Bloodmaster with ten Bloodletters in their place, which are owned. The wave loses its durable scorers and gains a brick that Advances and charges.", "remove": ["chosen"], "add": [{"unit": "bloodmaster", "leads": "letters"}, {"ref": "letters", "unit": "bloodletters", "size": 10}]}
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Crimson Cavalry",
+      "shape": "Khorne turn-one alpha",
+      "warlord": "belakor",
+      "plan": "The Skullmaster and six Bloodcrushers scout nine inches, Advance and charge under the Khorne boon; the Rendmaster rides alongside for the aura; both Bloodletter bricks and the hounds hit the midfield before a castle finishes forming. Mallex's squad runs the yo-yo underneath. Highest variance of the seven: it wins on turn two or loses on turn three.",
+      "deployment": "Cavalry and one Bloodletter brick on the line, hounds on the wide flank, both Nurgling units infiltrated onto the objectives the charge will cross. Cultists and Horrors home. Mallex's Legionaries and the Warp Talons in reserve.",
+      "history": "The 07-27 card ran one Bloodmaster and two Flesh Hound units and removed the illegal Skulltaker and Karanak from the original. The Aug 13 lot supplied a second Bloodmaster, so this version leads both bricks with a Herald each and drops the second Hounds unit (minus 75, plus 65). The tournament versions add the Cavalcade of Chaos detachment for a third DP and Soul-shattering Charge on the cavalry; its rules were never captured here, so this list stays pure Shadow Legion.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "skullmaster", "unit": "skullmaster", "enhancement": "leaping_shadows", "leads": "crushers_a"},
+        {"ref": "crushers_a", "unit": "bloodcrushers", "size": 6, "label": "A"},
+        {"ref": "crushers_b", "unit": "bloodcrushers", "size": 3, "label": "B"},
+        {"ref": "rendmaster", "unit": "rendmaster"},
+        {"ref": "bm_a", "unit": "bloodmaster", "label": "A", "leads": "letters_a"},
+        {"ref": "letters_a", "unit": "bloodletters", "size": 10, "label": "A"},
+        {"ref": "bm_b", "unit": "bloodmaster", "label": "B", "leads": "letters_b"},
+        {"ref": "letters_b", "unit": "bloodletters", "size": 10, "label": "B", "loadout": ["Hellblades", "Daemonic icon and instrument of Chaos (as modelled on the Aug 13 brick)"]},
+        {"ref": "hounds", "unit": "flesh_hounds", "size": 5},
+        {"ref": "lord", "unit": "chaos_lord", "enhancement": "fade_to_darkness", "leads": "leg_a", "loadout": ["Plasma pistol", "Daemon hammer (the thunder hammer on the model)"]},
+        {"ref": "leg_a", "unit": "legionaries", "size": 5},
+        {"ref": "talons", "unit": "warp_talons", "size": 5},
+        {"ref": "nurg_a", "unit": "nurglings", "size": 3, "label": "A"},
+        {"ref": "nurg_b", "unit": "nurglings", "size": 3, "label": "B"},
+        {"ref": "cultists", "unit": "cultist_mob", "size": 10},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10}
+      ],
+      "swaps": [
+        {"note": "Before the Skullmaster and the Rendmaster arrive: both out along with the unbought Warp Talons; the Lord of Change in and Leaping Shadows moved to Bloodmaster A, so a Bloodletter brick scouts and charges on turn one instead of the cavalry. Everything in this version except the Bloodcrushers is owned.", "remove": ["skullmaster", "rendmaster", "talons"], "add": [{"unit": "lord_of_change"}], "add_enhancement": [{"ref": "bm_a", "enhancement": "leaping_shadows"}]},
+        {"note": "Warp Talons unbought: the second five Legionaries in their place, owned and thirty-five points cheaper.", "remove": ["talons"], "add": [{"unit": "legionaries", "size": 5, "label": "B"}]}
+      ]
+    },
+    {
+      "id": "E",
+      "name": "The Fadethirster",
+      "shape": "Tournament shape",
+      "warlord": "belakor",
+      "plan": "Two kill-loops. The Skullmaster's Bloodcrushers scout-charge on turn one; the Bloodthirster drops on turn two, one-shots a tank, Fades to reserves at the end of the fight and Rapid-Ingresses back, off the board between swings. Every 4-1 tournament result the Battle Doctrine deck studied runs this silhouette. The Bloodletters take ground behind the cavalry, the Drones and hounds run errands, and the mortal half holds home.",
+      "deployment": "Cavalry on the line ready to scout. Nurglings infiltrated onto the midfield objectives, Havocs and Cultists home, the Horrors under Be'lakor. The Bloodthirster and the Bloodletter brick in reserve; the Drones and hounds wide.",
+      "history": "Identical to the 07-27 card. The Bloodthirster is now owned as an unassembled 3D-print proxy, so the list is casual-legal once he is built and stays a purchase for GW-run events. The tournament versions pair in Cavalcade of Chaos; see D.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "bt", "unit": "bloodthirster", "enhancement": "fade_to_darkness"},
+        {"ref": "skullmaster", "unit": "skullmaster", "enhancement": "leaping_shadows", "leads": "crushers"},
+        {"ref": "crushers", "unit": "bloodcrushers", "size": 6},
+        {"ref": "rendmaster", "unit": "rendmaster"},
+        {"ref": "bm", "unit": "bloodmaster", "leads": "letters"},
+        {"ref": "letters", "unit": "bloodletters", "size": 10, "loadout": ["Hellblades", "Daemonic icon and instrument of Chaos (as modelled on the Aug 13 brick)"]},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "hounds", "unit": "flesh_hounds", "size": 5},
+        {"ref": "drones", "unit": "plague_drones", "size": 3},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "leg", "unit": "legionaries", "size": 5},
+        {"ref": "cultists", "unit": "cultist_mob", "size": 10}
+      ],
+      "swaps": [
+        {"note": "Plague Drones are the one Nurgle purchase on the sheet. Until then the owned Screamers run the same errands for thirty points less.", "remove": ["drones"], "add": [{"unit": "screamers", "size": 3}]},
+        {"note": "The second owned Bloodmaster and brick instead of the unbought Rendmaster, with the Cultists dropped to make room. Two Heralds' bricks behind the cavalry rather than an aura piece.", "remove": ["rendmaster", "cultists"], "add": [{"unit": "bloodmaster", "label": "B", "leads": "letters_b"}, {"ref": "letters_b", "unit": "bloodletters", "size": 10, "label": "B"}]}
+      ]
+    },
+    {
+      "id": "F",
+      "name": "Triple Monster",
+      "shape": "Three Greater Daemons, beginner-forgiving",
+      "warlord": "belakor",
+      "plan": "Three T10 to T11 monsters, each projecting a 6\" shadow bubble: spread them out and most of the board is in shadow by turn two, so every enemy Battle-shock test near an objective is taken at minus one with D3 mortal wounds on a failure. The Bloodthirster carries Fade and does the killing; Be'lakor and the Lord of Change do the standing. Two Horror units and the Possessed hold what the monsters shade. Uses almost everything owned.",
+      "deployment": "Monsters spaced across the table behind line-of-sight blockers, or the Bloodthirster in reserve for the turn-two drop. Nurglings midfield, Havocs and Cultists home, Pinks and Blues each under a monster. Fateskimmer and Screamers on the open flank.",
+      "history": "Identical to the 07-27 card. Unlocked the moment the proxy Bloodthirster gets his arms; casual-legal only until a genuine kit replaces him.",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "bt", "unit": "bloodthirster", "enhancement": "fade_to_darkness"},
+        {"ref": "loc", "unit": "lord_of_change"},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "blues", "unit": "blue_horrors", "size": 10},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "fateskimmer", "unit": "fateskimmer", "leads": "screamers"},
+        {"ref": "screamers", "unit": "screamers", "size": 3},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "leg", "unit": "legionaries", "size": 5},
+        {"ref": "mop", "unit": "master_of_possessions", "leads": "possessed"},
+        {"ref": "possessed", "unit": "possessed", "size": 5},
+        {"ref": "cultists", "unit": "cultist_mob", "size": 10}
+      ],
+      "swaps": [
+        {"note": "Keep the Blues as split tokens for the Pinks instead of fielding them: Blues out, the Flamers in and Leaping Shadows on the Fateskimmer.", "remove": ["blues"], "add": [{"unit": "flamers", "size": 3}], "add_enhancement": [{"ref": "fateskimmer", "enhancement": "leaping_shadows"}]},
+        {"note": "A Bloodmaster's brick instead of the Possessed bomb: five points cheaper, and the Khorne boon lets it Advance and charge out of the Bloodthirster's shadow.", "remove": ["mop", "possessed"], "add": [{"unit": "bloodmaster", "leads": "letters"}, {"ref": "letters", "unit": "bloodletters", "size": 10}]}
+      ]
+    },
+    {
+      "id": "G",
+      "name": "The Crimson Tithe",
+      "shape": "Owned-only Khorne, buildable today",
+      "warlord": "belakor",
+      "plan": "The August purchases made into a list. Two Bloodmasters lead two Bloodletter bricks on opposite flanks; under the Khorne boon each Advances and still charges, so the opponent cannot screen both, and each stands back up D3 models at a time inside the shadow. The hounds take the far objective. Mallex's Legionaries run the yo-yo underneath. Be'lakor and the Lord of Change hold the centre and shade the bricks. The Havocs, Horrors, Nurglings and Cultists are the same home half as list A.",
+      "deployment": "Bricks on the line, one per flank, inside a monster's bubble at the start. Hounds wide. Nurglings on the midfield objectives, Havocs and Cultists home, Pinks on the near objective. Mallex's squad and the Possessed in reserve; the Lord of Change behind terrain or in reserve with them.",
+      "history": "New in this book. The codex's 'Crimson Tithe list, now buildable' names nine units and stops at 1,395; this fills it to 1,985 with the Lord of Change, the second Legionaries five and the Possessed. Kitchen-table legal today; tournament-complete once the Bloodletter count is confirmed (see gap).",
+      "units": [
+        {"ref": "belakor", "unit": "belakor"},
+        {"ref": "loc", "unit": "lord_of_change"},
+        {"ref": "bm_a", "unit": "bloodmaster", "label": "A", "leads": "letters_a"},
+        {"ref": "letters_a", "unit": "bloodletters", "size": 10, "label": "A", "loadout": ["Hellblades", "Icon and instrument: check the Jul 28 brick"]},
+        {"ref": "bm_b", "unit": "bloodmaster", "label": "B", "leads": "letters_b"},
+        {"ref": "letters_b", "unit": "bloodletters", "size": 10, "label": "B", "loadout": ["Hellblades", "Daemonic icon and instrument of Chaos (as modelled on the Aug 13 brick)"]},
+        {"ref": "hounds", "unit": "flesh_hounds", "size": 5},
+        {"ref": "lord", "unit": "chaos_lord", "enhancement": "fade_to_darkness", "leads": "leg_a", "loadout": ["Plasma pistol", "Daemon hammer (the thunder hammer on the model)"]},
+        {"ref": "leg_a", "unit": "legionaries", "size": 5, "label": "A"},
+        {"ref": "leg_b", "unit": "legionaries", "size": 5, "label": "B"},
+        {"ref": "mop", "unit": "master_of_possessions", "leads": "possessed"},
+        {"ref": "possessed", "unit": "possessed", "size": 5},
+        {"ref": "havocs", "unit": "havocs", "size": 5},
+        {"ref": "pinks", "unit": "pink_horrors", "size": 10},
+        {"ref": "nurglings", "unit": "nurglings", "size": 3},
+        {"ref": "cultists", "unit": "cultist_mob", "size": 10}
+      ],
+      "swaps": [
+        {"note": "A scouting brick: the Cultists out and Leaping Shadows on Bloodmaster A, so ten Bloodletters start nine inches up and threaten a turn-one charge.", "remove": ["cultists"], "add_enhancement": [{"ref": "bm_a", "enhancement": "leaping_shadows"}]},
+        {"note": "The Fateskimmer and Screamers instead of the Possessed bomb, for speed on secondaries rather than a third melee threat.", "remove": ["mop", "possessed"], "add": [{"unit": "fateskimmer", "leads": "screamers"}, {"ref": "screamers", "unit": "screamers", "size": 3}]},
+        {"note": "Once the proxy Bloodthirster is built, casually: the Lord of Change out, the Bloodthirster in with Fade moved from Mallex. The Word Bearers then run without the yo-yo.", "remove": ["loc"], "add": [{"unit": "bloodthirster", "enhancement": "fade_to_darkness"}], "remove_enhancement": ["lord"]}
+      ]
+    }
+  ]
+}

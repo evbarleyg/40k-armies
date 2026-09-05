@@ -64,7 +64,9 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 
 ## The six lists (all 2,000 pts, Shadow Legion 2 DP)
 
-Status recomputed after the August deliveries:
+Status recomputed after the August deliveries. Full rosters with wargear
+options, enhancements, computed gaps and legal swaps for all six, plus an
+owned-only Khorne list, are in `army-lists.md` (generated from `data/lists.json`):
 
 | List | Idea | July 27 gap | Gap now |
 |---|---|---|---|

@@ -26,6 +26,9 @@ buckets** (~157 live listings as of the last run).
 | `codex-umbral-creed.md` | Personal codex for the collection: original lore, unit entries, doctrines, purchase ledger |
 | `codex-umbral-creed.html` | Standalone styled edition of the codex (open in any browser) |
 | `quartermaster.md` | Audited inventory, six 2,000-pt lists, and verified rules — distilled from the July 27 Quartermaster + Battle Doctrine artifacts |
+| `army-lists.md` | **Generated.** The list book: seven 2,000-pt Shadow Legion lists with full rosters, wargear options, enhancements, computed gaps and legal swaps |
+| `build_lists.py` | Validates every list in `data/lists.json` against `data/units.json` (points, Warlord, Epic Hero / vehicle / Daemon Prince bans, HA share, Dreadblades, enhancements, leader pairings, inventory) and writes `army-lists.md` |
+| `data/units.json` / `data/lists.json` | Datasheet reference with the inventory snapshot, and the lists as references to it — the numbers behind `army-lists.md` |
 | `SPEC-muster.md` | Handoff spec: unify all the frontends into one local-first console over a single canonical data store |
 | `HANDOFF.md` | **Read first.** Current state, open tasks, and pickup context for a new session |
 
@@ -44,6 +47,7 @@ that run.
 
 ```bash
 python3 build.py            # regenerates listings.json + listings.js
+python3 build_lists.py      # validates the army lists, regenerates army-lists.md
 open index.html            # view the scorecard (no server needed)
 ```
 

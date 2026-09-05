@@ -21,6 +21,7 @@ August. Files worth reading, in order:
 | File | What it is |
 |---|---|
 | `quartermaster.md` | Audited inventory, six 2,000-pt lists, verified rules, buy queue |
+| `army-lists.md` | Generated list book: the six lists in full plus an owned-only Khorne list, with wargear options, gaps and swaps |
 | `codex-umbral-creed.md` | The personal codex: lore, unit entries, doctrines, purchase ledger |
 | `belakor-shadow-legion-guide.md` | Rules explainer with sources |
 | `SPEC-muster.md` | Spec for unifying all frontends into one app (separate, unstarted) |
@@ -119,7 +120,9 @@ usable in any other Chaos Daemons detachment, or as a Bloodthirster proxy on a
 
 - **Confirm the exact Bloodletter count** from the Aug 13 crate (photo showed
   ~9–10 including the Bloodmaster). `quartermaster.md` and the codex both carry
-  a "confirm count" marker that should be resolved.
+  a "confirm count" marker that should be resolved. It matters now: list G in
+  `army-lists.md` fields two bricks of ten, and `data/units.json` carries 17–19
+  Bloodletters, so one to three models may be missing. Set the real count there.
 - **Repair note:** the July 28 Bloodletters arrived damaged in shipping; the
   seller (`mcke_6946`) confirmed on Aug 11 they shipped intact. No claim filed.
   If repairs happen, note it against that ledger entry.
@@ -136,6 +139,10 @@ usable in any other Chaos Daemons detachment, or as a Bloodthirster proxy on a
 - Don't hand-edit numbers into two places. If a figure appears in both
   `quartermaster.md` and `codex-umbral-creed.md`, change both in one commit —
   the whole point of `SPEC-muster.md` is that this duplication is a known bug.
+- `army-lists.md` is generated. Its numbers live in `data/units.json` (points,
+  keywords, inventory) and `data/lists.json` (the lists). When the quartermaster
+  status column changes, change `data/units.json` in the same commit and run
+  `python3 build_lists.py`; it refuses to write an illegal or over-points list.
 - `codex-umbral-creed.html` is the styled twin of the markdown codex. Edits to
   one need mirroring in the other. It is also published as a private artifact;
   ask Evan for the URL if it needs redeploying.

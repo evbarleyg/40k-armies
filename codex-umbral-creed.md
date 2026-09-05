@@ -387,8 +387,9 @@ right moment beats a dead Terminator squad.
 
 ## PART V — MUSTERS
 
-*The Quartermaster built six; these are the three that matter now. Full tables
-for all six live in `quartermaster.md` and the ledger artifact.*
+*The Quartermaster built six; these are the three that matter now. Full rosters
+for all six, and a seventh built from the August tithe, live in `army-lists.md`;
+the summary table is in `quartermaster.md`.*
 
 **The Yo-Yo Court — 1,940 pts, COMPLETE as of August 4.** Be'lakor · Lord of
 Change · Mallex + Fade → 5 Legionaries · 5 Legionaries · MoP → Possessed ·
