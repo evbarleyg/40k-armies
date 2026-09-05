@@ -4,7 +4,7 @@
 
 *In the style of the official faction codexes: lore first, rules panels second,
 unit entries with flavor and battlefield notes, sample musters, and a collection
-ledger. Every model in this book is one you own or have inbound as of 2026-08-06.
+ledger. Every model in this book is one you own or have inbound as of 2026-09-05.
 Rules gists follow the current 11th-edition faction pack; verify points and full
 stratagem text in the official app before competitive play. The warband name is a
 placeholder liturgy — rename it and the codex follows.*
@@ -195,14 +195,15 @@ and rear objectives. They do not fight so much as fly through and apologize.
 
 ### The Blood Tithe (Khorne) — *new musters, August 2026*
 
-**EXALTED BLOODTHIRSTER — The Unbound Word** *(320 pts; unassembled,
-unpainted; ⚠ 3D-printed resin, 100mm base)*
+**BLOODTHIRSTER — The Unbound Word** *(320 pts; two kits, both unassembled
+and unpainted: a genuine Citadel kit delivered Sep 4, and the ⚠ 3D-printed
+resin proxy on a 100mm base)*
 
 The collector himself. He arrived in pieces, which the Creed regards as
 theologically correct: wrath, some assembly required. He is also the host's one
 true hobby project — resin, superglue, and a red that will have to be earned.
 
-*On provenance:* he is not a Citadel model. The listing disclosed it in the
+*On provenance, the resin copy:* it is not a Citadel model. The listing disclosed it in the
 description body — "This is a 3D Resin kit," ABS resin, and a **100mm** base
 where a true Bloodthirster stands on a 120mm oval — while the photograph showed
 the seller's own painted GW model, "for reference only." Fine at any kitchen
@@ -221,6 +222,13 @@ Doctrine deck run exactly this loop. Your copy just needs arms first.
 *On the workbench:* the seller ran late, apologized, and enclosed a small gift
 for the delay. The Creed does not forgive. The Creed left five stars regardless,
 for the packaging was honest.
+
+*On the second arrival (Sep 4):* a genuine Citadel Bloodthirster, new in box,
+$150 from Frontline Gaming at retail with nothing added for shipping or tax.
+The Creed now owns the Word twice. The resin copy becomes the practice build
+and the kitchen-table stand-in; the plastic one is for any table that checks
+bases. Both still need arms. The Bloodthirster task in `HANDOFF.md` closed
+itself while nobody was looking.
 
 **BLOODMASTER & BLOODLETTERS ×9 — The Tithe-Takers** *(~175 pts as Herald +
 full brick; painted)*
@@ -244,11 +252,14 @@ charge cavalry that grabs far objectives, hunts backfield characters, and
 screens the monsters' landing zones. Their anti-psyker collars are a dry joke in
 an army this magical; the hounds have not noticed.
 
-**BLOODCRUSHERS — inbound** *(ETA Aug 18 – Sep 1; "some damaged," per the
-listing, which for Khorne is practically a blessing)*
+**BLOODCRUSHERS — arrived Aug 19, uncounted** *(95 pts per three; "some
+damaged," per the listing, which for Khorne is practically a blessing)*
 
-Juggernaut cavalry. Repair, re-base, and they become the Tithe's armored fist —
-note the July 2026 balance pass already taxed them 10 points for being good.
+Juggernaut cavalry, delivered from Canada on August 19 and not yet opened for
+the count. Repair, re-base, and they become the Tithe's armored fist — note the
+July 2026 balance pass already taxed them 10 points for being good. How many of
+the six the Fadethirster wants are in the crate is the first question the next
+catalogue session answers.
 
 **SECOND BLOODMASTER & BLOODLETTERS — The Appendix** *(~175 pts as Herald +
 brick; painted; confirm exact count)*
@@ -291,6 +302,25 @@ comedians in the army.
 *On the battlefield:* deploy them on the objectives you intend to keep. With the
 Nurgle boon they shrug high-Strength fire, and every phase they survive is a
 phase the enemy spent shooting at giggles.
+
+**GREAT UNCLEAN ONE & THE NURGLE LOT — arrived Sep 2, uncatalogued** *(points:
+verify in the app; the listing title promised a Great Unclean One and a
+"Nurgling Army Lot")*
+
+The Margins acquired a margin of their own. An eBay lot titled for a Great
+Unclean One and an army of Nurglings landed on September 2 for $292.96 and has
+not yet been opened for the count; its listing could not be read from the
+session that recorded it. Until the crate is catalogued the codex claims only
+what the title claims: one Greater Daemon of Nurgle, some number of Nurgling
+bases, paint state unknown.
+
+*On the battlefield (once catalogued):* a third Greater Daemon, so a third 6"
+shadow bubble and a third terror aura, and a Character rather than an Epic
+Hero, so an enhancement is legal on it. Kersley's 4-1 list sat one on the
+centre objective with Mantle of Gloom and let the cavalry work around it. More
+Nurglings close the second-unit gap in lists C and D outright. Whether the lot
+also holds Beasts or Drones for the Festering Court is the question the count
+will answer.
 
 ### The Bearers of the Word (Heretic Astartes)
 
@@ -413,8 +443,8 @@ can deploy once the Bloodletters' shipping damage is repaired.
 **The Fadethirster — the tournament shape.** Adds Skullmaster + 6 Bloodcrushers
 and a Rendmaster on Blood Throne to the Bloodthirster loop; every 4-1 result
 the Battle Doctrine deck studied runs this silhouette, usually with the
-Cavalcade of Chaos detachment paired in. The inbound Bloodcrushers lot decides
-how much of it you already own; a Skullmaster and Rendmaster are the true
+Cavalcade of Chaos detachment paired in. The Bloodcrushers lot, delivered Aug 19
+and not yet counted, decides how much of it you already own; a Skullmaster and Rendmaster are the true
 remaining gaps.
 
 ---
@@ -429,17 +459,22 @@ remaining gaps.
 | Jul 27 | Flesh Hounds ×5 | ~$82 (combined order) | Well painted | Delivered Aug 4 |
 | Jul 28 | Bloodmaster + Bloodletters ×10 | $45.10 | Painted | Delivered Aug 4 (auction win) |
 | Aug 5 | Khorne Daemons Army Lot | $213.70 | Well painted | Delivered Aug 13 — Bloodmaster + brick + Daemon Prince |
-| Aug 5 | Bloodcrushers lot | ~C$154.76 (~$112) | Some damage, repairs due | ETA Aug 18 – Sep 1 (reconfirmed Aug 11) |
+| Aug 5 | Bloodcrushers lot | C$154.76 (~$112) | Some damage, repairs due | Delivered Aug 19 — count and damage not yet catalogued |
+| Aug 31 | Daemons of Nurgle Army Lot (Great Unclean One + Nurglings, per the title) | $292.96 | Unknown until opened | Delivered Sep 2 — contents pending catalogue |
+| Aug 31 | Bloodthirster, Games Workshop kit (Frontline Gaming) | $150.00 | New in box, unassembled, unpainted | Delivered Sep 4 — the genuine kit, 120mm oval |
 
-**Total tithed: ≈ $1,391.** The strategy doc's plan priced the Night Lords lot
+**Total tithed: ≈ $1,834.** The strategy doc's plan priced the Night Lords lot
 at $650; the Creed spent ~$550 building a Khorne wing instead and kept the
 difference. The Mallex, Flesh Hounds, and Bloodmaster purchases were the
 Quartermaster's buy queue (#1, #2, #4) executing on schedule; the July 27 photo
 audit also surfaced two units the seller never listed (3 Flamers, 10 Cultists),
 now entered in Part III. The August 13 crate then closed buy-queue #5 (a second
 Bloodletter brick) and threw in a second Herald, at the cost of a Daemon Prince
-the detachment will not seat. Remaining gaps: a Skullmaster and Rendmaster for
-the tournament list, five more Flesh Hounds, fast Slaanesh scoring (the Seekers
+the detachment will not seat. The two orders of August 31 closed the
+Bloodthirster gap with a genuine kit at retail and opened a Nurgle wing whose
+contents are still in the box; both it and the Bloodcrushers crate await the
+count. Remaining gaps: a Skullmaster and Rendmaster for the tournament list,
+five more Flesh Hounds, fast Slaanesh scoring (the Seekers
 lot went unpurchased), and mobile CSM (Raptors or Warp Talons, someday, painted
 in crimson). The $650
 Night Lords lot sold to another buyer on Aug 10, closing that road for good;

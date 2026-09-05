@@ -45,7 +45,7 @@
       "warlord": "belakor",
       "plan": "Score by refusing to die. Beasts of Nurgle and the Horrors squat objectives under the Nurgle and Tzeentch boons while the War Dogs and Havocs do the shooting the daemons cannot. The Drones and Nurglings run the errands. Be'lakor and the Lord of Change arrive together where the enemy is thinnest, and the Possessed land with them.",
       "deployment": "Nurglings on the midfield objectives, Beasts walking up behind them, Havocs home. War Dogs on a flank with sightlines and room to run. The Horrors screen the home half inside a monster's bubble.",
-      "history": "The 07-27 re-audit found the seller's 'Beasts' were Nurgling bases and the 'Drones' were the Screamers, so this list is no longer the cheapest to finish. Identical to the 07-27 card.",
+      "history": "The 07-27 re-audit found the seller's 'Beasts' were Nurgling bases and the 'Drones' were the Screamers, so this list is no longer the cheapest to finish. Identical to the 07-27 card. The Daemons of Nurgle lot delivered Sep 2 is uncatalogued and may change this gap; count it before buying.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "loc", "unit": "lord_of_change"},
@@ -139,7 +139,7 @@
       "warlord": "belakor",
       "plan": "Two kill-loops. The Skullmaster's Bloodcrushers scout-charge on turn one; the Bloodthirster drops on turn two, one-shots a tank, Fades to reserves at the end of the fight and Rapid-Ingresses back, off the board between swings. Every 4-1 tournament result the Battle Doctrine deck studied runs this silhouette. The Bloodletters take ground behind the cavalry, the Drones and hounds run errands, and the mortal half holds home.",
       "deployment": "Cavalry on the line ready to scout. Nurglings infiltrated onto the midfield objectives, Havocs and Cultists home, the Horrors under Be'lakor. The Bloodthirster and the Bloodletter brick in reserve; the Drones and hounds wide.",
-      "history": "Identical to the 07-27 card. The Bloodthirster is now owned as an unassembled 3D-print proxy, so the list is casual-legal once he is built and stays a purchase for GW-run events. The tournament versions pair in Cavalcade of Chaos; see D.",
+      "history": "Identical to the 07-27 card. The Bloodthirster is owned twice as of Sep 4, a genuine Games Workshop kit and the 3D-print proxy, both unassembled; build the GW kit and the list is event-legal. The Bloodcrushers lot was delivered Aug 19 and has not been counted. The tournament versions pair in Cavalcade of Chaos; see D.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "bt", "unit": "bloodthirster", "enhancement": "fade_to_darkness"},
@@ -168,7 +168,7 @@
       "warlord": "belakor",
       "plan": "Three T10 to T11 monsters, each projecting a 6\" shadow bubble: spread them out and most of the board is in shadow by turn two, so every enemy Battle-shock test near an objective is taken at minus one with D3 mortal wounds on a failure. The Bloodthirster carries Fade and does the killing; Be'lakor and the Lord of Change do the standing. Two Horror units and the Possessed hold what the monsters shade. Uses almost everything owned.",
       "deployment": "Monsters spaced across the table behind line-of-sight blockers, or the Bloodthirster in reserve for the turn-two drop. Nurglings midfield, Havocs and Cultists home, Pinks and Blues each under a monster. Fateskimmer and Screamers on the open flank.",
-      "history": "Identical to the 07-27 card. Unlocked the moment the proxy Bloodthirster gets his arms; casual-legal only until a genuine kit replaces him.",
+      "history": "Identical to the 07-27 card. Unlocked the moment the Bloodthirster gets his arms; since Sep 4 that can be the genuine Games Workshop kit, so the list is event-legal once built.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "bt", "unit": "bloodthirster", "enhancement": "fade_to_darkness"},
@@ -218,7 +218,7 @@
       "swaps": [
         {"note": "A scouting brick: the Cultists out and Leaping Shadows on Bloodmaster A, so ten Bloodletters start nine inches up and threaten a turn-one charge.", "remove": ["cultists"], "add_enhancement": [{"ref": "bm_a", "enhancement": "leaping_shadows"}]},
         {"note": "The Fateskimmer and Screamers instead of the Possessed bomb, for speed on secondaries rather than a third melee threat.", "remove": ["mop", "possessed"], "add": [{"unit": "fateskimmer", "leads": "screamers"}, {"ref": "screamers", "unit": "screamers", "size": 3}]},
-        {"note": "Once the proxy Bloodthirster is built, casually: the Lord of Change out, the Bloodthirster in with Fade moved from Mallex. The Word Bearers then run without the yo-yo.", "remove": ["loc"], "add": [{"unit": "bloodthirster", "enhancement": "fade_to_darkness"}], "remove_enhancement": ["lord"]}
+        {"note": "Once the Bloodthirster is built: the Lord of Change out, the Bloodthirster in with Fade moved from Mallex. The Word Bearers then run without the yo-yo.", "remove": ["loc"], "add": [{"unit": "bloodthirster", "enhancement": "fade_to_darkness"}], "remove_enhancement": ["lord"]}
       ]
     }
   ]

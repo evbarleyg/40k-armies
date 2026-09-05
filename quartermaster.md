@@ -5,7 +5,8 @@ Doctrine" artifacts (built 2026-07-27 in a separate session; the
 `daemon-quartermaster` repo they cite was never pushed, so this file is the
 durable copy). Points are MFM v1.1 (22 Jul 2026), cross-checked against
 Wahapedia 11e / Tabletop Battles / Listhammer on 07-27. Status column updated
-2026-08-11 with the August deliveries.*
+2026-09-05 from an inbox sweep: the Bloodcrushers lot and both Aug 31 orders
+have been delivered, and two crates await cataloguing.*
 
 - Ledger artifact: <https://claude.ai/code/artifact/a56e6f5e-47b9-4b00-8ac0-791d4815ee44>
 - Battle Doctrine deck: <https://claude.ai/code/artifact/995360ab-ea16-4662-b89c-194c7a70a3c7>
@@ -39,10 +40,12 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 | Flesh Hounds | 5 | 75 | **delivered Aug 4** (buy-queue #2) |
 | Bloodmaster + Bloodletters ×9 | 1+9 | ~175 as 1+10 | **delivered Aug 4** (buy-queue #4) |
 | Exalted Bloodthirster | 1 | 320 (BT datasheet) | **delivered Aug 4, unassembled** — ⚠ **3D-printed ABS resin recast, not GW plastic**, and ships with a **100mm** base (correct is 120mm oval). Casual-legal; banned at GW-run events. Assemble with superglue, not plastic cement. |
-| Bloodcrushers lot ("some damaged") | ? | 95 per 3 | **ETA Aug 18 – Sep 1 (reconfirmed Aug 11)** |
+| Bloodcrushers lot ("some damaged") | ? | 95 per 3 | **delivered Aug 19** — count and damage not yet catalogued |
+| Bloodthirster (Games Workshop kit, new in box) | 1 | 320 | **delivered Sep 4** (Frontline Gaming, $150 landed) — unassembled, unpainted, 120mm oval; the event-legal one. The resin copy above becomes the practice build |
 | Bloodmaster (2nd Herald) | 1 | — | **delivered Aug 13** (Khorne army lot) |
 | Bloodletters (2nd brick, w/ horn + icon) | ~9–10 | 110 per 10 | **delivered Aug 13** — closes buy-queue #5; *confirm exact count* |
 | Daemon Prince (winged, Khorne) | 1 | n/a | **delivered Aug 13** — ILLEGAL in Shadow Legion (no Daemon Princes); other detachments or Bloodthirster proxy only |
+| Daemons of Nurgle lot (Great Unclean One + Nurglings, per the listing title) | ? | GUO: verify in app · Nurglings 45 per 3 | **delivered Sep 2** ($292.96 landed, eBay 267770818701) — contents pending catalogue; the listing could not be read from the recording session |
 
 ## Rules verified on 07-27 (citations in the ledger artifact)
 
@@ -71,15 +74,15 @@ owned-only Khorne list, are in `army-lists.md` (generated from `data/lists.json`
 | List | Idea | July 27 gap | Gap now |
 |---|---|---|---|
 | **A · Yo-Yo Court** | Teleport control: Mallex + Legionaries kill, Fade, Rapid-Ingress back; Tzeentch castle holds | Lord + Hounds (~$65) | **COMPLETE — playable today** |
-| B · Festering Court | Nurgle attrition + War Dogs | Beasts ×2, Drones ×3, Nurglings (~$180) | unchanged (~$180) |
+| B · Festering Court | Nurgle attrition + War Dogs | Beasts ×2, Drones ×3, Nurglings (~$180) | **Nurgle lot delivered Sep 2, uncatalogued** — may cover the Nurglings; Beasts ×2 and Drones ×3 unconfirmed until the crate is counted |
 | C · Word Bearers Ascendant | All-marine deep-strike wave | Lord, Chosen, Talons, Cultists (~$159) | Chosen, Talons, Cultists ×10 (~$140) |
-| D · Crimson Cavalry | Khorne turn-1 alpha (Skullmaster scout-charge) | everything Khorne (~$480) | **2 bricks + 2 Heralds now owned**; needs Skullmaster, Rendmaster, 5 more Hounds, Warp Talons, ±crushers pending lot |
-| E · Fadethirster | Tournament shape: Fading Bloodthirster + Crusher brick | BT + all cavalry (~$388) | **BT owned (assemble!)**; Skullmaster, Rendmaster, ±crushers pending lot |
-| F · Triple Monster | Be'lakor + BT + LoC, beginner-forgiving | Bloodthirster (~$83–213) | **assembly + paint only** |
+| D · Crimson Cavalry | Khorne turn-1 alpha (Skullmaster scout-charge) | everything Khorne (~$480) | **2 bricks + 2 Heralds owned; crushers lot delivered Aug 19, uncounted**; needs Skullmaster, Rendmaster, Warp Talons, a second Nurglings (the Nurgle lot may supply it) |
+| E · Fadethirster | Tournament shape: Fading Bloodthirster + Crusher brick | BT + all cavalry (~$388) | **genuine BT owned (assemble!); crushers lot delivered, uncounted**; Skullmaster, Rendmaster, Drones ×3 |
+| F · Triple Monster | Be'lakor + BT + LoC, beginner-forgiving | Bloodthirster (~$83–213) | **assembly + paint only, now with the genuine kit** |
 
 **The road (from the Battle Doctrine deck):** learn on A (all painted, all
-owned) → assemble the Bloodthirster to unlock F → let the inbound Bloodcrushers
-lot decide whether E/D open up. Both 4-1 tournament lists it studies (Marney's
+owned) → assemble the Bloodthirster to unlock F → count the Bloodcrushers lot
+(delivered Aug 19) to see whether E/D open up. Both 4-1 tournament lists it studies (Marney's
 Edinburgh build; Kersley's Be'lakor-less "Red Bull Gives You Skulls") lean
 Khorne cavalry + a Fading Bloodthirster and pair the detachment with
 **Cavalcade of Chaos** (source of Soul-shattering Charge) — its rules are the

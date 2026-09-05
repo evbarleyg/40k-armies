@@ -107,6 +107,8 @@ def assign_tags(entries):
             tag = "buy"
         elif st == "inbound":
             tag = "inbound"
+        elif st == "uncatalogued":
+            tag = "delivered, uncatalogued"
         elif st == "assemble":
             tag = "assemble"
         elif have >= e["size"]:
@@ -245,21 +247,35 @@ def compute_gap(entries, units):
             note = "owned, unassembled"
             if o.get("proxy"):
                 note += "; a 3D-print proxy, so casual-legal only: a genuine kit is still the buy for GW-run events"
-            assemble.append({"short": f"{u['name']} (assemble)", "long": f"{u['name']}: {note}"})
+            if o.get("note") and not o.get("proxy"):
+                note += f"; {o['note'].rstrip('.')}"
+            assemble.append({"kind": "build", "proxy": bool(o.get("proxy")),
+                             "short": f"{u['name']} (assemble)", "long": f"{u['name']}: {note}"})
         if n > have:
             short = n - have
             if st == "inbound":
-                buy.append({"short": f"{unit_count_word(u, short)} (lot inbound)",
+                buy.append({"kind": "await", "short": f"{unit_count_word(u, short)} (lot inbound)",
                             "long": f"{unit_count_word(u, short)}: an inbound lot of unknown count may cover some or all"})
+            elif st == "uncatalogued":
+                buy.append({"kind": "catalogue", "short": f"{unit_count_word(u, short)} (lot delivered, uncatalogued)",
+                            "long": f"{unit_count_word(u, short)}: a lot has been delivered but not yet catalogued; count it before buying"})
             elif st == "none":
-                buy.append({"short": unit_count_word(u, n), "long": f"{unit_count_word(u, n)}: not owned"})
+                item = {"kind": "buy", "short": unit_count_word(u, n), "long": f"{unit_count_word(u, n)}: not owned"}
+                if o.get("pending"):
+                    item["short"] += " (lot pending catalogue)"
+                    item["long"] += f"; {o['pending'].rstrip('.')}"
+                buy.append(item)
             else:
                 rng = o.get("count_range")
                 detail = f"{have} owned of {n} needed"
                 if rng:
                     detail += f"; the count is unconfirmed, {rng[0]} to {rng[1]} in all"
-                buy.append({"short": f"{u['name']}: {short} models",
-                            "long": f"{u['name']}: {short} more models ({detail})"})
+                item = {"kind": "buy", "short": f"{u['name']}: {short} models",
+                        "long": f"{u['name']}: {short} more models ({detail})"}
+                if o.get("pending"):
+                    item["short"] += " (lot pending catalogue)"
+                    item["long"] += f"; {o['pending'].rstrip('.')}"
+                buy.append(item)
     return buy, assemble
 
 
@@ -267,7 +283,10 @@ def status_line(buy, assemble):
     if buy:
         return "needs " + ", ".join(b["short"] for b in buy)
     if assemble:
-        return "complete once assembled: " + ", ".join(a["short"].replace(" (assemble)", "") for a in assemble) + " (proxy, casual only)"
+        line = "complete once assembled: " + ", ".join(a["short"].replace(" (assemble)", "") for a in assemble)
+        if any(a["proxy"] for a in assemble):
+            line += " (proxy, casual only)"
+        return line
     return "complete, every model owned"
 
 
@@ -384,8 +403,9 @@ def render_list(lst, entries, v, buy, assemble, swaps_out, limits):
         o.append("None. Every unit is owned and painted.")
     else:
         o.append("")
+        verbs = {"buy": "Buy", "await": "Await", "catalogue": "Catalogue"}
         for b in buy:
-            o.append(f"- Buy: {b['long']}.")
+            o.append(f"- {verbs.get(b.get('kind', 'buy'), 'Buy')}: {b['long']}.")
         for a in assemble:
             o.append(f"- Build: {a['long']}.")
     o.append("")
@@ -419,7 +439,7 @@ def render_reference(udata, units):
         o.append("")
         for u in group:
             sizes = sorted(((int(n), p) for n, p in u["sizes"].items()), key=lambda x: x[0])
-            size_str = " · ".join(f"{p} pts ({n} model{'s' if n > 1 else ''})" for n, p in sizes)
+            size_str = " · ".join(f"{p} pts ({n} model{'s' if n > 1 else ''})" for n, p in sizes) or "no price recorded"
             title = u.get("long_name") or u["name"]
             if u.get("alias"):
                 title += f' (the collection\'s is "{u["alias"]}")'
@@ -445,7 +465,8 @@ def render_reference(udata, units):
             own_bits = [f"{ow.get('count', 0)}"]
             if ow.get("count_range"):
                 own_bits[0] += f" (unconfirmed: {ow['count_range'][0]} to {ow['count_range'][1]})"
-            st_word = {"own": "", "assemble": "unassembled", "inbound": "inbound", "none": "not owned"}[ow.get("status", "none")]
+            st_word = {"own": "", "assemble": "unassembled", "inbound": "inbound",
+                       "uncatalogued": "delivered, not yet catalogued", "none": "not owned"}[ow.get("status", "none")]
             if st_word:
                 own_bits.append(st_word)
             if ow.get("paint"):
@@ -458,6 +479,8 @@ def render_reference(udata, units):
                 line += f" {note[0].upper() + note[1:]}."
             if ow.get("built"):
                 line += f" As built: {ow['built'].rstrip('.')}."
+            if ow.get("pending"):
+                line += f" Pending: {ow['pending'].rstrip('.')}."
             o.append(line)
             if u.get("notes"):
                 o.append(f"- **Notes:** {u['notes']}")
@@ -521,6 +544,8 @@ def render_inventory(udata):
         if ow.get("proxy"):
             st += ", 3D-print proxy"
         note = ow.get("note", "")
+        if ow.get("pending"):
+            note = (note + ". " if note else "") + "Pending: " + ow["pending"].rstrip(".")
         o.append(f"| {u['name']} | {count} | {st} | {note} |")
     o.append("")
     return "\n".join(o)
@@ -617,10 +642,14 @@ def build():
         st = ow.get("status", "none")
         if st == "inbound":
             own += " (lot inbound)"
+        elif st == "uncatalogued":
+            own += " (lot delivered, uncatalogued)"
         elif st == "assemble":
             own += " (assemble)"
         elif ow.get("count_range"):
             own += f" ({ow['count_range'][0]}–{ow['count_range'][1]})"
+        if ow.get("pending"):
+            own += " + lot pending catalogue"
         o.append(f"| {u['name']} | " + " | ".join(str(row[i]) if i in row else "" for i in list_ids) + f" | {own} |")
     o.append("")
     o.append("## The lists")

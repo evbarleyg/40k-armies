@@ -1,7 +1,7 @@
 {
   "meta": {
     "points_snapshot": "MFM v1.1 (22 Jul 2026), audited 2026-07-27 against Wahapedia 11e, Tabletop Battles and Listhammer",
-    "inventory_as_of": "the quartermaster.md status column as of 2026-08-14 (the Bloodcrushers lot had not arrived)",
+    "inventory_as_of": "the quartermaster.md status column as of 2026-09-05 (inbox sweep: the Bloodcrushers lot and the Sep 2 Nurgle lot are delivered but not yet catalogued)",
     "snapshot_date": "2026-09-05",
     "detachment": "Shadow Legion (2 DP, Purge the Foe)",
     "limits": {
@@ -81,6 +81,23 @@
       "notes": "Greater Daemon: a second 6\" shadow bubble and terror source, and the army's only real shooting platform. Character, not Epic Hero, so it may carry an enhancement."
     },
     {
+      "id": "great_unclean_one",
+      "name": "Great Unclean One",
+      "faction": "Legiones Daemonica",
+      "god": "Nurgle",
+      "section": "Characters",
+      "keywords": ["Character", "Monster", "Daemon", "Greater Daemon", "Psyker"],
+      "sizes": {},
+      "points_source": "not recorded. Kersley's 4-1 list ran one with Mantle of Gloom for 285, so the base cost sits below that; read it from the app before this unit enters a list",
+      "verify": true,
+      "loadout": ["Bilesword and bileblade (the kit's default build)"],
+      "options": ["The kit's other arms are a plague flail and a doomsday bell; read the swap wording from the app"],
+      "verify_options": "Nothing about this datasheet has been confirmed in this repo yet.",
+      "leads": [],
+      "owned": {"count": 1, "status": "uncatalogued", "note": "promised by the title of the Sep 2 Nurgle lot (eBay 267770818701, $292.96 landed for the whole lot); the crate is unopened, paint state unknown, model not yet confirmed genuine"},
+      "notes": "A third Greater Daemon: a third 6\" shadow bubble and terror source. Character, not Epic Hero, so an enhancement is legal on it. No list in this book fields it until a price is recorded."
+    },
+    {
       "id": "bloodthirster",
       "name": "Bloodthirster",
       "faction": "Legiones Daemonica",
@@ -92,7 +109,7 @@
       "loadout": ["Hellfire breath (ranged)", "Great axe of Khorne"],
       "options": ["Great axe of Khorne may be swapped for the kit's other builds: an axe of Khorne with a lash of Khorne, or with a bloodflail. Read the exact swap wording and profiles from the datasheet. The great axe is the anti-tank build the tournament lists run (7 attacks, S16, AP-4, D6+2 as recorded 07-27)."],
       "leads": [],
-      "owned": {"count": 1, "status": "assemble", "paint": "unpainted", "proxy": true, "built": "unassembled; build to the great axe if the kit's arms allow, and log which build you glue", "note": "3D-printed ABS resin kit on a 100mm base (a true Bloodthirster stands on a 120mm oval). Casual-legal; not a Citadel model, so banned at GW-run events. Re-base to 120mm and assemble with superglue."},
+      "owned": {"count": 2, "status": "assemble", "paint": "unpainted", "built": "both unassembled. Build the Games Workshop kit to the great axe and log which build you glue; the resin copy is the practice build, re-based to 120mm and glued with superglue", "note": "a genuine Games Workshop kit, new in box, delivered Sep 4 from Frontline Gaming ($150 landed), plus the Jul 27 3D-printed resin proxy on a 100mm base, which is casual-legal only. Lists assume the Games Workshop kit"},
       "notes": "Character, not Epic Hero: Fade to Darkness is legal on it (verified 07-27). Drop, kill, Fade, Rapid Ingress back: off the board between swings."
     },
     {
@@ -218,7 +235,7 @@
       "loadout": ["Diseased claws and teeth"],
       "options": [],
       "leads": [],
-      "owned": {"count": 3, "status": "own", "paint": "painted", "note": "three bases, one unit"},
+      "owned": {"count": 3, "status": "own", "paint": "painted", "note": "three bases, one unit", "pending": "the Sep 2 Nurgle lot (eBay 267770818701, titled 'Nurgling Army Lot') should add bases; count them when the crate is opened"},
       "notes": "Infiltrators with OC 0: they block, screen and start the midfield shadow economy on turn one; they do not hold ground. A second unit is the cheapest fill on every list."
     },
     {
@@ -282,7 +299,7 @@
       "champion": "1 Bloodhunter (same weapons)",
       "options": ["1 model may carry a daemonic icon", "1 model may carry an instrument of Chaos"],
       "leads": [],
-      "owned": {"count": 0, "status": "inbound", "note": "a lot of unknown count, 'some damaged', ETA Aug 18 to Sep 1 (reconfirmed Aug 11); not yet catalogued in this repo. Repair and re-base on arrival."},
+      "owned": {"count": 0, "status": "uncatalogued", "note": "the lot 'Daemons Of Khorne Lot, Bloodcrushers, Some Damaged' (eBay 287486155574, C$154.76 landed) was delivered Aug 19 and has not been opened for the count. Repair and re-base once counted"},
       "notes": "Juggernaut cavalry, the armoured fist of every Khorne list. Led by a Skullmaster."
     },
     {

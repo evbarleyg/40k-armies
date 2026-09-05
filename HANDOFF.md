@@ -6,6 +6,18 @@ all commercial egress (eBay, Etsy, Mercari, Noble Knight, TrollAndToad,
 Whatnot, Reddit, Wahapedia, github.io). A local session with browser access can
 finish what's below in one sitting.*
 
+> **Update 2026-09-05 (remote session, inbox sweep).** The task in §2 is
+> closed: a genuine Games Workshop Bloodthirster kit, new in box, arrived
+> Sep 4 from Frontline Gaming at $150 landed (retail; no shipping or tax was
+> charged). Two more crates have landed and are uncatalogued: the
+> Bloodcrushers lot (Aug 19) and a Daemons of Nurgle army lot titled for a
+> Great Unclean One and Nurglings (eBay item 267770818701, $292.96 landed,
+> delivered Sep 2). Total tithed is now ≈ $1,834. The local task is now
+> **catalogue-on-arrival**: open both crates, count and photograph, set the
+> real numbers in `quartermaster.md`, `codex-umbral-creed.md` (both editions)
+> and `data/units.json`, then run `python3 build_lists.py`. The rest of this
+> file stands as written on Aug 14.
+
 ---
 
 ## 1. What this project is
@@ -97,18 +109,21 @@ Legionaries ×10 (170, or 90 per five) · Havocs ×5 (125) · War Dog Karnivores
 (310, Chaos Knights allies) · Chaos Lord "Obsidius Mallex" · Flesh Hounds ×5
 (75) · **two** Bloodmasters and **two** Bloodletter bricks (~20 letters total).
 
-**Owned, not usable as-is:** the 3D-print Bloodthirster (above) · a winged
+**Owned, not usable as-is:** a genuine Games Workshop Bloodthirster kit, new in
+box and unassembled (Sep 4) · the 3D-print Bloodthirster (above) · a winged
 **Daemon Prince** from the Aug 13 lot, which the detachment bans outright —
 usable in any other Chaos Daemons detachment, or as a Bloodthirster proxy on a
 120mm oval.
 
-**Inbound:** a Bloodcrushers lot, "some damaged," ETA Aug 18 – Sep 1.
+**Inbound:** nothing. **Delivered, uncatalogued:** the Bloodcrushers lot
+(Aug 19) and the Daemons of Nurgle lot (Sep 2).
 
-**Total spent to date: ≈ $1,391.**
+**Total spent to date: ≈ $1,834.**
 
 ### Remaining gaps, in priority order
 
-1. **Genuine painted Bloodthirster** — the task above.
+1. ~~**Genuine painted Bloodthirster**~~ — closed Sep 4 with a new, unpainted
+   GW kit; the paint is now hobby time, not a purchase.
 2. **Skullmaster** and **Rendmaster on Blood Throne** — the last pieces of the
    "Fadethirster" tournament list. Worth scoring in the same session with the
    same script; no painted Buy-It-Now existed for either as of July 27, so a
