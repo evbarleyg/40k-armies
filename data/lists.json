@@ -45,12 +45,11 @@
       "warlord": "belakor",
       "plan": "Score by refusing to die. Beasts of Nurgle and the Horrors squat objectives under the Nurgle and Tzeentch boons while the War Dogs and Havocs do the shooting the daemons cannot. The Drones and Nurglings run the errands. Be'lakor and the Lord of Change arrive together where the enemy is thinnest, and the Possessed land with them.",
       "deployment": "Nurglings on the midfield objectives, Beasts walking up behind them, Havocs home. War Dogs on a flank with sightlines and room to run. The Horrors screen the home half inside a monster's bubble.",
-      "history": "The 07-27 re-audit found the seller's 'Beasts' were Nurgling bases and the 'Drones' were the Screamers, so this list is no longer the cheapest to finish. Identical to the 07-27 card. The Daemons of Nurgle lot delivered Sep 2 is uncatalogued and may change this gap; count it before buying.",
+      "history": "The 07-27 re-audit found the seller's 'Beasts' were Nurgling bases and the 'Drones' were the Screamers, so this list is no longer the cheapest to finish. The Beasts now run as one unit of two (150, the same as the card's two singles) and the War Dogs dropped to 145 each on the current data, so the total fell twenty. The Daemons of Nurgle lot delivered Sep 2 is uncatalogued and may change this gap; count it before buying.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "loc", "unit": "lord_of_change"},
-        {"ref": "beast_a", "unit": "beast_of_nurgle", "size": 1, "label": "A"},
-        {"ref": "beast_b", "unit": "beast_of_nurgle", "size": 1, "label": "B"},
+        {"ref": "beasts", "unit": "beast_of_nurgle", "size": 2},
         {"ref": "drones", "unit": "plague_drones", "size": 3},
         {"ref": "nurglings", "unit": "nurglings", "size": 3},
         {"ref": "pinks", "unit": "pink_horrors", "size": 10},
@@ -106,8 +105,8 @@
       "shape": "Khorne turn-one alpha",
       "warlord": "belakor",
       "plan": "The Skullmaster and six Bloodcrushers scout nine inches, Advance and charge under the Khorne boon; the Rendmaster rides alongside for the aura; both Bloodletter bricks and the hounds hit the midfield before a castle finishes forming. Mallex's squad runs the yo-yo underneath. Highest variance of the seven: it wins on turn two or loses on turn three.",
-      "deployment": "Cavalry and one Bloodletter brick on the line, hounds on the wide flank, both Nurgling units infiltrated onto the objectives the charge will cross. Cultists and Horrors home. Mallex's Legionaries and the Warp Talons in reserve.",
-      "history": "The 07-27 card ran one Bloodmaster and two Flesh Hound units and removed the illegal Skulltaker and Karanak from the original. The Aug 13 lot supplied a second Bloodmaster, so this version leads both bricks with a Herald each and drops the second Hounds unit (minus 75, plus 65). The tournament versions add the Cavalcade of Chaos detachment for a third DP and Soul-shattering Charge on the cavalry; its rules were never captured here, so this list stays pure Shadow Legion.",
+      "deployment": "Cavalry and one Bloodletter brick on the line, hounds on the wide flank, both Nurgling units infiltrated onto the objectives the charge will cross. Horrors home. Mallex's Legionaries and the Warp Talons in reserve.",
+      "history": "The 07-27 card ran one Bloodmaster and two Flesh Hound units and removed the illegal Skulltaker and Karanak from the original. The Aug 13 lot supplied a second Bloodmaster, so this version leads both bricks with a Herald each and drops the second Hounds unit (minus 75, plus 65). On the current data the Skullmaster, Rendmaster and six Bloodcrushers each cost ten more than the card assumed, which pushed the list to 2,005; the Cultists came out. The tournament versions add the Cavalcade of Chaos detachment for a third DP and Soul-shattering Charge on the cavalry; its rules were never captured here, so this list stays pure Shadow Legion.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "skullmaster", "unit": "skullmaster", "enhancement": "leaping_shadows", "leads": "crushers_a"},
@@ -124,7 +123,6 @@
         {"ref": "talons", "unit": "warp_talons", "size": 5},
         {"ref": "nurg_a", "unit": "nurglings", "size": 3, "label": "A"},
         {"ref": "nurg_b", "unit": "nurglings", "size": 3, "label": "B"},
-        {"ref": "cultists", "unit": "cultist_mob", "size": 10},
         {"ref": "pinks", "unit": "pink_horrors", "size": 10}
       ],
       "swaps": [
@@ -138,8 +136,8 @@
       "shape": "Tournament shape",
       "warlord": "belakor",
       "plan": "Two kill-loops. The Skullmaster's Bloodcrushers scout-charge on turn one; the Bloodthirster drops on turn two, one-shots a tank, Fades to reserves at the end of the fight and Rapid-Ingresses back, off the board between swings. Every 4-1 tournament result the Battle Doctrine deck studied runs this silhouette. The Bloodletters take ground behind the cavalry, the Drones and hounds run errands, and the mortal half holds home.",
-      "deployment": "Cavalry on the line ready to scout. Nurglings infiltrated onto the midfield objectives, Havocs and Cultists home, the Horrors under Be'lakor. The Bloodthirster and the Bloodletter brick in reserve; the Drones and hounds wide.",
-      "history": "Identical to the 07-27 card. The Bloodthirster is owned twice as of Sep 4, a genuine Games Workshop kit and the 3D-print proxy, both unassembled; build the GW kit and the list is event-legal. The Bloodcrushers lot was delivered Aug 19 and has not been counted. The tournament versions pair in Cavalcade of Chaos; see D.",
+      "deployment": "Cavalry on the line ready to scout. Nurglings infiltrated onto the midfield objectives, Havocs home, the Horrors under Be'lakor. The Bloodthirster and the Bloodletter brick in reserve; the Drones and hounds wide.",
+      "history": "Identical to the 07-27 card. The Bloodthirster is owned twice as of Sep 4, a genuine Games Workshop kit and the 3D-print proxy, both unassembled; build the GW kit and the list is event-legal. The Bloodcrushers lot was delivered Aug 19 and has not been counted. On the current data the Skullmaster, Rendmaster and six Bloodcrushers each cost ten more than the card assumed, so the Cultists came out to stay under 2,000. The tournament versions pair in Cavalcade of Chaos; see D.",
       "units": [
         {"ref": "belakor", "unit": "belakor"},
         {"ref": "bt", "unit": "bloodthirster", "enhancement": "fade_to_darkness"},
@@ -153,12 +151,11 @@
         {"ref": "drones", "unit": "plague_drones", "size": 3},
         {"ref": "pinks", "unit": "pink_horrors", "size": 10},
         {"ref": "havocs", "unit": "havocs", "size": 5},
-        {"ref": "leg", "unit": "legionaries", "size": 5},
-        {"ref": "cultists", "unit": "cultist_mob", "size": 10}
+        {"ref": "leg", "unit": "legionaries", "size": 5}
       ],
       "swaps": [
         {"note": "Plague Drones are the one Nurgle purchase on the sheet. Until then the owned Screamers run the same errands for thirty points less.", "remove": ["drones"], "add": [{"unit": "screamers", "size": 3}]},
-        {"note": "The second owned Bloodmaster and brick instead of the unbought Rendmaster, with the Cultists dropped to make room. Two Heralds' bricks behind the cavalry rather than an aura piece.", "remove": ["rendmaster", "cultists"], "add": [{"unit": "bloodmaster", "label": "B", "leads": "letters_b"}, {"ref": "letters_b", "unit": "bloodletters", "size": 10, "label": "B"}]}
+        {"note": "The second owned Bloodmaster and brick instead of the unbought Rendmaster. Two Heralds' bricks behind the cavalry rather than an aura piece.", "remove": ["rendmaster"], "add": [{"unit": "bloodmaster", "label": "B", "leads": "letters_b"}, {"ref": "letters_b", "unit": "bloodletters", "size": 10, "label": "B"}]}
       ]
     },
     {

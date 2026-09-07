@@ -35,7 +35,7 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
 | Possessed | 5 | 120 | own |
 | Legionaries | 10 | 170 (or 2×5 @ 90) | own |
 | Havocs (2 las / 2 auto) | 5 | 125 | own |
-| War Dog Karnivore | 2 | 310 | own (Dreadblades allies) |
+| War Dog Karnivore | 2 | 290 (145 each per BSData 2026-09-06; the 07-27 audit had 310) | own (Dreadblades allies) |
 | Chaos Lord (Obsidius Mallex) | 1 | — | **delivered Aug 1** (buy-queue #1) |
 | Flesh Hounds | 5 | 75 | **delivered Aug 4** (buy-queue #2) |
 | Bloodmaster + Bloodletters ×9 | 1+9 | ~175 as 1+10 | **delivered Aug 4** (buy-queue #4) |
@@ -64,6 +64,12 @@ it found **3 Flamers** and a genuine unlisted **Cultist Mob (~10, Dark Vengeance
   Warp Surge, Denizens of the Warp, and Leaping Shadows (Scouts 9").
 - One stratagem per unit per phase this edition — spend the command point on
   the moment, not out of habit.
+- **Datasheets re-checked 2026-09-07 against BSData/wh40k-11e** (`datasheets.md`):
+  Skullmaster 85, Rendmaster 160, Bloodcrushers ×6 200, Beasts of Nurgle 80
+  (two for 150), War Dog Karnivore 145. The Exalted Flamer leads Flamers only;
+  the Master of Possession may lead Chosen, Legionaries or Possessed; Blue
+  Horrors and Nurglings are Battleline; the Tzeentch boon is Stealth plus −1 to
+  be hit in melee.
 
 ## The six lists (all 2,000 pts, Shadow Legion 2 DP)
 

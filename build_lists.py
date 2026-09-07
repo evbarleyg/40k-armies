@@ -551,11 +551,41 @@ def render_inventory(udata):
     return "\n".join(o)
 
 
+def cross_check(udata, units, enh):
+    """Refuse to drift from data/datasheets.json (extracted from BSData) where both carry a price."""
+    path = os.path.join(HERE, "data", "datasheets.json")
+    if not os.path.exists(path):
+        return [], ["data/datasheets.json not present; points not cross-checked"]
+    with open(path, encoding="utf-8") as f:
+        ds = json.load(f)
+    errors, warnings = [], []
+    sheets = {d["id"]: d for d in ds.get("datasheets", [])}
+    for uid, u in units.items():
+        d = sheets.get(uid)
+        if d is None:
+            if u.get("fieldable", True) and u.get("detachment_legal", True):
+                warnings.append(f"{u['name']}: no datasheet extracted")
+            continue
+        for size, pts in u.get("sizes", {}).items():
+            dp = d.get("points", {}).get(size)
+            if dp is not None and int(dp) != int(pts):
+                errors.append(f"{u['name']} at {size} models: units.json says {pts}, datasheets.json says {dp}")
+        if d.get("leader") is not None and u.get("leads"):
+            want = {x.lower() for x in d["leader"]}
+            have = {units[x]["name"].lower() for x in u["leads"] if x in units}
+            if have - want:
+                errors.append(f"{u['name']}: leads {sorted(have - want)} but the datasheet allows {sorted(want) or 'none'}")
+    denh = {e["name"]: e.get("points") for e in ds.get("detachment", {}).get("enhancements", [])}
+    for e in enh.values():
+        if e["name"] in denh and denh[e["name"]] is not None and int(denh[e["name"]]) != int(e["points"]):
+            errors.append(f"enhancement {e['name']}: units.json says {e['points']}, datasheets.json says {denh[e['name']]}")
+    return errors, warnings
+
+
 def build():
     udata, ldata, units, enh = load()
     limits = udata["meta"]["limits"]
-    all_errors = []
-    all_warnings = []
+    all_errors, all_warnings = cross_check(udata, units, enh)
     rendered = []
     summary = []
     matrix = {}  # unit id -> {list id: models}

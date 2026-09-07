@@ -103,7 +103,7 @@ all Legiones Daemonica gain SHADOW LEGION.
 | Allegiance | Boon |
 |---|---|
 | Khorne | Advance, shoot **and charge** |
-| Tzeentch | Attackers take −1 to hit |
+| Tzeentch | Stealth, and −1 to be hit in melee |
 | Nurgle | −1 to wound when attack Strength beats Toughness |
 | Slaanesh | Cannot be Overwatched |
 | Undivided (incl. CSM) | Gain Dark Pacts; Be'lakor auto-passes its test |
@@ -134,7 +134,8 @@ command point on the moment that matters.
 ## PART III — THE HOSTS OF THE CREED
 
 *Unit entries in codex order. Points from the seller's 11th-edition list where
-known; new arrivals carry a dash until verified in the app.*
+known; new arrivals carry a dash until verified in the app. Full stat sheets,
+with weapons, abilities and a strategy for each, live in `datasheets.md`.*
 
 ### The Dark Master
 
@@ -376,7 +377,7 @@ something valuable, they did their job.
 
 ### Oath-Bound Engines (Chaos Knights allies)
 
-**WAR DOG KARNIVORES ×2 — The Iron Cantors** *(310 pts, painted)*
+**WAR DOG KARNIVORES ×2 — The Iron Cantors** *(290 pts, painted)*
 
 Not of the detachment — the Shadow Legion admits no vehicles — but the Creed
 keeps mercenaries the way it keeps footnotes: outside the main text, doing the

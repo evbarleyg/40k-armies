@@ -17,6 +17,12 @@ finish what's below in one sitting.*
 > real numbers in `quartermaster.md`, `codex-umbral-creed.md` (both editions)
 > and `data/units.json`, then run `python3 build_lists.py`. The rest of this
 > file stands as written on Aug 14.
+>
+> **2026-09-07.** Every price was re-checked against BSData/wh40k-11e (see
+> `datasheets.md`): Skullmaster 85, Rendmaster 160, six Bloodcrushers 200,
+> War Dog Karnivore 145 each; lists D and E lost their Cultists to stay under
+> 2,000. The Exalted Flamer leads Flamers only, and the Tzeentch boon is
+> Stealth plus -1 to be hit in melee, not a blanket -1 to hit.
 
 ---
 
@@ -34,6 +40,7 @@ August. Files worth reading, in order:
 |---|---|
 | `quartermaster.md` | Audited inventory, six 2,000-pt lists, verified rules, buy queue |
 | `army-lists.md` | Generated list book: the six lists in full plus an owned-only Khorne list, with wargear options, gaps and swaps |
+| `datasheets.md` / `datasheets-deck.html` | Generated stat sheets for every model with a strategy each; the deck is the phone edition |
 | `codex-umbral-creed.md` | The personal codex: lore, unit entries, doctrines, purchase ledger |
 | `belakor-shadow-legion-guide.md` | Rules explainer with sources |
 | `SPEC-muster.md` | Spec for unifying all frontends into one app (separate, unstarted) |
@@ -158,6 +165,10 @@ usable in any other Chaos Daemons detachment, or as a Bloodthirster proxy on a
   keywords, inventory) and `data/lists.json` (the lists). When the quartermaster
   status column changes, change `data/units.json` in the same commit and run
   `python3 build_lists.py`; it refuses to write an illegal or over-points list.
+- Datasheet facts come from BSData/wh40k-11e through `extract_bsdata.py`: clone
+  the repo and run the script; the gists and strategy in `data/datasheets.json`
+  survive re-runs. `build_lists.py` refuses to build if `data/units.json`
+  disagrees with the extract, so refresh both after a balance update.
 - `codex-umbral-creed.html` is the styled twin of the markdown codex. Edits to
   one need mirroring in the other. It is also published as a private artifact;
   ask Evan for the URL if it needs redeploying.

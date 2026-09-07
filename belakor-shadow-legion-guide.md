@@ -97,7 +97,7 @@ all Legiones Daemonica units gain SHADOW LEGION.
 | Allegiance | Boon |
 |---|---|
 | Khorne | Can **Advance, shoot and charge** |
-| Tzeentch | Attackers get **−1 to hit** them |
+| Tzeentch | **Stealth**, and −1 to be hit in melee (per the current data's Penumbral Puppetry; the July reviews read it as a blanket −1 to hit) |
 | Nurgle | **−1 to wound** them when attack Strength > their Toughness |
 | Slaanesh | Can't be targeted by **Fire Overwatch** |
 | Undivided (incl. your CSM) | Gain the **Dark Pacts** army rule (Be'lakor auto-passes its Leadership test) |
