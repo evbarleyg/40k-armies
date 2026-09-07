@@ -777,7 +777,8 @@ def render_deck(ds, udata, units, used, gl):
             toc_html.append(f"<h3>{E(s) or 'Start'}</h3>")
             cur = s
         toc_html.append(f'<a href="#{i + 1}" data-i="{i}"><small>{i + 1:02d}</small>{E(t)}</a>')
-    page = f"""<title>Shadow Legion Datasheets</title>
+    page = f"""<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shadow Legion Datasheets</title>
 <style>{CSS}</style>
 <div id="bar"></div>
 <div id="sect"><span id="sectlabel"></span><button class="navbtn" id="tocbtn" aria-label="Contents">Contents</button></div>
