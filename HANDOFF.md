@@ -40,7 +40,7 @@ August. Files worth reading, in order:
 |---|---|
 | `quartermaster.md` | Audited inventory, six 2,000-pt lists, verified rules, buy queue |
 | `army-lists.md` | Generated list book: the six lists in full plus an owned-only Khorne list, with wargear options, gaps and swaps |
-| `datasheets.md` / `datasheets-deck.html` | Generated stat sheets for every model with a strategy each; the deck is the phone edition |
+| `datasheets.md` / `datasheets-deck.html` | Generated primer, stat sheets for every model with a strategy each, and a glossary; the deck is the phone edition, with definitions on hover |
 | `codex-umbral-creed.md` | The personal codex: lore, unit entries, doctrines, purchase ledger |
 | `belakor-shadow-legion-guide.md` | Rules explainer with sources |
 | `SPEC-muster.md` | Spec for unifying all frontends into one app (separate, unstarted) |

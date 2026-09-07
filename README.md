@@ -29,9 +29,9 @@ buckets** (~157 live listings as of the last run).
 | `army-lists.md` | **Generated.** The list book: seven 2,000-pt Shadow Legion lists with full rosters, wargear options, enhancements, computed gaps and legal swaps |
 | `build_lists.py` | Validates every list in `data/lists.json` against `data/units.json` (points, Warlord, Epic Hero / vehicle / Daemon Prince bans, HA share, Dreadblades, enhancements, leader pairings, inventory) and writes `army-lists.md` |
 | `data/units.json` / `data/lists.json` | Datasheet reference with the inventory snapshot, and the lists as references to it — the numbers behind `army-lists.md` |
-| `datasheets.md` | **Generated.** Stat sheets for every datasheet in the collection: characteristics, weapons, ability gists, and a strategy per unit |
-| `datasheets-deck.html` | The same content as a slide deck (phone-usable, no external resources) |
-| `data/datasheets.json` | Datasheet facts extracted from BSData/wh40k-11e (numbers and names only) plus hand-written gists and strategy |
+| `datasheets.md` | **Generated.** A primer for a returning player, stat sheets for every datasheet in the collection (characteristics, weapons, ability gists, a strategy per unit), and a glossary |
+| `datasheets-deck.html` | The same content as a slide deck (phone-usable, no external resources); every glossary term shows its definition on hover or tap |
+| `data/datasheets.json` / `data/glossary.json` | Datasheet facts extracted from BSData/wh40k-11e (numbers and names only) plus hand-written gists and strategy; the glossary behind the primer and the tooltips |
 | `extract_bsdata.py` / `build_datasheets.py` | Extract from a local BSData clone; render the book and the deck. `build_lists.py` cross-checks `units.json` against the extract |
 | `SPEC-muster.md` | Handoff spec: unify all the frontends into one local-first console over a single canonical data store |
 | `HANDOFF.md` | **Read first.** Current state, open tasks, and pickup context for a new session |

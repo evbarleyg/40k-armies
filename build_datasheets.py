@@ -3,12 +3,15 @@
 The Shadow Legion datasheets — build step.
 
 Reads data/datasheets.json (extracted from BSData, with hand-written gists and
-strategy), data/units.json (inventory, loadouts, options) and data/lists.json
-(which list uses what), and writes:
+strategy), data/units.json (inventory, loadouts, options), data/lists.json
+(which list uses what) and data/glossary.json (terms and definitions), and
+writes:
 
-    datasheets.md         the long-form book: one stat sheet per datasheet
+    datasheets.md         the long-form book: primer, one stat sheet per
+                          datasheet, glossary
     datasheets-deck.html  the same content as a slide deck (phone-usable, no
-                          external resources; publishable as-is)
+                          external resources, hover or tap any term for its
+                          definition; publishable as-is)
 
     python3 build_datasheets.py
 
@@ -17,6 +20,7 @@ Do not hand-edit the outputs; edit the data and rerun.
 import html
 import json
 import os
+import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -26,6 +30,7 @@ import build_lists  # noqa: E402  (list summary for the closing slide)
 DS = os.path.join(HERE, "data", "datasheets.json")
 UNITS = os.path.join(HERE, "data", "units.json")
 LISTS = os.path.join(HERE, "data", "lists.json")
+GLOSS = os.path.join(HERE, "data", "glossary.json")
 OUT_MD = os.path.join(HERE, "datasheets.md")
 OUT_HTML = os.path.join(HERE, "datasheets-deck.html")
 
@@ -53,8 +58,22 @@ EPITHETS = {
 }
 BOONS = {"Murderer's Cowl", "Penumbral Puppetry", "Gloam Rot", "Disciples of Be'lakor"}
 WARGEAR = {"Daemonic Icon", "Instrument of Chaos", "Chaos icon", "Collar of Khorne", "*Invulnerable Save"}
-STAT_KEYS = [("M", "M"), ("T", "T"), ("Sv", "Sv"), ("W", "W"), ("LD", "Ld"), ("OC", "OC"), ("InSv", "Inv")]
+STAT_KEYS = [("M", "M", "Move"), ("T", "T", "Toughness"), ("Sv", "Sv", "Save"), ("W", "W", "Wounds"),
+             ("LD", "Ld", "Leadership"), ("OC", "OC", "Objective Control"), ("InSv", "Inv", "invulnerable save")]
+WEAPON_HEAD = {"Range": "Range", "A": "Attacks", "BS": "Ballistic Skill", "WS": "Weapon Skill", "S": "Strength",
+               "AP": "Armour Penetration", "D": "Damage"}
+# glossary terms that double as ordinary English: mark only when written exactly as an alias (capitalised, usually)
+EXACT = {"Move", "Toughness", "Save", "Wounds", "Range", "Attacks", "Strength", "Damage", "Assault", "Heavy", "Pistol",
+         "Blast", "Lance", "Melta", "Precision", "Torrent", "Stealth", "Leader", "Aura", "Infantry", "Mounted", "Beast",
+         "Swarm", "Monster", "Vehicle", "Fly", "Character", "Grenades", "Warlord", "Advance", "Fall Back", "Charge",
+         "Consolidate", "Reserves", "Overwatch", "Daemonic Terror", "Daemonic Manifestation", "Damaged", "Daemon",
+         "Psyker", "Battleline", "Epic Hero", "Leadership", "Objective Control", "Normal move", "Fight phase",
+         "Command phase", "action", "primary mission", "trade", "bomb", "cover", "points"}
 
+E = html.escape
+
+
+# ---------------------------------------------------------------- data
 
 def load():
     with open(DS, encoding="utf-8") as f:
@@ -63,6 +82,8 @@ def load():
         udata = json.load(f)
     with open(LISTS, encoding="utf-8") as f:
         ldata = json.load(f)
+    with open(GLOSS, encoding="utf-8") as f:
+        gloss = json.load(f)
     units = {u["id"]: u for u in udata["units"]}
     used = {}
     for lst in ldata["lists"]:
@@ -70,7 +91,53 @@ def load():
             used.setdefault(spec["unit"], [])
             if lst["id"] not in used[spec["unit"]]:
                 used[spec["unit"]].append(lst["id"])
-    return ds, udata, units, used
+    return ds, udata, units, used, gloss
+
+
+class Glossary:
+    """Wraps glossary terms in tooltip spans; one mark per term per slide unless told otherwise."""
+
+    def __init__(self, gloss):
+        self.terms = gloss["terms"]
+        self.groups = gloss["groups"]
+        self.by_alias = {}
+        for t in self.terms:
+            for a in [t["term"]] + t.get("aliases", []):
+                self.by_alias[E(a).lower()] = t
+        aliases = sorted(self.by_alias.keys(), key=len, reverse=True)
+        self.pattern = re.compile(r"(?<![\w-])(" + "|".join(re.escape(a) for a in aliases) + r")(?![\w-])", re.I)
+        self.exact_aliases = {}
+        for t in self.terms:
+            if t["term"] in EXACT:
+                self.exact_aliases[t["term"]] = {E(a) for a in [t["term"]] + t.get("aliases", [])}
+
+    def span(self, t, text):
+        return f'<span class="term" tabindex="0" data-t="{E(t["term"], quote=True)}">{text}</span>'
+
+    def dictionary_js(self):
+        return json.dumps({t["term"]: t["def"] for t in self.terms}, ensure_ascii=False)
+
+    def mark(self, text, seen, every=False):
+        esc = E(text)
+
+        def sub(m):
+            raw = m.group(0)
+            t = self.by_alias.get(raw.lower())
+            if t is None:
+                return raw
+            if t["term"] in self.exact_aliases and raw not in self.exact_aliases[t["term"]]:
+                return raw
+            if esc[m.end():m.end() + 7].lower() == " legion":
+                return raw
+            if not every and t["term"] in seen:
+                return raw
+            seen.add(t["term"])
+            return self.span(t, raw)
+        return self.pattern.sub(sub, esc)
+
+    def label(self, term_name, text):
+        t = next((t for t in self.terms if t["term"] == term_name), None)
+        return self.span(t, E(text)) if t else E(text)
 
 
 def owned_line(u):
@@ -80,14 +147,12 @@ def owned_line(u):
     rng = ow.get("count_range")
     n = f"{rng[0]} to {rng[1]}" if rng else str(count)
     if st == "own":
-        s = f"{n} owned, {ow.get('paint', 'painted')}"
-    elif st == "assemble":
-        s = f"{n} owned, unassembled"
-    elif st == "uncatalogued":
-        s = "delivered, not yet catalogued"
-    else:
-        s = "not owned"
-    return s
+        return f"{n} owned, {ow.get('paint', 'painted')}"
+    if st == "assemble":
+        return f"{n} owned, unassembled"
+    if st == "uncatalogued":
+        return "delivered, not yet catalogued"
+    return "not owned"
 
 
 def status_class(u):
@@ -100,6 +165,40 @@ def points_str(d):
 
 def dash(v):
     return v if v not in (None, "", "N/A") else "–"
+
+
+WOUND_TABLE = [("Strength at least twice Toughness", "2+"), ("Strength greater than Toughness", "3+"),
+               ("Strength equal to Toughness", "4+"), ("Strength less than Toughness", "5+"),
+               ("Strength half of Toughness or less", "6+")]
+PHASES = [
+    ("Command", "Gain 1 CP. Units below half strength take Battle-shock tests. From round two, score the primary here."),
+    ("Movement", "Each unit makes a Normal move, Advances, Falls Back or stays put. Reinforcements arrive at the end of the phase."),
+    ("Shooting", "Each unit shoots; only Pistols fire from inside engagement range. Overwatch is the opponent's reply, in your turn."),
+    ("Charge", "Declare targets and roll 2D6. Reach engagement range with every target or stay put. Heroic Intervention is the reply."),
+    ("Fight", "Units that charged fight first, then the players alternate. Pile in 3 inches, attack, consolidate 3."),
+]
+ATTACK_STEPS = [
+    ("Hit", "Roll Attacks dice against BS or WS. An unmodified 6 is a critical hit: Lethal Hits and Sustained Hits key off it."),
+    ("Wound", "Strength against Toughness, per the table. An unmodified 6 is a critical wound: Devastating Wounds keys off it."),
+    ("Save", "The defender rolls its armour save minus the AP, or its invulnerable save, whichever is better."),
+    ("Damage", "Each failed save removes the weapon's Damage from one model. Excess is lost. Mortal wounds skip steps one to three."),
+]
+ARMY_MODIFIERS = [
+    "+1 to hit in melee for Khorne daemons within 6 inches of a Bloodthirster.",
+    "Re-roll hit rolls of 1 for everything within 6 inches of Be'lakor under Shadow Lord.",
+    "+1 to wound for a brick led by a Bloodmaster.",
+    "Lethal Hits or Sustained Hits 1 for Be'lakor and every marine unit through Dark Pacts.",
+    "-1 to be hit in melee and Stealth for every Tzeentch daemon; -1 to be wounded by big guns for every Nurgle daemon.",
+    "+1 Strength, AP and Damage for every Khorne daemon into the Rendmaster's chosen target.",
+]
+WIN_POINTS = [
+    "The primary: at the start of your Command phase from round two, score for each objective marker you control, meaning more Objective Control within 3 inches than the opponent has. OC 0 never counts.",
+    "The secondaries: the extra goals drawn or chosen each game. Actions score them, and a unit doing an action does not shoot or charge. The Legionaries and Cultists are the action units.",
+    "Purge the Foe: this detachment's missions also reward destroying more units than you lose in a round. A screen that dies for nothing hands the opponent that point.",
+    "This army's engine: push the shadow forward by holding half of No Man's Land, keep Battleline daemons on markers where they regrow, and force Battle-shock tests on whoever contests, so they drop to OC 0 and bleed mortal wounds. Battle-shock the contester, never the champion.",
+    "The rhythm: turn one, screen and spread. Turns two and three, commit the killers where they both kill and claim. Turns four and five, a live monster on a marker beats any kill.",
+    "Mission packs change with the season. Read the current one before a game; these are the parts that have held.",
+]
 
 
 # ---------------------------------------------------------------- markdown
@@ -116,13 +215,12 @@ def md_unit(d, u, used):
              + (f" As built: {u['owned']['built'].rstrip('.')}." if u.get("owned", {}).get("built") else "")
              + (f" In lists {', '.join(used[d['id']])}." if used.get(d["id"]) else " In no list yet."))
     o.append("")
-    # stats
     multi = len(d["profiles"]) > 1
-    head = (["Profile"] if multi else []) + [lbl for _, lbl in STAT_KEYS]
+    head = (["Profile"] if multi else []) + [lbl for _, lbl, _ in STAT_KEYS]
     o.append("| " + " | ".join(head) + " |")
     o.append("|" + "---|" * len(head))
     for p in d["profiles"]:
-        row = ([p["name"]] if multi else []) + [dash(p.get(k)) for k, _ in STAT_KEYS]
+        row = ([p["name"]] if multi else []) + [dash(p.get(k)) for k, _, _ in STAT_KEYS]
         o.append("| " + " | ".join(row) + " |")
     o.append("")
     if d["ranged"]:
@@ -166,28 +264,72 @@ def md_unit(d, u, used):
     return "\n".join(o)
 
 
-def render_md(ds, udata, units, used):
+def render_md(ds, udata, units, used, gl):
     meta = ds["meta"]
     det = ds["detachment"]
     o = []
     o.append("# The Shadow Legion datasheets")
     o.append("")
-    o.append("### Every datasheet in the collection, with the numbers and what to do with them")
+    o.append("### Every datasheet in the collection, with the numbers, what they mean, and what to do with them")
     o.append("")
-    o.append(f"*Generated by `build_datasheets.py` from `data/datasheets.json`, `data/units.json` and `data/lists.json`. "
-             f"Source of the statistics: {meta['source']}. Characteristics, weapon profiles, points and keywords are facts "
-             "extracted from that data; every ability, rule, enhancement and stratagem is given as a name and a paraphrase, "
-             "never the printed text, and the official app is the arbiter for all of it. The strategy paragraphs are this "
-             "repo's own advice for this collection in the Shadow Legion detachment. The slide-deck edition is `datasheets-deck.html`.*")
+    o.append(f"*Generated by `build_datasheets.py` from `data/datasheets.json`, `data/units.json`, `data/lists.json` and "
+             f"`data/glossary.json`. Source of the statistics: {meta['source']}. Characteristics, weapon profiles, points and "
+             "keywords are facts extracted from that data; every ability, rule, enhancement and stratagem is given as a name "
+             "and a paraphrase, never the printed text, and the official app is the arbiter for all of it. The strategy "
+             "paragraphs are this repo's own advice for this collection in the Shadow Legion detachment. The slide-deck "
+             "edition is `datasheets-deck.html`, where every term in the [glossary](#glossary) shows its definition on hover.*")
     o.append("")
-    o.append("## How to read a sheet")
+    o.append("## Primer: reading a sheet")
     o.append("")
-    o += [
-        "- The statistics row is Move, Toughness, Save, Wounds, Leadership, Objective Control and the invulnerable save. Weapons list Range, Attacks, skill (BS or WS), Strength, Armour Penetration and Damage; a weapon with two profiles appears twice.",
-        "- Abilities marked *detachment boon* are the Shadow Legion's per-god boons, which the current data attaches to each unit as an ability. Abilities marked *wargear* come with an optional item.",
-        "- \"In the collection\" comes from the inventory in `data/units.json`, and \"in lists\" from `army-lists.md`. Points are the current data's; where they differ from the July 27 audit, `army-lists.md` says so.",
-        "- Everything here is a snapshot. Before a tournament, open the app.",
-    ]
+    o.append("*For a returning player. Every rules word below is defined in the [glossary](#glossary) at the end.*")
+    o.append("")
+    o.append("**The statistics row.** Every unit has seven numbers.")
+    o.append("")
+    o.append("| Label | Means | In plain terms |")
+    o.append("|---|---|---|")
+    for _, lbl, term in STAT_KEYS:
+        t = next(t for t in gl.terms if t["term"] == term)
+        o.append(f"| {lbl} | {t['term']} | {t['def']} |")
+    o.append("")
+    o.append("**A weapon row.** Read it left to right as the attack sequence. Be'lakor's Betraying Shades: 9 attacks, each hitting on 2+; Strength 5 against a marine's Toughness 4 wounds on 3+; AP-2 turns his 3+ armour into a 5+, unless his invulnerable save is better; each failed save costs 1 wound. The keywords change the sequence: Devastating Wounds turns 6s to wound into mortal wounds that no save stops.")
+    o.append("")
+    o.append("| Column | Means |")
+    o.append("|---|---|")
+    for k, term in WEAPON_HEAD.items():
+        t = next(t for t in gl.terms if t["term"] == term)
+        o.append(f"| {k} | {t['def']} |")
+    o.append("| Keywords | The weapon abilities; each is in the glossary. |")
+    o.append("")
+    o.append("**The wound roll.**")
+    o.append("")
+    o.append("| Strength against Toughness | Wound on |")
+    o.append("|---|---|")
+    for a, b in WOUND_TABLE:
+        o.append(f"| {a} | {b} |")
+    o.append("")
+    o.append("**One attack, four rolls.**")
+    o.append("")
+    for i, (name, text) in enumerate(ATTACK_STEPS, 1):
+        o.append(f"{i}. **{name}.** {text}")
+    o.append("")
+    o.append("**What this army does to the dice.**")
+    o.append("")
+    for m in ARMY_MODIFIERS:
+        o.append(f"- {m}")
+    o.append("")
+    o.append("**The five phases of a turn.**")
+    o.append("")
+    for i, (name, text) in enumerate(PHASES, 1):
+        o.append(f"{i}. **{name}.** {text}")
+    o.append("")
+    o.append("**Abilities and tags.** What a card does beyond its numbers. Abilities marked *detachment boon* are the Shadow Legion's per-god gifts, which the current data attaches to each unit as an ability. Abilities marked *wargear* come with an optional item. \"Core\" abilities are the shared ones every army uses (Deep Strike, Stealth, Deadly Demise) and are in the glossary.")
+    o.append("")
+    o.append("**How you win.**")
+    o.append("")
+    for w in WIN_POINTS:
+        o.append(f"- {w}")
+    o.append("")
+    o.append("**Reading the rest of a sheet.** \"In the collection\" comes from the inventory in `data/units.json`, and \"in lists\" from `army-lists.md`. Points are the current data's; where they differ from the July 27 audit, `army-lists.md` says so. Everything here is a snapshot: before a tournament, open the app.")
     o.append("")
     o.append("## The army rules")
     o.append("")
@@ -201,11 +343,7 @@ def render_md(ds, udata, units, used):
         o.append("")
     o.append("| Allegiance | Boon (as an ability on each unit) |")
     o.append("|---|---|")
-    boon_gist = {}
-    for d in ds["datasheets"]:
-        for a in d["abilities"]:
-            if a["name"] in BOONS:
-                boon_gist[a["name"]] = a["gist"]
+    boon_gist = {a["name"]: a["gist"] for d in ds["datasheets"] for a in d["abilities"] if a["name"] in BOONS}
     for b in det.get("boons", []):
         o.append(f"| {b['allegiance']} | **{b['ability']}**: {boon_gist.get(b['ability'], '')} |")
     o.append("| Slaanesh | As recorded in July: cannot be targeted by Fire Overwatch. No Slaanesh unit is owned. |")
@@ -234,6 +372,21 @@ def render_md(ds, udata, units, used):
         for uid in ids:
             if uid in sheets and uid in units:
                 o.append(md_unit(sheets[uid], units[uid], used))
+    o.append("## Glossary")
+    o.append("")
+    o.append(f"*{gl_meta_note}*")
+    o.append("")
+    for g in gl.groups:
+        rows = [t for t in gl.terms if t["group"] == g]
+        if not rows:
+            continue
+        o.append(f"### {g}")
+        o.append("")
+        o.append("| Term | Meaning |")
+        o.append("|---|---|")
+        for t in rows:
+            o.append(f"| **{t['term']}** | {t['def']} |")
+        o.append("")
     o.append("## Data notes")
     o.append("")
     for n in meta.get("notes", []):
@@ -249,8 +402,6 @@ def render_md(ds, udata, units, used):
 
 
 # ---------------------------------------------------------------- deck
-
-E = html.escape
 
 CSS = r"""
   :root{
@@ -282,13 +433,11 @@ CSS = r"""
   html,body{ height:100%; }
   body{ margin:0; background:var(--ground); color:var(--ink); overflow:hidden;
     font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-  .serif{ font-family:Palatino,"Palatino Linotype","Book Antiqua",Georgia,serif; }
   h1,h2,h3{ font-family:Palatino,"Palatino Linotype","Book Antiqua",Georgia,serif; text-wrap:balance; margin:0; }
   #deck{ position:fixed; inset:0; }
   .slide{ position:absolute; inset:0; overflow-y:auto; -webkit-overflow-scrolling:touch;
     padding:56px clamp(16px,5vw,64px) 96px; box-sizing:border-box; display:none; }
   .slide.active{ display:block; }
-  .slide.center{ display:none; }
   .slide.center.active{ display:flex; flex-direction:column; justify-content:center; }
   .wrap{ max-width:1120px; margin:0 auto; }
   .eyebrow{ text-transform:uppercase; letter-spacing:.22em; font-size:11px; color:var(--brass); margin:0 0 10px; }
@@ -299,7 +448,6 @@ CSS = r"""
   h3{ font-size:13px; text-transform:uppercase; letter-spacing:.16em; color:var(--brass); font-family:inherit; margin:0 0 6px; }
   p.lead{ font-size:clamp(16px,1.5vw,19px); color:var(--dim); max-width:64ch; margin:14px 0 0; }
   .numeral{ font-family:Palatino,Georgia,serif; font-size:clamp(80px,14vw,170px); color:var(--crimson); line-height:.9; opacity:.9; }
-  .chapter p.lead{ margin-top:10px; }
   .meta{ color:var(--dim); font-size:13px; margin:8px 0 0; }
   .kw{ font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); margin:6px 0 0; }
   .badge{ display:inline-block; font-size:10.5px; text-transform:uppercase; letter-spacing:.12em; border-radius:2px;
@@ -308,8 +456,9 @@ CSS = r"""
   .badge.buy{ color:var(--buy); }
   .pts{ font-family:ui-monospace,Menlo,Consolas,monospace; font-variant-numeric:tabular-nums; color:var(--crimson); font-weight:600; }
   .cols{ display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:28px; margin-top:22px; align-items:start; }
-  @media (max-width:860px){ .cols{ grid-template-columns:minmax(0,1fr); gap:20px; } }
-  .sheet, aside.strategy{ min-width:0; }
+  .cols.even{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  @media (max-width:860px){ .cols, .cols.even{ grid-template-columns:minmax(0,1fr); gap:20px; } }
+  .sheet, aside.strategy, .cols > div{ min-width:0; }
   table{ border-collapse:collapse; width:100%; font-size:13px; }
   th{ text-align:left; text-transform:uppercase; letter-spacing:.1em; font-size:10px; color:var(--brass);
     padding:6px 8px; border-bottom:1px solid var(--line); font-weight:600; white-space:nowrap; }
@@ -319,7 +468,7 @@ CSS = r"""
   .stats{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin:0 0 14px; }
   .stat{ background:var(--panel); border:1px solid var(--line); padding:8px 4px; text-align:center; min-width:0; }
   .stat b{ display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass); }
-  .stat span{ display:block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(15px,1.6vw,20px); font-variant-numeric:tabular-nums; margin-top:2px; }
+  .stat span.v{ display:block; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:clamp(15px,1.6vw,20px); font-variant-numeric:tabular-nums; margin-top:2px; }
   .stat-name{ font-size:12px; color:var(--dim); margin:0 0 4px; }
   .tbl{ background:var(--panel); border:1px solid var(--line); overflow-x:auto; margin:0 0 12px; }
   .tbl.wide table{ min-width:520px; }
@@ -335,10 +484,31 @@ CSS = r"""
   aside.strategy p:last-child{ margin-bottom:0; }
   aside.strategy .role{ font-family:Palatino,Georgia,serif; font-size:17px; color:var(--ink); }
   .note{ color:var(--dim); font-size:12.5px; margin:14px 0 0; }
-  .rules dt{ font-family:Palatino,Georgia,serif; font-size:19px; margin:18px 0 4px; }
-  .rules dd{ margin:0; max-width:78ch; color:var(--ink); }
+  dl.rules{ margin:0; }
+  dl.rules dt{ font-family:Palatino,Georgia,serif; font-size:19px; margin:18px 0 4px; }
+  dl.rules dd{ margin:0; max-width:78ch; }
+  dl.compact dt{ font-size:15px; font-family:inherit; font-weight:600; margin:10px 0 2px; }
+  dl.compact dd{ font-size:13.5px; color:var(--ink); }
+  ol.steps{ padding-left:1.2em; margin:6px 0 0; }
+  ol.steps li{ margin:0 0 10px; }
+  ol.steps b{ font-family:Palatino,Georgia,serif; font-size:16px; }
+  ul.bullets{ margin:6px 0 0; padding-left:1.1em; max-width:70ch; }
+  ul.bullets li{ margin:0 0 10px; }
+  .gloss{ columns:2; column-gap:40px; margin-top:16px; }
+  @media (max-width:860px){ .gloss{ columns:1; } }
+  .gloss h3{ column-span:all; margin:18px 0 6px; }
+  .gloss .entry{ break-inside:avoid; padding:6px 0; border-top:1px solid var(--line); font-size:13.5px; }
+  .gloss .entry b{ font-family:Palatino,Georgia,serif; font-size:15px; }
   .kbd{ font-family:ui-monospace,Menlo,monospace; border:1px solid var(--line); border-bottom-width:2px; border-radius:4px;
     padding:1px 7px; font-size:12px; background:var(--panel); }
+  /* glossary tooltips */
+  .term{ border-bottom:1px dotted var(--brass); cursor:help; }
+  .term:focus-visible{ outline:2px solid var(--brass); outline-offset:1px; }
+  #tip{ position:fixed; z-index:6; max-width:340px; background:var(--panel2); color:var(--ink); border:1px solid var(--brass);
+    box-shadow:0 8px 24px var(--shadow); padding:10px 12px 12px; font-size:13px; line-height:1.45; }
+  #tip[hidden]{ display:none; }
+  #tip b{ display:block; font-family:Palatino,Georgia,serif; font-size:15px; color:var(--brass); margin-bottom:3px; }
+  @media (max-width:700px){ #tip{ left:12px !important; right:12px; bottom:76px; top:auto !important; max-width:none; } }
   /* chrome */
   #bar{ position:fixed; top:0; left:0; height:3px; background:var(--crimson); transition:width .3s; z-index:3; }
   #sect{ position:fixed; top:14px; left:20px; right:20px; display:flex; justify-content:space-between; align-items:center;
@@ -363,36 +533,40 @@ CSS = r"""
 """
 
 
-def stat_block(d):
+def stat_block(d, gl):
     out = []
     for p in d["profiles"]:
         if len(d["profiles"]) > 1:
             out.append(f'<p class="stat-name">{E(p["name"])}</p>')
-        cells = "".join(f'<div class="stat"><b>{lbl}</b><span>{E(dash(p.get(k)))}</span></div>' for k, lbl in STAT_KEYS)
+        cells = "".join(f'<div class="stat"><b>{gl.label(term, lbl)}</b><span class="v">{E(dash(p.get(k)))}</span></div>'
+                        for k, lbl, term in STAT_KEYS)
         out.append(f'<div class="stats">{cells}</div>')
     return "".join(out)
 
 
-def weapons_table(rows, ranged):
+def weapons_table(rows, ranged, gl, seen):
     if not rows:
         return ""
+    def th(k):
+        return f"<th>{gl.label(WEAPON_HEAD[k], k)}</th>"
     if ranged:
-        head = "<tr><th>Ranged</th><th>Range</th><th>A</th><th>BS</th><th>S</th><th>AP</th><th>D</th><th>Keywords</th></tr>"
-        body = "".join(f"<tr><td>{E(w['name'])}</td><td class='n'>{E(w.get('Range',''))}</td><td class='n'>{E(str(w.get('A','')))}</td><td class='n'>{E(dash(w.get('BS')))}</td><td class='n'>{E(str(w.get('S','')))}</td><td class='n'>{E(str(w.get('AP','')))}</td><td class='n'>{E(str(w.get('D','')))}</td><td>{E(dash(w.get('Keywords')))}</td></tr>" for w in rows)
+        head = "<tr><th>Ranged</th>" + "".join(th(k) for k in ("Range", "A", "BS", "S", "AP", "D")) + "<th>Keywords</th></tr>"
+        body = "".join(f"<tr><td>{E(w['name'])}</td><td class='n'>{E(w.get('Range',''))}</td><td class='n'>{E(str(w.get('A','')))}</td><td class='n'>{E(dash(w.get('BS')))}</td><td class='n'>{E(str(w.get('S','')))}</td><td class='n'>{E(str(w.get('AP','')))}</td><td class='n'>{E(str(w.get('D','')))}</td><td>{gl.mark(dash(w.get('Keywords')), seen, every=True)}</td></tr>" for w in rows)
     else:
-        head = "<tr><th>Melee</th><th>A</th><th>WS</th><th>S</th><th>AP</th><th>D</th><th>Keywords</th></tr>"
-        body = "".join(f"<tr><td>{E(w['name'])}</td><td class='n'>{E(str(w.get('A','')))}</td><td class='n'>{E(str(w.get('WS','')))}</td><td class='n'>{E(str(w.get('S','')))}</td><td class='n'>{E(str(w.get('AP','')))}</td><td class='n'>{E(str(w.get('D','')))}</td><td>{E(dash(w.get('Keywords')))}</td></tr>" for w in rows)
+        head = "<tr><th>Melee</th>" + "".join(th(k) for k in ("A", "WS", "S", "AP", "D")) + "<th>Keywords</th></tr>"
+        body = "".join(f"<tr><td>{E(w['name'])}</td><td class='n'>{E(str(w.get('A','')))}</td><td class='n'>{E(str(w.get('WS','')))}</td><td class='n'>{E(str(w.get('S','')))}</td><td class='n'>{E(str(w.get('AP','')))}</td><td class='n'>{E(str(w.get('D','')))}</td><td>{gl.mark(dash(w.get('Keywords')), seen, every=True)}</td></tr>" for w in rows)
     return f'<div class="tbl wide"><table>{head}{body}</table></div>'
 
 
-def deck_unit(d, u, used, section):
+def deck_unit(d, u, used, section, gl):
+    seen = set()
     ep = EPITHETS.get(d["id"])
     kws = [k for k in d["keywords"] if k not in (d["name"], "Chaos")]
     st = d["strategy"]
     abilities = "".join(
         f"<li><b>{E(a['name'])}</b>"
         + ('<span class="tag">boon</span>' if a["name"] in BOONS else ('<span class="tag">wargear</span>' if a["name"] in WARGEAR else ""))
-        + f" {E(a['gist'])}</li>" for a in d["abilities"])
+        + f" {gl.mark(a['gist'], seen)}</li>" for a in d["abilities"])
     extras = []
     if d["core"]:
         extras.append("Core: " + ", ".join(d["core"]))
@@ -402,61 +576,148 @@ def deck_unit(d, u, used, section):
     owned = owned_line(u)
     built = u.get("owned", {}).get("built")
     in_lists = ", ".join(used.get(d["id"], [])) or "none yet"
-    body = f"""
+    return f"""
 <div class="wrap">
   <p class="eyebrow">{E(section)} · <span class="pts">{E(points_str(d))}</span> · {E(d['composition'])}</p>
   <h2>{E(d['name'])}<span class="badge {status_class(u)}">{E(owned)}</span>{f'<span class="epithet">{E(ep)}</span>' if ep else ''}</h2>
-  <p class="kw">{E(' · '.join(kws))}</p>
+  <p class="kw">{gl.mark(' · '.join(kws), seen, every=True)}</p>
   <div class="cols">
     <div class="sheet">
-      {stat_block(d)}
-      {weapons_table(d['ranged'], True)}
-      {weapons_table(d['melee'], False)}
+      {stat_block(d, gl)}
+      {weapons_table(d['ranged'], True, gl, seen)}
+      {weapons_table(d['melee'], False, gl, seen)}
       <ul class="abilities">{abilities}</ul>
-      {f'<p class="core">{E(" · ".join(extras))}</p>' if extras else ''}
-      {f'<p class="note"><b>Options.</b> {E(" ".join(x.rstrip(".") + "." for x in opts))}</p>' if opts else ''}
+      {f'<p class="core">{gl.mark(" · ".join(extras), seen)}</p>' if extras else ''}
+      {f'<p class="note"><b>Options.</b> {gl.mark(" ".join(x.rstrip(".") + "." for x in opts), seen)}</p>' if opts else ''}
     </div>
     <aside class="strategy">
       <h3>Role</h3><p class="role">{E(st['role'])}</p>
-      <h3>How to play it</h3><p>{E(st['play'])}</p>
-      <h3>Pairs with</h3><p>{E(st['pairs_with'])}</p>
-      <h3>Beware</h3><p>{E(st['beware'])}</p>
+      <h3>How to play it</h3><p>{gl.mark(st['play'], seen)}</p>
+      <h3>Pairs with</h3><p>{gl.mark(st['pairs_with'], seen)}</p>
+      <h3>Beware</h3><p>{gl.mark(st['beware'], seen)}</p>
       <p class="note">In lists {E(in_lists)}.{f' As built: {E(built.rstrip("."))}.' if built else ''}</p>
     </aside>
   </div>
 </div>"""
-    return body
 
 
-def render_deck(ds, udata, units, used):
+def primer_slides(ds, gl):
+    sheets = {d["id"]: d for d in ds["datasheets"]}
+    b = sheets["belakor"]
+    slides = []
+    seen = set()
+    stat_defs = "".join(f"<dt>{E(lbl)} · {E(term)}</dt><dd>{gl.mark(next(t for t in gl.terms if t['term'] == term)['def'], seen)}</dd>"
+                        for _, lbl, term in STAT_KEYS)
+    example = {"ranged": [b["ranged"][0]], "melee": [b["melee"][1]]}
+    slides.append(("I · Primer", "Reading a datasheet", f"""
+<div class="wrap">
+  <p class="eyebrow">I · Primer</p>
+  <h2>Reading a <span class="red">datasheet</span></h2>
+  <p class="lead">Every unit slide has the same four parts. Here is Be'lakor's, annotated. Anywhere in this deck, hover or tap a dotted term for its meaning.</p>
+  <div class="cols even">
+    <div>
+      <h3 style="margin-top:18px">1 · The statistics row</h3>
+      {stat_block(b, gl)}
+      <dl class="rules compact">{stat_defs}</dl>
+    </div>
+    <div>
+      <h3 style="margin-top:18px">2 · A weapon row</h3>
+      {weapons_table(example['ranged'], True, gl, seen)}
+      {weapons_table(example['melee'], False, gl, seen)}
+      <p>{gl.mark("Read a row left to right as the attack sequence. Betraying Shades: 9 attacks, each hitting on 2+; Strength 5 against a marine's Toughness 4 wounds on 3+; AP-2 turns his 3+ armour into a 5+, unless his invulnerable save is better; each failed save costs 1 wound. The keywords change the sequence: Devastating Wounds turns 6s to wound into mortal wounds that no save stops.", seen)}</p>
+      <h3>3 · Abilities</h3>
+      <p>{gl.mark("What the card does beyond the numbers. A boon tag marks the Shadow Legion's per-god gift, which the current data attaches to each unit as an ability; a wargear tag marks an optional item. Core abilities are the shared ones every army uses, such as Deep Strike and Stealth.", seen)}</p>
+      <h3>4 · Strategy</h3>
+      <p>The right-hand panel is this repo's advice for this model in this army: its role, how to play it, what it pairs with, and what to beware.</p>
+    </div>
+  </div>
+</div>""", ""))
+    seen = set()
+    phases = "".join(f"<li><b>{E(n)}.</b> {gl.mark(t, seen)}</li>" for n, t in PHASES)
+    steps = "".join(f"<li><b>{E(n)}.</b> {gl.mark(t, seen)}</li>" for n, t in ATTACK_STEPS)
+    wt = "".join(f"<tr><td>{E(a)}</td><td class='n'>{E(w)}</td></tr>" for a, w in WOUND_TABLE)
+    mods = "".join(f"<li>{gl.mark(m, seen)}</li>" for m in ARMY_MODIFIERS)
+    slides.append(("I · Primer", "A turn, and an attack", f"""
+<div class="wrap">
+  <p class="eyebrow">I · Primer</p>
+  <h2>A <span class="red">turn</span>, and an <span class="red">attack</span></h2>
+  <div class="cols even">
+    <div>
+      <h3 style="margin-top:18px">The five phases</h3>
+      <ol class="steps">{phases}</ol>
+      <h3>What this army does to the dice</h3>
+      <ul class="bullets">{mods}</ul>
+    </div>
+    <div>
+      <h3 style="margin-top:18px">One attack, four rolls</h3>
+      <ol class="steps">{steps}</ol>
+      <h3>The wound roll</h3>
+      <div class="tbl"><table><tr><th>Strength against Toughness</th><th>Wound on</th></tr>{wt}</table></div>
+    </div>
+  </div>
+</div>""", ""))
+    seen = set()
+    wins = "".join(f"<li>{gl.mark(w, seen)}</li>" for w in WIN_POINTS)
+    slides.append(("I · Primer", "How you win", f"""
+<div class="wrap">
+  <p class="eyebrow">I · Primer</p>
+  <h2>How you <span class="red">win</span></h2>
+  <p class="lead">On points, not kills. A massacre that forgot the markers is a loss.</p>
+  <ul class="bullets" style="margin-top:18px">{wins}</ul>
+</div>""", ""))
+    # glossary slides, three of them
+    parts = [("I · the numbers and the weapons", ["Characteristics", "Weapon profile", "Weapon abilities"]),
+             ("II · abilities and keywords", ["Core abilities", "Unit keywords"]),
+             ("III · the game, and this army's words", ["Phases and dice", "Missions and scoring", "This army's words"])]
+    for sub, groups in parts:
+        body = []
+        for g in groups:
+            rows = [t for t in gl.terms if t["group"] == g]
+            if not rows:
+                continue
+            body.append(f"<h3>{E(g)}</h3>")
+            body += [f'<div class="entry"><b>{E(t["term"])}</b> {E(t["def"])}</div>' for t in rows]
+        slides.append(("I · Primer", f"Glossary {sub.split(' · ')[0]}", f"""
+<div class="wrap">
+  <p class="eyebrow">I · Primer</p>
+  <h2>Glossary <span class="epithet">{E(sub)}</span></h2>
+  <div class="gloss">{''.join(body)}</div>
+</div>""", ""))
+    return slides
+
+
+def render_deck(ds, udata, units, used, gl):
     det = ds["detachment"]
     sheets = {d["id"]: d for d in ds["datasheets"]}
-    slides = []  # (section, title, html, classes)
+    slides = []
     slides.append(("", "Title", f"""
 <div class="wrap">
   <p class="eyebrow">The Long Shadow Host · every datasheet in the collection</p>
   <h1>Shadow <span class="red">Legion</span> Datasheets</h1>
   <p class="lead">Statistics, weapons and abilities for every model you own, with a strategy for each in Be'lakor's detachment. Numbers from {E(ds['meta']['source'].split(',')[0])}; abilities paraphrased; the app is the arbiter.</p>
-  <p class="lead">Move with <span class="kbd">→</span> and <span class="kbd">←</span>, swipe on a phone, or press <span class="kbd">C</span> for the contents. <span class="kbd">Home</span> returns here.</p>
+  <p class="lead">Coming back to the game? Start with the primer on the next three slides, and hover or tap any dotted term anywhere for its definition. Move with <span class="kbd">→</span> and <span class="kbd">←</span>, swipe on a phone, or press <span class="kbd">C</span> for the contents.</p>
 </div>""", "center"))
-    rules = "".join(f"<dt>{E(a['name'])}</dt><dd>{E(a['gist'])}</dd>" for a in ds["army_rules"] if a["name"] != "Harbingers of Dread")
-    slides.append(("I · The Army", "How the army works", f"""
+    slides += primer_slides(ds, gl)
+    seen = set()
+    rules = "".join(f"<dt>{E(a['name'])}</dt><dd>{gl.mark(a['gist'], seen)}</dd>" for a in ds["army_rules"] if a["name"] != "Harbingers of Dread")
+    slides.append(("II · The Army", "How the army works", f"""
 <div class="wrap">
-  <p class="eyebrow">I · The Army</p>
+  <p class="eyebrow">II · The Army</p>
   <h2>How the <span class="red">army</span> works</h2>
   <dl class="rules">{rules}</dl>
 </div>""", ""))
+    seen = set()
     boon_gist = {a["name"]: a["gist"] for d in ds["datasheets"] for a in d["abilities"] if a["name"] in BOONS}
-    boons = "".join(f"<tr><td>{E(b['allegiance'])}</td><td><b>{E(b['ability'])}</b> {E(boon_gist.get(b['ability'], ''))}</td></tr>" for b in det.get("boons", []))
+    boons = "".join(f"<tr><td>{E(b['allegiance'])}</td><td><b>{E(b['ability'])}</b> {gl.mark(boon_gist.get(b['ability'], ''), seen)}</td></tr>" for b in det.get("boons", []))
     boons += "<tr><td>Slaanesh</td><td>As recorded in July: cannot be targeted by Fire Overwatch. Nothing Slaanesh is owned.</td></tr>"
-    enh = "".join(f"<tr><td>{E(e['name'])}</td><td class='n'>{E(str(e['points']))}</td><td>{E(e['gist'])}</td></tr>" for e in det["enhancements"])
-    strats = "".join(f"<tr><td>{E(s['name'])}</td><td class='n'>{E(s['cp'] or '?')}</td><td>{E(s['gist'])}</td></tr>" for s in det["stratagems"])
+    enh = "".join(f"<tr><td>{E(e['name'])}</td><td class='n'>{E(str(e['points']))}</td><td>{gl.mark(e['gist'], seen)}</td></tr>" for e in det["enhancements"])
+    strats = "".join(f"<tr><td>{E(s['name'])}</td><td class='n'>{E(s['cp'] or '?')}</td><td>{gl.mark(s['gist'], seen)}</td></tr>" for s in det["stratagems"])
     rule_gist = det["rules"][0]["gist"] if det["rules"] else ""
-    slides.append(("I · The Army", "The detachment", f"""
+    slides.append(("II · The Army", "The detachment", f"""
 <div class="wrap">
-  <p class="eyebrow">I · The Army · {E(det['name'])} · {det['detachment_points']} DP</p>
+  <p class="eyebrow">II · The Army · {E(det['name'])} · {det['detachment_points']} DP</p>
   <h2>The <span class="red">detachment</span></h2>
-  <p class="lead">{E(rule_gist)}</p>
+  <p class="lead">{gl.mark(rule_gist, seen)}</p>
   <div class="cols">
     <div>
       <h3 style="margin-top:18px">Boons</h3>
@@ -471,7 +732,7 @@ def render_deck(ds, udata, units, used):
     </div>
   </div>
 </div>""", ""))
-    numerals = ["II", "III", "IV", "V", "VI", "VII", "VIII"]
+    numerals = ["III", "IV", "V", "VI", "VII", "VIII", "IX"]
     for i, (name, god, blurb, ids) in enumerate(GROUPS):
         sec = f"{numerals[i]} · {name}"
         listed = [uid for uid in ids if uid in sheets and uid in units]
@@ -484,12 +745,10 @@ def render_deck(ds, udata, units, used):
   <p class="meta">{E(roster)}</p>
 </div>""", "center"))
         for uid in listed:
-            slides.append((sec, sheets[uid]["name"], deck_unit(sheets[uid], units[uid], used, sec), "unit"))
-    # closing: the lists
-    errors, warnings, _ = build_lists.build()
+            slides.append((sec, sheets[uid]["name"], deck_unit(sheets[uid], units[uid], used, sec, gl), "unit"))
     with open(LISTS, encoding="utf-8") as f:
         ldata = json.load(f)
-    u2, e2 = build_lists.load()[2], build_lists.load()[3]
+    _, _, u2, e2 = build_lists.load()
     limits = udata["meta"]["limits"]
     rows = []
     for lst in ldata["lists"]:
@@ -499,9 +758,9 @@ def render_deck(ds, udata, units, used):
         v = build_lists.validate(lst, entries, u2, limits)
         buy, assemble = build_lists.compute_gap(entries, u2)
         rows.append(f"<tr><td><b>{E(lst['id'])} · {E(lst['name'])}</b><br><span class='meta'>{E(lst['shape'])}</span></td><td class='n'>{v['total']:,}</td><td>{E(build_lists.status_line(buy, assemble))}</td></tr>")
-    slides.append(("IX · The Lists", "The seven lists", f"""
+    slides.append(("X · The Lists", "The seven lists", f"""
 <div class="wrap">
-  <p class="eyebrow">IX · The Lists</p>
+  <p class="eyebrow">X · The Lists</p>
   <h2>The seven <span class="red">lists</span></h2>
   <p class="lead">Full rosters, options and gaps live in army-lists.md, generated from the same data as this deck.</p>
   <div class="tbl" style="margin-top:18px"><table><tr><th>List</th><th>Pts</th><th>Status</th></tr>{''.join(rows)}</table></div>
@@ -509,6 +768,7 @@ def render_deck(ds, udata, units, used):
 </div>""", ""))
 
     sections_js = json.dumps([{"s": s, "t": t} for s, t, _, _ in slides], ensure_ascii=False)
+    gloss_js = gl.dictionary_js()
     body = "".join(f'<section class="slide {cls}" aria-hidden="true">{h}</section>' for s, t, h, cls in slides)
     toc_html = []
     cur = None
@@ -523,6 +783,7 @@ def render_deck(ds, udata, units, used):
 <div id="sect"><span id="sectlabel"></span><button class="navbtn" id="tocbtn" aria-label="Contents">Contents</button></div>
 <div id="deck">{body}</div>
 <div id="toc" hidden><div class="toc"><p class="eyebrow">Contents</p>{''.join(toc_html)}</div></div>
+<div id="tip" role="tooltip" hidden><b></b><span></span></div>
 <div id="hud">
   <button class="navbtn" id="prev" aria-label="Previous slide">‹ Back</button>
   <span id="counter"></span>
@@ -530,9 +791,26 @@ def render_deck(ds, udata, units, used):
 </div>
 <script>
 const S = {sections_js};
+const G = {gloss_js};
 const slides = [...document.querySelectorAll('.slide')];
 const toc = document.getElementById('toc');
-let cur = 0;
+const tip = document.getElementById('tip');
+let cur = 0, pinned = null;
+function hideTip(){{ tip.hidden = true; pinned = null; }}
+function showTip(el){{
+  tip.querySelector('b').textContent = el.dataset.t;
+  tip.querySelector('span').textContent = G[el.dataset.t] || '';
+  tip.hidden = false;
+  if (innerWidth > 700) {{
+    const r = el.getBoundingClientRect();
+    const w = Math.min(340, innerWidth - 24);
+    let left = Math.max(12, Math.min(r.left, innerWidth - w - 12));
+    let top = r.bottom + 8;
+    const h = tip.offsetHeight;
+    if (top + h > innerHeight - 70) top = Math.max(12, r.top - h - 8);
+    tip.style.left = left + 'px'; tip.style.top = top + 'px';
+  }}
+}}
 function go(n){{
   n = Math.max(0, Math.min(slides.length - 1, n));
   slides[cur].classList.remove('active'); slides[cur].setAttribute('aria-hidden', 'true');
@@ -542,21 +820,30 @@ function go(n){{
   document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
   document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
   document.getElementById('sectlabel').textContent = S[cur].s;
-  toc.hidden = true;
+  toc.hidden = true; hideTip();
   history.replaceState(null, '', cur ? '#' + (cur + 1) : location.pathname);
 }}
 document.getElementById('next').onclick = () => go(cur + 1);
 document.getElementById('prev').onclick = () => go(cur - 1);
 document.getElementById('tocbtn').onclick = () => {{ toc.hidden = !toc.hidden; }};
 toc.addEventListener('click', e => {{ const a = e.target.closest('a[data-i]'); if (a) {{ e.preventDefault(); go(+a.dataset.i); }} }});
+document.addEventListener('mouseover', e => {{ const t = e.target.closest('.term'); if (t && !pinned) showTip(t); }});
+document.addEventListener('mouseout', e => {{ if (!pinned && e.target.closest && e.target.closest('.term')) hideTip(); }});
+document.addEventListener('focusin', e => {{ const t = e.target.closest && e.target.closest('.term'); if (t) showTip(t); }});
+document.addEventListener('focusout', e => {{ if (!pinned) hideTip(); }});
+document.addEventListener('click', e => {{
+  const t = e.target.closest('.term');
+  if (t) {{ if (pinned === t) {{ hideTip(); }} else {{ pinned = t; showTip(t); }} e.stopPropagation(); return; }}
+  if (!e.target.closest('#tip')) hideTip();
+}});
 addEventListener('keydown', e => {{
   if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'Escape') {{ hideTip(); toc.hidden = true; return; }}
   if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {{ e.preventDefault(); go(cur + 1); }}
   else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {{ e.preventDefault(); go(cur - 1); }}
   else if (e.key === 'Home') go(0);
   else if (e.key === 'End') go(slides.length - 1);
   else if (e.key === 'c' || e.key === 'C') toc.hidden = !toc.hidden;
-  else if (e.key === 'Escape') toc.hidden = true;
 }});
 let tx = null, ty = null;
 addEventListener('touchstart', e => {{ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }}, {{passive: true}});
@@ -574,15 +861,22 @@ go(!isNaN(h0) && h0 >= 1 ? h0 - 1 : 0);
     return page, len(slides)
 
 
+gl_meta_note = ""
+
+
 def main():
-    ds, udata, units, used = load()
-    md = render_md(ds, udata, units, used)
+    global gl_meta_note
+    ds, udata, units, used, gloss = load()
+    gl = Glossary(gloss)
+    gl_meta_note = gloss["meta"]["note"]
+    md = render_md(ds, udata, units, used, gl)
     with open(OUT_MD, "w", encoding="utf-8") as f:
         f.write(md)
-    page, n = render_deck(ds, udata, units, used)
+    page, n = render_deck(ds, udata, units, used, gl)
     with open(OUT_HTML, "w", encoding="utf-8") as f:
         f.write(page)
-    print(f"wrote datasheets.md ({len(md.splitlines())} lines) and datasheets-deck.html ({n} slides, {len(page) // 1024} KB)")
+    marks = page.count('class="term"')
+    print(f"wrote datasheets.md ({len(md.splitlines())} lines) and datasheets-deck.html ({n} slides, {len(page) // 1024} KB, {marks} term tooltips)")
 
 
 if __name__ == "__main__":
