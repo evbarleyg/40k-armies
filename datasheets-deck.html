@@ -52,6 +52,25 @@
   .badge.own{ color:var(--own); } .badge.build{ color:var(--pending); } .badge.pending{ color:var(--pending); }
   .badge.buy{ color:var(--buy); }
   .pts{ font-family:ui-monospace,Menlo,Consolas,monospace; font-variant-numeric:tabular-nums; color:var(--crimson); font-weight:600; }
+  .head{ display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:24px; align-items:end; }
+  @media (max-width:860px){ .head{ grid-template-columns:minmax(0,1fr); gap:14px; } }
+  figure.model{ margin:0; min-width:0; }
+  figure.model .frame{ position:relative; aspect-ratio:4/3; background:var(--panel); border:1px solid var(--line);
+    overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  @media (max-width:860px){ figure.model .frame{ max-height:240px; } }
+  figure.model img{ width:100%; height:100%; object-fit:cover; display:block; }
+  figure.model .empty{ text-align:center; color:var(--dim); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+  figure.model .empty .mono{ display:block; font-family:Palatino,Georgia,serif; font-size:56px; line-height:1; color:var(--line);
+    text-transform:none; letter-spacing:0; margin-bottom:6px; }
+  figure.model figcaption{ display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:6px; min-height:22px; }
+  figure.model .cap{ font-size:11.5px; color:var(--dim); }
+  .navbtn.small{ font-size:12px; padding:4px 10px; }
+  body:not(.can-edit) .editonly{ display:none; }
+  #save{ display:none; background:var(--crimson); color:#fff; border-color:var(--crimson); }
+  body.dirty #save{ display:inline-block; }
+  #msg{ position:fixed; left:50%; bottom:70px; transform:translateX(-50%); background:var(--panel2); color:var(--ink);
+    border:1px solid var(--brass); padding:8px 14px; font-size:13px; z-index:6; max-width:90vw; }
+  #msg[hidden]{ display:none; }
   .cols{ display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:28px; margin-top:22px; align-items:start; }
   .cols.even{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
   @media (max-width:860px){ .cols, .cols.even{ grid-template-columns:minmax(0,1fr); gap:20px; } }
@@ -228,9 +247,17 @@
   <p class="meta">Be&#x27;lakor</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">III · The Dark Master · <span class="pts">390 pts (1)</span> · 1 model</p>
-  <h2>Be&#x27;lakor<span class="badge own">1 owned, painted</span><span class="epithet">The Source</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Epic Hero">Epic Hero</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Shadow Legion · Undivided</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">III · The Dark Master · <span class="pts">390 pts (1)</span> · 1 model</p>
+      <h2>Be&#x27;lakor<span class="badge own">1 owned, painted</span><span class="epithet">The Source</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Epic Hero">Epic Hero</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Shadow Legion · Undivided</p>
+    </div>
+    <figure class="model" data-unit="belakor">
+      <div class="frame"><img alt="Be&#x27;lakor" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">11</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">20</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -256,9 +283,17 @@
   <p class="meta">Lord of Change · Fateskimmer · Exalted Flamer · Flamers · Pink Horrors · Blue Horrors · Screamers</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">320 pts (1)</span> · 1 model</p>
-  <h2>Lord of Change<span class="badge own">1 owned, painted</span><span class="epithet">The Anagnost</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">320 pts (1)</span> · 1 model</p>
+      <h2>Lord of Change<span class="badge own">1 owned, painted</span><span class="epithet">The Anagnost</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="lord_of_change">
+      <div class="frame"><img alt="Lord of Change" hidden><div class="empty"><span class="mono">L</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">10</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">18</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -278,9 +313,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">95 pts (1)</span> · 1 model</p>
-  <h2>Fateskimmer<span class="badge own">1 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">95 pts (1)</span> · 1 model</p>
+      <h2>Fateskimmer<span class="badge own">1 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+    </div>
+    <figure class="model" data-unit="fateskimmer">
+      <div class="frame"><img alt="Fateskimmer" hidden><div class="empty"><span class="mono">F</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">7</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -300,9 +343,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">65 pts (1)</span> · 1 model</p>
-  <h2>Exalted Flamer<span class="badge own">1 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">65 pts (1)</span> · 1 model</p>
+      <h2>Exalted Flamer<span class="badge own">1 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+    </div>
+    <figure class="model" data-unit="exalted_flamer">
+      <div class="frame"><img alt="Exalted Flamer" hidden><div class="empty"><span class="mono">E</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">9&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">6</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -322,9 +373,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">65 pts (3) · 130 pts (6)</span> · 2-5 Flamer, 1 Pyrocaster</p>
-  <h2>Flamers<span class="badge own">3 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">65 pts (3) · 130 pts (6)</span> · 2-5 Flamer, 1 Pyrocaster</p>
+      <h2>Flamers<span class="badge own">3 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="flamers">
+      <div class="frame"><img alt="Flamers" hidden><div class="empty"><span class="mono">F</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">9&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -344,9 +403,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">150 pts (10)</span> · 10 Pink Horror</p>
-  <h2>Pink Horrors<span class="badge own">10 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">150 pts (10)</span> · 10 Pink Horror</p>
+      <h2>Pink Horrors<span class="badge own">10 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="pink_horrors">
+      <div class="frame"><img alt="Pink Horrors" hidden><div class="empty"><span class="mono">P</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Blue/Brimstone Horror (ref. only)</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">8+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div><p class="stat-name">Pink Horror</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -366,9 +433,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">125 pts (10)</span> · 10 Blue Horror</p>
-  <h2>Blue Horrors<span class="badge own">10 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">125 pts (10)</span> · 10 Blue Horror</p>
+      <h2>Blue Horrors<span class="badge own">10 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="blue_horrors">
+      <div class="frame"><img alt="Blue Horrors" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">8+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -388,9 +463,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IV · The First Choir · <span class="pts">80 pts (3) · 160 pts (6)</span> · 3-6 Screamer</p>
-  <h2>Screamers<span class="badge own">3 owned, painted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IV · The First Choir · <span class="pts">80 pts (3) · 160 pts (6)</span> · 3-6 Screamer</p>
+      <h2>Screamers<span class="badge own">3 owned, painted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Tzeentch · Tzeentch non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="screamers">
+      <div class="frame"><img alt="Screamers" hidden><div class="empty"><span class="mono">S</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">14&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -416,9 +499,17 @@
   <p class="meta">Bloodthirster · Bloodmaster · Bloodletters · Flesh Hounds · Bloodcrushers · Skullmaster · Rendmaster on Blood Throne</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">320 pts (1)</span> · 1 model</p>
-  <h2>Bloodthirster<span class="badge build">2 owned, unassembled</span><span class="epithet">The Unbound Word</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">320 pts (1)</span> · 1 model</p>
+      <h2>Bloodthirster<span class="badge build">2 owned, unassembled</span><span class="epithet">The Unbound Word</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="bloodthirster">
+      <div class="frame"><img alt="Bloodthirster" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">11</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">18</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -438,9 +529,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">65 pts (1)</span> · 1 model</p>
-  <h2>Bloodmaster<span class="badge own">2 owned, painted</span><span class="epithet">The Tithe-Takers</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">65 pts (1)</span> · 1 model</p>
+      <h2>Bloodmaster<span class="badge own">2 owned, painted</span><span class="epithet">The Tithe-Takers</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+    </div>
+    <figure class="model" data-unit="bloodmaster">
+      <div class="frame"><img alt="Bloodmaster" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">8&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">5+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -460,9 +559,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">110 pts (10)</span> · 9 Bloodletter, 1 Bloodreaper</p>
-  <h2>Bloodletters<span class="badge own">17 to 19 owned, painted</span><span class="epithet">The Tithe-Takers</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">110 pts (10)</span> · 9 Bloodletter, 1 Bloodreaper</p>
+      <h2>Bloodletters<span class="badge own">17 to 19 owned, painted</span><span class="epithet">The Tithe-Takers</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="bloodletters">
+      <div class="frame"><img alt="Bloodletters" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">8&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -482,9 +589,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">75 pts (5) · 150 pts (10)</span> · 4-9 Flesh Hound, 1 Gore Hound</p>
-  <h2>Flesh Hounds<span class="badge own">5 owned, painted (well)</span><span class="epithet">The Nine-Inch Truth</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">75 pts (5) · 150 pts (10)</span> · 4-9 Flesh Hound, 1 Gore Hound</p>
+      <h2>Flesh Hounds<span class="badge own">5 owned, painted (well)</span><span class="epithet">The Nine-Inch Truth</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="flesh_hounds">
+      <div class="frame"><img alt="Flesh Hounds" hidden><div class="empty"><span class="mono">F</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -504,9 +619,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">95 pts (3) · 200 pts (6)</span> · 2-5 Bloodcrusher, 1 Bloodhunter</p>
-  <h2>Bloodcrushers<span class="badge pending">delivered, not yet catalogued</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">95 pts (3) · 200 pts (6)</span> · 2-5 Bloodcrusher, 1 Bloodhunter</p>
+      <h2>Bloodcrushers<span class="badge pending">delivered, not yet catalogued</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="bloodcrushers">
+      <div class="frame"><img alt="Bloodcrushers" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">10&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">7</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -526,9 +649,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">85 pts (1)</span> · 1 model</p>
-  <h2>Skullmaster<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">85 pts (1)</span> · 1 model</p>
+      <h2>Skullmaster<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+    </div>
+    <figure class="model" data-unit="skullmaster">
+      <div class="frame"><img alt="Skullmaster" hidden><div class="empty"><span class="mono">S</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">10&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">7</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">6</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -548,9 +679,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">V · The Blood Tithe · <span class="pts">160 pts (1)</span> · 1 model</p>
-  <h2>Rendmaster on Blood Throne<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">V · The Blood Tithe · <span class="pts">160 pts (1)</span> · 1 model</p>
+      <h2>Rendmaster on Blood Throne<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Khorne · Khorne non-Battleline · Shadow Legion · Non-Monster <span class="term" tabindex="0" data-t="Character">Character</span></p>
+    </div>
+    <figure class="model" data-unit="rendmaster">
+      <div class="frame"><img alt="Rendmaster on Blood Throne" hidden><div class="empty"><span class="mono">R</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">8&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">4+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -576,9 +715,17 @@
   <p class="meta">Great Unclean One · Nurglings · Beasts of Nurgle · Plague Drones</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VI · The Margins · <span class="pts">265 pts (1)</span> · 1 model</p>
-  <h2>Great Unclean One<span class="badge pending">delivered, not yet catalogued</span><span class="epithet">The Margin&#x27;s Margin</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VI · The Margins · <span class="pts">265 pts (1)</span> · 1 model</p>
+      <h2>Great Unclean One<span class="badge pending">delivered, not yet catalogued</span><span class="epithet">The Margin&#x27;s Margin</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="great_unclean_one">
+      <div class="frame"><img alt="Great Unclean One" hidden><div class="empty"><span class="mono">G</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">7&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">12</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">5+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">20</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -598,9 +745,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VI · The Margins · <span class="pts">45 pts (3) · 90 pts (6)</span> · 3-6 Nurgling Swarm</p>
-  <h2>Nurglings<span class="badge own">3 owned, painted</span><span class="epithet">The Annotators</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Swarm">Swarm</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VI · The Margins · <span class="pts">45 pts (3) · 90 pts (6)</span> · 3-6 Nurgling Swarm</p>
+      <h2>Nurglings<span class="badge own">3 owned, painted</span><span class="epithet">The Annotators</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Swarm">Swarm</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="nurglings">
+      <div class="frame"><img alt="Nurglings" hidden><div class="empty"><span class="mono">N</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">5&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">8+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">0</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -620,9 +775,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VI · The Margins · <span class="pts">80 pts (1) · 150 pts (2)</span> · 1-2 Beast of Nurgle</p>
-  <h2>Beasts of Nurgle<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VI · The Margins · <span class="pts">80 pts (1) · 150 pts (2)</span> · 1-2 Beast of Nurgle</p>
+      <h2>Beasts of Nurgle<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Beast">Beast</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="beast_of_nurgle">
+      <div class="frame"><img alt="Beasts of Nurgle" hidden><div class="empty"><span class="mono">B</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">7</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -642,9 +805,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VI · The Margins · <span class="pts">110 pts (3) · 220 pts (6)</span> · 2-5 Plague Drone, 1 Plaguebringer</p>
-  <h2>Plague Drones<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VI · The Margins · <span class="pts">110 pts (3) · 220 pts (6)</span> · 2-5 Plague Drone, 1 Plaguebringer</p>
+      <h2>Plague Drones<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Mounted">Mounted</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · Nurgle · Nurgle non-Battleline · Shadow Legion</p>
+    </div>
+    <figure class="model" data-unit="plague_drones">
+      <div class="frame"><img alt="Plague Drones" hidden><div class="empty"><span class="mono">P</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">10&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">8</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -670,9 +841,17 @@
   <p class="meta">Chaos Lord · Master of Possession · Possessed · Legionaries · Havocs · Cultist Mob · Chosen · Warp Talons</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">90 pts (1)</span> · 1 model</p>
-  <h2>Chaos Lord<span class="badge own">1 owned, painted</span><span class="epithet">Obsidius Mallex, the Creed&#x27;s Castellan</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span> · <span class="term" tabindex="0" data-t="Leader">Leader</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">90 pts (1)</span> · 1 model</p>
+      <h2>Chaos Lord<span class="badge own">1 owned, painted</span><span class="epithet">Obsidius Mallex, the Creed&#x27;s Castellan</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span> · <span class="term" tabindex="0" data-t="Leader">Leader</span></p>
+    </div>
+    <figure class="model" data-unit="chaos_lord">
+      <div class="frame"><img alt="Chaos Lord" hidden><div class="empty"><span class="mono">C</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -692,9 +871,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">60 pts (1)</span> · 1 model</p>
-  <h2>Master of Possession<span class="badge own">1 owned, painted</span><span class="epithet">Sor Vekh, First Footnotist</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Leader">Leader</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">60 pts (1)</span> · 1 model</p>
+      <h2>Master of Possession<span class="badge own">1 owned, painted</span><span class="epithet">Sor Vekh, First Footnotist</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Psyker">Psyker</span> · <span class="term" tabindex="0" data-t="Leader">Leader</span></p>
+    </div>
+    <figure class="model" data-unit="master_of_possessions">
+      <div class="frame"><img alt="Master of Possession" hidden><div class="empty"><span class="mono">M</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">8&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -714,9 +901,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">120 pts (5) · 250 pts (10)</span> · 5 or 10 Possessed</p>
-  <h2>Possessed<span class="badge own">5 owned, painted</span><span class="epithet">The Later Chapters</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">120 pts (5) · 250 pts (10)</span> · 5 or 10 Possessed</p>
+      <h2>Possessed<span class="badge own">5 owned, painted</span><span class="epithet">The Later Chapters</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span></p>
+    </div>
+    <figure class="model" data-unit="possessed">
+      <div class="frame"><img alt="Possessed" hidden><div class="empty"><span class="mono">P</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">9&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">6</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -736,9 +931,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">90 pts (5) · 170 pts (10)</span> · 1 Aspiring Champion and 4 or 9 Legionaries</p>
-  <h2>Legionaries<span class="badge own">10 owned, painted</span><span class="epithet">The Preaching Company</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">90 pts (5) · 170 pts (10)</span> · 1 Aspiring Champion and 4 or 9 Legionaries</p>
+      <h2>Legionaries<span class="badge own">10 owned, painted</span><span class="epithet">The Preaching Company</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+    </div>
+    <figure class="model" data-unit="legionaries">
+      <div class="frame"><img alt="Legionaries" hidden><div class="empty"><span class="mono">L</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Aspiring Champion</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div><p class="stat-name">Legionaries</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div>
@@ -758,9 +961,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">125 pts (5)</span> · 1 Havoc Champion and 4 Havocs</p>
-  <h2>Havocs<span class="badge own">5 owned, painted</span><span class="epithet">The Rearguard Chorus</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">125 pts (5)</span> · 1 Havoc Champion and 4 Havocs</p>
+      <h2>Havocs<span class="badge own">5 owned, painted</span><span class="epithet">The Rearguard Chorus</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span></p>
+    </div>
+    <figure class="model" data-unit="havocs">
+      <div class="frame"><img alt="Havocs" hidden><div class="empty"><span class="mono">H</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Havoc Champion</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">5&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div><p class="stat-name">Havocs</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">5&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">5</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div>
@@ -780,9 +991,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">50 pts (10) · 90 pts (20)</span> · 1 Cultist Champion and 9 or 19 Cultists</p>
-  <h2>Cultist Mob<span class="badge own">10 owned, painted</span><span class="epithet">The Unlisted</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span> · Damned</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">50 pts (10) · 90 pts (20)</span> · 1 Cultist Champion and 9 or 19 Cultists</p>
+      <h2>Cultist Mob<span class="badge own">10 owned, painted</span><span class="epithet">The Unlisted</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Battleline">Battleline</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span> · Damned</p>
+    </div>
+    <figure class="model" data-unit="cultist_mob">
+      <div class="frame"><img alt="Cultist Mob" hidden><div class="empty"><span class="mono">C</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Cultist Mob</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div><p class="stat-name">Cultist Champion</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div>
@@ -802,9 +1021,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">135 pts (5) · 270 pts (10)</span> · 1 Chosen Champion and 4 or 9 Chosen</p>
-  <h2>Chosen<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">135 pts (5) · 270 pts (10)</span> · 1 Chosen Champion and 4 or 9 Chosen</p>
+      <h2>Chosen<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+    </div>
+    <figure class="model" data-unit="chosen">
+      <div class="frame"><img alt="Chosen" hidden><div class="empty"><span class="mono">C</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Chosen</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div><p class="stat-name">Chosen Champion</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">6&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">–</span></div></div>
@@ -824,9 +1051,17 @@
   </div>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">125 pts (5) · 280 pts (10)</span> · 1 Warp Talon Champion, 4-9 Warp Talon</p>
-  <h2>Warp Talons<span class="badge buy">not owned</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · Jump Pack · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VII · The Bearers of the Word · <span class="pts">125 pts (5) · 280 pts (10)</span> · 1 Warp Talon Champion, 4-9 Warp Talon</p>
+      <h2>Warp Talons<span class="badge buy">not owned</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Infantry">Infantry</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span> · Jump Pack · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · <span class="term" tabindex="0" data-t="Grenades">Grenades</span></p>
+    </div>
+    <figure class="model" data-unit="warp_talons">
+      <div class="frame"><img alt="Warp Talons" hidden><div class="empty"><span class="mono">W</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <p class="stat-name">Warp Talon Champion</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div><p class="stat-name">Warp Talons</p><div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">4</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">2</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">1</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+</span></div></div>
@@ -852,9 +1087,17 @@
   <p class="meta">War Dog Karnivore</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">VIII · Oath-Bound Engines · <span class="pts">145 pts (1)</span> · 1 model</p>
-  <h2>War Dog Karnivore<span class="badge own">2 owned, painted</span><span class="epithet">The Iron Cantors</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Vehicle">Vehicle</span> · Walker · War Dog · Karnivore</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">VIII · Oath-Bound Engines · <span class="pts">145 pts (1)</span> · 1 model</p>
+      <h2>War Dog Karnivore<span class="badge own">2 owned, painted</span><span class="epithet">The Iron Cantors</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Vehicle">Vehicle</span> · Walker · War Dog · Karnivore</p>
+    </div>
+    <figure class="model" data-unit="war_dog_karnivore">
+      <div class="frame"><img alt="War Dog Karnivore" hidden><div class="empty"><span class="mono">W</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">14&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">3+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">14</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">7+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">6</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">5+*</span></div></div>
@@ -880,9 +1123,17 @@
   <p class="meta">Daemon Prince of Chaos with wings</p>
 </div></section><section class="slide unit" aria-hidden="true">
 <div class="wrap">
-  <p class="eyebrow">IX · The Unseated · <span class="pts">190 pts (1)</span> · 1 model</p>
-  <h2>Daemon Prince of Chaos with wings<span class="badge own">1 owned, painted</span><span class="epithet">The Rival</span></h2>
-  <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span></p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">IX · The Unseated · <span class="pts">190 pts (1)</span> · 1 model</p>
+      <h2>Daemon Prince of Chaos with wings<span class="badge own">1 owned, painted</span><span class="epithet">The Rival</span></h2>
+      <p class="kw"><span class="term" tabindex="0" data-t="Monster">Monster</span> · <span class="term" tabindex="0" data-t="Character">Character</span> · <span class="term" tabindex="0" data-t="Daemon">Daemon</span> · <span class="term" tabindex="0" data-t="Fly">Fly</span></p>
+    </div>
+    <figure class="model" data-unit="daemon_prince">
+      <div class="frame"><img alt="Daemon Prince of Chaos with wings" hidden><div class="empty"><span class="mono">D</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       <div class="stats"><div class="stat"><b><span class="term" tabindex="0" data-t="Move">M</span></b><span class="v">12&quot;</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Toughness">T</span></b><span class="v">9</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Save">Sv</span></b><span class="v">2+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Wounds">W</span></b><span class="v">10</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Leadership">Ld</span></b><span class="v">6+</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="Objective Control">OC</span></b><span class="v">3</span></div><div class="stat"><b><span class="term" tabindex="0" data-t="invulnerable save">Inv</span></b><span class="v">4+</span></div></div>
@@ -910,9 +1161,13 @@
 </div></section></div>
 <div id="toc" hidden><div class="toc"><p class="eyebrow">Contents</p><h3>Start</h3><a href="#1" data-i="0"><small>01</small>Title</a><h3>I · Primer</h3><a href="#2" data-i="1"><small>02</small>Reading a datasheet</a><a href="#3" data-i="2"><small>03</small>A turn, and an attack</a><a href="#4" data-i="3"><small>04</small>How you win</a><a href="#5" data-i="4"><small>05</small>Glossary I</a><a href="#6" data-i="5"><small>06</small>Glossary II</a><a href="#7" data-i="6"><small>07</small>Glossary III</a><h3>II · The Army</h3><a href="#8" data-i="7"><small>08</small>How the army works</a><a href="#9" data-i="8"><small>09</small>The detachment</a><h3>III · The Dark Master</h3><a href="#10" data-i="9"><small>10</small>The Dark Master</a><a href="#11" data-i="10"><small>11</small>Be&#x27;lakor</a><h3>IV · The First Choir</h3><a href="#12" data-i="11"><small>12</small>The First Choir</a><a href="#13" data-i="12"><small>13</small>Lord of Change</a><a href="#14" data-i="13"><small>14</small>Fateskimmer</a><a href="#15" data-i="14"><small>15</small>Exalted Flamer</a><a href="#16" data-i="15"><small>16</small>Flamers</a><a href="#17" data-i="16"><small>17</small>Pink Horrors</a><a href="#18" data-i="17"><small>18</small>Blue Horrors</a><a href="#19" data-i="18"><small>19</small>Screamers</a><h3>V · The Blood Tithe</h3><a href="#20" data-i="19"><small>20</small>The Blood Tithe</a><a href="#21" data-i="20"><small>21</small>Bloodthirster</a><a href="#22" data-i="21"><small>22</small>Bloodmaster</a><a href="#23" data-i="22"><small>23</small>Bloodletters</a><a href="#24" data-i="23"><small>24</small>Flesh Hounds</a><a href="#25" data-i="24"><small>25</small>Bloodcrushers</a><a href="#26" data-i="25"><small>26</small>Skullmaster</a><a href="#27" data-i="26"><small>27</small>Rendmaster on Blood Throne</a><h3>VI · The Margins</h3><a href="#28" data-i="27"><small>28</small>The Margins</a><a href="#29" data-i="28"><small>29</small>Great Unclean One</a><a href="#30" data-i="29"><small>30</small>Nurglings</a><a href="#31" data-i="30"><small>31</small>Beasts of Nurgle</a><a href="#32" data-i="31"><small>32</small>Plague Drones</a><h3>VII · The Bearers of the Word</h3><a href="#33" data-i="32"><small>33</small>The Bearers of the Word</a><a href="#34" data-i="33"><small>34</small>Chaos Lord</a><a href="#35" data-i="34"><small>35</small>Master of Possession</a><a href="#36" data-i="35"><small>36</small>Possessed</a><a href="#37" data-i="36"><small>37</small>Legionaries</a><a href="#38" data-i="37"><small>38</small>Havocs</a><a href="#39" data-i="38"><small>39</small>Cultist Mob</a><a href="#40" data-i="39"><small>40</small>Chosen</a><a href="#41" data-i="40"><small>41</small>Warp Talons</a><h3>VIII · Oath-Bound Engines</h3><a href="#42" data-i="41"><small>42</small>Oath-Bound Engines</a><a href="#43" data-i="42"><small>43</small>War Dog Karnivore</a><h3>IX · The Unseated</h3><a href="#44" data-i="43"><small>44</small>The Unseated</a><a href="#45" data-i="44"><small>45</small>Daemon Prince of Chaos with wings</a><h3>X · The Lists</h3><a href="#46" data-i="45"><small>46</small>The seven lists</a></div></div>
 <div id="tip" role="tooltip" hidden><b></b><span></span></div>
+<div id="msg" hidden></div>
+<script type="application/json" id="photos">{}</script>
+<input type="file" id="photofile" accept="image/*" hidden>
 <div id="hud">
   <button class="navbtn" id="prev" aria-label="Previous slide">‹ Back</button>
   <span id="counter"></span>
+  <button class="navbtn" id="save" type="button">Save photos</button>
   <button class="navbtn" id="next" aria-label="Next slide">Next ›</button>
 </div>
 <script>
@@ -982,4 +1237,82 @@ addEventListener('touchend', e => {
 addEventListener('hashchange', () => { const h = parseInt(location.hash.slice(1), 10); if (!isNaN(h)) go(h - 1); });
 const h0 = parseInt(location.hash.slice(1), 10);
 go(!isNaN(h0) && h0 >= 1 ? h0 - 1 : 0);
+
+/* ---- model photos: rendered from the JSON block; editable on the published deck ---- */
+const PHOTOS = JSON.parse(document.getElementById('photos').textContent || '{}');
+const msg = document.getElementById('msg');
+let msgTimer = null;
+function say(text, sticky){ msg.textContent = text; msg.hidden = false; clearTimeout(msgTimer); if (!sticky) msgTimer = setTimeout(() => { msg.hidden = true; }, 4000); }
+function renderPhotos(){
+  document.querySelectorAll('figure.model').forEach(fig => {
+    const uid = fig.dataset.unit, src = PHOTOS[uid];
+    const img = fig.querySelector('img'), empty = fig.querySelector('.empty');
+    const add = fig.querySelector('.addphoto'), rm = fig.querySelector('.rmphoto');
+    if (src) { img.src = src; img.hidden = false; empty.hidden = true; add.textContent = 'Replace photo'; rm.hidden = false; }
+    else { img.removeAttribute('src'); img.hidden = true; empty.hidden = false; add.textContent = 'Add photo'; rm.hidden = true; }
+  });
+}
+renderPhotos();
+let artifactNs = null, pendingUnit = null;
+function setDirty(){ document.body.classList.add('dirty'); }
+async function shrink(file){
+  const MAX = 1000;
+  let bmp;
+  try { bmp = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+  catch (e) {
+    bmp = await new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(file); });
+  }
+  const w = bmp.width, h = bmp.height, k = Math.min(1, MAX / Math.max(w, h));
+  const c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', 0.82);
+}
+function addPhotoFromDataUrl(uid, dataUrl){ PHOTOS[uid] = dataUrl; renderPhotos(); setDirty(); }
+function removePhoto(uid){ delete PHOTOS[uid]; renderPhotos(); setDirty(); }
+const fileInput = document.getElementById('photofile');
+document.addEventListener('click', e => {
+  const add = e.target.closest('.addphoto'), rm = e.target.closest('.rmphoto');
+  if (add) { pendingUnit = add.closest('figure.model').dataset.unit; fileInput.value = ''; fileInput.click(); }
+  else if (rm) { removePhoto(rm.closest('figure.model').dataset.unit); }
+});
+fileInput.addEventListener('change', async () => {
+  const f = fileInput.files && fileInput.files[0];
+  if (!f || !pendingUnit) return;
+  try { addPhotoFromDataUrl(pendingUnit, await shrink(f)); say('Photo staged. Press Save photos to publish.'); }
+  catch (err) { say('Could not read that image.'); }
+});
+function buildPublishHtml(){
+  const doc = document.documentElement.cloneNode(true);
+  doc.querySelectorAll('.slide').forEach(s => { s.classList.remove('active'); s.setAttribute('aria-hidden', 'true'); });
+  ['tip', 'toc', 'msg'].forEach(id => { const el = doc.querySelector('#' + id); if (el) { el.hidden = true; el.removeAttribute('style'); } });
+  const bar = doc.querySelector('#bar'); if (bar) bar.removeAttribute('style');
+  ['counter', 'sectlabel'].forEach(id => { const el = doc.querySelector('#' + id); if (el) el.textContent = ''; });
+  doc.querySelector('body').classList.remove('can-edit', 'dirty');
+  doc.querySelectorAll('figure.model img').forEach(img => { img.removeAttribute('src'); img.hidden = true; });
+  doc.querySelectorAll('figure.model .empty').forEach(el => { el.hidden = false; });
+  doc.querySelectorAll('figure.model .rmphoto').forEach(el => { el.hidden = true; });
+  doc.querySelectorAll('figure.model .addphoto').forEach(el => { el.textContent = 'Add photo'; });
+  const fi = doc.querySelector('#photofile'); if (fi) fi.value = '';
+  doc.querySelector('#photos').textContent = JSON.stringify(PHOTOS);
+  return '<!doctype html>\n' + doc.outerHTML;
+}
+document.getElementById('save').onclick = async () => {
+  if (!artifactNs) { say('Saving is only available on the published deck.'); return; }
+  say('Saving…', true);
+  try { await artifactNs.publish(buildPublishHtml()); say('Saved. Reloading.', true); }
+  catch (err) {
+    const code = err && err.code;
+    if (code === 'too_large') say('Too many photos for one page. Remove one and save again.', true);
+    else if (code === 'conflict') say('A newer version was published elsewhere; this page will reload.', true);
+    else if (code === 'not_writer' || code === 'not_granted') { document.body.classList.remove('can-edit', 'dirty'); say('This copy is read-only.', true); }
+    else if (code === 'rate_limited') say('Saving too often. Wait a moment and try again.', true);
+    else say('Could not save: ' + (err && err.message || code || 'unknown error'), true);
+  }
+};
+if (window.claude && typeof window.claude.use === 'function') {
+  window.claude.use('artifact').then(ns => { if (ns) { artifactNs = ns; document.body.classList.add('can-edit'); } });
+} else if (location.search.indexOf('edit') !== -1) {
+  document.body.classList.add('can-edit');  /* local testing of the photo flow; Save stays unavailable */
+}
+window.__deck = { addPhotoFromDataUrl, removePhoto, buildPublishHtml, PHOTOS };
 </script>

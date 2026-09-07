@@ -13,10 +13,23 @@ writes:
                           external resources, hover or tap any term for its
                           definition; publishable as-is)
 
-    python3 build_datasheets.py
+    python3 build_datasheets.py                      # both editions
+    python3 build_datasheets.py --artifact OUT.html  # also write the edition
+                                                     # for publishing, with
+                                                     # photos embedded
+    python3 build_datasheets.py --import-photos SAVED.html
+                                                     # pull photos added on the
+                                                     # published deck back into
+                                                     # images/units/
+
+Model photos: drop a file named after the unit id into images/units/
+(belakor.jpg, pink_horrors.png ...) and rebuild. The published deck also lets
+its owner add or replace photos from a phone; they are stored inside the page
+and come back to the repo through --import-photos.
 
 Do not hand-edit the outputs; edit the data and rerun.
 """
+import base64
 import html
 import json
 import os
@@ -33,6 +46,59 @@ LISTS = os.path.join(HERE, "data", "lists.json")
 GLOSS = os.path.join(HERE, "data", "glossary.json")
 OUT_MD = os.path.join(HERE, "datasheets.md")
 OUT_HTML = os.path.join(HERE, "datasheets-deck.html")
+IMG_DIR = os.path.join(HERE, "images", "units")
+IMG_EXT = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp"}
+
+
+def find_image(uid):
+    for ext in IMG_EXT:
+        path = os.path.join(IMG_DIR, uid + ext)
+        if os.path.exists(path):
+            return path
+    return None
+
+
+def photo_map(ids, inline):
+    """unit id -> relative path (repo edition) or data URI (artifact edition)."""
+    out = {}
+    for uid in ids:
+        path = find_image(uid)
+        if not path:
+            continue
+        if inline:
+            mime = IMG_EXT[os.path.splitext(path)[1].lower()]
+            with open(path, "rb") as f:
+                out[uid] = f"data:{mime};base64," + base64.b64encode(f.read()).decode("ascii")
+        else:
+            out[uid] = os.path.relpath(path, HERE).replace(os.sep, "/")
+    return out
+
+
+def import_photos(saved_html):
+    """Write photos embedded in a saved copy of the published deck into images/units/."""
+    with open(saved_html, encoding="utf-8") as f:
+        text = f.read()
+    m = re.search(r'<script type="application/json" id="photos">(.*?)</script>', text, re.S)
+    if not m:
+        print("no photo block found")
+        return 1
+    photos = json.loads(m.group(1))
+    os.makedirs(IMG_DIR, exist_ok=True)
+    n = 0
+    for uid, src in photos.items():
+        mm = re.match(r"data:(image/(jpeg|png|webp));base64,(.*)", src, re.S)
+        if not mm:
+            continue
+        ext = {"image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp"}[mm.group(1)]
+        for old in IMG_EXT:
+            oldp = os.path.join(IMG_DIR, uid + old)
+            if os.path.exists(oldp) and old != ext:
+                os.remove(oldp)
+        with open(os.path.join(IMG_DIR, uid + ext), "wb") as f:
+            f.write(base64.b64decode(mm.group(3)))
+        n += 1
+    print(f"imported {n} photo(s) into images/units/")
+    return 0
 
 GROUPS = [
     ("The Dark Master", "Undivided", "First of the Daemon Princes, author of the silence the Creed reads.", ["belakor"]),
@@ -211,6 +277,10 @@ def md_unit(d, u, used):
     kws = [k for k in d["keywords"] if k not in (d["name"], "Chaos")]
     o.append(f"*{points_str(d)} · {d['composition']} · {d['faction']} · {', '.join(kws)}.*")
     o.append("")
+    img = find_image(d["id"])
+    if img:
+        o.append(f"![{d['name']}]({os.path.relpath(img, HERE).replace(os.sep, '/')})")
+        o.append("")
     o.append(f"**In the collection:** {owned_line(u)}." + (f" {u['owned']['note'][0].upper() + u['owned']['note'][1:].rstrip('.')}." if u.get("owned", {}).get("note") else "")
              + (f" As built: {u['owned']['built'].rstrip('.')}." if u.get("owned", {}).get("built") else "")
              + (f" In lists {', '.join(used[d['id']])}." if used.get(d["id"]) else " In no list yet."))
@@ -455,6 +525,25 @@ CSS = r"""
   .badge.own{ color:var(--own); } .badge.build{ color:var(--pending); } .badge.pending{ color:var(--pending); }
   .badge.buy{ color:var(--buy); }
   .pts{ font-family:ui-monospace,Menlo,Consolas,monospace; font-variant-numeric:tabular-nums; color:var(--crimson); font-weight:600; }
+  .head{ display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:24px; align-items:end; }
+  @media (max-width:860px){ .head{ grid-template-columns:minmax(0,1fr); gap:14px; } }
+  figure.model{ margin:0; min-width:0; }
+  figure.model .frame{ position:relative; aspect-ratio:4/3; background:var(--panel); border:1px solid var(--line);
+    overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  @media (max-width:860px){ figure.model .frame{ max-height:240px; } }
+  figure.model img{ width:100%; height:100%; object-fit:cover; display:block; }
+  figure.model .empty{ text-align:center; color:var(--dim); font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
+  figure.model .empty .mono{ display:block; font-family:Palatino,Georgia,serif; font-size:56px; line-height:1; color:var(--line);
+    text-transform:none; letter-spacing:0; margin-bottom:6px; }
+  figure.model figcaption{ display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:6px; min-height:22px; }
+  figure.model .cap{ font-size:11.5px; color:var(--dim); }
+  .navbtn.small{ font-size:12px; padding:4px 10px; }
+  body:not(.can-edit) .editonly{ display:none; }
+  #save{ display:none; background:var(--crimson); color:#fff; border-color:var(--crimson); }
+  body.dirty #save{ display:inline-block; }
+  #msg{ position:fixed; left:50%; bottom:70px; transform:translateX(-50%); background:var(--panel2); color:var(--ink);
+    border:1px solid var(--brass); padding:8px 14px; font-size:13px; z-index:6; max-width:90vw; }
+  #msg[hidden]{ display:none; }
   .cols{ display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:28px; margin-top:22px; align-items:start; }
   .cols.even{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
   @media (max-width:860px){ .cols, .cols.even{ grid-template-columns:minmax(0,1fr); gap:20px; } }
@@ -576,11 +665,20 @@ def deck_unit(d, u, used, section, gl):
     owned = owned_line(u)
     built = u.get("owned", {}).get("built")
     in_lists = ", ".join(used.get(d["id"], [])) or "none yet"
+    initial = E(d["name"][0])
     return f"""
 <div class="wrap">
-  <p class="eyebrow">{E(section)} · <span class="pts">{E(points_str(d))}</span> · {E(d['composition'])}</p>
-  <h2>{E(d['name'])}<span class="badge {status_class(u)}">{E(owned)}</span>{f'<span class="epithet">{E(ep)}</span>' if ep else ''}</h2>
-  <p class="kw">{gl.mark(' · '.join(kws), seen, every=True)}</p>
+  <div class="head">
+    <div class="head-text">
+      <p class="eyebrow">{E(section)} · <span class="pts">{E(points_str(d))}</span> · {E(d['composition'])}</p>
+      <h2>{E(d['name'])}<span class="badge {status_class(u)}">{E(owned)}</span>{f'<span class="epithet">{E(ep)}</span>' if ep else ''}</h2>
+      <p class="kw">{gl.mark(' · '.join(kws), seen, every=True)}</p>
+    </div>
+    <figure class="model" data-unit="{E(d['id'])}">
+      <div class="frame"><img alt="{E(d['name'])}" hidden><div class="empty"><span class="mono">{initial}</span><span>No photo yet</span></div></div>
+      <figcaption><span class="cap"></span><span class="editonly"><button class="navbtn small addphoto" type="button">Add photo</button> <button class="navbtn small rmphoto" type="button" hidden>Remove</button></span></figcaption>
+    </figure>
+  </div>
   <div class="cols">
     <div class="sheet">
       {stat_block(d, gl)}
@@ -686,9 +784,10 @@ def primer_slides(ds, gl):
     return slides
 
 
-def render_deck(ds, udata, units, used, gl):
+def render_deck(ds, udata, units, used, gl, inline=False):
     det = ds["detachment"]
     sheets = {d["id"]: d for d in ds["datasheets"]}
+    photos_json = json.dumps(photo_map([d["id"] for d in ds["datasheets"]], inline), ensure_ascii=False)
     slides = []
     slides.append(("", "Title", f"""
 <div class="wrap">
@@ -785,9 +884,13 @@ def render_deck(ds, udata, units, used, gl):
 <div id="deck">{body}</div>
 <div id="toc" hidden><div class="toc"><p class="eyebrow">Contents</p>{''.join(toc_html)}</div></div>
 <div id="tip" role="tooltip" hidden><b></b><span></span></div>
+<div id="msg" hidden></div>
+<script type="application/json" id="photos">{photos_json}</script>
+<input type="file" id="photofile" accept="image/*" hidden>
 <div id="hud">
   <button class="navbtn" id="prev" aria-label="Previous slide">‹ Back</button>
   <span id="counter"></span>
+  <button class="navbtn" id="save" type="button">Save photos</button>
   <button class="navbtn" id="next" aria-label="Next slide">Next ›</button>
 </div>
 <script>
@@ -857,6 +960,84 @@ addEventListener('touchend', e => {{
 addEventListener('hashchange', () => {{ const h = parseInt(location.hash.slice(1), 10); if (!isNaN(h)) go(h - 1); }});
 const h0 = parseInt(location.hash.slice(1), 10);
 go(!isNaN(h0) && h0 >= 1 ? h0 - 1 : 0);
+
+/* ---- model photos: rendered from the JSON block; editable on the published deck ---- */
+const PHOTOS = JSON.parse(document.getElementById('photos').textContent || '{{}}');
+const msg = document.getElementById('msg');
+let msgTimer = null;
+function say(text, sticky){{ msg.textContent = text; msg.hidden = false; clearTimeout(msgTimer); if (!sticky) msgTimer = setTimeout(() => {{ msg.hidden = true; }}, 4000); }}
+function renderPhotos(){{
+  document.querySelectorAll('figure.model').forEach(fig => {{
+    const uid = fig.dataset.unit, src = PHOTOS[uid];
+    const img = fig.querySelector('img'), empty = fig.querySelector('.empty');
+    const add = fig.querySelector('.addphoto'), rm = fig.querySelector('.rmphoto');
+    if (src) {{ img.src = src; img.hidden = false; empty.hidden = true; add.textContent = 'Replace photo'; rm.hidden = false; }}
+    else {{ img.removeAttribute('src'); img.hidden = true; empty.hidden = false; add.textContent = 'Add photo'; rm.hidden = true; }}
+  }});
+}}
+renderPhotos();
+let artifactNs = null, pendingUnit = null;
+function setDirty(){{ document.body.classList.add('dirty'); }}
+async function shrink(file){{
+  const MAX = 1000;
+  let bmp;
+  try {{ bmp = await createImageBitmap(file, {{ imageOrientation: 'from-image' }}); }}
+  catch (e) {{
+    bmp = await new Promise((res, rej) => {{ const im = new Image(); im.onload = () => res(im); im.onerror = rej; im.src = URL.createObjectURL(file); }});
+  }}
+  const w = bmp.width, h = bmp.height, k = Math.min(1, MAX / Math.max(w, h));
+  const c = document.createElement('canvas'); c.width = Math.round(w * k); c.height = Math.round(h * k);
+  c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', 0.82);
+}}
+function addPhotoFromDataUrl(uid, dataUrl){{ PHOTOS[uid] = dataUrl; renderPhotos(); setDirty(); }}
+function removePhoto(uid){{ delete PHOTOS[uid]; renderPhotos(); setDirty(); }}
+const fileInput = document.getElementById('photofile');
+document.addEventListener('click', e => {{
+  const add = e.target.closest('.addphoto'), rm = e.target.closest('.rmphoto');
+  if (add) {{ pendingUnit = add.closest('figure.model').dataset.unit; fileInput.value = ''; fileInput.click(); }}
+  else if (rm) {{ removePhoto(rm.closest('figure.model').dataset.unit); }}
+}});
+fileInput.addEventListener('change', async () => {{
+  const f = fileInput.files && fileInput.files[0];
+  if (!f || !pendingUnit) return;
+  try {{ addPhotoFromDataUrl(pendingUnit, await shrink(f)); say('Photo staged. Press Save photos to publish.'); }}
+  catch (err) {{ say('Could not read that image.'); }}
+}});
+function buildPublishHtml(){{
+  const doc = document.documentElement.cloneNode(true);
+  doc.querySelectorAll('.slide').forEach(s => {{ s.classList.remove('active'); s.setAttribute('aria-hidden', 'true'); }});
+  ['tip', 'toc', 'msg'].forEach(id => {{ const el = doc.querySelector('#' + id); if (el) {{ el.hidden = true; el.removeAttribute('style'); }} }});
+  const bar = doc.querySelector('#bar'); if (bar) bar.removeAttribute('style');
+  ['counter', 'sectlabel'].forEach(id => {{ const el = doc.querySelector('#' + id); if (el) el.textContent = ''; }});
+  doc.querySelector('body').classList.remove('can-edit', 'dirty');
+  doc.querySelectorAll('figure.model img').forEach(img => {{ img.removeAttribute('src'); img.hidden = true; }});
+  doc.querySelectorAll('figure.model .empty').forEach(el => {{ el.hidden = false; }});
+  doc.querySelectorAll('figure.model .rmphoto').forEach(el => {{ el.hidden = true; }});
+  doc.querySelectorAll('figure.model .addphoto').forEach(el => {{ el.textContent = 'Add photo'; }});
+  const fi = doc.querySelector('#photofile'); if (fi) fi.value = '';
+  doc.querySelector('#photos').textContent = JSON.stringify(PHOTOS);
+  return '<!doctype html>\\n' + doc.outerHTML;
+}}
+document.getElementById('save').onclick = async () => {{
+  if (!artifactNs) {{ say('Saving is only available on the published deck.'); return; }}
+  say('Saving…', true);
+  try {{ await artifactNs.publish(buildPublishHtml()); say('Saved. Reloading.', true); }}
+  catch (err) {{
+    const code = err && err.code;
+    if (code === 'too_large') say('Too many photos for one page. Remove one and save again.', true);
+    else if (code === 'conflict') say('A newer version was published elsewhere; this page will reload.', true);
+    else if (code === 'not_writer' || code === 'not_granted') {{ document.body.classList.remove('can-edit', 'dirty'); say('This copy is read-only.', true); }}
+    else if (code === 'rate_limited') say('Saving too often. Wait a moment and try again.', true);
+    else say('Could not save: ' + (err && err.message || code || 'unknown error'), true);
+  }}
+}};
+if (window.claude && typeof window.claude.use === 'function') {{
+  window.claude.use('artifact').then(ns => {{ if (ns) {{ artifactNs = ns; document.body.classList.add('can-edit'); }} }});
+}} else if (location.search.indexOf('edit') !== -1) {{
+  document.body.classList.add('can-edit');  /* local testing of the photo flow; Save stays unavailable */
+}}
+window.__deck = {{ addPhotoFromDataUrl, removePhoto, buildPublishHtml, PHOTOS }};
 </script>
 """
     return page, len(slides)
@@ -865,8 +1046,10 @@ go(!isNaN(h0) && h0 >= 1 ? h0 - 1 : 0);
 gl_meta_note = ""
 
 
-def main():
+def main(argv):
     global gl_meta_note
+    if "--import-photos" in argv:
+        return import_photos(argv[argv.index("--import-photos") + 1])
     ds, udata, units, used, gloss = load()
     gl = Glossary(gloss)
     gl_meta_note = gloss["meta"]["note"]
@@ -877,8 +1060,16 @@ def main():
     with open(OUT_HTML, "w", encoding="utf-8") as f:
         f.write(page)
     marks = page.count('class="term"')
-    print(f"wrote datasheets.md ({len(md.splitlines())} lines) and datasheets-deck.html ({n} slides, {len(page) // 1024} KB, {marks} term tooltips)")
+    photos = len(photo_map([d["id"] for d in ds["datasheets"]], False))
+    print(f"wrote datasheets.md ({len(md.splitlines())} lines) and datasheets-deck.html ({n} slides, {len(page) // 1024} KB, {marks} term tooltips, {photos} photos)")
+    if "--artifact" in argv:
+        out = argv[argv.index("--artifact") + 1]
+        page2, _ = render_deck(ds, udata, units, used, gl, inline=True)
+        with open(out, "w", encoding="utf-8") as f:
+            f.write(page2)
+        print(f"wrote {out} ({len(page2) // 1024} KB, photos embedded)")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main(sys.argv[1:]))
